@@ -50,7 +50,7 @@ export const CURRENT_SPONSORS = [
 export const FAQ = [
   {
     q: "Where does my brand show up?",
-    a: "Company sponsors get a logo on the homepage footer strip and a linked mark on /browse. Reach out after checkout if you want a custom mark placed.",
+    a: "Gold gets logos on /browse and the landing page, a sponsors-page listing, an X shoutout, and a README logo. Silver shows on the landing and sponsors page with an X shoutout. Bronze gets a README logo and an X shoutout. Reach out after checkout if you want a custom mark placed.",
   },
   {
     q: "Can I cancel anytime?",

@@ -3,22 +3,40 @@ export type SponsorTier = (typeof SPONSOR_TIERS)[number];
 
 export const SPONSOR_PLANS: Record<
   SponsorTier,
-  { label: string; priceUsd: number; productId: string }
+  {
+    label: string;
+    priceUsd: number;
+    productId: string;
+    benefits: readonly string[];
+  }
 > = {
   gold: {
     label: "Gold",
-    priceUsd: 250,
+    priceUsd: 150,
     productId: process.env.DODO_SPONSOR_GOLD_ID ?? "pdt_0Nnjy2g2VgpUxfuYkNeq3",
+    benefits: [
+      "Logo on /browse",
+      "Logo on the landing page",
+      "Listed on the sponsors page",
+      "Shoutout on X",
+      "Logo in the README",
+    ],
   },
   silver: {
     label: "Silver",
-    priceUsd: 50,
+    priceUsd: 100,
     productId: process.env.DODO_SPONSOR_SILVER_ID ?? "pdt_0Nnjy2exGZEN9NOtv65Xv",
+    benefits: [
+      "Logo on the landing page",
+      "Listed on the sponsors page",
+      "Shoutout on X",
+    ],
   },
   bronze: {
     label: "Bronze",
     priceUsd: 30,
     productId: process.env.DODO_SPONSOR_BRONZE_ID ?? "pdt_0Nnjy2bdky90lsOzCE9k4",
+    benefits: ["Logo in the README", "Shoutout on X"],
   },
 };
 
