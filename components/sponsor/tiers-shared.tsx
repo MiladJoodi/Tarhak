@@ -38,9 +38,9 @@ export const TIER_SPONSORS: Record<
 };
 
 export const SLOT_SHAPES = [
-  { src: "/sponsor/slot-left.png", w: 256, h: 132 },
-  { src: "/sponsor/slot-center.png", w: 262, h: 135 },
-  { src: "/sponsor/slot-right.png", w: 262, h: 135 },
+  { src: "/sponsor/figma/slot-a.png", w: 242, h: 124 },
+  { src: "/sponsor/figma/slot-b.png", w: 242, h: 124 },
+  { src: "/sponsor/figma/slot-c.png", w: 242, h: 124 },
 ] as const;
 
 export const HERO_COPY = {
@@ -49,9 +49,16 @@ export const HERO_COPY = {
     "This library needs you. Be the backbone that keeps this library standing strong. Help us keep it free for everyone",
 } as const;
 
-function PlusIcon() {
+function PlusIcon({ className }: { className?: string }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      aria-hidden
+      className={className}
+    >
       <path
         d="M9 3.25V14.75"
         stroke="currentColor"
@@ -93,10 +100,15 @@ export function SponsorMark({
 function EmptySlotCta() {
   return (
     <span
-      className="flex size-[34px] items-center justify-center rounded-[10px] border border-[rgba(75,86,94,0.4)] text-[#767D84]"
+      className={cn(
+        "flex h-9 w-11 items-center justify-center rounded-xl border border-[rgba(75,86,94,0.35)] bg-transparent text-[#767D84]",
+        "transition-[color,background-color,border-color,transform] duration-150 ease-out",
+        "group-hover:border-[#071A31]/30 group-hover:bg-[#071A31]/06 group-hover:text-[#071A31]",
+        "group-hover:scale-[1.04] group-active:scale-[0.98]",
+      )}
       aria-hidden
     >
-      <PlusIcon />
+      <PlusIcon className="transition-transform duration-150 ease-out group-hover:rotate-90" />
     </span>
   );
 }
@@ -170,7 +182,7 @@ export function SponsorTicketSlot({
 
   if (!sponsor) {
     return (
-      <div className="relative min-w-0 flex-1">
+      <div className="relative min-w-0 w-full">
         <Tooltip>
           <TooltipTrigger
             type="button"
@@ -197,7 +209,7 @@ export function SponsorTicketSlot({
       href={sponsor.href}
       target="_blank"
       rel="noreferrer"
-      className="group relative block min-w-0 flex-1 transition-opacity duration-150 hover:opacity-90 active:scale-[0.99]"
+      className="group relative block min-w-0 w-full transition-opacity duration-150 hover:opacity-90 active:scale-[0.99]"
       aria-label={label}
     >
       <TicketFace sponsor={sponsor} shape={shape} mode={mode} />
@@ -215,7 +227,7 @@ function TicketFace({
   mode: SponsorLogoMode;
 }) {
   return (
-    <div className="relative mx-auto h-[100px] w-full max-w-full min-w-0 sm:h-[120px] [&_img]:pointer-events-none">
+    <div className="relative mx-auto aspect-[242/124] w-full max-w-full min-w-0 overflow-hidden [&_img]:pointer-events-none">
       <div
         aria-hidden
         className="absolute inset-0 bg-[#FDFCFC]"
@@ -236,7 +248,7 @@ function TicketFace({
         alt=""
         width={shape.w}
         height={shape.h}
-        className="absolute inset-0 size-full object-contain object-center mix-blend-multiply"
+        className="absolute inset-0 size-full object-contain object-center"
         draggable={false}
       />
       <span className="absolute inset-0 flex items-center justify-center px-3">
@@ -356,9 +368,195 @@ export function SponsorRow({
   );
 }
 
+const TIER_CHIP: Record<
+  SponsorTier,
+  { fill: string; border: string; insetWash: string; text: string }
+> = {
+  gold: {
+    fill: "linear-gradient(180deg, #FFE9A0 0%, #F5D15A 38%, #E8B82E 72%, #D4A017 100%)",
+    border: "rgba(196, 146, 20, 0.55)",
+    insetWash: "#FFF3C4",
+    text: "#6B4E08",
+  },
+  silver: {
+    fill: "linear-gradient(180deg, #FFFFFF 0%, #F0F2F5 40%, #D8DEE6 78%, #C5CDD8 100%)",
+    border: "rgba(140, 150, 165, 0.45)",
+    insetWash: "#FFFFFF",
+    text: "#3D4654",
+  },
+  bronze: {
+    fill: "linear-gradient(180deg, #FFD2A8 0%, #F0A86A 40%, #E08540 75%, #C96A28 100%)",
+    border: "rgba(180, 95, 40, 0.5)",
+    insetWash: "#FFE0C0",
+    text: "#6B3210",
+  },
+};
+
+export function TierMetalChip({
+  tier,
+  label,
+}: {
+  tier: SponsorTier;
+  label: string;
+}) {
+  const chip = TIER_CHIP[tier];
+  return (
+    <span
+      className="relative inline-flex shrink-0 items-center justify-center rounded-full px-3.5 py-[6px]"
+      style={{ background: chip.fill }}
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-full"
+        style={{
+          boxShadow: `
+            0px 1.08px 2px 0px rgba(33, 33, 33, 0.45),
+            0px 3.25px 5px 0px rgba(0, 0, 0, 0.1),
+            inset 0px 1.8px 1.4px 0px rgba(255, 255, 255, 1),
+            inset 0px -6.6px 0px -5.42px rgba(255, 255, 255, 0.92),
+            inset 0px -3.25px 5px 0px rgba(0, 0, 0, 0.14),
+            inset 0px -7.59px 1px -5.42px ${chip.insetWash},
+            inset 2.8px 3.6px 0px 0px rgba(255, 255, 255, 0.35),
+            inset -1.5px -2px 3px 0px rgba(0, 0, 0, 0.06)
+          `,
+        }}
+      />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-full border border-solid"
+        style={{ borderColor: chip.border }}
+      />
+      <span
+        className="relative text-[13px] font-medium leading-[15.6px] tracking-[-0.65px]"
+        style={{
+          color: chip.text,
+          textShadow: "0px 1px 0px rgba(255, 255, 255, 0.45)",
+        }}
+      >
+        {label}
+      </span>
+    </span>
+  );
+}
+
+export function BenefitsLine({ benefits }: { benefits: readonly string[] }) {
+  const scrollerRef = React.useRef<HTMLDivElement>(null);
+  const dragRef = React.useRef<{
+    pointerId: number;
+    startX: number;
+    startScroll: number;
+  } | null>(null);
+  const [dragging, setDragging] = React.useState(false);
+  const [overflowing, setOverflowing] = React.useState(false);
+  const [edges, setEdges] = React.useState({ left: false, right: false });
+
+  const updateEdges = React.useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    const canScroll = max > 2;
+    const left = canScroll && el.scrollLeft > 2;
+    const right = canScroll && el.scrollLeft < max - 2;
+    setOverflowing(canScroll);
+    setEdges((prev) =>
+      prev.left === left && prev.right === right ? prev : { left, right },
+    );
+  }, []);
+
+  React.useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateEdges();
+    const ro = new ResizeObserver(updateEdges);
+    ro.observe(el);
+    el.addEventListener("scroll", updateEdges, { passive: true });
+    return () => {
+      ro.disconnect();
+      el.removeEventListener("scroll", updateEdges);
+    };
+  }, [benefits, updateEdges]);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch") return;
+    const scroller = scrollerRef.current;
+    if (!scroller || scroller.scrollWidth - scroller.clientWidth <= 2) return;
+    dragRef.current = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startScroll: scroller.scrollLeft,
+    };
+    setDragging(true);
+    scroller.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    const scroller = scrollerRef.current;
+    if (!drag || !scroller || drag.pointerId !== e.pointerId) return;
+    scroller.scrollLeft = drag.startScroll - (e.clientX - drag.startX);
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== e.pointerId) return;
+    dragRef.current = null;
+    setDragging(false);
+    try {
+      scrollerRef.current?.releasePointerCapture(e.pointerId);
+    } catch {
+      /* already released */
+    }
+  };
+
+  return (
+    <div className="relative w-full min-w-0">
+      <div
+        ref={scrollerRef}
+        className={cn(
+          "flex w-full min-w-0 touch-pan-x select-none items-center gap-x-2.5 overflow-x-auto overflow-y-hidden px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          overflowing ? "cursor-grab" : "cursor-default",
+          overflowing && dragging && "cursor-grabbing",
+        )}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onLostPointerCapture={endDrag}
+      >
+        {benefits.map((benefit, i) => (
+          <React.Fragment key={benefit}>
+            {i > 0 ? (
+              <span
+                className="size-1 shrink-0 rounded-full bg-[#071A31]/25"
+                aria-hidden
+              />
+            ) : null}
+            <span className="shrink-0 whitespace-nowrap text-[15px] leading-[1.2] tracking-[-0.5px] text-black sm:text-[16px] sm:tracking-[-0.55px]">
+              {benefit}
+            </span>
+          </React.Fragment>
+        ))}
+      </div>
+      <div
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute inset-y-0 left-0 w-10 bg-linear-to-r from-[#fdfdfc] to-transparent transition-opacity duration-150",
+          edges.left ? "opacity-100" : "opacity-0",
+        )}
+      />
+      <div
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-[#fdfdfc] to-transparent transition-opacity duration-150",
+          edges.right ? "opacity-100" : "opacity-0",
+        )}
+      />
+    </div>
+  );
+}
+
 export function TierTickets({
   label,
-  compact,
 }: {
   label: (typeof TIERS)[number];
   compact?: boolean;
@@ -368,26 +566,20 @@ export function TierTickets({
   const plan = SPONSOR_PLANS[tier];
   return (
     <section
-      className="w-full overflow-hidden rounded-[14px] border border-[#e2e2e2] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.02)]"
+      className="flex w-full min-w-0 flex-col items-center gap-2.5 overflow-hidden rounded-[10px] border border-[#f0f0f0] bg-[#fdfdfc] px-1 pb-2.5 pt-[7px]"
       aria-label={`${label} sponsors`}
     >
-      <div
-        className={cn(
-          "flex items-baseline justify-between gap-3 px-4",
-          compact ? "py-2.5" : "py-3",
-        )}
-      >
-        <h2 className="text-[18px] leading-[1.15] tracking-[-0.72px] text-black">
-          {label}
-        </h2>
-        <p className="font-[family-name:var(--font-geist-mono)] text-[12px] tracking-[0.04em] text-[#071A31]/55">
+      <div className="flex w-full items-center justify-between gap-3 px-[5px]">
+        <TierMetalChip tier={tier} label={label} />
+        <p className="font-[family-name:var(--font-geist-mono)] text-[12px] tracking-[0.04em] text-[#071A31]/50 tabular-nums">
           ${plan.priceUsd}/mo
         </p>
       </div>
+
       <div
         className={cn(
-          "grid grid-cols-1 items-center gap-3 border-t border-[#e2e2e2] px-3 py-5 sm:grid-cols-3 sm:min-h-[160px] sm:gap-3 sm:px-4 sm:py-8",
-          compact && "sm:min-h-[120px] gap-2 py-5",
+          "grid w-full min-w-0 grid-cols-1 items-center gap-2.5 overflow-hidden rounded-[10px] border border-[#f0f0f0] bg-[#f9f8f5] px-3 py-3.5 sm:grid-cols-3 sm:gap-3 sm:px-3.5 sm:py-4",
+          "shadow-[0px_6px_16px_-10px_rgba(0,0,0,0.04),0px_4px_6px_-10px_rgba(0,0,0,0.26),0px_2px_4px_-10px_rgba(0,0,0,0.08)]",
         )}
       >
         {SLOT_SHAPES.map((shape, i) => (
@@ -398,6 +590,10 @@ export function TierTickets({
             tier={tier}
           />
         ))}
+      </div>
+
+      <div className="w-full min-w-0 px-[5px]">
+        <BenefitsLine benefits={plan.benefits} />
       </div>
     </section>
   );

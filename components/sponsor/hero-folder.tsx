@@ -6,8 +6,8 @@ import { HERO_COPY } from "./tiers-shared";
 import { RibbonField, type RibbonPatternMode } from "./ribbon-pattern";
 
 const RULE = "oklch(0.28 0.02 95 / 0.14)";
-const FOLDER_W = 454;
-const FOLDER_H = 584;
+const FOLDER_W = 400;
+const FOLDER_H = 514;
 
 function Cover({ pattern }: { pattern: RibbonPatternMode }) {
   const stripeRef = React.useRef<HTMLDivElement>(null);
