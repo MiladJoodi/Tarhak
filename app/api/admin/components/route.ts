@@ -5,12 +5,22 @@ import {
   upsertComponent,
 } from "@/lib/admin/components-fs";
 import { extractControlsFromSource } from "@/lib/admin/dial-extract";
+import { getComponentCopyCounts } from "@/lib/supabase/admin";
 
 export async function GET() {
   try {
     assertDevOnly();
-    const items = await listComponents();
-    return NextResponse.json({ items });
+    const [items, copyCounts] = await Promise.all([
+      listComponents(),
+      getComponentCopyCounts(),
+    ]);
+    const ranked = items
+      .map((item) => ({
+        ...item,
+        copies: copyCounts[item.name] ?? 0,
+      }))
+      .sort((a, b) => b.copies - a.copies || a.title.localeCompare(b.title));
+    return NextResponse.json({ items: ranked });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed";
     const status = message.includes("development") ? 403 : 500;
