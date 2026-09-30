@@ -16,7 +16,7 @@ function Cover({ pattern }: { pattern: RibbonPatternMode }) {
     <div className="relative flex h-full flex-col justify-between gap-6 p-6">
       <div
         ref={stripeRef}
-        className="pointer-events-auto relative aspect-[356/210] w-full overflow-hidden"
+        className="pointer-events-auto relative aspect-[356/210] w-full shrink-0 overflow-hidden bg-[#1a1a1e]"
       >
         <RibbonField mode={pattern} boundsRef={stripeRef} />
       </div>

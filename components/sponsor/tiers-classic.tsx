@@ -20,10 +20,10 @@ export function TiersClassic({
       <main
         className={cn(
           "mx-auto flex w-full max-w-[1440px] flex-1 flex-col items-center gap-10 px-4 py-6",
-          "lg:flex-row lg:items-center lg:gap-14 lg:pl-[72px] lg:pr-4 lg:py-2.5",
+          "lg:flex-row lg:items-center lg:justify-center lg:gap-14 lg:px-8 lg:py-2.5",
         )}
       >
-        <div className="relative z-[999] flex w-full max-w-[400px] shrink-0 justify-center lg:justify-start">
+        <div className="relative z-[999] flex w-full max-w-[400px] shrink-0 justify-center">
           <HeroFolder pattern={pattern} />
         </div>
         <div className="flex w-full min-w-0 flex-1 flex-col gap-4 p-3 lg:max-h-[760px] lg:max-w-[800px] lg:overflow-y-auto lg:gap-5 lg:p-4">
