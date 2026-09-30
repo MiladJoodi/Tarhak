@@ -227,7 +227,7 @@ function TicketFace({
   mode: SponsorLogoMode;
 }) {
   return (
-    <div className="relative mx-auto aspect-[242/124] w-full max-w-full min-w-0 overflow-hidden [&_img]:pointer-events-none">
+    <div className="relative mx-auto aspect-[242/124] w-full max-w-[242px] min-w-0 overflow-hidden [&_img]:pointer-events-none">
       <div
         aria-hidden
         className="absolute inset-0 bg-[#FDFCFC]"
@@ -578,7 +578,7 @@ export function TierTickets({
 
       <div
         className={cn(
-          "grid w-full min-w-0 grid-cols-1 items-center gap-2.5 overflow-hidden rounded-[10px] border border-[#f0f0f0] bg-[#f9f8f5] px-3 py-3.5 sm:grid-cols-3 sm:gap-3 sm:px-3.5 sm:py-4",
+          "grid w-full min-w-0 grid-cols-1 items-center justify-items-center gap-2.5 overflow-hidden rounded-[10px] border border-[#f0f0f0] bg-[#f9f8f5] px-3 py-3.5 sm:grid-cols-3 sm:gap-3 sm:px-3.5 sm:py-4",
           "shadow-[0px_6px_16px_-10px_rgba(0,0,0,0.04),0px_4px_6px_-10px_rgba(0,0,0,0.26),0px_2px_4px_-10px_rgba(0,0,0,0.08)]",
         )}
       >
