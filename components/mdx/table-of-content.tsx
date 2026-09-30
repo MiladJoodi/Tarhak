@@ -124,7 +124,7 @@ export function DocsTableOfContents({
   }
 
   return (
-    <div className={cn("flex flex-col overflow-visible px-0 pt-0 text-base", className)}>
+    <div className={cn("flex min-w-0 flex-col px-0 pt-0 text-base", className)}>
       <div className="flex h-8 flex-row items-center gap-2 pl-1">
         <HugeiconsIcon
           size="16"
@@ -135,7 +135,7 @@ export function DocsTableOfContents({
           On This Page
         </p>
       </div>
-      <div className="relative flex flex-row gap-1.5 overflow-visible">
+      <div className="relative flex min-w-0 flex-row gap-1.5">
         {/* w-8 + pl so circle/path strokes are not clipped on the left */}
         <div className="relative w-8 shrink-0 self-stretch overflow-visible pl-1">
           <TocIndicator
@@ -151,7 +151,8 @@ export function DocsTableOfContents({
             <a
               key={item.url}
               href={item.url}
-              className="text-muted-foreground/75 hover:text-foreground data-[active=true]:text-foreground text-base leading-6 no-underline transition-colors duration-200 empty:hidden data-[active=true]:font-medium data-[depth=3]:pl-2 data-[depth=4]:pl-4"
+              title={typeof item.title === "string" ? item.title : undefined}
+              className="text-muted-foreground/75 hover:text-foreground data-[active=true]:text-foreground min-w-0 truncate text-base leading-6 no-underline transition-colors duration-200 empty:hidden data-[active=true]:font-medium data-[depth=3]:pl-2 data-[depth=4]:pl-4"
               data-active={item.url === `#${activeHeading}`}
               data-depth={item.depth}
             >
