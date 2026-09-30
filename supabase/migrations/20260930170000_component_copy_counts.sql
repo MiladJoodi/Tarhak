@@ -8,9 +8,6 @@ create table public.component_copy_counts (
   last_copied_at timestamptz not null default now()
 );
 
-create index component_copy_counts_copies_idx
-  on public.component_copy_counts (copies desc);
-
 alter table public.component_copy_counts enable row level security;
 
 create policy "copy counts are publicly readable"

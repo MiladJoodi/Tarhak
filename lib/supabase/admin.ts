@@ -1,17 +1,26 @@
 import "server-only";
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import { getSupabaseUrl } from "@/lib/supabase/env";
 
+let serviceClient: SupabaseClient | null | undefined;
+
 /** Server-only client for admin metadata sync. Returns null if unset. */
 export function createServiceClient() {
+  if (serviceClient !== undefined) return serviceClient;
+
   const url = getSupabaseUrl();
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key, {
+  if (!url || !key) {
+    serviceClient = null;
+    return null;
+  }
+
+  serviceClient = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
+  return serviceClient;
 }
 
 export async function upsertComponentRow(row: {
@@ -41,32 +50,18 @@ export async function upsertComponentRow(row: {
   );
 }
 
-export type ComponentCopyCount = {
-  copies: number;
-  lastCopiedAt: string | null;
-};
-
 /** Public aggregate of copy_events, keyed by registry slug. */
-export async function getComponentCopyCounts(): Promise<
-  Record<string, ComponentCopyCount>
-> {
+export async function getComponentCopyCounts(): Promise<Record<string, number>> {
   const supabase = createServiceClient();
   if (!supabase) return {};
 
   const { data, error } = await supabase
     .from("component_copy_counts")
-    .select("component_slug, copies, last_copied_at");
+    .select("component_slug, copies");
 
   if (error || !data) return {};
 
   return Object.fromEntries(
-    data.map((row) => [
-      String(row.component_slug),
-      {
-        copies: Number(row.copies) || 0,
-        lastCopiedAt:
-          typeof row.last_copied_at === "string" ? row.last_copied_at : null,
-      },
-    ]),
+    data.map((row) => [String(row.component_slug), Number(row.copies) || 0]),
   );
 }

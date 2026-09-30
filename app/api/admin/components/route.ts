@@ -17,13 +17,9 @@ export async function GET() {
     const ranked = items
       .map((item) => ({
         ...item,
-        copies: copyCounts[item.name]?.copies ?? 0,
-        lastCopiedAt: copyCounts[item.name]?.lastCopiedAt ?? null,
+        copies: copyCounts[item.name] ?? 0,
       }))
-      .sort(
-        (a, b) =>
-          b.copies - a.copies || a.title.localeCompare(b.title),
-      );
+      .sort((a, b) => b.copies - a.copies || a.title.localeCompare(b.title));
     return NextResponse.json({ items: ranked });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed";
