@@ -26,7 +26,7 @@ export function TiersClassic({
         <div className="relative z-[999] flex w-full max-w-[400px] shrink-0 justify-center lg:justify-start">
           <HeroFolder pattern={pattern} />
         </div>
-        <div className="flex w-full min-w-0 flex-1 flex-col gap-4 p-3 lg:max-h-[760px] lg:overflow-y-auto lg:gap-5 lg:p-4">
+        <div className="flex w-full min-w-0 flex-1 flex-col gap-4 p-3 lg:max-h-[760px] lg:max-w-[800px] lg:overflow-y-auto lg:gap-5 lg:p-4">
           {TIERS.map((tier) => (
             <TierTickets key={tier} label={tier} />
           ))}
