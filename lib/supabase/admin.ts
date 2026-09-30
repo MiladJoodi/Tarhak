@@ -40,3 +40,33 @@ export async function upsertComponentRow(row: {
     { onConflict: "slug" },
   );
 }
+
+export type ComponentCopyCount = {
+  copies: number;
+  lastCopiedAt: string | null;
+};
+
+/** Public aggregate of copy_events, keyed by registry slug. */
+export async function getComponentCopyCounts(): Promise<
+  Record<string, ComponentCopyCount>
+> {
+  const supabase = createServiceClient();
+  if (!supabase) return {};
+
+  const { data, error } = await supabase
+    .from("component_copy_counts")
+    .select("component_slug, copies, last_copied_at");
+
+  if (error || !data) return {};
+
+  return Object.fromEntries(
+    data.map((row) => [
+      String(row.component_slug),
+      {
+        copies: Number(row.copies) || 0,
+        lastCopiedAt:
+          typeof row.last_copied_at === "string" ? row.last_copied_at : null,
+      },
+    ]),
+  );
+}

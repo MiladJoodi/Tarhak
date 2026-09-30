@@ -9,6 +9,13 @@ export function registryItem(slug: string) {
   return `${REGISTRY_NAMESPACE}/${slug}`;
 }
 
+/** Registry slug used in copy_events / copy counts (`animated-collection`). */
+export function copyEventSlug(value: string) {
+  const slug = value.trim();
+  const prefix = `${REGISTRY_NAMESPACE}/`;
+  return slug.startsWith(prefix) ? slug.slice(prefix.length) : slug;
+}
+
 export function isPackageManager(value: string): value is PackageManager {
   return (PACKAGE_MANAGERS as readonly string[]).includes(value);
 }

@@ -17,6 +17,7 @@ type Item = {
   controlsCount: number;
   disabledCount: number;
   tags: string[];
+  copies: number;
 };
 
 export default function AdminHomePage() {
@@ -75,6 +76,7 @@ export default function AdminHomePage() {
           <h1 className="text-2xl font-semibold tracking-tight">Components</h1>
           <p className="text-sm text-muted-foreground">
             Local file editor — paste code, generate MDX, upload browse media.
+            Ranked by copies.
           </p>
         </div>
         <Link href="/admin/new" className={cn(buttonVariants())}>
@@ -151,6 +153,8 @@ export default function AdminHomePage() {
                     </div>
                   ) : null}
                   <p className="text-xs text-muted-foreground tabular-nums">
+                    {item.copies} {item.copies === 1 ? "copy" : "copies"}
+                    {" · "}
                     {item.controlsCount} dial
                     {item.controlsCount === 1 ? "" : "s"}
                     {item.disabledCount > 0

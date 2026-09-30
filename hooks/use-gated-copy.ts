@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { useAuth } from "@/components/auth/auth-provider";
+import { copyEventSlug } from "@/lib/open/package-manager";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/client";
 
@@ -16,7 +17,9 @@ export function useGatedCopy(options?: {
   source?: CopySource;
 }) {
   const { requireAuth, user } = useAuth();
-  const slug = options?.componentSlug;
+  const slug = options?.componentSlug
+    ? copyEventSlug(options.componentSlug)
+    : undefined;
   const source = options?.source ?? "cli";
 
   return React.useCallback(
@@ -34,6 +37,9 @@ export function useGatedCopy(options?: {
             user_id: user.id,
             component_slug: slug,
             source,
+          })
+          .then(({ error }) => {
+            if (error) console.error("copy_events insert failed", error.message);
           });
       }
 
