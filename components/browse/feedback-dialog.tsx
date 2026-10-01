@@ -103,29 +103,50 @@ export function FeedbackDialog({
               <div className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_1px_1px_rgba(255,255,255,0.01)]" />
 
               {status === "sent" ? (
-                <div className="relative flex flex-col items-center gap-2 py-6 text-center">
-                  <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
-                    Thank you
-                  </p>
-                  <p className="text-[14px] leading-5 text-[#8e8e93]">
-                    Every note gets read. It shapes what we build next.
-                  </p>
+                <div className="relative flex w-full flex-col items-center gap-5 py-2 text-center">
+                  <span
+                    aria-hidden
+                    className="flex size-14 items-center justify-center rounded-full bg-white/6 text-[30px] shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.08)]"
+                  >
+                    {RATINGS.find((option) => option.value === rating)?.emoji}
+                  </span>
+                  <div className="flex flex-col gap-1.5">
+                    <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
+                      Thanks — that helps
+                    </p>
+                    <p className="text-[14px] leading-5 text-[#8e8e93]">
+                      Every note gets read, and it decides what we build next.
+                    </p>
+                  </div>
                   <button
                     type="button"
                     onClick={() => onOpenChange(false)}
-                    className="mt-3 cursor-pointer text-[14px] text-white transition-opacity hover:opacity-80"
+                    className={cn(
+                      "relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
+                      "bg-[hsl(230_77%_55%)]",
+                      "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.12)]",
+                      "transition-[transform,background-color] duration-150 active:scale-[0.98]",
+                      "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(230_77%_58%)]",
+                    )}
                   >
-                    Close
+                    <span className="relative text-[14px] font-medium leading-5 tracking-[-0.084px] text-white">
+                      Back to browsing
+                    </span>
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_1px_0px_0.2px_rgba(255,255,255,0.16)]"
+                    />
                   </button>
                 </div>
               ) : (
                 <form onSubmit={submit} className="relative flex w-full flex-col gap-5">
                   <div className="flex flex-col gap-1.5">
                     <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
-                      How is useLayouts working for you?
+                      How can we improve useLayouts?
                     </p>
                     <p className="text-[14px] leading-5 text-[#8e8e93]">
-                      One tap, plus anything you want us to fix or build.
+                      Rate it, then tell us what is missing, broken, or worth
+                      building next.
                     </p>
                   </div>
 

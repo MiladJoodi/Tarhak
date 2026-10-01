@@ -33,6 +33,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               Landing
             </Link>
             <Link
+              href="/admin/feedback"
+              className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+            >
+              Feedback
+            </Link>
+            <Link
               href="/admin/new"
               className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
             >
