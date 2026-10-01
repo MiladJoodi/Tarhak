@@ -24,6 +24,9 @@ const RATINGS = [
   { emoji: "🤩", value: 5, label: "Great" },
 ] as const;
 
+/** Enough to say something actionable; short enough not to be a chore. */
+const MIN_COMMENT = 30;
+
 export function FeedbackDialog({
   open,
   onOpenChange,
@@ -38,6 +41,11 @@ export function FeedbackDialog({
     "idle",
   );
   const [error, setError] = React.useState<string | null>(null);
+  const [touched, setTouched] = React.useState(false);
+
+  const trimmed = comment.trim();
+  const tooShort = trimmed.length < MIN_COMMENT;
+  const showLengthError = touched && tooShort;
 
   React.useEffect(() => {
     if (open) return;
@@ -45,11 +53,15 @@ export function FeedbackDialog({
     setComment("");
     setStatus("idle");
     setError(null);
+    setTouched(false);
   }, [open]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (rating === null || status === "sending") return;
+    if (status === "sending") return;
+
+    setTouched(true);
+    if (rating === null || tooShort) return;
 
     setStatus("sending");
     setError(null);
@@ -65,13 +77,19 @@ export function FeedbackDialog({
       .insert({
         user_id: user?.id ?? null,
         rating,
-        comment: comment.trim().slice(0, 2000),
+        comment: trimmed.slice(0, 2000),
         path: window.location.pathname,
       });
 
     if (insertError) {
       setStatus("error");
-      setError("Could not send that. Try again in a moment.");
+      // The message itself in development: "could not send" hides the real
+      // cause, which is usually a migration that has not been applied.
+      setError(
+        process.env.NODE_ENV === "development"
+          ? insertError.message
+          : "Could not send that. Try again in a moment.",
+      );
       return;
     }
 
@@ -183,11 +201,30 @@ export function FeedbackDialog({
                     <Textarea
                       value={comment}
                       onChange={(event) => setComment(event.target.value)}
+                      onBlur={() => setTouched(true)}
                       maxLength={2000}
                       placeholder="Add a comment..."
                       aria-label="Comment"
-                      className="min-h-[120px] resize-none rounded-none border-0 bg-transparent p-4 text-[14px] text-white placeholder:text-[#71717a] focus-visible:ring-0"
+                      aria-invalid={showLengthError}
+                      aria-describedby="feedback-comment-hint"
+                      className="min-h-[120px] max-h-[120px] w-full resize-none overflow-y-auto wrap-anywhere rounded-none border-0 bg-transparent p-4 text-[14px] text-white placeholder:text-[#71717a] focus-visible:ring-0"
                     />
+                    <div className="flex items-center justify-between gap-3 border-t border-[#2a2a2e] px-4 py-2">
+                      <p
+                        id="feedback-comment-hint"
+                        className={cn(
+                          "text-[12px]",
+                          showLengthError ? "text-red-400" : "text-[#71717a]",
+                        )}
+                      >
+                        {tooShort
+                          ? `${MIN_COMMENT - trimmed.length} more characters needed`
+                          : "Thanks — that is enough to act on"}
+                      </p>
+                      <p className="shrink-0 text-[12px] tabular-nums text-[#71717a]">
+                        {trimmed.length}/{MIN_COMMENT}
+                      </p>
+                    </div>
                   </div>
 
                   {error ? (
@@ -198,7 +235,7 @@ export function FeedbackDialog({
 
                   <button
                     type="submit"
-                    disabled={rating === null || status === "sending"}
+                    disabled={rating === null || tooShort || status === "sending"}
                     className={cn(
                       "relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
                       "bg-[hsl(230_77%_55%)]",
