@@ -65,7 +65,7 @@ export function FeedbackDialog({
     if (status === "sending") return;
 
     setSubmitted(true);
-    if (rating === null || tooShort) return;
+    if (tooShort) return;
 
     setStatus("sending");
     setError(null);
@@ -116,7 +116,7 @@ export function FeedbackDialog({
             Rate how useLayouts feels to use and add a comment.
           </DialogDescription>
 
-          <div className="relative flex w-full flex-col overflow-clip rounded-[24px] p-[26px] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.2),0px_1px_3px_0px_rgba(0,0,0,0.4),0px_0px_3px_0px_rgba(0,0,0,0.2)]">
+          <div className="relative flex w-full flex-col overflow-clip rounded-[24px] border border-solid border-[#29292b] p-[26px] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.2),0px_1px_3px_0px_rgba(0,0,0,0.4),0px_0px_3px_0px_rgba(0,0,0,0.2)]">
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 rounded-[24px] bg-[#131316]"
@@ -125,12 +125,14 @@ export function FeedbackDialog({
 
             {status === "sent" ? (
               <div className="relative flex w-full flex-col items-center gap-5 py-2 text-center">
-                <span
-                  aria-hidden
-                  className="flex size-14 items-center justify-center rounded-full bg-white/6 text-[30px] shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.08)]"
-                >
-                  {RATINGS.find((option) => option.value === rating)?.emoji}
-                </span>
+                {rating === null ? null : (
+                  <span
+                    aria-hidden
+                    className="flex size-14 items-center justify-center rounded-full bg-white/6 text-[30px] shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.08)]"
+                  >
+                    {RATINGS.find((option) => option.value === rating)?.emoji}
+                  </span>
+                )}
                 <div className="flex flex-col gap-1.5">
                   <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
                     Thanks — that helps
@@ -228,7 +230,7 @@ export function FeedbackDialog({
 
                 <button
                   type="submit"
-                  disabled={rating === null || status === "sending"}
+                  disabled={status === "sending"}
                   className={cn(
                     "relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
                     "bg-[hsl(230_77%_55%)]",

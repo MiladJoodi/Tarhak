@@ -3,7 +3,8 @@
 create table public.feedback (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users (id) on delete set null,
-  rating smallint not null check (rating between 1 and 5),
+  -- Optional: the comment is the thing worth having, the face is a nicety.
+  rating smallint check (rating between 1 and 5),
   comment text not null default '',
   path text,
   created_at timestamptz not null default now()

@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 type FeedbackRow = {
   id: string;
   user_id: string | null;
-  rating: number;
+  rating: number | null;
   comment: string;
   path: string | null;
   created_at: string;
@@ -60,9 +60,14 @@ export default async function AdminFeedbackPage() {
   const { rows, error } = await loadFeedback();
 
   const total = rows.length;
+  const rated = rows.filter(
+    (row): row is FeedbackRow & { rating: number } => row.rating !== null,
+  );
   const average =
-    total > 0
-      ? (rows.reduce((sum, row) => sum + row.rating, 0) / total).toFixed(2)
+    rated.length > 0
+      ? (
+          rated.reduce((sum, row) => sum + row.rating, 0) / rated.length
+        ).toFixed(2)
       : null;
   const withComment = rows.filter((row) => row.comment.trim()).length;
 
@@ -75,16 +80,20 @@ export default async function AdminFeedbackPage() {
             From the browse dock. Newest first, latest 200.
           </p>
         </div>
-        {average ? (
+        {total > 0 ? (
           <div className="flex items-center gap-4 text-sm">
             <span>
               <span className="font-medium">{total}</span>{" "}
               <span className="text-muted-foreground">responses</span>
             </span>
-            <span>
-              <span className="font-medium">{average}</span>{" "}
-              <span className="text-muted-foreground">avg rating</span>
-            </span>
+            {average ? (
+              <span>
+                <span className="font-medium">{average}</span>{" "}
+                <span className="text-muted-foreground">
+                  avg of {rated.length} rated
+                </span>
+              </span>
+            ) : null}
             <span>
               <span className="font-medium">{withComment}</span>{" "}
               <span className="text-muted-foreground">with a comment</span>
@@ -102,12 +111,17 @@ export default async function AdminFeedbackPage() {
           {rows.map((row) => (
             <Card key={row.id}>
               <CardContent className="flex items-start gap-4 py-4">
-                <span
-                  className="text-2xl leading-none"
-                  title={LABELS[row.rating] ?? String(row.rating)}
+                <div
+                  className="flex w-10 shrink-0 flex-col items-center gap-1"
+                  title={row.rating === null ? "No rating" : LABELS[row.rating]}
                 >
-                  {FACES[row.rating] ?? "•"}
-                </span>
+                  <span className="text-2xl leading-none">
+                    {row.rating === null ? "—" : (FACES[row.rating] ?? "•")}
+                  </span>
+                  <span className="text-xs tabular-nums text-muted-foreground">
+                    {row.rating === null ? "n/a" : `${row.rating}/5`}
+                  </span>
+                </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                   {row.comment.trim() ? (
                     <p className="text-sm whitespace-pre-wrap">{row.comment}</p>
