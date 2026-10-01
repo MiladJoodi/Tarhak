@@ -129,9 +129,9 @@ export function FeedbackDialog({
                 {/* Desaturated green: a dark surface cannot take a pure one. */}
                 <span
                   aria-hidden
-                  className="flex size-12 items-center justify-center rounded-2xl bg-[hsl(152_42%_16%)] text-[hsl(152_55%_62%)] shadow-[inset_0px_0px_0px_1px_hsl(152_40%_26%)]"
+                  className="flex size-12 items-center justify-center rounded-xl bg-[hsl(152_42%_16%)] text-[hsl(152_55%_62%)] shadow-[inset_0px_0px_0px_1px_hsl(152_40%_26%)]"
                 >
-                  <CircleCheck className="size-7" />
+                  <CircleCheck className="size-7" strokeWidth={1.1} />
                 </span>
                 <div className="flex flex-col gap-1.5">
                   <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
