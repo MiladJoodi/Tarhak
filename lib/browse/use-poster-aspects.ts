@@ -4,6 +4,13 @@ import * as React from "react";
 
 import type { BrowseItem } from "@/lib/browse/items";
 
+/**
+ * Measures each item's poster and reports `slug -> width/height`.
+ *
+ * Keyed on a fingerprint of the slugs and poster URLs rather than the array
+ * identity, so a caller that rebuilds its list every render does not restart
+ * every decode. Repeated slugs are measured once.
+ */
 export function usePosterAspects(items: BrowseItem[]) {
   const [aspects, setAspects] = React.useState<Record<string, number>>({});
   const key = items.map((item) => `${item.slug}:${item.poster}`).join("|");
@@ -36,22 +43,32 @@ export function usePosterAspects(items: BrowseItem[]) {
       });
     };
 
+    const seen = new Set<string>();
+    const loading: HTMLImageElement[] = [];
+
     for (const item of items) {
-      if (!item.poster) continue;
+      if (!item.poster || seen.has(item.slug)) continue;
+      seen.add(item.slug);
       const img = new Image();
+      loading.push(img);
       img.onload = () => {
-        if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-          pending[item.slug] = img.naturalWidth / img.naturalHeight;
-          if (!raf) raf = requestAnimationFrame(flush);
-        }
+        if (!live || img.naturalWidth < 1 || img.naturalHeight < 1) return;
+        pending[item.slug] = img.naturalWidth / img.naturalHeight;
+        if (!raf) raf = requestAnimationFrame(flush);
       };
       img.src = item.poster;
     }
 
     return () => {
       live = false;
-      cancelAnimationFrame(raf);
+      if (raf) cancelAnimationFrame(raf);
+      // Detaching matters: a poster that decodes after teardown would otherwise
+      // schedule a frame against the list this effect has already abandoned.
+      for (const img of loading) img.onload = null;
     };
+    // `key` is the fingerprint of `items`; depending on the array itself would
+    // restart every decode whenever the caller rebuilds the list.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   return { aspects, setAspect };

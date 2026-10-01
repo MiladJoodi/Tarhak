@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import type { BrowseItem } from "@/lib/browse/items";
+import { usePosterAspects } from "@/lib/browse/use-poster-aspects";
 
 const HOLD_MS = 5000;
 /** Dense grid so neighbors always fill top/left when a card is centered. */
@@ -313,13 +314,22 @@ function HeroCard({
   );
 }
 
+/** The deck tiles this many source items across the grid. */
+const DECK_SOURCE_COUNT = 12;
+
 export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
-  const cards = React.useMemo(() => buildDeck(items.slice(0, 12)), [items]);
+  const deckItems = React.useMemo(
+    () => items.slice(0, DECK_SOURCE_COUNT),
+    [items],
+  );
+  const cards = React.useMemo(() => buildDeck(deckItems), [deckItems]);
+  // Shared with the browse grid and canvas: one implementation of poster
+  // measurement, measured over the source items rather than the tiled deck.
+  const { aspects, setAspect } = usePosterAspects(deckItems);
   const reducedMotion = useReducedMotion() ?? false;
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const [spotlight, setSpotlight] = React.useState(START_INDEX);
   const [videosReady, setVideosReady] = React.useState(false);
-  const [aspects, setAspects] = React.useState<Record<string, number>>({});
   /** First layout pass done — avoid animating from 800×900 guess into real size. */
   const [ready, setReady] = React.useState(false);
   const [view, setView] = React.useState({ w: 800, h: 900 });
@@ -363,35 +373,6 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   React.useEffect(() => {
     scaleRef.current = camera.scale;
   }, [camera.scale]);
-
-  const setAspect = React.useCallback((slug: string, ratio: number) => {
-    setAspects((prev) => (prev[slug] === ratio ? prev : { ...prev, [slug]: ratio }));
-  }, []);
-
-  React.useEffect(() => {
-    const seen = new Set<string>();
-    const pending: HTMLImageElement[] = [];
-    let cancelled = false;
-
-    for (const card of cards) {
-      if (!card.poster || seen.has(card.slug)) continue;
-      seen.add(card.slug);
-      const img = new Image();
-      pending.push(img);
-      img.onload = () => {
-        if (cancelled || img.naturalWidth < 1 || img.naturalHeight < 1) return;
-        setAspect(card.slug, img.naturalWidth / img.naturalHeight);
-      };
-      img.src = card.poster;
-    }
-
-    // Posters decode well after the deck can change. Without this, a load that
-    // finished late wrote an aspect for a card that is no longer on screen.
-    return () => {
-      cancelled = true;
-      for (const img of pending) img.onload = null;
-    };
-  }, [cards, setAspect]);
 
   React.useEffect(() => deferUntilIdle(() => setVideosReady(true)), []);
 
