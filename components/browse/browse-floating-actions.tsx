@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { useAuth } from "@/components/auth/auth-provider";
+import { useFeedbackEligibility } from "@/hooks/use-feedback-eligibility";
 import { startSponsorCheckout } from "@/lib/sponsor/checkout";
 import { cn } from "@/lib/utils";
 import { FeedbackDialog } from "./feedback-dialog";
@@ -16,6 +17,7 @@ const SLOT_TIER = "gold" as const;
  *  so the grid view cannot scroll them away. */
 export function BrowseFloatingActions() {
   const { user } = useAuth();
+  const { canSubmit, markSubmitted } = useFeedbackEligibility();
   const [feedbackOpen, setFeedbackOpen] = React.useState(false);
   const [checkoutPending, setCheckoutPending] = React.useState(false);
   const [checkoutError, setCheckoutError] = React.useState<string | null>(null);
@@ -70,8 +72,9 @@ export function BrowseFloatingActions() {
         </div>
 
         {/* Figma 1:90 — same raised fill as the dock's pause control. Signed-in
-            only: the fortnight limit is per account, so it needs one. */}
-        {user ? (
+            only (the fortnight limit is per account), and gone once they have
+            had their say: a button you cannot use is worse than no button. */}
+        {user && canSubmit ? (
           <button
             type="button"
             onClick={() => setFeedbackOpen(true)}
@@ -97,7 +100,11 @@ export function BrowseFloatingActions() {
       </div>
 
       {user ? (
-        <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
+        <FeedbackDialog
+          open={feedbackOpen}
+          onOpenChange={setFeedbackOpen}
+          onSubmitted={markSubmitted}
+        />
       ) : null}
     </>
   );

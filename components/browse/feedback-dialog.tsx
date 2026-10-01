@@ -13,6 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { FEEDBACK_COOLDOWN_DAYS } from "@/hooks/use-feedback-eligibility";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -32,10 +33,6 @@ function formatDay(date: Date) {
   return date.toLocaleDateString(undefined, { day: "numeric", month: "long" });
 }
 
-/** Matches the database trigger. The trigger is the limit; this is the
- *  courtesy that stops someone writing a comment they cannot send. */
-const COOLDOWN_DAYS = 14;
-
 /** The login dialog's field shadow stack, so inputs read the same in both. */
 const FIELD_SHADOW =
   "shadow-[0px_-1px_0px_0px_rgba(255,255,255,0.06),0px_0px_0px_1px_rgba(255,255,255,0.06),0px_0px_0px_1px_#27272a,0px_0px_1px_1.5px_rgba(0,0,0,0.24),0px_2px_2px_0px_rgba(0,0,0,0.24)]";
@@ -43,9 +40,11 @@ const FIELD_SHADOW =
 export function FeedbackDialog({
   open,
   onOpenChange,
+  onSubmitted,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onSubmitted?: () => void;
 }) {
   const { user, configured } = useAuth();
   const [rating, setRating] = React.useState<number | null>(null);
@@ -70,30 +69,6 @@ export function FeedbackDialog({
     setSubmitted(false);
     setNextAllowedAt(null);
   }, [open]);
-
-  /** Read back their own last entry, so the cooldown shows before they type. */
-  React.useEffect(() => {
-    if (!open || !configured || !user) return;
-    let cancelled = false;
-
-    void createClient()
-      .from("feedback")
-      .select("created_at")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .then(({ data }) => {
-        if (cancelled || !data?.length) return;
-        const last = new Date(data[0]!.created_at as string);
-        const next = new Date(last);
-        next.setDate(next.getDate() + COOLDOWN_DAYS);
-        if (next > new Date()) setNextAllowedAt(next);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [open, configured, user]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -123,9 +98,10 @@ export function FeedbackDialog({
     if (insertError) {
       if (insertError.message.includes("feedback_rate_limited")) {
         const next = new Date();
-        next.setDate(next.getDate() + COOLDOWN_DAYS);
+        next.setDate(next.getDate() + FEEDBACK_COOLDOWN_DAYS);
         setNextAllowedAt(next);
         setStatus("idle");
+        onSubmitted?.();
         return;
       }
       setStatus("error");
@@ -140,6 +116,7 @@ export function FeedbackDialog({
     }
 
     setStatus("sent");
+    onSubmitted?.();
   }
 
   return (
