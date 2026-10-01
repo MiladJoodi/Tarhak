@@ -7,12 +7,19 @@ import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
 
 import { SearchIcon } from "./icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { formatStarCount, GITHUB_URL } from "@/lib/github";
 import { useAuth } from "@/components/auth/auth-provider";
 import { BrandLogo } from "@/components/brand-logo";
 
 function userAvatarUrl(user: User) {
   const meta = user.user_metadata ?? {};
-  if (typeof meta.avatar_url === "string" && meta.avatar_url) return meta.avatar_url;
+  if (typeof meta.avatar_url === "string" && meta.avatar_url)
+    return meta.avatar_url;
   if (typeof meta.picture === "string" && meta.picture) return meta.picture;
   return null;
 }
@@ -66,11 +73,14 @@ function BrowseProfileAvatar({ user }: { user: User }) {
 export function BrowseHeader({
   query,
   onQueryChange,
+  stars,
 }: {
   query: string;
   onQueryChange: (value: string) => void;
+  stars?: number | null;
 }) {
   const { user } = useAuth();
+  const starCount = typeof stars === "number" ? formatStarCount(stars) : null;
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [focused, setFocused] = React.useState(false);
 
@@ -126,19 +136,42 @@ export function BrowseHeader({
           )}
         </div>
 
-        <a
-          href="https://github.com/iurvish/uselayouts"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="useLayouts on GitHub"
-          className="relative flex items-center overflow-hidden rounded-xl bg-secondary p-2 shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.1)]"
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-to-b from-transparent to-black/6 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.05)]"
-          />
-          <img src="/brand/icon-github.svg" alt="" width={20} height={20} className="relative size-5" />
-        </a>
+        {/* Figma 1:23 — mark plus count, gap 8 / px 10 / py 8. */}
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={
+                  starCount
+                    ? `useLayouts on GitHub, ${starCount} stars`
+                    : "useLayouts on GitHub"
+                }
+                className="relative flex items-center gap-2 overflow-hidden rounded-xl bg-secondary px-2.5 py-2 shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.1)] transition-colors duration-150 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_28%)]"
+              />
+            }
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-to-b from-transparent to-black/6 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.05)]"
+            />
+            <img
+              src="/brand/icon-github.svg"
+              alt=""
+              width={20}
+              height={20}
+              className="relative size-5"
+            />
+            {starCount ? (
+              <span className="relative text-base leading-none text-white tabular-nums">
+                {starCount}
+              </span>
+            ) : null}
+          </TooltipTrigger>
+          <TooltipContent side="bottom">Star us on GitHub 🥹</TooltipContent>
+        </Tooltip>
 
         {user ? <BrowseProfileAvatar user={user} /> : null}
       </div>

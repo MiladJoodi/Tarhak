@@ -2,7 +2,7 @@
 
 import type { SponsorTier } from "./plans";
 
-export async function startSponsorCheckout(tier: SponsorTier) {
+export async function createSponsorCheckoutUrl(tier: SponsorTier) {
   const res = await fetch("/api/sponsor/checkout", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -14,5 +14,9 @@ export async function startSponsorCheckout(tier: SponsorTier) {
   if (!res.ok || !data.checkoutUrl) {
     throw new Error(data.error ?? "Could not start checkout");
   }
-  window.location.assign(data.checkoutUrl);
+  return data.checkoutUrl;
+}
+
+export async function startSponsorCheckout(tier: SponsorTier) {
+  window.location.assign(await createSponsorCheckoutUrl(tier));
 }
