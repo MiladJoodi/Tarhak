@@ -151,6 +151,9 @@ function firstInteriorIndex() {
   return 0;
 }
 
+/** Depends only on the grid constants, so it is computed once, not per render. */
+const START_INDEX = firstInteriorIndex();
+
 function deferUntilIdle(cb: () => void) {
   if (typeof window === "undefined") return () => {};
   let idleId = 0;
@@ -313,9 +316,8 @@ function HeroCard({
 export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   const cards = React.useMemo(() => buildDeck(items.slice(0, 12)), [items]);
   const reducedMotion = useReducedMotion() ?? false;
-  const startIndex = firstInteriorIndex();
   const viewportRef = React.useRef<HTMLDivElement>(null);
-  const [spotlight, setSpotlight] = React.useState(startIndex);
+  const [spotlight, setSpotlight] = React.useState(START_INDEX);
   const [videosReady, setVideosReady] = React.useState(false);
   const [aspects, setAspects] = React.useState<Record<string, number>>({});
   /** First layout pass done — avoid animating from 800×900 guess into real size. */
@@ -330,20 +332,25 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
     [cards, aspects],
   );
   const layoutRef = React.useRef(layout);
-  layoutRef.current = layout;
   const [camera, setCamera] = React.useState<Camera>(() =>
-    cameraFor(rectAt(layoutDeck(TOTAL, () => DEFAULT_ASPECT).rects, startIndex), 800, 900, SCALE_HOLD),
+    cameraFor(rectAt(layoutDeck(TOTAL, () => DEFAULT_ASPECT).rects, START_INDEX), 800, 900, SCALE_HOLD),
   );
   const [transition, setTransition] = React.useState({
     duration: 0,
     ease: [0.32, 0.72, 0, 1] as [number, number, number, number],
   });
-  const spotlightRef = React.useRef(startIndex);
+  const spotlightRef = React.useRef(START_INDEX);
   const viewRef = React.useRef(view);
   const scaleRef = React.useRef(SCALE_HOLD);
   const holdRef = React.useRef(SCALE_HOLD);
   const outRef = React.useRef(SCALE_OUT);
   const [isMobile, setIsMobile] = React.useState(false);
+
+  // Written in an effect, not during render: a render React discards must not
+  // leave a ref that the animation timers then read.
+  React.useEffect(() => {
+    layoutRef.current = layout;
+  }, [layout]);
 
   React.useEffect(() => {
     spotlightRef.current = spotlight;
@@ -363,16 +370,27 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
 
   React.useEffect(() => {
     const seen = new Set<string>();
+    const pending: HTMLImageElement[] = [];
+    let cancelled = false;
+
     for (const card of cards) {
       if (!card.poster || seen.has(card.slug)) continue;
       seen.add(card.slug);
       const img = new Image();
+      pending.push(img);
       img.onload = () => {
-        if (img.naturalWidth < 1 || img.naturalHeight < 1) return;
+        if (cancelled || img.naturalWidth < 1 || img.naturalHeight < 1) return;
         setAspect(card.slug, img.naturalWidth / img.naturalHeight);
       };
       img.src = card.poster;
     }
+
+    // Posters decode well after the deck can change. Without this, a load that
+    // finished late wrote an aspect for a card that is no longer on screen.
+    return () => {
+      cancelled = true;
+      for (const img of pending) img.onload = null;
+    };
   }, [cards, setAspect]);
 
   React.useEffect(() => deferUntilIdle(() => setVideosReady(true)), []);
@@ -479,13 +497,15 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   React.useEffect(() => {
     if (!ready || !reducedMotion || cards.length <= 1) return;
     const id = window.setInterval(() => {
-      setSpotlight((current) => {
-        const next = nextSpotlightIndex(current, cards.length);
-        const { w, h } = viewRef.current;
-        setTransition({ duration: 0, ease: [0, 0, 1, 1] });
-        setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, holdRef.current));
-        return next;
-      });
+      // `nextSpotlightIndex` picks at random and the camera has to follow the
+      // same pick, so neither can live inside a `setSpotlight` updater: React
+      // is free to re-run an updater, which would choose one card for the
+      // spotlight and a different one for the camera.
+      const next = nextSpotlightIndex(spotlightRef.current, cards.length);
+      const { w, h } = viewRef.current;
+      setSpotlight(next);
+      setTransition({ duration: 0, ease: [0, 0, 1, 1] });
+      setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, holdRef.current));
     }, HOLD_MS);
     return () => window.clearInterval(id);
   }, [ready, cards.length, reducedMotion]);
