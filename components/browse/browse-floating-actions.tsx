@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import { useAuth } from "@/components/auth/auth-provider";
 import { startSponsorCheckout } from "@/lib/sponsor/checkout";
 import { cn } from "@/lib/utils";
 import { FeedbackDialog } from "./feedback-dialog";
@@ -14,6 +15,7 @@ const SLOT_TIER = "gold" as const;
  *  browse panel in both canvas and grid view. Rendered outside the scroller
  *  so the grid view cannot scroll them away. */
 export function BrowseFloatingActions() {
+  const { user } = useAuth();
   const [feedbackOpen, setFeedbackOpen] = React.useState(false);
   const [checkoutPending, setCheckoutPending] = React.useState(false);
   const [checkoutError, setCheckoutError] = React.useState<string | null>(null);
@@ -67,31 +69,36 @@ export function BrowseFloatingActions() {
           </div>
         </div>
 
-        {/* Figma 1:90 — same raised fill as the dock's pause control. */}
-        <button
-          type="button"
-          onClick={() => setFeedbackOpen(true)}
-          aria-haspopup="dialog"
-          aria-expanded={feedbackOpen}
-          className={cn(
-            "pointer-events-auto relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-[14px] px-4 py-2.5",
-            "bg-secondary text-base text-white",
-            "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.1)]",
-            "transition-[transform,background-color] duration-150 ease-out active:scale-[0.98] motion-reduce:transition-none",
-            "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_28%)]",
-            "focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring",
-          )}
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-to-b from-transparent to-black/6 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.05)]"
-          />
-          <FeedbackIcon className="relative size-[18px] shrink-0" />
-          <span className="relative">Suggest Feedback</span>
-        </button>
+        {/* Figma 1:90 — same raised fill as the dock's pause control. Signed-in
+            only: the fortnight limit is per account, so it needs one. */}
+        {user ? (
+          <button
+            type="button"
+            onClick={() => setFeedbackOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={feedbackOpen}
+            className={cn(
+              "pointer-events-auto relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-[14px] px-4 py-2.5",
+              "bg-secondary text-base text-white",
+              "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.1)]",
+              "transition-[transform,background-color] duration-150 ease-out active:scale-[0.98] motion-reduce:transition-none",
+              "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_28%)]",
+              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring",
+            )}
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-to-b from-transparent to-black/6 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.05)]"
+            />
+            <FeedbackIcon className="relative size-[18px] shrink-0" />
+            <span className="relative">Suggest Feedback</span>
+          </button>
+        ) : null}
       </div>
 
-      <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
+      {user ? (
+        <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
+      ) : null}
     </>
   );
 }

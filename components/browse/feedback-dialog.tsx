@@ -28,6 +28,14 @@ const RATINGS = [
 /** Enough to say something actionable; short enough not to be a chore. */
 const MIN_COMMENT = 30;
 
+function formatDay(date: Date) {
+  return date.toLocaleDateString(undefined, { day: "numeric", month: "long" });
+}
+
+/** Matches the database trigger. The trigger is the limit; this is the
+ *  courtesy that stops someone writing a comment they cannot send. */
+const COOLDOWN_DAYS = 14;
+
 /** The login dialog's field shadow stack, so inputs read the same in both. */
 const FIELD_SHADOW =
   "shadow-[0px_-1px_0px_0px_rgba(255,255,255,0.06),0px_0px_0px_1px_rgba(255,255,255,0.06),0px_0px_0px_1px_#27272a,0px_0px_1px_1.5px_rgba(0,0,0,0.24),0px_2px_2px_0px_rgba(0,0,0,0.24)]";
@@ -47,6 +55,7 @@ export function FeedbackDialog({
   >("idle");
   const [error, setError] = React.useState<string | null>(null);
   const [submitted, setSubmitted] = React.useState(false);
+  const [nextAllowedAt, setNextAllowedAt] = React.useState<Date | null>(null);
 
   const trimmed = comment.trim();
   const tooShort = trimmed.length < MIN_COMMENT;
@@ -59,7 +68,32 @@ export function FeedbackDialog({
     setStatus("idle");
     setError(null);
     setSubmitted(false);
+    setNextAllowedAt(null);
   }, [open]);
+
+  /** Read back their own last entry, so the cooldown shows before they type. */
+  React.useEffect(() => {
+    if (!open || !configured || !user) return;
+    let cancelled = false;
+
+    void createClient()
+      .from("feedback")
+      .select("created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        if (cancelled || !data?.length) return;
+        const last = new Date(data[0]!.created_at as string);
+        const next = new Date(last);
+        next.setDate(next.getDate() + COOLDOWN_DAYS);
+        if (next > new Date()) setNextAllowedAt(next);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, configured, user]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -87,6 +121,13 @@ export function FeedbackDialog({
       });
 
     if (insertError) {
+      if (insertError.message.includes("feedback_rate_limited")) {
+        const next = new Date();
+        next.setDate(next.getDate() + COOLDOWN_DAYS);
+        setNextAllowedAt(next);
+        setStatus("idle");
+        return;
+      }
       setStatus("error");
       // The message itself in development: "could not send" hides the real
       // cause, which is usually a migration that has not been applied.
@@ -124,7 +165,44 @@ export function FeedbackDialog({
             />
             <div className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_1px_1px_rgba(255,255,255,0.01)]" />
 
-            {status === "sent" ? (
+            {nextAllowedAt && status !== "sent" ? (
+              <div className="relative flex w-full flex-col items-center gap-5 py-2 text-center">
+                <span
+                  aria-hidden
+                  className="flex size-12 items-center justify-center rounded-xl bg-[hsl(152_42%_16%)] text-[hsl(152_55%_62%)] shadow-[inset_0px_0px_0px_1px_hsl(152_40%_26%)]"
+                >
+                  <CircleCheck className="size-7" strokeWidth={1.1} />
+                </span>
+                <div className="flex flex-col gap-1.5">
+                  <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
+                    You have already had your say
+                  </p>
+                  <p className="text-[14px] leading-5 text-[#8e8e93]">
+                    We take one note per person a fortnight, so everyone gets
+                    heard. Yours opens again on {formatDay(nextAllowedAt)}.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onOpenChange(false)}
+                  className={cn(
+                    "relative mt-2 flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
+                    "bg-[hsl(230_77%_55%)]",
+                    "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.12)]",
+                    "transition-[transform,background-color] duration-150 active:scale-[0.98]",
+                    "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(230_77%_58%)]",
+                  )}
+                >
+                  <span className="relative text-[14px] font-medium leading-5 tracking-[-0.084px] text-white">
+                    Done
+                  </span>
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0px_1px_0px_0.2px_rgba(255,255,255,0.16)]"
+                  />
+                </button>
+              </div>
+            ) : status === "sent" ? (
               <div className="relative flex w-full flex-col items-center gap-5 py-2 text-center">
                 {/* Desaturated green: a dark surface cannot take a pure one. */}
                 <span

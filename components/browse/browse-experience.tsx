@@ -11,7 +11,13 @@ import { BrowseToolbar, type ViewMode } from "./browse-toolbar";
 import { InfiniteCanvas } from "./infinite-canvas";
 import { cn } from "@/lib/utils";
 
-export function BrowseExperience({ items }: { items: BrowseItem[] }) {
+export function BrowseExperience({
+  items,
+  stars,
+}: {
+  items: BrowseItem[];
+  stars?: number | null;
+}) {
   const [viewMode, setViewMode] = React.useState<ViewMode>("canvas");
   const [query, setQuery] = React.useState("");
   const [paused, setPaused] = React.useState(false);
@@ -33,7 +39,7 @@ export function BrowseExperience({ items }: { items: BrowseItem[] }) {
       data-quality={quality}
       className="dark flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-[family-name:var(--font-geist-sans)] text-foreground"
     >
-      <BrowseHeader query={query} onQueryChange={setQuery} />
+      <BrowseHeader query={query} onQueryChange={setQuery} stars={stars} />
 
       <div className="flex min-h-0 flex-1 overflow-hidden px-3 pt-0.5 pb-2.5">
         <div className="relative min-h-0 w-full flex-1">
@@ -46,7 +52,9 @@ export function BrowseExperience({ items }: { items: BrowseItem[] }) {
           >
             {isEmpty ? (
               <div className="flex min-h-[60vh] flex-col items-center justify-center gap-2 px-8 text-center">
-                <p className="text-sm text-muted-foreground">No components match “{query}”.</p>
+                <p className="text-sm text-muted-foreground">
+                  No components match “{query}”.
+                </p>
                 <button
                   type="button"
                   onClick={() => setQuery("")}
