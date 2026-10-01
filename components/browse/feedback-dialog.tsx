@@ -27,6 +27,10 @@ const RATINGS = [
 /** Enough to say something actionable; short enough not to be a chore. */
 const MIN_COMMENT = 30;
 
+/** The login dialog's field surface — same input colour across both dialogs. */
+const FIELD_SHADOW =
+  "shadow-[0px_-1px_0px_0px_rgba(255,255,255,0.06),0px_0px_0px_1px_rgba(255,255,255,0.06),0px_0px_0px_1px_#27272a,0px_0px_1px_1.5px_rgba(0,0,0,0.24),0px_2px_2px_0px_rgba(0,0,0,0.24)]";
+
 export function FeedbackDialog({
   open,
   onOpenChange,
@@ -41,11 +45,11 @@ export function FeedbackDialog({
     "idle",
   );
   const [error, setError] = React.useState<string | null>(null);
-  const [touched, setTouched] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
 
   const trimmed = comment.trim();
   const tooShort = trimmed.length < MIN_COMMENT;
-  const showLengthError = touched && tooShort;
+  const lengthError = submitted && tooShort;
 
   React.useEffect(() => {
     if (open) return;
@@ -53,14 +57,14 @@ export function FeedbackDialog({
     setComment("");
     setStatus("idle");
     setError(null);
-    setTouched(false);
+    setSubmitted(false);
   }, [open]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     if (status === "sending") return;
 
-    setTouched(true);
+    setSubmitted(true);
     if (rating === null || tooShort) return;
 
     setStatus("sending");
@@ -171,9 +175,12 @@ export function FeedbackDialog({
                   <div
                     role="radiogroup"
                     aria-label="Rating"
-                    className="relative overflow-hidden rounded-xl border border-[#2a2a2e] bg-[#0d0d0f]"
+                    className={cn(
+                      "relative overflow-hidden rounded-xl bg-[#222223]",
+                      FIELD_SHADOW,
+                    )}
                   >
-                    <div className="flex w-full divide-x divide-[#2a2a2e] border-b border-[#2a2a2e]">
+                    <div className="flex w-full divide-x divide-white/8 border-b border-white/8">
                       {RATINGS.map((option) => {
                         const selected = rating === option.value;
                         return (
@@ -201,41 +208,25 @@ export function FeedbackDialog({
                     <Textarea
                       value={comment}
                       onChange={(event) => setComment(event.target.value)}
-                      onBlur={() => setTouched(true)}
                       maxLength={2000}
                       placeholder="Add a comment..."
                       aria-label="Comment"
-                      aria-invalid={showLengthError}
-                      aria-describedby="feedback-comment-hint"
+                      aria-invalid={lengthError}
                       className="min-h-[120px] max-h-[120px] w-full resize-none overflow-y-auto wrap-anywhere rounded-none border-0 bg-transparent p-4 text-[14px] text-white placeholder:text-[#71717a] focus-visible:ring-0"
                     />
-                    <div className="flex items-center justify-between gap-3 border-t border-[#2a2a2e] px-4 py-2">
-                      <p
-                        id="feedback-comment-hint"
-                        className={cn(
-                          "text-[12px]",
-                          showLengthError ? "text-red-400" : "text-[#71717a]",
-                        )}
-                      >
-                        {tooShort
-                          ? `${MIN_COMMENT - trimmed.length} more characters needed`
-                          : "Thanks — that is enough to act on"}
-                      </p>
-                      <p className="shrink-0 text-[12px] tabular-nums text-[#71717a]">
-                        {trimmed.length}/{MIN_COMMENT}
-                      </p>
-                    </div>
                   </div>
 
-                  {error ? (
+                  {lengthError || error ? (
                     <p className="text-[13px] text-red-400" role="alert">
-                      {error}
+                      {lengthError
+                        ? `Please write at least ${MIN_COMMENT} characters so we can act on it.`
+                        : error}
                     </p>
                   ) : null}
 
                   <button
                     type="submit"
-                    disabled={rating === null || tooShort || status === "sending"}
+                    disabled={rating === null || status === "sending"}
                     className={cn(
                       "relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
                       "bg-[hsl(230_77%_55%)]",
@@ -246,7 +237,7 @@ export function FeedbackDialog({
                     )}
                   >
                     <span className="relative text-[14px] font-medium leading-5 tracking-[-0.084px] text-white">
-                      {status === "sending" ? "Sending…" : "Send feedback"}
+                      {status === "sending" ? "Sending…" : "Submit feedback"}
                     </span>
                     <span
                       aria-hidden
