@@ -186,10 +186,6 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-function isCompactViewport() {
-  return window.innerWidth < COMPACT_VIEWPORT_WIDTH;
-}
-
 function getPanelWidth(viewportWidth: number) {
   return Math.min(
     DROPDOWN_PANEL_WIDTH,
@@ -197,59 +193,40 @@ function getPanelWidth(viewportWidth: number) {
   );
 }
 
-function useCompactViewport() {
-  const [isCompact, setIsCompact] = useState(() => {
-    if (typeof window === "undefined") return false;
-
-    return window.matchMedia(`(max-width: ${COMPACT_VIEWPORT_WIDTH - 1}px)`)
-      .matches;
-  });
+/**
+ * Starts at `false` on both server and client and is corrected in the effect.
+ * Matching the query during the initial render instead would make the first
+ * client render disagree with the server HTML, and buy nothing: the effect
+ * below already applies the real value on mount.
+ */
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      `(max-width: ${COMPACT_VIEWPORT_WIDTH - 1}px)`
-    );
-    const update = () => setIsCompact(mediaQuery.matches);
+    const mediaQuery = window.matchMedia(query);
+    const update = () => setMatches(mediaQuery.matches);
 
     update();
     mediaQuery.addEventListener("change", update);
 
     return () => mediaQuery.removeEventListener("change", update);
-  }, []);
+  }, [query]);
 
-  return isCompact;
+  return matches;
+}
+
+const COMPACT_VIEWPORT_QUERY = `(max-width: ${COMPACT_VIEWPORT_WIDTH - 1}px)`;
+
+function useCompactViewport() {
+  return useMediaQuery(COMPACT_VIEWPORT_QUERY);
 }
 
 function usePrefersHover() {
-  const [prefersHover, setPrefersHover] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setPrefersHover(mediaQuery.matches);
-
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  return prefersHover;
+  return useMediaQuery("(hover: hover) and (pointer: fine)");
 }
 
 function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setPrefersReducedMotion(mediaQuery.matches);
-
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  return prefersReducedMotion;
+  return useMediaQuery("(prefers-reduced-motion: reduce)");
 }
 
 function useIsMounted() {
@@ -507,13 +484,14 @@ function getFlyoutSubmenuMotion(origin: SubmenuOrigin, instantClose = false) {
 function getSubmenuPosition(
   triggerRect: DOMRect,
   panelHeight: number,
-  panelWidth: number
+  panelWidth: number,
+  isCompact: boolean
 ) {
   const viewportHeight = window.innerHeight;
   const viewportWidth = window.innerWidth;
   const effectiveWidth = Math.min(panelWidth, getPanelWidth(viewportWidth));
 
-  if (isCompactViewport()) {
+  if (isCompact) {
     const left = clamp(
       triggerRect.left,
       DROPDOWN_VIEWPORT_MARGIN,
@@ -780,10 +758,11 @@ function useSubmenuPosition({
       getSubmenuPosition(
         trigger.getBoundingClientRect(),
         panelHeight,
-        panelWidth
+        panelWidth,
+        isCompact
       )
     );
-  }, [submenuRef, triggerRef]);
+  }, [isCompact, submenuRef, triggerRef]);
 
   useLayoutEffect(() => {
     if (!isOpen || isCompact) return;

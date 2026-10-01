@@ -16,7 +16,7 @@ export function TiersClassic({
 }) {
   return (
     <TiersShell>
-      {dial ? <DialRoot productionEnabled position="top-right" defaultOpen /> : null}
+      {dial ? <DialRoot productionEnabled position="top-right" defaultOpen theme="dark" /> : null}
       <main
         className={cn(
           "mx-auto flex w-full max-w-[1440px] flex-1 flex-col items-center gap-10 px-4 py-6",

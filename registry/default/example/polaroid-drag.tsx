@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useId, useRef, useState } from 'react';
 import {
   motion,
   useMotionValue,
@@ -135,8 +135,12 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
   showPin = false,
   className,
 }) => {
-  const generatedId = useRef(id || `polaroid-${Math.random().toString(36).substring(2, 9)}`);
-  const cardId = id || generatedId.current;
+  // `useId` instead of a random string in a ref: the random call ran on every
+  // render even though only the first was kept, and a random id differs between
+  // the server render and the client, while `useId` is stable and unique per
+  // instance on both.
+  const generatedId = useId();
+  const cardId = id || generatedId;
   const { containerRef, bringToFront, getZIndex, enableConstraints } = usePolaroid();
   const [isDragging, setIsDragging] = useState(false);
 
