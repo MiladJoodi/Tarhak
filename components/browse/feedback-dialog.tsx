@@ -80,16 +80,18 @@ export function FeedbackDialog({
     setStatus("sending");
     setError(null);
 
-    if (!configured) {
+    // The policy requires auth.uid() = user_id, so a missing user is a
+    // refused insert, not an anonymous one.
+    if (!configured || !user) {
       setStatus("error");
-      setError("Feedback is not configured yet.");
+      setError("Sign in to send feedback.");
       return;
     }
 
     const { error: insertError } = await createClient()
       .from("feedback")
       .insert({
-        user_id: user?.id ?? null,
+        user_id: user.id,
         rating,
         comment: trimmed.slice(0, 2000),
         path: window.location.pathname,
