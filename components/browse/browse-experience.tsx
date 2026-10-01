@@ -4,6 +4,7 @@ import * as React from "react";
 import type { BrowseItem } from "@/lib/browse/items";
 import { rankSearchItems } from "@/lib/component-tags";
 import { useRenderQuality } from "@/lib/browse/use-render-quality";
+import { BrowseFloatingActions } from "./browse-floating-actions";
 import { BrowseGrid } from "./browse-grid";
 import { BrowseHeader } from "./browse-header";
 import { BrowseToolbar, type ViewMode } from "./browse-toolbar";
@@ -35,29 +36,33 @@ export function BrowseExperience({ items }: { items: BrowseItem[] }) {
       <BrowseHeader query={query} onQueryChange={setQuery} />
 
       <div className="flex min-h-0 flex-1 overflow-hidden px-3 pt-0.5 pb-2.5">
-        <div
-          data-view={isCanvas ? "canvas" : "grid"}
-          className={cn(
-            "relative min-h-0 w-full flex-1 rounded-2xl bg-muted p-4 sm:p-[18px]",
-            isCanvas ? "overflow-hidden" : "overflow-auto",
-          )}
-        >
-          {isEmpty ? (
-            <div className="flex min-h-[60vh] flex-col items-center justify-center gap-2 px-8 text-center">
-              <p className="text-sm text-muted-foreground">No components match “{query}”.</p>
-              <button
-                type="button"
-                onClick={() => setQuery("")}
-                className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
-              >
-                Clear search
-              </button>
-            </div>
-          ) : isCanvas ? (
-            <InfiniteCanvas items={filtered} paused={paused} />
-          ) : (
-            <BrowseGrid items={filtered} paused={paused} />
-          )}
+        <div className="relative min-h-0 w-full flex-1">
+          <div
+            data-view={isCanvas ? "canvas" : "grid"}
+            className={cn(
+              "relative h-full rounded-2xl bg-muted p-4 sm:p-[18px]",
+              isCanvas ? "overflow-hidden" : "overflow-auto",
+            )}
+          >
+            {isEmpty ? (
+              <div className="flex min-h-[60vh] flex-col items-center justify-center gap-2 px-8 text-center">
+                <p className="text-sm text-muted-foreground">No components match “{query}”.</p>
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                >
+                  Clear search
+                </button>
+              </div>
+            ) : isCanvas ? (
+              <InfiniteCanvas items={filtered} paused={paused} />
+            ) : (
+              <BrowseGrid items={filtered} paused={paused} />
+            )}
+          </div>
+
+          <BrowseFloatingActions />
         </div>
       </div>
 
