@@ -3,6 +3,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useMemo,
   useImperativeHandle,
   forwardRef,
   memo,
@@ -263,16 +264,22 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
     const list = items && items.length > 0 ? items : defaultCarouselItems;
     const total = list.length;
 
-    const theme =
-      mode === 'custom'
-        ? {
-            bg: background || '#fff6ec',
-            text: textColor || 'rgba(180, 90, 20, 0.45)',
-            sel: selectedColor || '#b4541e',
-            marker: markerColor || selectedColor || '#b4541e',
-            panel: background || '#fff6ec',
-          }
-        : THEME_PRESETS[mode] || THEME_PRESETS.light;
+    // Memoized because an effect below depends on it. In `custom` mode this was
+    // a fresh object literal every render, so that effect re-applied every
+    // transform on every render.
+    const theme = useMemo(
+      () =>
+        mode === 'custom'
+          ? {
+              bg: background || '#fff6ec',
+              text: textColor || 'rgba(180, 90, 20, 0.45)',
+              sel: selectedColor || '#b4541e',
+              marker: markerColor || selectedColor || '#b4541e',
+              panel: background || '#fff6ec',
+            }
+          : THEME_PRESETS[mode] || THEME_PRESETS.light,
+      [background, markerColor, mode, selectedColor, textColor],
+    );
 
     const startingIndex = ((Math.round(initialIndex) % total) + total) % total;
 

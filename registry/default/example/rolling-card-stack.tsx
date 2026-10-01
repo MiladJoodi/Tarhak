@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 // ==========================================
@@ -153,44 +153,50 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
 
   const totalCards = cards.length;
 
-  const handleNext = () => {
-    const nextIdx = (activeIndex + 1) % totalCards;
-    setActiveIndex(nextIdx);
-    onCardChange?.(nextIdx, cards[nextIdx]);
-  };
+  // One wrapping step, so an empty `cards` array cannot produce `% 0` -> NaN.
+  const goTo = useCallback(
+    (index: number) => {
+      if (totalCards === 0) return;
+      const next = ((index % totalCards) + totalCards) % totalCards;
+      setActiveIndex(next);
+      onCardChange?.(next, cards[next]);
+    },
+    [cards, onCardChange, totalCards],
+  );
 
-  const handlePrev = () => {
-    const prevIdx = (activeIndex - 1 + totalCards) % totalCards;
-    setActiveIndex(prevIdx);
-    onCardChange?.(prevIdx, cards[prevIdx]);
-  };
+  const handleNext = useCallback(
+    () => goTo(activeIndex + 1),
+    [activeIndex, goTo],
+  );
+  const handlePrev = useCallback(
+    () => goTo(activeIndex - 1),
+    [activeIndex, goTo],
+  );
+  const handleCardClick = useCallback((index: number) => goTo(index), [goTo]);
 
-  const handleCardClick = (index: number) => {
-    setActiveIndex(index);
-    onCardChange?.(index, cards[index]);
-  };
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        e.preventDefault();
+  // Arrow keys are handled on the root element, not on `window`. A window
+  // listener that calls preventDefault swallows arrow keys for the whole page —
+  // scrolling, text inputs, selects — and two stacks on one page would both
+  // advance from a single press.
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        event.preventDefault();
         handleNext();
-      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        e.preventDefault();
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        event.preventDefault();
         handlePrev();
       }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, totalCards]);
+    },
+    [handleNext, handlePrev],
+  );
 
   // Autoplay
   useEffect(() => {
-    if (!autoPlay || isHovered) return;
+    if (!autoPlay || isHovered || totalCards <= 1) return;
     const timer = setInterval(handleNext, autoPlayInterval);
     return () => clearInterval(timer);
-  }, [autoPlay, autoPlayInterval, isHovered, activeIndex, totalCards]);
+  }, [autoPlay, autoPlayInterval, handleNext, isHovered, totalCards]);
 
   const isMobile = device === "mobile";
 
@@ -212,8 +218,14 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
     <div
       className={cn(
         "min-h-screen w-full bg-[#E5E5E0] text-neutral-900 flex flex-col items-center justify-center p-4 md:p-12 font-sans select-none overflow-hidden relative",
+        "outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40",
         className
       )}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Card stack"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
       {...props}
     >
       <div className="flex flex-col items-center justify-center w-full max-w-4xl relative z-10">
