@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { MessageCircleCheckIcon } from "./icons";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -125,20 +126,23 @@ export function FeedbackDialog({
 
             {status === "sent" ? (
               <div className="relative flex w-full flex-col items-center gap-5 py-2 text-center">
-                {rating === null ? null : (
-                  <span
-                    aria-hidden
-                    className="flex size-14 items-center justify-center rounded-full bg-white/6 text-[30px] shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.08)]"
-                  >
-                    {RATINGS.find((option) => option.value === rating)?.emoji}
-                  </span>
-                )}
+                {/* Desaturated green: a dark surface cannot take a pure one. */}
+                <span
+                  aria-hidden
+                  className="flex size-14 items-center justify-center rounded-full bg-[hsl(152_42%_16%)] text-[hsl(152_55%_62%)] shadow-[inset_0px_0px_0px_1px_hsl(152_40%_26%)]"
+                >
+                  <MessageCircleCheckIcon
+                    className="size-7"
+                    strokeWidth={1.5}
+                  />
+                </span>
                 <div className="flex flex-col gap-1.5">
                   <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
-                    Thanks — that helps
+                    Thanks for the feedback
                   </p>
                   <p className="text-[14px] leading-5 text-[#8e8e93]">
-                    Every note gets read, and it decides what we build next.
+                    We read every bit of it. If it is something you need, we
+                    will fix it or build it.
                   </p>
                 </div>
                 <button
@@ -153,7 +157,7 @@ export function FeedbackDialog({
                   )}
                 >
                   <span className="relative text-[14px] font-medium leading-5 tracking-[-0.084px] text-white">
-                    Back to browsing
+                    Done
                   </span>
                   <span
                     aria-hidden

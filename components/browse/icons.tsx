@@ -46,7 +46,14 @@ export function GridIcon(props: IconProps) {
 
 export function PauseIcon(props: IconProps) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden {...props}>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden
+      {...props}
+    >
       <g transform="translate(3.188 2.5)">
         <path d="M5 13.425V1.575C5 0.45 4.62745 0 3.68627 0H1.31373C0.372549 0 0 0.45 0 1.575V13.425C0 14.55 0.372549 15 1.31373 15H3.68627C4.62745 15 5 14.55 5 13.425Z" />
         <path d="M13.625 13.425V1.575C13.625 0.45 13.2525 0 12.3113 0H9.93873C9.00409 0 8.625 0.45 8.625 1.575V13.425C8.625 14.55 8.99755 15 9.93873 15H12.3113C13.2525 15 13.625 14.55 13.625 13.425Z" />
@@ -108,6 +115,28 @@ export function FeedbackIcon(props: IconProps) {
       {...props}
     >
       <path d="M2.3145 13.1318C2.37883 12.8395 2.35428 12.5347 2.244 12.2565C1.47658 10.6642 1.29619 8.85205 1.73467 7.13973C2.17315 5.42741 3.20231 3.92497 4.64058 2.8975C6.07885 1.87004 7.8338 1.38357 9.59579 1.52392C11.3578 1.66428 13.0136 2.42244 14.271 3.66465C15.5285 4.90685 16.3069 6.55327 16.4687 8.31341C16.6306 10.0736 16.1656 11.8343 15.1558 13.285C14.146 14.7357 12.6562 15.7832 10.9494 16.2425C9.24252 16.7019 7.42829 16.5437 5.82675 15.7958C5.5639 15.696 5.27829 15.672 5.0025 15.7267L2.44275 16.4752C2.31927 16.508 2.18947 16.5087 2.06565 16.4772C1.94183 16.4458 1.8281 16.3832 1.73525 16.2955C1.6424 16.2077 1.5735 16.0977 1.53508 15.9759C1.49667 15.854 1.49001 15.7244 1.51575 15.5993L2.3145 13.1318Z" />
+    </svg>
+  );
+}
+
+/** lucide-react 0.561 ships no `message-circle-check`, so it is composed here
+ *  from lucide's own message-circle bubble and the check it pairs with. */
+export function MessageCircleCheckIcon(props: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      {...props}
+    >
+      <path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
+      <path d="m9 11 2 2 4-4" />
     </svg>
   );
 }
