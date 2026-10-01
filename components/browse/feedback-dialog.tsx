@@ -129,12 +129,9 @@ export function FeedbackDialog({
                 {/* Desaturated green: a dark surface cannot take a pure one. */}
                 <span
                   aria-hidden
-                  className="flex size-14 items-center justify-center rounded-full bg-[hsl(152_42%_16%)] text-[hsl(152_55%_62%)] shadow-[inset_0px_0px_0px_1px_hsl(152_40%_26%)]"
+                  className="flex size-14 items-center justify-center rounded-2xl bg-[hsl(152_42%_16%)] text-[hsl(152_55%_62%)] shadow-[inset_0px_0px_0px_1px_hsl(152_40%_26%)]"
                 >
-                  <MessageCircleCheckIcon
-                    className="size-7"
-                    strokeWidth={1.5}
-                  />
+                  <MessageCircleCheckIcon className="size-7" />
                 </span>
                 <div className="flex flex-col gap-1.5">
                   <p className="text-[20px] font-medium tracking-[-0.3px] text-white">
@@ -149,7 +146,7 @@ export function FeedbackDialog({
                   type="button"
                   onClick={() => onOpenChange(false)}
                   className={cn(
-                    "relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
+                    "relative mt-2 flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
                     "bg-[hsl(230_77%_55%)]",
                     "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.12)]",
                     "transition-[transform,background-color] duration-150 active:scale-[0.98]",
@@ -236,7 +233,7 @@ export function FeedbackDialog({
                   type="submit"
                   disabled={status === "sending"}
                   className={cn(
-                    "relative flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
+                    "relative mt-2 flex w-full cursor-pointer items-center justify-center overflow-clip rounded-[10px] px-2.5 py-2",
                     "bg-[hsl(230_77%_55%)]",
                     "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.12)]",
                     "transition-[transform,background-color] duration-150 active:scale-[0.98]",
