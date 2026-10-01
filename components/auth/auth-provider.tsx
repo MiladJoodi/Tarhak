@@ -34,6 +34,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     null,
   );
 
+  // `user` is mirrored into a ref because `requireAuth` reads it *after* an
+  // await, where the state captured in its closure would be stale.
+  const userRef = React.useRef<User | null>(null);
+  const applyUser = React.useCallback((next: User | null) => {
+    userRef.current = next;
+    setUser(next);
+  }, []);
+
+  // Settles when the initial `getUser()` call does. `requireAuth` awaits it so
+  // a click made while the session is still in flight does not show the login
+  // dialog to someone who is already signed in.
+  const sessionReadyRef = React.useRef<Promise<void> | null>(null);
+
   const runPending = React.useCallback(() => {
     const pending = pendingActionRef.current;
     pendingActionRef.current = null;
@@ -53,17 +66,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
     let cancelled = false;
 
-    supabase.auth.getUser().then(({ data }) => {
-      if (!cancelled) {
-        setUser(data.user ?? null);
-        setLoading(false);
-      }
-    });
+    // `getUser()` reports a missing session via `error` but still rejects when
+    // the request itself fails, so settle on both paths. Without the rejection
+    // handler a flaky network left `loading` true forever and surfaced an
+    // unhandled rejection.
+    const settle = (next: User | null) => {
+      if (cancelled) return;
+      applyUser(next);
+      setLoading(false);
+    };
+
+    sessionReadyRef.current = supabase.auth.getUser().then(
+      ({ data, error }) => settle(error ? null : (data.user ?? null)),
+      () => settle(null),
+    );
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      applyUser(session?.user ?? null);
       setLoading(false);
       if (session?.user) {
         setLoginOpen(false);
@@ -75,7 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       cancelled = true;
       subscription.unsubscribe();
     };
-  }, [configured, runPending]);
+  }, [applyUser, configured, runPending]);
 
   // Close login on in-app navigation or browser back/forward.
   React.useEffect(() => {
@@ -104,7 +125,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await action?.();
         return true;
       }
-      if (user) {
+      // Wait out the initial session fetch before deciding to prompt.
+      if (!userRef.current) await sessionReadyRef.current;
+      if (userRef.current) {
         await action?.();
         return true;
       }
@@ -112,14 +135,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoginOpen(true);
       return false;
     },
-    [configured, user],
+    [configured],
   );
 
   const signOut = React.useCallback(async () => {
     if (!configured) return;
     await createClient().auth.signOut();
-    setUser(null);
-  }, [configured]);
+    applyUser(null);
+  }, [applyUser, configured]);
 
   const value = React.useMemo(
     () => ({
