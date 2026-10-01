@@ -72,12 +72,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} `} suppressHydrationWarning>
+    // useLayouts ships one theme. `dark` is rendered by the server so the
+    // first paint is already correct — no inline script, no hydration flash,
+    // and no OS `prefers-color-scheme` path that could resolve to light.
+    <html lang="en" className={`dark ${inter.variable}`}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen antialiased`}
-        suppressHydrationWarning
       >
-        <RootProvider search={{ enabled: false }}>
+        {/* theme.enabled: false drops next-themes entirely — it is what wrote
+            `html.light` from localStorage/system, and it also registered a
+            bare `d` keydown listener on window that toggled the theme. */}
+        <RootProvider search={{ enabled: false }} theme={{ enabled: false }}>
           <AuthProvider>
             {children}
             <LoginDialog />
