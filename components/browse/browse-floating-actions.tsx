@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { useAuth } from "@/components/auth/auth-provider";
 import { useFeedbackEligibility } from "@/hooks/use-feedback-eligibility";
-import { startSponsorCheckout } from "@/lib/sponsor/checkout";
+import { createSponsorCheckoutUrl } from "@/lib/sponsor/checkout";
 import { cn } from "@/lib/utils";
 import { FeedbackDialog } from "./feedback-dialog";
 import { FeedbackIcon, PlusIcon } from "./icons";
@@ -22,12 +22,45 @@ export function BrowseFloatingActions() {
   const [checkoutPending, setCheckoutPending] = React.useState(false);
   const [checkoutError, setCheckoutError] = React.useState<string | null>(null);
 
+  /** A Dodo checkout URL is a one-time session, so one has to exist before we
+   *  can navigate. Creating it on intent rather than on click takes that
+   *  round trip off the critical path. */
+  const warmed = React.useRef<Promise<string> | null>(null);
+  const warmTimer = React.useRef<number | null>(null);
+
+  const warm = React.useCallback(() => {
+    if (warmed.current) return;
+    warmed.current = createSponsorCheckoutUrl(SLOT_TIER).catch((error) => {
+      // Let the click retry and surface the failure itself.
+      warmed.current = null;
+      throw error;
+    });
+  }, []);
+
+  /** Only on sustained intent, so a pointer crossing the dock costs nothing. */
+  const warmSoon = React.useCallback(() => {
+    if (warmed.current || warmTimer.current !== null) return;
+    warmTimer.current = window.setTimeout(() => {
+      warmTimer.current = null;
+      warm();
+    }, 120);
+  }, [warm]);
+
+  const cancelWarm = React.useCallback(() => {
+    if (warmTimer.current === null) return;
+    window.clearTimeout(warmTimer.current);
+    warmTimer.current = null;
+  }, []);
+
+  React.useEffect(() => cancelWarm, [cancelWarm]);
+
   async function openCheckout() {
     if (checkoutPending) return;
     setCheckoutPending(true);
     setCheckoutError(null);
     try {
-      await startSponsorCheckout(SLOT_TIER);
+      warm();
+      window.location.assign(await warmed.current!);
     } catch (error) {
       setCheckoutError(
         error instanceof Error ? error.message : "Could not start checkout",
@@ -49,6 +82,11 @@ export function BrowseFloatingActions() {
             <button
               type="button"
               onClick={() => void openCheckout()}
+              onPointerEnter={warmSoon}
+              onPointerLeave={cancelWarm}
+              onPointerDown={warm}
+              onFocus={warmSoon}
+              onBlur={cancelWarm}
               disabled={checkoutPending}
               aria-label="Sponsor useLayouts and add your logo here"
               className={cn(
