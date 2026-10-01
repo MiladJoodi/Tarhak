@@ -71,10 +71,10 @@ export function BrowseFloatingActions() {
 
   return (
     <>
-      <div className="pointer-events-none absolute right-2.5 bottom-2.5 z-10 flex flex-col items-end justify-center gap-2">
+      <div className="pointer-events-none absolute right-2.5 bottom-24 z-10 flex flex-col items-end justify-center gap-2 md:bottom-2.5">
         {/* Figma 1:80 */}
-        <div className="pointer-events-auto flex w-[286px] flex-col items-start overflow-hidden rounded-2xl border-[0.6px] border-border bg-[#26262b] shadow-[0px_-1px_0px_0px_rgba(255,255,255,0.04),0px_2px_4px_-4px_rgba(0,0,0,0.16),0px_4px_8px_-10px_rgba(0,0,0,0.08)]">
-          <div className="flex w-full items-center border-b-[0.6px] border-border p-2.5 text-base text-white">
+        <div className="pointer-events-auto flex w-[220px] flex-col items-start overflow-hidden rounded-2xl border-[0.6px] border-border bg-[#26262b] md:w-[286px] shadow-[0px_-1px_0px_0px_rgba(255,255,255,0.04),0px_2px_4px_-4px_rgba(0,0,0,0.16),0px_4px_8px_-10px_rgba(0,0,0,0.08)]">
+          <div className="flex w-full items-center border-b-[0.6px] border-border p-2.5 text-sm text-white md:text-base">
             Sponsor Slot
           </div>
           <div className="w-full px-2.5 py-3">
@@ -91,7 +91,7 @@ export function BrowseFloatingActions() {
               aria-label="Sponsor useLayouts and add your logo here"
               className={cn(
                 "flex w-full cursor-pointer items-center justify-center gap-2.5 overflow-hidden rounded-[10px] p-3",
-                "border border-dashed border-[#4e4e55] text-sm uppercase text-white",
+                "border border-dashed border-[#4e4e55] text-xs uppercase text-white md:text-sm",
                 "transition-colors duration-150 ease-out motion-reduce:transition-none",
                 "[@media(hover:hover)_and_(pointer:fine)]:hover:border-[#6b6b73] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-white/4",
                 "focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring",
@@ -119,8 +119,8 @@ export function BrowseFloatingActions() {
             aria-haspopup="dialog"
             aria-expanded={feedbackOpen}
             className={cn(
-              "pointer-events-auto relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-[14px] px-4 py-2.5",
-              "bg-secondary text-base text-white",
+              "pointer-events-auto relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-[14px] px-3 py-2 md:px-4 md:py-2.5",
+              "bg-secondary text-sm text-white md:text-base",
               "shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.1)]",
               "transition-[transform,background-color] duration-150 ease-out active:scale-[0.98] motion-reduce:transition-none",
               "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_28%)]",

@@ -1,13 +1,20 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { isDev } from "@/lib/admin/guard";
+import { isAdminUser, isDev } from "@/lib/admin/guard";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
-  if (!isDev()) notFound();
+export default async function AdminLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const dev = isDev();
+  // The component tools write to the filesystem, so they stay local-only. The
+  // feedback inbox is the one thing worth reaching in production.
+  if (!dev && !(await isAdminUser())) notFound();
 
   return (
     /* Opaque light shell: .light resets tokens; avoid /opacity so dark body can't bleed through. */
@@ -19,31 +26,37 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             className="text-sm font-semibold tracking-tight text-foreground"
           >
             uselayouts
-            <span className="ml-1.5 font-normal text-muted-foreground">admin</span>
+            <span className="ml-1.5 font-normal text-muted-foreground">
+              admin
+            </span>
           </Link>
           <Badge variant="secondary" className="hidden sm:inline-flex">
-            local · development
+            {dev ? "local · development" : "production"}
           </Badge>
           <div className="flex-1" />
           <nav className="flex items-center gap-1">
-            <Link
-              href="/admin/landing"
-              className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
-            >
-              Landing
-            </Link>
+            {dev ? (
+              <Link
+                href="/admin/landing"
+                className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+              >
+                Landing
+              </Link>
+            ) : null}
             <Link
               href="/admin/feedback"
               className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
             >
               Feedback
             </Link>
-            <Link
-              href="/admin/new"
-              className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
-            >
-              New
-            </Link>
+            {dev ? (
+              <Link
+                href="/admin/new"
+                className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+              >
+                New
+              </Link>
+            ) : null}
             <Link
               href="/browse"
               className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}

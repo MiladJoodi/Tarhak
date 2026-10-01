@@ -42,7 +42,7 @@ export function BrowseExperience({
       <BrowseHeader query={query} onQueryChange={setQuery} stars={stars} />
 
       <div className="flex min-h-0 flex-1 overflow-hidden px-3 pt-0.5 pb-2.5">
-        <div className="relative min-h-0 w-full flex-1">
+        <div className="relative min-h-0 w-full min-w-0 flex-1">
           <div
             data-view={isCanvas ? "canvas" : "grid"}
             className={cn(
