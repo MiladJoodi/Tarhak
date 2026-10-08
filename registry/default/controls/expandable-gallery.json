@@ -11,8 +11,8 @@
   "hintKind": "click",
   "hintHeading": "",
   "hintDescription": "",
-  "posterUrl": "https://cdn.uselayouts.com/components/expandable-gallery/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/expandable-gallery/video.mp4",
+  "posterUrl": "/api/browse-media/components/expandable-gallery/poster.avif",
+  "videoUrl": "/api/browse-media/components/expandable-gallery/video.mp4",
   "tags": [
     "gallery",
     "photos"

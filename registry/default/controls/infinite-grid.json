@@ -24,8 +24,8 @@
     "scale": 70,
     "items": []
   },
-  "posterUrl": "https://cdn.uselayouts.com/components/infinite-grid/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/infinite-grid/video.mp4",
+  "posterUrl": "/api/browse-media/components/infinite-grid/poster.avif",
+  "videoUrl": "/api/browse-media/components/infinite-grid/video.mp4",
   "tags": [
     "canvas",
     "grid",

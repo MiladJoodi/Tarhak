@@ -28,6 +28,6 @@
     "button",
     "press"
   ],
-  "videoUrl": "https://cdn.uselayouts.com/components/tactile-button/video-afb6c148d5.mp4",
-  "posterUrl": "https://cdn.uselayouts.com/components/tactile-button/poster-445352537e.avif"
+  "videoUrl": "/api/browse-media/components/tactile-button/video.mp4",
+  "posterUrl": "/api/browse-media/components/tactile-button/poster.avif"
 }

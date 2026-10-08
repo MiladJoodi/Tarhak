@@ -24,8 +24,8 @@
   "hintHeading": "",
   "hintDescription": "",
   "hintHideOnScroll": false,
-  "posterUrl": "https://cdn.uselayouts.com/components/editorial-deck/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/editorial-deck/video.mp4",
+  "posterUrl": "/api/browse-media/components/editorial-deck/poster.avif",
+  "videoUrl": "/api/browse-media/components/editorial-deck/video.mp4",
   "tags": [
     "cards",
     "deck",

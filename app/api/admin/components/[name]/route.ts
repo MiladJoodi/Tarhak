@@ -6,6 +6,7 @@ import {
   updateControls,
   upsertComponent,
 } from "@/lib/admin/components-fs";
+import { revalidateOpenComponent } from "@/lib/open/revalidate";
 
 type Params = { params: Promise<{ name: string }> };
 
@@ -37,6 +38,7 @@ export async function PUT(request: Request, { params }: Params) {
         body.disabledControls ?? [],
         body.dialConfig,
       );
+      revalidateOpenComponent(result.name);
       return NextResponse.json({ ok: true, ...result });
     }
 
@@ -59,6 +61,8 @@ export async function PUT(request: Request, { params }: Params) {
       hintHideOnScroll: body.hintHideOnScroll,
       tags: body.tags,
     });
+    if (name !== result.name) revalidateOpenComponent(name);
+    revalidateOpenComponent(result.name);
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed";
@@ -72,6 +76,7 @@ export async function DELETE(_request: Request, { params }: Params) {
     assertDevOnly();
     const { name } = await params;
     const result = await deleteComponent(name);
+    revalidateOpenComponent(result.name);
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed";

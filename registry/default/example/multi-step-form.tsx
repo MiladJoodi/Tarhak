@@ -220,7 +220,6 @@ export default function MultiStepForm() {
               <Field>
                 <FieldLabel htmlFor="team-size">اندازه تیم</FieldLabel>
                 <Select
-                  dir="rtl"
                   items={TEAM_SIZE_OPTIONS}
                   value={watchedValues["team-size"] ?? null}
                   onValueChange={(val) => form.setValue("team-size", val)}
@@ -244,7 +243,6 @@ export default function MultiStepForm() {
               <Field>
                 <FieldLabel htmlFor="priority">اولویت</FieldLabel>
                 <Select
-                  dir="rtl"
                   items={PRIORITY_OPTIONS}
                   value={watchedValues["priority"] ?? null}
                   onValueChange={(val) => form.setValue("priority", val)}

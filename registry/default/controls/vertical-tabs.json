@@ -11,8 +11,8 @@
   "hintKind": "click",
   "hintHeading": "",
   "hintDescription": "",
-  "posterUrl": "https://cdn.uselayouts.com/components/vertical-tabs/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/vertical-tabs/video.mp4",
+  "posterUrl": "/api/browse-media/components/vertical-tabs/poster.avif",
+  "videoUrl": "/api/browse-media/components/vertical-tabs/video.mp4",
   "tags": [
     "tabs",
     "nav"

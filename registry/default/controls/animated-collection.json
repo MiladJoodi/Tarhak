@@ -20,8 +20,8 @@
       }
     ]
   },
-  "posterUrl": "https://cdn.uselayouts.com/components/animated-collection/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/animated-collection/video.mp4",
+  "posterUrl": "/api/browse-media/components/animated-collection/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-collection/video.mp4",
   "tags": [
     "list",
     "collection"

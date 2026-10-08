@@ -1,12 +1,26 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 
 import type { BrowseItem } from "@/lib/browse/items";
 import { cn } from "@/lib/utils";
 import { NewDot } from "@/components/ui/new-dot";
 import { BrowsePreview } from "./browse-preview";
+
+function BrowseCardPendingOverlay() {
+  const { pending } = useLinkStatus();
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute inset-0 rounded-[10px] bg-black/35 opacity-0 transition-opacity duration-200",
+        "delay-100",
+        pending && "opacity-100",
+      )}
+    />
+  );
+}
 
 type BrowseCardProps = {
   item: BrowseItem;
@@ -75,7 +89,7 @@ export function BrowseCard({
         href={`/docs/components/${item.slug}`}
         aria-label={label}
         draggable={false}
-        className="browse-card-hit rounded-[10px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring"
+        className="browse-card-hit relative rounded-[10px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring"
         onClick={() => {
           try {
             window.sessionStorage.setItem("uselayouts:open-sidebar-pinned", "0");
@@ -83,7 +97,9 @@ export function BrowseCard({
             // ignore
           }
         }}
-      />
+      >
+        <BrowseCardPendingOverlay />
+      </Link>
     </article>
   );
 }

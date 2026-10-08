@@ -9,6 +9,7 @@ import { OpenCodePanel } from "@/components/open/open-panels";
 import { OpenPreview } from "@/components/open/open-preview";
 import { usePackageManager } from "@/components/open/use-package-manager";
 import { scrollbarMinimal } from "@/components/open/ui";
+import { useOpenHighlight } from "@/hooks/use-open-highlight";
 import type { OpenComponentData } from "@/lib/open/component";
 import {
   parsePreviewBackgrounds,
@@ -33,6 +34,10 @@ export function OpenComponentView({
   const previewBackground = resolvePreviewBackground(backgrounds, "dark");
   const hintTone = hintToneForBackground(previewBackground);
   const codeOpen = panel === "code";
+  const { highlight, loading: highlightLoading } = useOpenHighlight(
+    data.slug,
+    codeOpen,
+  );
 
   return (
     <>
@@ -72,21 +77,29 @@ export function OpenComponentView({
         title="Get this Component"
         wide
       >
-        <OpenCodePanel
-          description={data.description}
-          docsContent={docsContent}
-          usage={data.usage}
-          usageHtml={data.usageHtml}
-          code={data.code}
-          codeHtml={data.codeHtml}
-          cliHtml={data.cliHtml}
-          manualHtml={data.manualHtml}
-          registryItem={data.registryItem}
-          dependencies={data.dependencies}
-          manager={manager}
-          onManagerChange={setManager}
-          slug={data.slug}
-        />
+        {highlightLoading ? (
+          <div className="flex min-w-0 flex-col gap-[22px] pb-4" aria-busy="true">
+            <div className="h-56 animate-pulse rounded-xl bg-white/8" />
+            <div className="h-40 animate-pulse rounded-xl bg-white/6" />
+            <div className="h-24 animate-pulse rounded-xl bg-white/5" />
+          </div>
+        ) : (
+          <OpenCodePanel
+            description={data.description}
+            docsContent={docsContent}
+            usage={data.usage}
+            usageHtml={highlight.usageHtml}
+            code={data.code}
+            codeHtml={highlight.codeHtml}
+            cliHtml={highlight.cliHtml}
+            manualHtml={highlight.manualHtml}
+            registryItem={data.registryItem}
+            dependencies={data.dependencies}
+            manager={manager}
+            onManagerChange={setManager}
+            slug={data.slug}
+          />
+        )}
       </OpenDrawer>
     </>
   );

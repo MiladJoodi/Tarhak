@@ -17,8 +17,8 @@
   "hintDescription": "صفحه باز می‌شود، می‌چرخد و نور از رویش می‌گذرد. وقتی انجام شد، ریست می‌شود تا دوباره اسکن کنی.",
   "hintTop": 140,
   "hintHideOnScroll": false,
-  "posterUrl": "https://cdn.uselayouts.com/components/scan-document/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/scan-document/video.mp4",
+  "posterUrl": "/api/browse-media/components/scan-document/poster.avif",
+  "videoUrl": "/api/browse-media/components/scan-document/video.mp4",
   "tags": [
     "button",
     "scan",

@@ -17,8 +17,8 @@
   "hintDescription": "صفحه‌ای بالا می‌آید. بزن تا خرد شود، بعد ریست می‌شود.",
   "hintTop": 162,
   "hintHideOnScroll": false,
-  "posterUrl": "https://cdn.uselayouts.com/components/paper-shred-button/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/paper-shred-button/video.mp4",
+  "posterUrl": "/api/browse-media/components/paper-shred-button/poster.avif",
+  "videoUrl": "/api/browse-media/components/paper-shred-button/video.mp4",
   "tags": [
     "button",
     "delete",

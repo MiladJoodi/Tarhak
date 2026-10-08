@@ -31,8 +31,8 @@
     "scale": 70,
     "items": []
   },
-  "posterUrl": "https://cdn.uselayouts.com/components/accordionos/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/accordionos/video.mp4",
+  "posterUrl": "/api/browse-media/components/accordionos/poster.avif",
+  "videoUrl": "/api/browse-media/components/accordionos/video.mp4",
   "tags": [
     "accordion",
     "image"

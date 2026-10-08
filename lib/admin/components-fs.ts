@@ -333,8 +333,8 @@ export async function upsertComponent(input: UpsertComponentInput) {
     disabled,
     updatedAt: new Date().toISOString(),
     previewBackground: background,
-    posterUrl: existingMeta?.posterUrl,
-    videoUrl: existingMeta?.videoUrl,
+    posterUrl: `/api/browse-media/components/${name}/poster.avif`,
+    videoUrl: `/api/browse-media/components/${name}/video.mp4`,
     ...(hintTop !== undefined ? { hintTop } : {}),
     ...(hasHintInput
       ? serializePreviewHint({
@@ -398,8 +398,8 @@ export async function upsertComponent(input: UpsertComponentInput) {
       title: item.title,
       description: item.description,
       dependencies: item.dependencies,
-      poster_url: existingMeta?.posterUrl ?? null,
-      video_url: existingMeta?.videoUrl ?? null,
+      poster_url: `/api/browse-media/components/${name}/poster.avif`,
+      video_url: `/api/browse-media/components/${name}/video.mp4`,
     });
   } catch {
     // FS remains source of truth.
@@ -458,8 +458,8 @@ export async function updateControls(
     disabled,
     updatedAt: new Date().toISOString(),
     previewBackground: existing.controls?.previewBackground,
-    posterUrl: existing.controls?.posterUrl,
-    videoUrl: existing.controls?.videoUrl,
+    posterUrl: `/api/browse-media/components/${name}/poster.avif`,
+    videoUrl: `/api/browse-media/components/${name}/video.mp4`,
   });
   return { name, disabled };
 }

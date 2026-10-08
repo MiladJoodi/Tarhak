@@ -21,8 +21,8 @@
     "cart",
     "payment"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/drawer-buttons/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/drawer-buttons/video.mp4",
+  "posterUrl": "/api/browse-media/components/drawer-buttons/poster.avif",
+  "videoUrl": "/api/browse-media/components/drawer-buttons/video.mp4",
   "hintTop": 158,
   "hintHideOnScroll": false
 }

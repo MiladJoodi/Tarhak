@@ -3,9 +3,8 @@
 /* eslint-disable @next/next/no-img-element -- Figma-exported marks. */
 
 import Link from "next/link";
-import { Maximize2, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 
-import { useOpenPanel } from "@/components/open/open-panel-context";
 import { openPressMotion } from "@/components/open/ui";
 import { cn } from "@/lib/utils";
 
@@ -33,24 +32,13 @@ export function OpenActions({
   slug: string;
 }) {
   const active = panel === "code";
-  const { setStage } = useOpenPanel();
 
   return (
     <div className="flex items-center gap-2">
       {process.env.NODE_ENV === "development" ? (
-        <>
-          <Link href={`/admin/${slug}`} className={actionBtnClass} aria-label="Edit">
-            <Pencil className="size-[22px]" />
-          </Link>
-          <button
-            type="button"
-            className={actionBtnClass}
-            aria-label="Full screen"
-            onClick={() => setStage(true)}
-          >
-            <Maximize2 className="size-[22px]" />
-          </button>
-        </>
+        <Link href={`/admin/${slug}`} className={actionBtnClass} aria-label="Edit">
+          <Pencil className="size-[22px]" />
+        </Link>
       ) : null}
       <button
         type="button"

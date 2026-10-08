@@ -2,8 +2,8 @@
   "dialConfig": {},
   "disabled": [],
   "updatedAt": "2026-09-16T16:18:00.819Z",
-  "posterUrl": "https://cdn.uselayouts.com/components/pricing-card/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/pricing-card/video.mp4",
+  "posterUrl": "/api/browse-media/components/pricing-card/poster.avif",
+  "videoUrl": "/api/browse-media/components/pricing-card/video.mp4",
   "tags": [
     "card",
     "pricing"

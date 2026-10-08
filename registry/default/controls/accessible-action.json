@@ -29,8 +29,8 @@
     "items": []
   },
   "hintTop": 110,
-  "posterUrl": "https://cdn.uselayouts.com/components/accessible-action/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/accessible-action/video.mp4",
+  "posterUrl": "/api/browse-media/components/accessible-action/poster.avif",
+  "videoUrl": "/api/browse-media/components/accessible-action/video.mp4",
   "tags": [
     "cards",
     "stack",

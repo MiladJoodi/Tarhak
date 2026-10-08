@@ -20,8 +20,8 @@
     ]
   },
   "hintTop": 80,
-  "posterUrl": "https://cdn.uselayouts.com/components/3d-book/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/3d-book/video.mp4",
+  "posterUrl": "/api/browse-media/components/3d-book/poster.avif",
+  "videoUrl": "/api/browse-media/components/3d-book/video.mp4",
   "tags": [
     "book",
     "pages",

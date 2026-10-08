@@ -29,6 +29,6 @@
     "stack",
     "scroll"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/stack-scroll-reveal/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/stack-scroll-reveal/video.mp4"
+  "posterUrl": "/api/browse-media/components/stack-scroll-reveal/poster.avif",
+  "videoUrl": "/api/browse-media/components/stack-scroll-reveal/video.mp4"
 }

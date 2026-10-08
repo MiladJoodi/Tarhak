@@ -20,6 +20,6 @@
     "prompt",
     "ai"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/prompt-box/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/prompt-box/video.mp4"
+  "posterUrl": "/api/browse-media/components/prompt-box/poster.avif",
+  "videoUrl": "/api/browse-media/components/prompt-box/video.mp4"
 }

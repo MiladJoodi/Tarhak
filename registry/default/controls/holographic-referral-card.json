@@ -21,6 +21,6 @@
     "card",
     "referral"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/holographic-referral-card/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/holographic-referral-card/video.mp4"
+  "posterUrl": "/api/browse-media/components/holographic-referral-card/poster.avif",
+  "videoUrl": "/api/browse-media/components/holographic-referral-card/video.mp4"
 }

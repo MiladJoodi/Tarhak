@@ -21,6 +21,6 @@
     "drawer",
     "sidebar"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/curve-drawer/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/curve-drawer/video.mp4"
+  "posterUrl": "/api/browse-media/components/curve-drawer/poster.avif",
+  "videoUrl": "/api/browse-media/components/curve-drawer/video.mp4"
 }

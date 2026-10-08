@@ -21,6 +21,6 @@
     "button",
     "contact"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/get-in-touch/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/get-in-touch/video.mp4"
+  "posterUrl": "/api/browse-media/components/get-in-touch/poster.avif",
+  "videoUrl": "/api/browse-media/components/get-in-touch/video.mp4"
 }

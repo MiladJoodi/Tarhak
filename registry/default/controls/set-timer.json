@@ -26,6 +26,6 @@
     "timer",
     "input"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/set-timer/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/set-timer/video.mp4"
+  "posterUrl": "/api/browse-media/components/set-timer/poster.avif",
+  "videoUrl": "/api/browse-media/components/set-timer/video.mp4"
 }

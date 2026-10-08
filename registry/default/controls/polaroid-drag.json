@@ -29,8 +29,8 @@
     "scale": 70,
     "items": []
   },
-  "posterUrl": "https://cdn.uselayouts.com/components/polaroid-drag/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/polaroid-drag/video.mp4",
+  "posterUrl": "/api/browse-media/components/polaroid-drag/poster.avif",
+  "videoUrl": "/api/browse-media/components/polaroid-drag/video.mp4",
   "tags": [
     "photos",
     "polaroid",

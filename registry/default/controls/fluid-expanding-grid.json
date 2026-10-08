@@ -2,8 +2,8 @@
   "dialConfig": {},
   "disabled": [],
   "updatedAt": "2026-09-16T16:16:33.302Z",
-  "posterUrl": "https://cdn.uselayouts.com/components/fluid-expanding-grid/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/fluid-expanding-grid/video.mp4",
+  "posterUrl": "/api/browse-media/components/fluid-expanding-grid/poster.avif",
+  "videoUrl": "/api/browse-media/components/fluid-expanding-grid/video.mp4",
   "tags": [
     "grid",
     "layout"

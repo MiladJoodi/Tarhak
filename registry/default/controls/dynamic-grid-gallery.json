@@ -29,6 +29,6 @@
     "grid",
     "photos"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/dynamic-grid-gallery/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/dynamic-grid-gallery/video.mp4"
+  "posterUrl": "/api/browse-media/components/dynamic-grid-gallery/poster.avif",
+  "videoUrl": "/api/browse-media/components/dynamic-grid-gallery/video.mp4"
 }

@@ -43,8 +43,8 @@
       }
     ]
   },
-  "posterUrl": "https://cdn.uselayouts.com/components/card-folder/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/card-folder/video.mp4",
+  "posterUrl": "/api/browse-media/components/card-folder/poster.avif",
+  "videoUrl": "/api/browse-media/components/card-folder/video.mp4",
   "tags": [
     "folder",
     "card"

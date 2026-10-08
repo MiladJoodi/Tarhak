@@ -2,13 +2,10 @@ import { clampHintTop, getComponent, listComponents } from "@/lib/admin/componen
 import { toPascal } from "@/lib/admin/slug";
 import { browseItems } from "@/lib/browse/items";
 import { titleFaFor } from "@/lib/browse/titles-fa";
-import { highlightCode } from "@/lib/open/highlight";
+import { emptyHighlightPayload } from "@/lib/open/highlight-types";
 import { isNewComponent } from "@/lib/open/new-components";
 import { extractUsageSnippet } from "@/lib/open/mdx-extract";
 import {
-  cliInstallCommand,
-  manualInstallCommand,
-  PACKAGE_MANAGERS,
   registryItem,
   type PackageManager,
 } from "@/lib/open/package-manager";
@@ -37,39 +34,20 @@ export type OpenComponentData = {
   dependencies: string[];
   registryItem: string;
   usage: string;
+  /** Filled on demand via /api/open/components/[slug]/highlight */
   usageHtml: string;
   code: string;
+  /** Filled on demand via /api/open/components/[slug]/highlight */
   codeHtml: string;
-  /** Shiki HTML for CLI install commands (same highlighter as codeHtml). */
+  /** Shiki HTML for CLI install commands — loaded on demand. */
   cliHtml: Record<PackageManager, string>;
-  /** Shiki HTML for manual dep install commands. */
+  /** Shiki HTML for manual dep install commands — loaded on demand. */
   manualHtml: Record<PackageManager, string>;
   previewBackground?: string | PreviewBackgrounds;
   /** PreviewHint overlay top offset in px. Omit = 80. */
   hintTop?: number;
   previewHint?: ResolvedPreviewHint | null;
 };
-
-async function highlightShellCommands(
-  build: (manager: PackageManager) => string,
-): Promise<Record<PackageManager, string>> {
-  // Always materialize every PackageManager key — callers index by manager.
-  const out = {
-    npm: "",
-    yarn: "",
-    pnpm: "",
-    bun: "",
-  } satisfies Record<PackageManager, string>;
-  await Promise.all(
-    PACKAGE_MANAGERS.map(async (manager) => {
-      const command = build(manager);
-      out[manager] = command
-        ? await highlightCode(command, "bash", { showLineNumbers: false })
-        : "";
-    }),
-  );
-  return out;
-}
 
 function defaultUsage(slug: string) {
   const component = toPascal(slug);
@@ -114,6 +92,7 @@ export async function getOpenNavItems(): Promise<OpenNavItem[]> {
   return mapped.sort((a, b) => a.title.localeCompare(b.title));
 }
 
+/** Shell data for the open page — no Shiki. Highlight loads when Code opens. */
 export async function getOpenComponent(slug: string): Promise<OpenComponentData | null> {
   const record = await getComponent(slug);
   const docsPage = getComponentDocsPage(slug);
@@ -126,27 +105,20 @@ export async function getOpenComponent(slug: string): Promise<OpenComponentData 
   const dependencies = record?.item.dependencies?.filter(Boolean) ?? [];
   const code = record?.code ?? "";
   const usage = extractUsageSnippet(record?.mdx ?? "", defaultUsage(slug));
-
-  const item = registryItem(slug);
-  const [usageHtml, codeHtml, cliHtml, manualHtml] = await Promise.all([
-    highlightCode(usage, "tsx", { showLineNumbers: false }),
-    code ? highlightCode(code, "tsx", { showLineNumbers: false }) : Promise.resolve(""),
-    highlightShellCommands((manager) => cliInstallCommand(manager, item)),
-    highlightShellCommands((manager) => manualInstallCommand(manager, dependencies)),
-  ]);
+  const empty = emptyHighlightPayload();
 
   return {
     slug,
     title,
     description,
     dependencies,
-    registryItem: item,
+    registryItem: registryItem(slug),
     usage,
-    usageHtml,
+    usageHtml: empty.usageHtml,
     code,
-    codeHtml,
-    cliHtml,
-    manualHtml,
+    codeHtml: empty.codeHtml,
+    cliHtml: empty.cliHtml,
+    manualHtml: empty.manualHtml,
     previewBackground: record?.controls?.previewBackground,
     hintTop: clampHintTop(record?.controls?.hintTop),
     previewHint: resolvePreviewHint(parsePreviewHint(record?.controls)),

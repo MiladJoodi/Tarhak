@@ -31,6 +31,6 @@
     "wheel",
     "slider"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/wheel-carousel/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/wheel-carousel/video.mp4"
+  "posterUrl": "/api/browse-media/components/wheel-carousel/poster.avif",
+  "videoUrl": "/api/browse-media/components/wheel-carousel/video.mp4"
 }

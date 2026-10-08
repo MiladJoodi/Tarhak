@@ -8,6 +8,6 @@
     "slider",
     "drag"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/coverflow-drag/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/coverflow-drag/video.mp4"
+  "posterUrl": "/api/browse-media/components/coverflow-drag/poster.avif",
+  "videoUrl": "/api/browse-media/components/coverflow-drag/video.mp4"
 }

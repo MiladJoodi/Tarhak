@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { RootProvider } from "fumadocs-ui/provider/next";
+import NextTopLoader from "nextjs-toploader";
 import { estedad } from "./fonts/estedad";
 import "./globals.css";
 import "@/styles/dialkit.css";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -82,11 +81,17 @@ export default function RootLayout({
         {/* theme.enabled: false drops next-themes entirely — it is what wrote
             `html.light` from localStorage/system, and it also registered a
             bare `d` keydown listener on window that toggled the theme. */}
+        <NextTopLoader
+          color="#ffffff"
+          height={2}
+          showSpinner={false}
+          crawl
+          speed={200}
+          zIndex={9999}
+        />
         <RootProvider search={{ enabled: false }} theme={{ enabled: false }}>
           {children}
         </RootProvider>
-        <Analytics />
-        <GoogleAnalytics gaId="G-EBGR3GK00N" />
       </body>
     </html>
   );

@@ -12,8 +12,8 @@
   "hintHeading": "",
   "hintDescription": "",
   "hintHideOnScroll": false,
-  "posterUrl": "https://cdn.uselayouts.com/components/save-button/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/save-button/video.mp4",
+  "posterUrl": "/api/browse-media/components/save-button/poster.avif",
+  "videoUrl": "/api/browse-media/components/save-button/video.mp4",
   "tags": [
     "button",
     "save",

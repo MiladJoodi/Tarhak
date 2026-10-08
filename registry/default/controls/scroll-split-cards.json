@@ -29,6 +29,6 @@
     "split"
   ],
   "hintTop": 80,
-  "posterUrl": "https://cdn.uselayouts.com/components/scroll-split-cards/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/scroll-split-cards/video.mp4"
+  "posterUrl": "/api/browse-media/components/scroll-split-cards/poster.avif",
+  "videoUrl": "/api/browse-media/components/scroll-split-cards/video.mp4"
 }

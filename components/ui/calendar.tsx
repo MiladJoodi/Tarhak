@@ -41,6 +41,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      // @ts-expect-error Persian and Gregorian DayPicker locale types are incompatible.
       locale={jalali ? faIRJalali : locale}
       dir={jalali ? "rtl" : dir}
       numerals={jalali ? "arabext" : numerals}

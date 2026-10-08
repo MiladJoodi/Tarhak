@@ -33,8 +33,8 @@
   "hintHeading": "",
   "hintDescription": "",
   "hintHideOnScroll": false,
-  "posterUrl": "https://cdn.uselayouts.com/components/rolling-card-stack/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/rolling-card-stack/video.mp4",
+  "posterUrl": "/api/browse-media/components/rolling-card-stack/poster.avif",
+  "videoUrl": "/api/browse-media/components/rolling-card-stack/video.mp4",
   "tags": [
     "cards",
     "stack"

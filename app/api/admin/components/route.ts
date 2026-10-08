@@ -5,6 +5,7 @@ import {
   upsertComponent,
 } from "@/lib/admin/components-fs";
 import { extractControlsFromSource } from "@/lib/admin/dial-extract";
+import { revalidateOpenComponent } from "@/lib/open/revalidate";
 import { getComponentCopyCounts } from "@/lib/supabase/admin";
 
 export async function GET() {
@@ -78,6 +79,7 @@ export async function POST(request: Request) {
       tags,
     });
 
+    revalidateOpenComponent(result.name);
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed";

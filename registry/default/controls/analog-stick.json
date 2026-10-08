@@ -17,8 +17,8 @@
   "hintDescription": "چوبک به سمت فشار خم می‌شود. فلش هم‌جهت کهربایی می‌شود. فقط CSS — بدون state جاوااسکریپت.",
   "hintTop": 150,
   "hintHideOnScroll": false,
-  "posterUrl": "https://cdn.uselayouts.com/components/analog-stick/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/analog-stick/video.mp4",
+  "posterUrl": "/api/browse-media/components/analog-stick/poster.avif",
+  "videoUrl": "/api/browse-media/components/analog-stick/video.mp4",
   "tags": [
     "button",
     "stick",

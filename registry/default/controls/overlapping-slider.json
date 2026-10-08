@@ -27,6 +27,6 @@
     "carousel",
     "slider"
   ],
-  "posterUrl": "https://cdn.uselayouts.com/components/overlapping-slider/poster.avif",
-  "videoUrl": "https://cdn.uselayouts.com/components/overlapping-slider/video.mp4"
+  "posterUrl": "/api/browse-media/components/overlapping-slider/poster.avif",
+  "videoUrl": "/api/browse-media/components/overlapping-slider/video.mp4"
 }
