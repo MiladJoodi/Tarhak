@@ -161,14 +161,15 @@ function PreviewFrame({
       )}
       style={{
         width: PREVIEW_W,
-        left: 248 + 8,
+        // Peek list docks on the right; preview sits to its left.
+        right: 248 + 8,
         top,
         y: "-50%",
-        transformOrigin: "left center",
+        transformOrigin: "right center",
         willChange: "transform",
       }}
       initial={
-        skip ? false : { opacity: 0, x: -4, scale: 0.95, height }
+        skip ? false : { opacity: 0, x: 4, scale: 0.95, height }
       }
       animate={{ opacity: 1, x: 0, scale: 1, height }}
       exit={
@@ -176,7 +177,7 @@ function PreviewFrame({
           ? { opacity: 0 }
           : {
               opacity: 0,
-              x: -4,
+              x: 4,
               scale: 0.95,
               transition: { duration: 0.15, ease: EASE_OUT },
             }

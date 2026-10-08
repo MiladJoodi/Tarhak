@@ -14,7 +14,7 @@ import {
 import { openPressMotion, scrollbarMinimal } from "@/components/open/ui";
 import { cn } from "@/lib/utils";
 
-/** Figma 109:221 / 109:500 — floating right drawer chrome */
+/** Floating left drawer; chrome + copy are RTL, code stays LTR */
 export function OpenDrawer({
   open,
   onClose,
@@ -34,14 +34,15 @@ export function OpenDrawer({
       onOpenChange={(next) => {
         if (!next) onClose();
       }}
-      swipeDirection="right"
+      swipeDirection="left"
       modal
     >
       <DrawerContent
+        dir="rtl"
         className={cn(
           "border border-white/10 bg-[hsl(240_5%_12%)] text-foreground",
           "rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.04),0_8px_10px_-6px_rgba(0,0,0,0.1)]",
-          "data-[swipe-direction=right]:rounded-2xl data-[swipe-direction=right]:border",
+          "data-[swipe-direction=left]:rounded-2xl data-[swipe-direction=left]:border",
           /* Floating inset drawer — hide edge-bleed stripe */
           "after:hidden",
           /* Mobile: full usable width (beats inline desktop width) */
@@ -56,7 +57,7 @@ export function OpenDrawer({
           } as React.CSSProperties
         }
       >
-        <DrawerHeader className="flex shrink-0 flex-row items-center justify-between gap-3 border-b border-[hsl(240_4%_29%)] px-4 py-2.5 text-left md:gap-3 md:text-left">
+        <DrawerHeader className="flex shrink-0 flex-row items-center justify-between gap-3 border-b border-[hsl(240_4%_29%)] px-4 py-2.5 text-start md:gap-3 md:text-start">
           <DrawerTitle className="text-[20px] leading-[1.3] font-normal tracking-[-0.2px] text-white">
             {title}
           </DrawerTitle>

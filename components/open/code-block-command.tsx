@@ -67,6 +67,7 @@ export function CodeBlockCommand({
 
   return (
     <Tabs
+      dir="ltr"
       value={active}
       onValueChange={(next) => {
         if (typeof next === "string" && isPackageManager(next)) onValueChange(next);
@@ -74,7 +75,7 @@ export function CodeBlockCommand({
       className="min-w-0 gap-0 overflow-hidden rounded-[10px] border border-[#47474d] bg-[#323239]"
     >
       {/* Paper 11I-0 — pl 10 / pr 8 / py 8; PM pills use highlighter command color */}
-      <div className="flex min-w-0 items-center justify-between gap-2 border-b border-[#47474d] py-2 pr-2 pl-2.5">
+      <div className="flex min-w-0 items-center justify-between gap-2 border-b border-[#47474d] py-2 pe-2 ps-2.5">
         <TabsList className="relative z-0 h-auto w-fit gap-1.5 rounded-none bg-transparent p-0 group-data-horizontal/tabs:h-auto">
           {COMMAND_TABS.map((option) => (
             <TabsTrigger
@@ -82,7 +83,7 @@ export function CodeBlockCommand({
               value={option}
               className={cn(
                 "h-auto flex-none cursor-pointer gap-1 rounded-md border-0 bg-transparent px-1.5 py-px text-xs leading-5 font-normal tracking-[-0.03em] shadow-none",
-                /* Vesper dark shell-command token (same as highlightCode bash) */
+                /* dark-plus shell-command token (same as highlightCode bash) */
                 "text-[#FFC799]/55",
                 "data-active:bg-[#ffffff24] data-active:text-[#FFC799] data-active:shadow-none",
                 "dark:data-active:border-transparent dark:data-active:bg-[#ffffff24]",

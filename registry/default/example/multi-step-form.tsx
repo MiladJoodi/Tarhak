@@ -70,7 +70,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function MultiStepFormDemo() {
+export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState<number>();
   const [ref, bounds] = useMeasure();

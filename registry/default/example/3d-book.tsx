@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-export default function InteractiveBook() {
+export default function Component3dBook() {
   const bookRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [isDragging, setIsDragging] = useState(false);

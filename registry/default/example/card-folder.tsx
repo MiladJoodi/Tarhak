@@ -208,7 +208,7 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
   );
 }
 
-export default function FolderCards() {
+export default function CardFolder() {
   return (
     <section className="flex h-full w-full items-center justify-center px-6 py-8">
       <div className="flex flex-wrap items-center justify-center gap-8">

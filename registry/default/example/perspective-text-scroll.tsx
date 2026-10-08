@@ -54,7 +54,7 @@ function interpolateKeyframes(p: number) {
   };
 }
 
-export function PerspectiveText() {
+export function PerspectiveTextScroll() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
 
@@ -169,4 +169,4 @@ export function PerspectiveText() {
   );
 }
 
-export default PerspectiveText;
+export default PerspectiveTextScroll;

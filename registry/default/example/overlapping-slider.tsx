@@ -396,7 +396,7 @@ export function ProfileCard({ card }: { card: CardProfile }) {
   );
 }
 
-export default function OverlappingSliderDemo() {
+export default function OverlappingSliderExample() {
   return (
     <div className="flex h-full w-full flex-col justify-center bg-white">
       <OverlappingSlider

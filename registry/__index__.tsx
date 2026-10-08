@@ -1040,7 +1040,7 @@ export const Index: Record<string, any> = {
   },
   "smooth-dropdown": {
     name: "smooth-dropdown",
-    description: "A dropdown menu with premium layout transitions.",
+    description: "منوی بازشو با انتقال نرم و تغییر شکل دکمه به منو.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{

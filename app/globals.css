@@ -74,8 +74,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --font-estedad is set by next/font/local on <html> */
+  --font-sans: var(--font-estedad), Tahoma, Arial, sans-serif;
+  /*
+   * Geist Mono has no Arabic/Persian glyphs. Do NOT put
+   * `var(--font-geist-mono)` first — next/font injects "Geist Mono Fallback"
+   * (size-adjusted Arial) which steals fa/ar before Estedad can apply.
+   */
+  --font-mono: "Geist Mono", var(--font-estedad), ui-monospace, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -408,6 +414,8 @@
  */
 .open-shiki-surface .shiki {
   --padding-left: 0px;
+  /* Latin → Geist Mono; Persian/Arabic → Estedad (see --font-mono) */
+  font-family: "Geist Mono", var(--font-estedad), ui-monospace, monospace;
 }
 .open-shiki-surface .shiki .line {
   padding-left: 0;

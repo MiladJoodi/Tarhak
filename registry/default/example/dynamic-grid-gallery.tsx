@@ -147,7 +147,7 @@ export function DynamicGridGallery({
   );
 }
 
-export default function DynamicGridGalleryDemo() {
+export default function DynamicGridGalleryExample() {
   return (
     <div className="aspect-[3/2] w-[min(100%-3rem,72rem)]">
       <DynamicGridGallery />

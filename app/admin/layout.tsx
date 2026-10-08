@@ -12,8 +12,7 @@ export default async function AdminLayout({
   children: ReactNode;
 }) {
   const dev = isDev();
-  // The component tools write to the filesystem, so they stay local-only. The
-  // feedback inbox is the one thing worth reaching in production.
+  // The component tools write to the filesystem, so they stay local-only.
   if (!dev && !(await isAdminUser())) notFound();
 
   return (
@@ -43,12 +42,6 @@ export default async function AdminLayout({
                 Landing
               </Link>
             ) : null}
-            <Link
-              href="/admin/feedback"
-              className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
-            >
-              Feedback
-            </Link>
             {dev ? (
               <Link
                 href="/admin/new"

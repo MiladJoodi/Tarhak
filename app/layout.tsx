@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { RootProvider } from "fumadocs-ui/provider/next";
+import { estedad } from "./fonts/estedad";
 import "./globals.css";
 import "@/styles/dialkit.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
-import { AuthProvider } from "@/components/auth/auth-provider";
-import { LoginDialog } from "@/components/auth/login-dialog";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,18 +72,18 @@ export default function RootLayout({
     // useLayouts ships one theme. `dark` is rendered by the server so the
     // first paint is already correct — no inline script, no hydration flash,
     // and no OS `prefers-color-scheme` path that could resolve to light.
-    <html lang="en" className={`dark ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`dark ${estedad.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen antialiased`}
+        className={`${estedad.className} flex flex-col min-h-screen antialiased`}
       >
         {/* theme.enabled: false drops next-themes entirely — it is what wrote
             `html.light` from localStorage/system, and it also registered a
             bare `d` keydown listener on window that toggled the theme. */}
         <RootProvider search={{ enabled: false }} theme={{ enabled: false }}>
-          <AuthProvider>
-            {children}
-            <LoginDialog />
-          </AuthProvider>
+          {children}
         </RootProvider>
         <Analytics />
         <GoogleAnalytics gaId="G-EBGR3GK00N" />

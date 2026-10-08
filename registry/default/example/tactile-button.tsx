@@ -207,7 +207,7 @@ export const TactileButton = React.forwardRef<
 
 TactileButton.displayName = "TactileButton";
 
-export default function TactileButtonDemo() {
+export default function TactileButtonExample() {
   return (
     <div className="flex h-full w-full items-center justify-center p-16">
       <TactileButton>Get Started</TactileButton>

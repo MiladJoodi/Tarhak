@@ -1,6 +1,7 @@
 import { clampHintTop, getComponent, listComponents } from "@/lib/admin/components-fs";
 import { toPascal } from "@/lib/admin/slug";
 import { browseItems } from "@/lib/browse/items";
+import { titleFaFor } from "@/lib/browse/titles-fa";
 import { highlightCode } from "@/lib/open/highlight";
 import { isNewComponent } from "@/lib/open/new-components";
 import { extractUsageSnippet } from "@/lib/open/mdx-extract";
@@ -21,6 +22,8 @@ import { source } from "@/lib/source";
 
 export type OpenNavItem = {
   title: string;
+  /** Persian label shown smaller under English. */
+  titleFa?: string;
   href: string;
   slug: string;
   isNew?: boolean;
@@ -87,19 +90,22 @@ export async function getOpenNavItems(): Promise<OpenNavItem[]> {
     items.length > 0
       ? items.map((item) => {
           const page = getComponentDocsPage(item.name);
+          const browse = browseItems.find((entry) => entry.slug === item.name);
+          // Prefer catalog English titles so nav stays bilingual (EN primary).
           return {
             slug: item.name,
-            title: page?.data.title ?? item.title,
+            title: browse?.title ?? item.title ?? page?.data.title ?? item.name,
+            titleFa: titleFaFor(item.name) ?? browse?.titleFa,
             href: `/docs/components/${item.name}`,
             isNew: isNewComponent(item.name),
             tags: item.tags,
           };
         })
       : browseItems.map((item) => {
-          const page = getComponentDocsPage(item.slug);
           return {
             slug: item.slug,
-            title: page?.data.title ?? item.title,
+            title: item.title,
+            titleFa: item.titleFa ?? titleFaFor(item.slug),
             href: `/docs/components/${item.slug}`,
             isNew: item.isNew || isNewComponent(item.slug),
             tags: item.tags,

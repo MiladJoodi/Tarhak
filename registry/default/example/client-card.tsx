@@ -316,6 +316,6 @@ export function ClientCard({
   );
 }
 
-export default function ClientCardPreview() {
+export default function ClientCardExample() {
   return <ClientCard />;
 }

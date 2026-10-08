@@ -808,7 +808,7 @@ export function AccordionOS({
 // 4. MAIN PAGE / APP EXPORT
 // ==========================================
 
-export default function Page() {
+export default function Accordionos() {
   return (
     <TooltipProvider delayDuration={0}>
       <div className="flex h-full w-full min-w-0 items-center justify-center overflow-auto p-4">

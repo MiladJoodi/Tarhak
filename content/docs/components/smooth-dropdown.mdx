@@ -1,36 +1,36 @@
 ---
 title: Smooth Dropdown
-description: A round trigger that morphs into a menu — items stagger in, the shell resizes, click outside to close.
+description: A round button that morphs into a menu — rows stagger in, the shell resizes, and it closes on outside click.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Shape morph**: The button becomes the menu without a pop-in overlay.
-- **Staggered rows**: Profile, Upgrade, and the rest arrive in sequence.
-- **Active and hover**: The current row is obvious; hover doesn’t fight it.
-- **Outside click**: The menu collapses when you click away.
-- **Spring, not fade**: Height and items share one physical motion.
+- **تغییر شکل**: دکمه بدون لایهٔ پاپ‌آپ جدا، خودش به منو تبدیل می‌شود.
+- **ورود پلکانی**: پروفایل، ارتقا حساب و بقیه به‌ترتیب ظاهر می‌شوند.
+- **فعال و هاور**: ردیف فعلی مشخص است؛ هاور با آن تداخل ندارد.
+- **کلیک بیرون**: با کلیک بیرون از منو، جمع می‌شود.
+- **فنر، نه محو شدن**: ارتفاع و آیتم‌ها یک حرکت واحد دارند.
 
-## Usage
+## نحوه استفاده
 
-Use it as an account or overflow menu. Edit `menuItems` for labels and icons. Needs a click and a little space below the trigger. Don’t nest it in a overflow:hidden parent or the morph will clip. Wire rows to real routes.
+برای منوی حساب یا منوی بیشتر مناسب است. برچسب‌ها و آیکون‌ها را در `menuItems` عوض کنید. به کلیک و کمی فضای زیر دکمه نیاز دارد. داخل والد با `overflow: hidden` نگذارید وگرنه تغییر شکل بریده می‌شود. ردیف‌ها را به مسیر واقعی وصل کنید.
 
 ```tsx
-import MenuInteraction from "@/components/smooth-dropdown";
+import SmoothDropdown from "@/components/smooth-dropdown";
 
 export default function Page() {
   return (
     <div className="flex items-center justify-center h-[400px] w-full">
-      <MenuInteraction />
+      <SmoothDropdown />
     </div>
   );
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Account menus in a header
-- Upgrade / billing overflow
-- Compact app toolbars
-- Mobile more-menus
-- Prototype nav without a full dropdown library
+- منوی حساب در هدر
+- میانبر ارتقا حساب / صورتحساب
+- نوار ابزار فشرده
+- منوی بیشتر در موبایل
+- نمونهٔ ناوبری بدون کتابخانهٔ کامل dropdown

@@ -80,18 +80,11 @@ function PinnedSidebarHeader({
         "shadow-[0_1px_0_0_hsla(0,0%,100%,0.02),0_6px_16px_-14px_hsla(0,0%,0%,0.06),0_4px_8px_-12px_hsla(0,0%,0%,0.08),0_2px_6px_-10px_hsla(0,0%,0%,0.1)]",
       )}
     >
-      <div className="flex w-full items-center justify-between">
-        <Link
-          href="/browse"
-          className="flex min-w-0 items-center outline-none focus-visible:ring-0"
-          aria-label="uselayouts browse"
-        >
-          <BrandLogo invert />
-        </Link>
+      <div className="flex w-full items-center justify-between gap-3">
         <button
           type="button"
           className={cn(
-            "inline-flex cursor-pointer items-center overflow-hidden rounded-xl border-0 bg-transparent p-1",
+            "inline-flex shrink-0 cursor-pointer items-center overflow-hidden rounded-xl border-0 bg-transparent p-1",
             "outline-none ring-0 focus:outline-none focus-visible:outline-none focus-visible:ring-0",
             "shadow-[0_4px_2px_hsla(0,0%,0%,0.24),0_0_0_1px_hsla(0,0%,0%,0.1)]",
             "hover:bg-transparent",
@@ -99,11 +92,11 @@ function PinnedSidebarHeader({
             "[@media(hover:hover)_and_(pointer:fine)]:hover:[&_img]:invert",
             openPressMotion,
           )}
-          aria-label="Close sidebar"
+          aria-label="بستن سایدبار"
           aria-pressed="true"
           onClick={onClose}
         >
-          <span className="inline-flex -scale-y-100 rotate-180">
+          <span className="inline-flex">
             <img
               src="/open/sidebar-close.svg"
               alt=""
@@ -114,26 +107,32 @@ function PinnedSidebarHeader({
             />
           </span>
         </button>
+        <Link
+          href="/browse"
+          className="flex min-w-0 items-center outline-none focus-visible:ring-0"
+          aria-label="طرحک — مرور کامپوننت‌ها"
+        >
+          <BrandLogo invert />
+        </Link>
       </div>
-      <div className="flex flex-col items-start justify-center gap-1.5">
-        <div className="flex items-center gap-1.5">
-          <span className="text-lg leading-[1.3] font-light tracking-[-0.18px] text-[hsl(240_7%_70%)] capitalize">
-            Browse
-          </span>
+      <div
+        lang="fa"
+        dir="rtl"
+        className="flex flex-col items-end justify-center gap-1 text-end"
+      >
+        <div className="flex flex-wrap items-center justify-end gap-1.5">
           <span className="inline-flex items-center overflow-hidden rounded-[14px] bg-white px-2 py-px">
-            <span className="bg-linear-to-b from-[hsl(240_3%_14%)] to-[hsl(240_3%_20%)] bg-clip-text text-lg leading-[1.3] font-medium tracking-[-0.54px] text-transparent capitalize">
+            <span className="bg-linear-to-b from-[hsl(240_3%_14%)] to-[hsl(240_3%_20%)] bg-clip-text text-lg leading-[1.3] font-medium tracking-[-0.54px] text-transparent">
               {componentCount}
             </span>
           </span>
-          <span className="text-lg leading-[1.3] font-light tracking-[-0.18px] text-[hsl(240_7%_70%)] capitalize">
-            Carefully
+          <span className="text-lg leading-[1.3] font-light tracking-normal text-[hsl(240_7%_70%)]">
+            قطعهٔ آماده
           </span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="text-lg leading-[1.3] font-light tracking-[-0.18px] text-[hsl(240_7%_70%)] capitalize">
-            Crafted Components
-          </span>
-        </div>
+        <span className="text-lg leading-[1.3] font-light tracking-normal text-[hsl(240_7%_70%)]">
+          با حرکت نرم، برای کپی و ساخت
+        </span>
       </div>
     </header>
   );
@@ -256,7 +255,7 @@ function SidebarList({
           activeHref={activeHref}
           onItemClick={(item) => {
             if (scrollRef.current) rememberScroller("sidebar", scrollRef.current);
-            document.title = `${item.title} - useLayouts`;
+            document.title = `${item.title} - طرحک`;
           }}
           onItemHover={
             onItemHover
@@ -286,7 +285,7 @@ function SidebarList({
 
 /** Figma 102:444 — floating sidebar chrome */
 const sidebarShell =
-  "overflow-hidden rounded-[14px] border-0 bg-[hsl(240_6%_20%)] text-foreground shadow-[0_6px_10px_-30px_rgba(0,0,0,0.04),0_4px_6px_-10px_rgba(0,0,0,0.25),0_2px_4px_-10px_rgba(0,0,0,0.25)] origin-top-left";
+  "overflow-hidden rounded-[14px] border-0 bg-[hsl(240_6%_20%)] text-foreground shadow-[0_6px_10px_-30px_rgba(0,0,0,0.04),0_4px_6px_-10px_rgba(0,0,0,0.25),0_2px_4px_-10px_rgba(0,0,0,0.25)] origin-top-right";
 
 export function OpenExperience({
   navItems,
@@ -372,9 +371,9 @@ function OpenExperienceShell({
         exit: { opacity: 0 },
       }
     : {
-        initial: { opacity: 0, transform: "translateX(-8px) scale(0.98)" },
+        initial: { opacity: 0, transform: "translateX(8px) scale(0.98)" },
         animate: { opacity: 1, transform: "translateX(0px) scale(1)" },
-        exit: { opacity: 0, transform: "translateX(-8px) scale(0.98)" },
+        exit: { opacity: 0, transform: "translateX(8px) scale(0.98)" },
       };
 
   const showDesktopPinned = pinned && !isMobile && !stage;
@@ -382,48 +381,11 @@ function OpenExperienceShell({
 
   return (
     <div className="dark flex h-dvh overflow-hidden bg-[hsl(240_6%_7%)] text-foreground">
-      {showDesktopPinned ? (
-        <aside
-          className="sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-[hsl(240_6%_7%)] text-foreground"
-          style={{ width: SIDEBAR_WIDTH }}
-          data-sidebar="pinned"
-        >
-          <PinnedSidebarHeader
-            componentCount={navItems.length}
-            onClose={() => {
-              updatePinned(false);
-              setHoverPreview(null);
-            }}
-          />
-          <SidebarList
-            items={navItems}
-            activeHref={current.href}
-            surface="background"
-          />
-        </aside>
-      ) : null}
-
-      {/* Mobile: partial-width left sheet instead of full-bleed pinned sidebar */}
-      <Sheet open={isMobile && mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent
-          side="left"
-          showCloseButton={false}
-          className="dark flex h-full max-w-[min(262px,85vw)] flex-col gap-0 border-r-0 bg-[hsl(240_6%_7%)] p-0 text-foreground sm:max-w-[262px]"
-          style={{ width: `min(${SIDEBAR_WIDTH}px, 85vw)` }}
-        >
-          <PinnedSidebarHeader
-            componentCount={navItems.length}
-            onClose={() => setMobileOpen(false)}
-          />
-          <SidebarList items={navItems} activeHref={current.href} surface="background" />
-        </SheetContent>
-      </Sheet>
-
       <div className="relative flex min-w-0 flex-1 flex-col overflow-hidden bg-[hsl(225_7%_11%)]">
         {showToggle ? (
           <div
             className={cn(
-              "pointer-events-none absolute top-[18px] left-[18px] z-30",
+              "pointer-events-none absolute top-[18px] right-[18px] z-30",
               peek && "z-40",
             )}
             onMouseEnter={() => {
@@ -473,14 +435,17 @@ function OpenExperienceShell({
                 {peek ? (
                   <motion.div
                     ref={peekPanelRef}
-                    className="pointer-events-auto absolute top-11 left-0 z-40 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
+                    className="pointer-events-auto absolute top-11 right-0 z-40 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
                     style={{ width: SIDEBAR_WIDTH + 8 + PREVIEW_W }}
                     initial={sidebarMotion.initial}
                     animate={sidebarMotion.animate}
                     exit={sidebarMotion.exit}
                     transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                   >
-                    <div className={cn(sidebarShell, "max-h-[min(70dvh,560px)]")} style={{ width: SIDEBAR_WIDTH }}>
+                    <div
+                      className={cn(sidebarShell, "ms-auto max-h-[min(70dvh,560px)]")}
+                      style={{ width: SIDEBAR_WIDTH }}
+                    >
                       <SidebarList
                         items={navItems}
                         activeHref={current.href}
@@ -513,19 +478,56 @@ function OpenExperienceShell({
         {/* Above preview layers that escape stacking (e.g. magnified-bento lens z-40). Drawer portal is z-[110] so it covers this chrome. */}
         {stage ? null : (
           <header className="pointer-events-none absolute inset-x-[18px] top-[18px] z-[100] flex items-start justify-between gap-4 *:pointer-events-auto">
-            <div className={cn(showToggle && "w-10")} />
-            {showToggle ? <OpenSwitcher current={current} items={navItems} /> : <div />}
             <OpenActions panel={panel} onChange={setPanel} slug={current.slug} />
+            {showToggle ? <OpenSwitcher current={current} items={navItems} /> : <div />}
+            <div className={cn(showToggle && "w-10")} />
           </header>
         )}
 
         {children}
       </div>
+
+      {/* Mobile: partial-width right sheet */}
+      <Sheet open={isMobile && mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent
+          side="right"
+          showCloseButton={false}
+          className="dark flex h-full max-w-[min(262px,85vw)] flex-col gap-0 border-l-0 bg-[hsl(240_6%_7%)] p-0 text-foreground sm:max-w-[262px]"
+          style={{ width: `min(${SIDEBAR_WIDTH}px, 85vw)` }}
+        >
+          <PinnedSidebarHeader
+            componentCount={navItems.length}
+            onClose={() => setMobileOpen(false)}
+          />
+          <SidebarList items={navItems} activeHref={current.href} surface="background" />
+        </SheetContent>
+      </Sheet>
+
+      {showDesktopPinned ? (
+        <aside
+          className="sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-[hsl(240_6%_7%)] text-foreground"
+          style={{ width: SIDEBAR_WIDTH }}
+          data-sidebar="pinned"
+        >
+          <PinnedSidebarHeader
+            componentCount={navItems.length}
+            onClose={() => {
+              updatePinned(false);
+              setHoverPreview(null);
+            }}
+          />
+          <SidebarList
+            items={navItems}
+            activeHref={current.href}
+            surface="background"
+          />
+        </aside>
+      ) : null}
     </div>
   );
 }
 
 function setDocumentTitle(title: string) {
   if (typeof document === "undefined") return;
-  document.title = `${title} - useLayouts`;
+  document.title = `${title} - طرحک`;
 }

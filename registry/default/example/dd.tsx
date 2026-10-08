@@ -540,7 +540,7 @@ function StatsGrid({
 // ---------------------------------------------------------------------------
 // Root component
 // ---------------------------------------------------------------------------
-export default function TestimonialWidget() {
+export default function Dd() {
   const [active, setActive] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 

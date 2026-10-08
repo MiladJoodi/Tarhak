@@ -32,7 +32,7 @@ export function DocsSteps({ children }: { children: React.ReactNode }) {
             "relative grid grid-cols-[24px_minmax(0,1fr)] gap-3",
             index !== items.length - 1 && "pb-4",
             index !== items.length - 1 &&
-              "before:absolute before:top-6 before:bottom-0 before:left-3 before:w-px before:-translate-x-1/2 before:bg-[hsl(240_4%_29%)] before:content-['']",
+              "before:absolute before:inset-s-3 before:top-6 before:bottom-0 before:w-px before:-translate-x-1/2 before:bg-[hsl(240_4%_29%)] before:content-[''] rtl:before:translate-x-1/2",
           )}
         >
           {/* Figma 120:43 — 24px, radius 8, fill #323239, outer ring + inset highlight */}
@@ -45,7 +45,9 @@ export function DocsSteps({ children }: { children: React.ReactNode }) {
             )}
             aria-hidden
           >
-            <span className="relative">{index + 1}</span>
+            <span className="relative" dir="ltr">
+              {index + 1}
+            </span>
           </span>
           <div className="min-w-0">{child}</div>
         </li>
@@ -81,7 +83,10 @@ function ManualDepCommand({
   }
 
   return (
-    <div className="relative flex min-w-0 items-center gap-2 overflow-hidden rounded-xl border border-[#47474d] bg-[hsl(240_6%_20%)] p-2 shadow-[0_1.5px_2px_0_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.1)]">
+    <div
+      dir="ltr"
+      className="relative flex min-w-0 items-center gap-2 overflow-hidden rounded-xl border border-[#47474d] bg-[hsl(240_6%_20%)] p-2 shadow-[0_1.5px_2px_0_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.1)]"
+    >
       <div className="relative min-w-0 flex-1 overflow-hidden">
         <div
           className={shikiCommandSurface}

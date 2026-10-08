@@ -412,7 +412,7 @@ export function GooeyNavbar({
   );
 }
 
-export default function GooeyNavbarDemo() {
+export default function GooeyNavbarExample() {
   return (
     <div className="flex h-full w-full items-center justify-center bg-white px-6">
       <GooeyNavbar />

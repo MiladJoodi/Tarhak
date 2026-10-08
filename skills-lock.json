@@ -55,6 +55,12 @@
       "skillPath": "skills/prototype/SKILL.md",
       "computedHash": "f246d1f47566481d9207e1aa574bdee5454257d862919a6591283e9af2f57eab"
     },
+    "responsive-design": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "responsive-design/SKILL.md",
+      "computedHash": "4addd6e3c12934ee7ca98cc940b2db9475fa0c5836312c6111d32e572b6e38ca"
+    },
     "review-animations": {
       "source": "emilkowalski/skill",
       "sourceType": "github",

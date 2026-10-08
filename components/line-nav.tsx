@@ -25,6 +25,7 @@ const lineTransition = {
 
 export type LineNavItem = {
   title: string
+  titleFa?: string
   href: string
   isNew?: boolean
 }
@@ -67,6 +68,7 @@ export function LineNav({
           <LineNavItem
             key={item.href}
             title={item.title}
+            titleFa={item.titleFa}
             href={item.href}
             active={isActive}
             isNew={item.isNew}
@@ -88,6 +90,7 @@ export function LineNav({
 
 const LineNavItem = memo(function LineNavItem({
   title,
+  titleFa,
   href,
   active = false,
   isNew = false,
@@ -96,6 +99,7 @@ const LineNavItem = memo(function LineNavItem({
   onHover,
 }: {
   title: string
+  titleFa?: string
   href: string
   active?: boolean
   isNew?: boolean
@@ -103,12 +107,14 @@ const LineNavItem = memo(function LineNavItem({
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
   onHover?: (anchor: HTMLAnchorElement | null) => void
 }) {
+  const label = titleFa ? `${title} — ${titleFa}` : title
+
   return (
     <>
       <MotionLink
         aria-current={active ? "page" : undefined}
-        aria-label={isNew ? `${title}, new` : undefined}
-        className="group relative flex h-px items-center gap-3 outline-none after:absolute after:top-1/2 after:left-0 after:size-full after:-translate-y-1/2 after:p-3.5 focus-visible:outline-none"
+        aria-label={isNew ? `${label}, new` : label}
+        className="group relative flex min-h-8 items-center justify-end gap-3 outline-none after:absolute after:inset-y-0 after:start-0 after:end-0 after:-my-1.5 focus-visible:outline-none"
         href={href}
         scroll={false}
         prefetch
@@ -120,21 +126,32 @@ const LineNavItem = memo(function LineNavItem({
         onFocus={(event) => onHover?.(event.currentTarget)}
         onBlur={() => onHover?.(null)}
       >
+        <span className="inline-flex min-w-0 flex-col items-end gap-0.5 text-end">
+          <span className="inline-flex items-center gap-1.5 text-sm whitespace-nowrap text-white/40 transition-[color] ease-out group-hover:text-white group-aria-[current=page]:text-white">
+            <span dir="ltr">{title}</span>
+            {isNew ? <NewDot /> : null}
+          </span>
+          {titleFa ? (
+            <span
+              dir="rtl"
+              lang="fa"
+              className="text-xs leading-snug tracking-normal text-white/45 transition-[color] ease-out group-hover:text-white/70 group-aria-[current=page]:text-white/70"
+            >
+              {titleFa}
+            </span>
+          ) : null}
+        </span>
         <motion.span
           className="block h-px shrink-0 bg-white/20 transition-[background-color] ease-out group-hover:bg-white group-aria-[current=page]:bg-white"
           variants={lineVariants}
           transition={lineTransition}
         />
-        <span className="inline-flex items-center gap-1.5 text-sm whitespace-nowrap text-white/40 transition-[color] ease-out group-hover:text-white group-aria-[current=page]:text-white">
-          {title}
-          {isNew ? <NewDot /> : null}
-        </span>
       </MotionLink>
       {!isLast ? (
-        <>
+        <div className="flex flex-col items-end gap-px">
           <span className="block h-px w-(--line-nav-width) bg-white/20" />
           <span className="block h-px w-(--line-nav-width) bg-white/20" />
-        </>
+        </div>
       ) : null}
     </>
   )

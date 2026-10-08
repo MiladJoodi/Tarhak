@@ -443,4 +443,4 @@ LiquidGlassInfiniteGrid.displayName = 'LiquidGlassInfiniteGrid';
 /** Docs / CLI alias — same as LiquidGlassInfiniteGrid. */
 export const InfiniteGrid = LiquidGlassInfiniteGrid;
 
-export default LiquidGlassInfiniteGrid;
+export default InfiniteGrid;

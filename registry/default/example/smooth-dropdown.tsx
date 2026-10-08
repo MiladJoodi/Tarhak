@@ -17,25 +17,40 @@ import {
 
 // Change Here
 const menuItems = [
-  { id: "profile", label: "Profile", icon: UserIcon },
-  { id: "upgrade", label: "Upgrade", icon: CreditCardIcon },
-  { id: "projects", label: "Projects", icon: FolderIcon },
-  { id: "documentation", label: "Documentation", icon: File01Icon },
+  { id: "profile", label: "پروفایل", icon: UserIcon },
+  { id: "upgrade", label: "ارتقا حساب", icon: CreditCardIcon },
+  { id: "projects", label: "پروژه‌ها", icon: FolderIcon },
+  { id: "documentation", label: "مستندات", icon: File01Icon },
   { id: "divider", label: "", icon: null },
-  { id: "settings", label: "Settings", icon: SettingsIcon },
-  { id: "help", label: "Get Help", icon: HelpCircleIcon },
-  { id: "logout", label: "Logout", icon: LogoutIcon },
+  { id: "settings", label: "تنظیمات", icon: SettingsIcon },
+  { id: "help", label: "راهنما", icon: HelpCircleIcon },
+  { id: "logout", label: "خروج", icon: LogoutIcon },
 ];
 
 const easeOutQuint: [number, number, number, number] = [0.23, 1, 0.32, 1];
 
-export default function TwentyTwelveOne() {
+/** Open menu width — room for Persian labels without wrapping. */
+const OPEN_WIDTH = 248;
+
+export default function SmoothDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("profile");
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [contentRef, contentBounds] = useMeasure();
+  // Lock the tallest measured height while open so shared-element hover
+  // (especially across the divider) cannot shrink the shell and spring it up.
+  // Adjust peak during render (React-supported) — not in an effect / ref.
+  const [contentRef, contentBounds] = useMeasure({ offsetSize: true });
+  const measuredHeight = Math.max(40, Math.ceil(contentBounds.height));
+  const [peakHeight, setPeakHeight] = useState(40);
+  const [wasOpen, setWasOpen] = useState(false);
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
+    if (!isOpen) setPeakHeight(40);
+  } else if (isOpen && measuredHeight > peakHeight) {
+    setPeakHeight(measuredHeight);
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,25 +68,41 @@ export default function TwentyTwelveOne() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  const openHeight = Math.max(40, Math.ceil(contentBounds.height));
+  const openHeight = isOpen ? Math.max(measuredHeight, peakHeight) : 40;
+
   return (
-    <div ref={containerRef} className="relative h-10 w-10 not-prose">
+    <div
+      ref={containerRef}
+      dir="rtl"
+      lang="fa"
+      className="relative h-10 w-10 not-prose font-sans tracking-normal"
+    >
       <motion.div
-        layout
         initial={false}
         animate={{
-          width: isOpen ? 220 : 40,
+          width: isOpen ? OPEN_WIDTH : 40,
           height: isOpen ? openHeight : 40,
           borderRadius: isOpen ? 14 : 12,
         }}
         transition={{
-          type: "spring" as const,
-          damping: 34,
-          stiffness: 380,
-          mass: 0.8,
+          width: { type: "spring", damping: 34, stiffness: 380, mass: 0.8 },
+          height: { type: "spring", damping: 34, stiffness: 380, mass: 0.8 },
+          borderRadius: { duration: 0.2 },
         }}
-        className="absolute top-0 right-0 bg-popover border border-border shadow-lg overflow-hidden cursor-pointer origin-top-right "
+        role="button"
+        tabIndex={isOpen ? -1 : 0}
+        aria-label={isOpen ? undefined : "باز کردن منو"}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        className="absolute top-0 end-0 bg-popover border border-border shadow-lg overflow-hidden cursor-pointer origin-top-end outline-none focus-visible:ring-2 focus-visible:ring-ring"
         onClick={() => !isOpen && setIsOpen(true)}
+        onKeyDown={(event) => {
+          if (isOpen) return;
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setIsOpen(true);
+          }
+        }}
       >
         <motion.div
           initial={false}
@@ -95,7 +126,7 @@ export default function TwentyTwelveOne() {
         {/* Menu Content - visible when open */}
         <div ref={contentRef}>
           <motion.div
-            layout
+            layoutRoot
             initial={false}
             animate={{
               opacity: isOpen ? 1 : 0,
@@ -107,10 +138,15 @@ export default function TwentyTwelveOne() {
             className="p-2"
             style={{
               pointerEvents: isOpen ? "auto" : "none",
-              willChange: "transform",
+              willChange: "opacity",
             }}
+            role="menu"
+            aria-label="منوی حساب"
           >
-            <ul className="flex flex-col gap-0.5 m-0! p-0! list-none!">
+            <ul
+              className="flex flex-col gap-0.5 m-0! p-0! list-none!"
+              onMouseLeave={() => setHoveredItem(null)}
+            >
               {menuItems.map((item, index) => {
                 if (item.id === "divider") {
                   return (
@@ -119,7 +155,9 @@ export default function TwentyTwelveOne() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: isOpen ? 1 : 0 }}
                       transition={{ delay: isOpen ? 0.12 + index * 0.015 : 0 }}
-                      className="border-border my-1.5!"
+                      // Ignore pointer so hover does not clear and snap the
+                      // indicator back to the active row at the top.
+                      className="pointer-events-none border-border my-1.5!"
                     />
                   );
                 }
@@ -137,10 +175,11 @@ export default function TwentyTwelveOne() {
                 return (
                   <motion.li
                     key={item.id}
-                    initial={{ opacity: 0, x: 8 }}
+                    role="menuitem"
+                    initial={{ opacity: 0, x: -8 }}
                     animate={{
                       opacity: isOpen ? 1 : 0,
-                      x: isOpen ? 0 : 8,
+                      x: isOpen ? 0 : -8,
                     }}
                     transition={{
                       delay: itemDelay,
@@ -154,23 +193,23 @@ export default function TwentyTwelveOne() {
                       }
                     }}
                     onMouseEnter={() => setHoveredItem(item.id)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    className={`relative flex items-center gap-3 rounded-lg text-sm cursor-pointer transition-colors duration-200 ease-out m-0! pl-3! py-2! ${
+                    className={`relative flex items-center gap-3 rounded-lg text-sm leading-normal cursor-pointer transition-colors duration-200 ease-out m-0! ps-3! pe-2! py-2! ${
                       isLogout && showIndicator
-                        ? "text-red-600"
+                        ? "text-red-600 dark:text-red-400"
                         : isActive
-                        ? "text-foreground"
-                        : isLogout
-                        ? "text-muted-foreground hover:text-red-600"
-                        : "text-muted-foreground hover:text-foreground"
+                          ? "text-foreground"
+                          : isLogout
+                            ? "text-muted-foreground hover:text-red-600 dark:hover:text-red-400"
+                            : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    {/* Hover/Active background indicator */}
                     {showIndicator && (
                       <motion.div
-                        layoutId="activeIndicator"
+                        layoutId="smoothDropdownActive"
                         className={`absolute inset-0 rounded-lg ${
-                          isLogout ? "bg-red-50" : "bg-muted"
+                          isLogout
+                            ? "bg-red-500/10"
+                            : "bg-muted"
                         }`}
                         transition={{
                           type: "spring",
@@ -180,11 +219,10 @@ export default function TwentyTwelveOne() {
                         }}
                       />
                     )}
-                    {/* Left bar indicator */}
                     {showIndicator && (
                       <motion.div
-                        layoutId="leftBar"
-                        className={`absolute left-0 top-0 bottom-0 my-auto w-[3px] h-5 rounded-full ${
+                        layoutId="smoothDropdownBar"
+                        className={`absolute start-0 top-0 bottom-0 my-auto w-[3px] h-5 rounded-full ${
                           isLogout ? "bg-red-500" : "bg-foreground"
                         }`}
                         transition={{
@@ -197,9 +235,11 @@ export default function TwentyTwelveOne() {
                     )}
                     <HugeiconsIcon
                       icon={iconRef}
-                      className="w-[18px] h-[18px] relative z-10"
+                      className={`w-[18px] h-[18px] relative z-10 shrink-0${
+                        isLogout ? " -scale-x-100" : ""
+                      }`}
                     />
-                    <span className="font-medium relative z-10">
+                    <span className="font-medium relative z-10 tracking-normal">
                       {item.label}
                     </span>
                   </motion.li>

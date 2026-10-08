@@ -298,7 +298,7 @@ function CornerPlayer({
   );
 }
 
-export default function CornerVideoPlayer() {
+export default function CornerVideo() {
   return (
     <section className="relative h-full min-h-[28rem] w-full bg-[hsl(240_6%_7%)]">
       <CornerPlayer />

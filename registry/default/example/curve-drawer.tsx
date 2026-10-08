@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 
 import {
-  CurveDrawer,
+  CurveDrawer as CurveDrawerRoot,
   CurveDrawerClose,
   CurveDrawerContent,
   CurveDrawerDescription,
@@ -16,14 +16,14 @@ import {
 
 const NAV_ITEMS = ["Overview", "Projects", "Archive", "Settings"];
 
-export function CurveDrawerDemo() {
+export default function CurveDrawer() {
   return (
     <section
       aria-label="Curve drawer demo"
       className="flex h-full min-h-[520px] w-full items-center justify-center bg-background p-4 text-foreground"
     >
       <div className="flex flex-col items-center gap-3 sm:flex-row">
-        <CurveDrawer direction="left" handleOnly>
+        <CurveDrawerRoot direction="left" handleOnly>
           <CurveDrawerTrigger asChild>
             <button
               aria-label="Open menu drawer"
@@ -68,9 +68,9 @@ export function CurveDrawerDemo() {
               ))}
             </nav>
           </CurveDrawerContent>
-        </CurveDrawer>
+        </CurveDrawerRoot>
 
-        <CurveDrawer direction="right" handleOnly>
+        <CurveDrawerRoot direction="right" handleOnly>
           <CurveDrawerTrigger asChild>
             <button
               aria-label="Open notes drawer"
@@ -112,10 +112,8 @@ export function CurveDrawerDemo() {
               </p>
             </div>
           </CurveDrawerContent>
-        </CurveDrawer>
+        </CurveDrawerRoot>
       </div>
     </section>
   );
 }
-
-export default CurveDrawerDemo;

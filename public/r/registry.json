@@ -1048,12 +1048,13 @@
     {
       "name": "smooth-dropdown",
       "type": "registry:component",
-      "title": "Smooth Dropdown",
-      "description": "A dropdown menu with premium layout transitions.",
+      "title": "منوی بازشو نرم",
+      "description": "منوی بازشو با انتقال نرم و تغییر شکل دکمه به منو.",
       "dependencies": [
         "motion",
         "@hugeicons/core-free-icons",
         "@hugeicons/react",
+        "react-use-measure",
         "clsx",
         "tailwind-merge"
       ],

@@ -21,7 +21,7 @@ const springTransition = {
   mass: 1,
 } as const;
 
-export default function TwentyThreeFour() {
+export default function DayPicker() {
   const [day, setDay] = useState(1);
   const [option, setOption] = useState<options>("Daily");
   const [isOptionOpen, setisOptionOpen] = useState(false);

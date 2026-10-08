@@ -1,5 +1,6 @@
 import { isNewComponent } from "@/lib/open/new-components";
 import { browseMediaUrl } from "@/lib/browse/media-url";
+import { titleFaFor } from "@/lib/browse/titles-fa";
 import browseMedia from "@/registry/default/browse-media.json";
 import registry from "@/registry.json";
 
@@ -9,6 +10,8 @@ export type BrowseItem = {
   /** Registry name, also the docs slug. */
   slug: string;
   title: string;
+  /** Optional Persian label — secondary to English `title`. */
+  titleFa?: string;
   description: string;
   category: string;
   tags?: string[];
@@ -73,7 +76,7 @@ const SEEDS: Seed[] = [
   { slug: "multi-step-form", title: "Multi Step Form", description: "Long forms made short.", category: "Input" },
   { slug: "pricing-card", title: "Pricing Card", description: "Hierarchy that sells itself.", category: "Display" },
   { slug: "shake-testimonial-card", title: "Shake Testimonial", description: "Praise with a pulse.", category: "Display" },
-  { slug: "smooth-dropdown", title: "Smooth Dropdown", description: "Menus that never jump.", category: "Navigation" },
+  { slug: "smooth-dropdown", title: "Smooth Dropdown", description: "A menu that does not jump.", category: "Navigation" },
   { slug: "save-button", title: "Status Button", description: "Idle, loading, done.", category: "Button" },
   { slug: "vertical-tabs", title: "Vertical Tabs", description: "Switching along the edge.", category: "Navigation" },
   { slug: "stacked-list", title: "Stacked List", description: "A stack that unfolds.", category: "List" },
@@ -127,6 +130,7 @@ export const browseItems: BrowseItem[] = SEEDS.filter((seed) => LIVE_SLUGS.has(s
     const override = MEDIA_OVERRIDES[seed.slug];
     return {
       ...seed,
+      titleFa: titleFaFor(seed.slug),
       poster: browseMediaUrl(override?.posterUrl ?? POSTERS[index % POSTERS.length]!),
       // Media uploads live on a separately managed CDN. Keep a stable, public
       // fallback so an outage or an accidental access-policy change does not

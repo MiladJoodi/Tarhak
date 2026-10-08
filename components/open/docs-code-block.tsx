@@ -103,6 +103,7 @@ export function DocsCodeBlock({
   if (withWrapper) {
     return (
       <div
+        dir="ltr"
         className={cn(
           /* Figma 111:2982 — outer #232328, radius 14 */
           "flex min-w-0 flex-col overflow-hidden rounded-[14px] bg-[hsl(240_6%_15%)]",
@@ -111,7 +112,7 @@ export function DocsCodeBlock({
         )}
       >
         {/* Figma 111:2983 — pl 16 / pr 6 / py 10 */}
-        <div className="flex shrink-0 items-center py-2.5 pr-1.5 pl-4">
+        <div className="flex shrink-0 items-center py-2.5 pe-1.5 ps-4">
           <figcaption
             className="flex min-w-0 items-center gap-2.5 text-base tracking-[-0.16px] text-[hsl(240_5%_69%)]"
             data-language={language}
@@ -141,6 +142,7 @@ export function DocsCodeBlock({
 
   return (
     <figure
+      dir="ltr"
       className={cn(
         "relative overflow-hidden rounded-[10px]",
         isLight

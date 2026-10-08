@@ -2,52 +2,18 @@
 
 import * as React from "react";
 
-import { useAuth } from "@/components/auth/auth-provider";
-import { copyEventSlug } from "@/lib/open/package-manager";
-import { createClient } from "@/lib/supabase/client";
-
 export type CopySource = "cli" | "code" | "manual_deps";
 
-function queueCopyEvent(userId: string, slug: string, source: CopySource) {
-  void createClient()
-    .from("copy_events")
-    .insert({
-      user_id: userId,
-      component_slug: slug,
-      source,
-    })
-    .then(({ error }) => {
-      if (error) console.error("copy_events insert failed", error.message);
-    });
-}
-
 /**
- * Gate clipboard writes behind auth. Logs a copy_events row when signed in.
- * Insert is fire-and-forget so copy UI does not wait on PostgREST.
+ * Clipboard helper kept under the historical name so call sites stay stable.
+ * Auth gating and copy_events telemetry were removed.
  */
-export function useGatedCopy(options?: {
+export function useGatedCopy(_options?: {
   componentSlug?: string;
   source?: CopySource;
 }) {
-  const { requireAuth, user, configured } = useAuth();
-  const slug = options?.componentSlug
-    ? copyEventSlug(options.componentSlug)
-    : undefined;
-  const source = options?.source ?? "cli";
-
-  return React.useCallback(
-    async (text: string) => {
-      const ok = await requireAuth();
-      if (!ok) return false;
-
-      await navigator.clipboard.writeText(text);
-
-      if (configured && user && slug) {
-        queueCopyEvent(user.id, slug, source);
-      }
-
-      return true;
-    },
-    [requireAuth, configured, user, slug, source],
-  );
+  return React.useCallback(async (text: string) => {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }, []);
 }

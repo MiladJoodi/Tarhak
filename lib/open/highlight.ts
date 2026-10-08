@@ -89,8 +89,8 @@ export async function highlightCode(
   const html = await codeToHtml(code, {
     lang: normalizeLanguage(language),
     themes: {
-      light: "min-light",
-      dark: "vesper",
+      light: "light-plus",
+      dark: "dark-plus",
     },
     defaultColor: false,
     transformers: [

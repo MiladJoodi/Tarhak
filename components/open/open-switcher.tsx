@@ -13,7 +13,7 @@ import { rankSearchItems } from "@/lib/component-tags";
 import type { OpenNavItem } from "@/lib/open/component";
 import { cn } from "@/lib/utils";
 
-const TITLE_SUFFIX = " - useLayouts";
+const TITLE_SUFFIX = " - طرحک";
 
 /** Figma 91:4677 container shadow */
 const DROPDOWN_SHADOW =
@@ -53,7 +53,7 @@ export function OpenSwitcher({
 
   const filtered = React.useMemo(() => {
     return rankSearchItems(items, query, (item) => ({
-      name: `${item.title} ${item.slug}`,
+      name: `${item.title} ${item.titleFa ?? ""} ${item.slug}`,
       tags: item.tags,
     }));
   }, [items, query]);
@@ -198,7 +198,20 @@ export function OpenSwitcher({
           setOpen((value) => !value);
         }}
       >
-        <span className="relative truncate">{displayed.title}</span>
+        <span className="relative flex min-w-0 flex-col items-center leading-tight">
+          <span className="truncate" dir="ltr">
+            {displayed.title}
+          </span>
+          {displayed.titleFa ? (
+            <span
+              dir="rtl"
+              lang="fa"
+              className="truncate text-xs text-white/55"
+            >
+              {displayed.titleFa}
+            </span>
+          ) : null}
+        </span>
         <ChevronsUpDown className="relative size-[18px] shrink-0" aria-hidden strokeWidth={1.75} />
       </button>
       <AnimatePresence>
@@ -287,7 +300,20 @@ export function OpenSwitcher({
                           />
                         </span>
                       ) : null}
-                      <span className="truncate">{item.title}</span>
+                      <span className="flex min-w-0 flex-col items-start leading-tight">
+                        <span className="truncate" dir="ltr">
+                          {item.title}
+                        </span>
+                        {item.titleFa ? (
+                          <span
+                            dir="rtl"
+                            lang="fa"
+                            className="truncate text-xs text-white/50"
+                          >
+                            {item.titleFa}
+                          </span>
+                        ) : null}
+                      </span>
                     </button>
                   );
                 })

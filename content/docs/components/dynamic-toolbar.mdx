@@ -16,12 +16,12 @@ description: An icon strip that resizes as you page between primary tools and a 
 Treat it like a floating editor bar. Swap the `primaryTools` / `secondaryTools` arrays. Needs a short, wide stage and enough height so the arrows don’t collide. Wire each icon to an action — the demo is visual only.
 
 ```tsx
-import ExpandedToolbar from "@/components/dynamic-toolbar";
+import DynamicToolbar from "@/components/dynamic-toolbar";
 
 export default function Page() {
   return (
     <div className="flex items-center justify-center h-[200px] w-full">
-      <ExpandedToolbar />
+      <DynamicToolbar />
     </div>
   );
 }

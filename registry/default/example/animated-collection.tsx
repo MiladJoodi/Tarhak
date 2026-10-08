@@ -61,7 +61,7 @@ const PACK_POSE = [
   { rotate: 9, x: 24, y: -8 },
 ] as const;
 
-export default function LayoutSwitcher() {
+export default function AnimatedCollection() {
   const [view, setView] = useState<ViewMode>("list");
 
   return (

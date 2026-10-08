@@ -84,7 +84,7 @@ function ToolbarButton({
   );
 }
 
-function ExtendedToolbar() {
+function DynamicToolbar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [primaryRef, primaryBounds] = useMeasure();
@@ -188,4 +188,4 @@ function ExtendedToolbar() {
   );
 }
 
-export default ExtendedToolbar;
+export default DynamicToolbar;

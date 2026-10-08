@@ -799,4 +799,4 @@ export const WheelCarouselDemo: React.FC = () => {
   );
 };
 
-export default WheelCarouselDemo;
+export default WheelCarousel;

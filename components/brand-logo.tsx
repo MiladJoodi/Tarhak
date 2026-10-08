@@ -43,13 +43,26 @@ export function BrandLogo({
           />
         ))}
       </svg>
-      <span
-        className={cn(
-          "font-[family-name:var(--font-geist-sans)] text-[18px] leading-none font-medium tracking-[-0.02em]",
-          invert ? "text-white" : "text-[#14141A]",
-        )}
-      >
-        useLayouts
+      <span className="inline-flex min-w-0 items-baseline gap-1.5 leading-none">
+        <span
+          lang="fa"
+          dir="rtl"
+          className={cn(
+            "font-[family-name:var(--font-estedad)] text-[18px] font-medium tracking-normal",
+            invert ? "text-white" : "text-[#14141A]",
+          )}
+        >
+          طرحک
+        </span>
+        <span
+          dir="ltr"
+          className={cn(
+            "text-[11px] font-medium tracking-[0.02em]",
+            invert ? "text-white/45" : "text-[#14141A]/50",
+          )}
+        >
+          Tarhak
+        </span>
       </span>
     </span>
   );

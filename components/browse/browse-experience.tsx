@@ -4,7 +4,6 @@ import * as React from "react";
 import type { BrowseItem } from "@/lib/browse/items";
 import { rankSearchItems } from "@/lib/component-tags";
 import { useRenderQuality } from "@/lib/browse/use-render-quality";
-import { BrowseFloatingActions } from "./browse-floating-actions";
 import { BrowseGrid } from "./browse-grid";
 import { BrowseHeader } from "./browse-header";
 import { BrowseToolbar, type ViewMode } from "./browse-toolbar";
@@ -37,7 +36,7 @@ export function BrowseExperience({
   return (
     <div
       data-quality={quality}
-      className="dark flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-[family-name:var(--font-geist-sans)] text-foreground"
+      className="dark flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-sans text-foreground"
     >
       <BrowseHeader query={query} onQueryChange={setQuery} stars={stars} />
 
@@ -69,8 +68,6 @@ export function BrowseExperience({
               <BrowseGrid items={filtered} paused={paused} />
             )}
           </div>
-
-          <BrowseFloatingActions />
         </div>
       </div>
 

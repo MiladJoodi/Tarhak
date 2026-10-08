@@ -75,7 +75,7 @@ export function getOpenMdxComponents(components?: MDXComponents): MDXComponents 
     ul: ({ className, ...props }) => (
       <ul
         className={cn(
-          "mb-3 grid list-disc gap-2 pl-[18px] text-sm leading-relaxed text-muted-foreground",
+          "mb-3 grid list-disc gap-2 ps-[18px] text-sm leading-relaxed text-muted-foreground",
           className,
         )}
         {...props}
@@ -84,7 +84,7 @@ export function getOpenMdxComponents(components?: MDXComponents): MDXComponents 
     ol: ({ className, ...props }) => (
       <ol
         className={cn(
-          "mb-3 grid list-decimal gap-2 pl-[18px] text-sm leading-relaxed text-muted-foreground",
+          "mb-3 grid list-decimal gap-2 ps-[18px] text-sm leading-relaxed text-muted-foreground",
           className,
         )}
         {...props}
@@ -107,6 +107,7 @@ export function getOpenMdxComponents(components?: MDXComponents): MDXComponents 
     ),
     code: ({ className, ...props }) => (
       <code
+        dir="ltr"
         className={cn(
           "rounded-md bg-muted px-1.5 py-[0.12em] font-mono text-[0.9em] text-foreground",
           className,
