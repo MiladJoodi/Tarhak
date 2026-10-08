@@ -37,7 +37,7 @@ export const TactileButton = React.forwardRef<
   (
     {
       className,
-      children = "Get Started",
+      children = "شروع کنید",
       showIndicator = true,
       indicatorColor = "blue",
       size = "default",
@@ -193,7 +193,7 @@ export const TactileButton = React.forwardRef<
           {/* Button Text */}
           <span
             className={cn(
-              "relative z-10 font-sans font-medium tracking-normal text-[#292929] whitespace-nowrap",
+              "relative z-10 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-medium tracking-normal text-[#292929] whitespace-nowrap",
               sizeConfig.text
             )}
           >
@@ -209,8 +209,12 @@ TactileButton.displayName = "TactileButton";
 
 export default function TactileButtonExample() {
   return (
-    <div className="flex h-full w-full items-center justify-center p-16">
-      <TactileButton>Get Started</TactileButton>
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center p-16 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
+      <TactileButton>شروع کنید</TactileButton>
     </div>
   );
 }

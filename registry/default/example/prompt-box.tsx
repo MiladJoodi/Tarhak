@@ -1,7 +1,7 @@
 "use client";
 
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { ArrowUp, Check, ChevronDown, ChevronRight, Mic } from "lucide-react";
+import { ArrowUp, Check, ChevronDown, ChevronLeft, Mic } from "lucide-react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import {
   Fragment,
@@ -145,7 +145,7 @@ function CollapsedSelectedModelIcon({
           initial={
             reduceMotion
               ? { opacity: 0 }
-              : { opacity: 0, x: 28, rotate: -360 }
+              : { opacity: 0, x: -28, rotate: 360 }
           }
           animate={
             reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, rotate: 0 }
@@ -153,7 +153,7 @@ function CollapsedSelectedModelIcon({
           exit={
             reduceMotion
               ? { opacity: 0 }
-              : { opacity: 0, x: 22, rotate: 120 }
+              : { opacity: 0, x: -22, rotate: -120 }
           }
           transition={
             reduceMotion
@@ -428,13 +428,13 @@ function EffortBarsIcon({ level }: { level: EffortLevel }) {
 }
 
 const dropdownSubmenuTriggerClassName =
-  "relative flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm outline-none transition-colors focus-visible:outline-none";
+  "relative flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-start text-sm outline-none transition-colors focus-visible:outline-none";
 
 const dropdownOptionClassName =
-  "relative flex min-h-11 w-full cursor-pointer scroll-m-1 touch-manipulation items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left text-sm outline-none transition-colors focus-visible:text-foreground focus-visible:outline-none";
+  "relative flex min-h-11 w-full cursor-pointer scroll-m-1 touch-manipulation items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-start text-sm outline-none transition-colors focus-visible:text-foreground focus-visible:outline-none";
 
 const settingsDropdownOptionClassName =
-  "relative flex min-h-10 w-full cursor-pointer scroll-m-1 touch-manipulation items-center justify-between gap-2.5 rounded-md py-2 pl-2 pr-2 text-left text-sm outline-none transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.96] focus-visible:text-foreground focus-visible:outline-none";
+  "relative flex min-h-10 w-full cursor-pointer scroll-m-1 touch-manipulation items-center justify-between gap-2.5 rounded-md py-2 ps-2 pe-2 text-start text-sm outline-none transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.96] focus-visible:text-foreground focus-visible:outline-none";
 
 const settingsDropdownHighlightClassName =
   "absolute inset-0 rounded-md bg-accent";
@@ -1023,9 +1023,9 @@ function DropdownSubmenu({
               {valueLabel}
             </span>
           ) : null}
-          <ChevronRight
+          <ChevronLeft
             aria-hidden="true"
-            className={`size-4 text-muted-foreground transition-transform ${isCompact && isOpen ? "rotate-90" : ""}`}
+            className={`size-4 text-muted-foreground transition-transform ${isCompact && isOpen ? "-rotate-90" : ""}`}
           />
         </span>
       </button>
@@ -1293,8 +1293,8 @@ function SettingsDropdown({
       <button
         aria-expanded={open}
         aria-haspopup="dialog"
-        aria-label={`Select settings: ${triggerLabel}`}
-        className="flex min-h-10 min-w-0 max-w-[calc(100%-3rem)] cursor-pointer items-center gap-1.5 rounded-full py-1.5 pl-0.5 pr-1.5 text-[15px] leading-none transition-[color,transform] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+        aria-label={`انتخاب تنظیمات: ${triggerLabel}`}
+        className="flex min-h-10 min-w-0 max-w-[calc(100%-3rem)] cursor-pointer items-center gap-1.5 rounded-full py-1.5 ps-0.5 pe-1.5 text-[15px] leading-none transition-[color,transform] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
         onClick={toggleOpen}
         onMouseDown={(event) => event.preventDefault()}
         ref={triggerRef}
@@ -1326,7 +1326,7 @@ function SettingsDropdown({
               {open ? (
                 <motion.div
                   animate={settingsPanelMotion.animate}
-                  aria-label="Prompt settings"
+                  aria-label="تنظیمات پرامپت"
                   className={settingsDropdownPanelClassName}
                   data-prompt-dropdown-panel=""
                   exit={settingsPanelMotion.exit}
@@ -1338,7 +1338,7 @@ function SettingsDropdown({
                     left: position.left,
                     maxHeight: position.maxHeight,
                     transformOrigin:
-                      position.side === "bottom" ? "top left" : "bottom left",
+                      position.side === "bottom" ? "top right" : "bottom right",
                     ...(position.side === "bottom"
                       ? { top: position.top }
                       : { bottom: position.bottom }),
@@ -1583,7 +1583,7 @@ function PlusMenuDropdown({
       <button
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label="Add attachment"
+        aria-label="افزودن پیوست"
         className={`flex size-8 items-center justify-center rounded-full transition-colors ${open ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
         onClick={toggleOpen}
         onMouseDown={(event) => event.preventDefault()}
@@ -1598,7 +1598,7 @@ function PlusMenuDropdown({
               {open ? (
                 <motion.div
                   animate={plusPanelMotion.animate}
-                  aria-label="Add options"
+                  aria-label="گزینه‌های افزودن"
                   className={dropdownPanelClassName}
                   data-prompt-dropdown-panel=""
                   exit={plusPanelMotion.exit}
@@ -1610,7 +1610,7 @@ function PlusMenuDropdown({
                     left: position.left,
                     maxHeight: position.maxHeight,
                     transformOrigin:
-                      position.side === "bottom" ? "top right" : "bottom right",
+                      position.side === "bottom" ? "top left" : "bottom left",
                     ...(position.side === "bottom"
                       ? { top: position.top }
                       : { bottom: position.bottom }),
@@ -1955,7 +1955,7 @@ export function PromptInput({
         <div className="relative h-full w-full overflow-hidden rounded-[22px] bg-accent">
         {expanded ? (
           <InputPrimitive
-            aria-label="Prompt"
+            aria-label="پرامپت"
             className="relative w-full"
             key="textarea"
             onValueChange={handleValueChange}
@@ -1987,8 +1987,8 @@ export function PromptInput({
           }
         >
             <InputPrimitive
-              aria-label="Open prompt input"
-              className={`${promptFieldCollapsedClassName} ${promptFieldCollapsedRowClassName} ${selectedModelIcon && collapsedHoverReady ? "pr-8" : ""}`}
+              aria-label="باز کردن ورودی پرامپت"
+              className={`${promptFieldCollapsedClassName} ${promptFieldCollapsedRowClassName} ${selectedModelIcon && collapsedHoverReady ? "pe-8" : ""}`}
               onMouseDown={(event) => {
                 event.preventDefault();
                 expand();
@@ -1999,7 +1999,7 @@ export function PromptInput({
             {selectedModelIcon && collapsedHoverReady ? (
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute top-1/2 right-6 flex size-4 -translate-y-1/2 items-center justify-center"
+                className="pointer-events-none absolute top-1/2 end-6 flex size-4 -translate-y-1/2 items-center justify-center"
               >
                 <CollapsedSelectedModelIcon
                   icon={selectedModelIcon}
@@ -2015,7 +2015,7 @@ export function PromptInput({
         {expanded ? (
           <motion.div
             animate={{ opacity: 1 }}
-            className="absolute inset-x-0 bottom-0 flex items-center pl-6 pr-2.5"
+            className="absolute inset-x-0 bottom-0 flex items-center ps-6 pe-2.5"
             exit={{ opacity: 0, transition: { duration: 0.16, ease: EASE_OUT_QUAD } }}
             initial={{ opacity: 0 }}
             key="footer"
@@ -2038,7 +2038,7 @@ export function PromptInput({
                 values={settings}
               />
             ) : null}
-            <div className="ml-auto flex items-center gap-0.5">
+            <div className="ms-auto flex items-center gap-0.5">
               {plusMenuItems.length > 0 ? (
                 <PlusMenuDropdown
                   items={plusMenuItems}
@@ -2054,7 +2054,7 @@ export function PromptInput({
               ) : null}
               <motion.button
                 animate={{ opacity: 1, scale: 1 }}
-                aria-label={hasValue ? "Send prompt" : "Use voice input"}
+                aria-label={hasValue ? "ارسال پرامپت" : "ورودی صوتی"}
                 className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-foreground text-background shadow-xs transition-opacity hover:opacity-90"
                 exit={{ opacity: 0, scale: 0.85 }}
                 initial={{ opacity: 0, scale: 0.85 }}
@@ -2099,15 +2099,15 @@ export function PromptInput({
 }
 
 const MODEL_PLACEHOLDERS: Record<string, string> = {
-  "fable-5": "Send to Claude",
-  "composer-2.5": "Send to Cursor",
-  "gpt-5.5": "Send to Codex",
+  "fable-5": "ارسال به Claude",
+  "composer-2.5": "ارسال به Cursor",
+  "gpt-5.5": "ارسال به Codex",
 };
 
 const defaultSettingGroups: PromptSettingGroup[] = [
   {
     id: "model",
-    label: "Model",
+    label: "مدل",
     display: "featured",
     options: [
       {
@@ -2135,10 +2135,14 @@ export default function PromptBox() {
   const [settings, setSettings] =
     useState<Record<string, string>>(defaultPromptSettings);
   const placeholder =
-    MODEL_PLACEHOLDERS[settings.model ?? ""] ?? "Ask Anything";
+    MODEL_PLACEHOLDERS[settings.model ?? ""] ?? "هر چیزی بپرس";
 
   return (
-    <div className="flex h-full w-full items-center justify-center px-4">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center px-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <PromptInput
         defaultSettings={defaultPromptSettings}
         onSettingsChange={setSettings}

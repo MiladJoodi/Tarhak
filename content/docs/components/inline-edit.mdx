@@ -1,19 +1,19 @@
 ---
 title: Inline Edit
-description: A username field that stays read-only until you tap the pencil, then saves with a check.
+description: فیلد نام کاربری که تا زدن مداد فقط‌خواندنی است، بعد با تیک ذخیره می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Read, then write**: Default is a quiet label; the pencil wakes the input.
-- **Select on edit**: Focus lands in the field and highlights the value so you can type over it.
-- **Pencil to check**: The trailing button morphs from edit to save.
-- **Ring when live**: A focus ring appears only while you’re editing.
-- **One control**: No separate modal, no extra “Save” in a toolbar.
+- **خواندن، بعد نوشتن**: پیش‌فرض یک برچسب آرام است؛ مداد ورودی را بیدار می‌کند.
+- **انتخاب هنگام ویرایش**: فوکوس روی فیلد می‌رود و مقدار را هایلایت می‌کند تا بتوانید بازنویسی کنید.
+- **مداد به تیک**: دکمهٔ انتهایی از ویرایش به ذخیره تبدیل می‌شود.
+- **حلقه وقتی فعال است**: حلقهٔ فوکوس فقط هنگام ویرایش دیده می‌شود.
+- **یک کنترل**: بدون مودال جدا، بدون «ذخیره» اضافه در نوار ابزار.
 
-## Usage
+## نحوه استفاده
 
-Good for names, handles, and other single-line values. Wire the check to persist. Keep it in a form row or a profile header. Don’t use it for long copy — that’s a textarea’s job.
+برای نام، هندل و مقادیر تک‌خطی مناسب است. تیک را به ذخیره وصل کنید. در ردیف فرم یا هدر پروفایل بگذارید. برای متن بلند استفاده نکنید — آن کار textarea است.
 
 ```tsx
 import SaveInput from "@/components/inline-edit";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Profile and account settings
-- Workspace or project rename
-- Admin tables with inline titles
-- Onboarding “pick a handle” steps
-- Billing display-name fields
+- تنظیمات پروفایل و حساب
+- تغییر نام فضای کاری یا پروژه
+- جداول ادمین با عنوان‌های درون‌خطی
+- مراحل آنبوردینگ «انتخاب هندل»
+- فیلد نام نمایشی در صورتحساب

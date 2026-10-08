@@ -8,7 +8,11 @@ export default async function Layout({ children }: { children: ReactNode }) {
   const githubStars = await getGithubStarCount();
   return (
     <TreeContextProvider tree={source.pageTree}>
-      <div className="light min-h-svh bg-[#F5F3EE] font-[family-name:var(--font-geist-sans)] text-[#071A31]">
+      <div
+        lang="fa"
+        dir="rtl"
+        className="light min-h-svh bg-[#F5F3EE] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-[#071A31] tracking-normal"
+      >
         <LandingNav githubStars={githubStars} />
         {children}
       </div>

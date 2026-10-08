@@ -236,11 +236,11 @@ export const ConfidentialFolder = forwardRef<
 >(
   (
     {
-      title = "Stay hungry",
-      subtitle = "For people who still build the work.",
-      badge = "#1984",
-      message = "Taste is not a committee. If it needs explaining, it isn’t finished. Cut until it is obvious, then ship.",
-      punchline = "Stay hungry. Stay foolish.",
+      title = "گرسنه بمان",
+      subtitle = "برای کسانی که هنوز کار را می‌سازند.",
+      badge = "#۱۹۸۴",
+      message = "سلیقه رأی کمیته نیست. اگر نیاز به توضیح دارد، تمام نشده. ببُر تا واضح شود، بعد منتشر کن.",
+      punchline = "گرسنه بمان. احمق بمان.",
       cover,
       letterFront,
       letterBack,
@@ -373,8 +373,10 @@ export const ConfidentialFolder = forwardRef<
     return (
       <div
         ref={ref}
+        dir="rtl"
+        lang="fa"
         className={cn(
-          "relative flex flex-col items-center justify-center font-sans font-synthesis-none antialiased",
+          "relative flex flex-col items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-synthesis-none tracking-normal antialiased",
           stage && "h-full min-h-[560px] w-full px-8 py-16",
           className,
         )}
@@ -406,7 +408,7 @@ export const ConfidentialFolder = forwardRef<
           role="button"
           tabIndex={0}
           aria-expanded={phase === "revealed"}
-          aria-label={`${title} folder. ${phase === "revealed" ? "Close" : "Open"} the letter.`}
+          aria-label={`پوشهٔ ${title}. ${phase === "revealed" ? "بستن" : "باز کردن"} نامه.`}
         >
           <div
             className="absolute inset-0 overflow-hidden rounded-[22px]"
@@ -450,27 +452,26 @@ export const ConfidentialFolder = forwardRef<
               }}
             >
               {letterFront ?? (
-                <div className="flex h-full flex-col py-5 pr-3 pl-5 font-mono text-[10px] leading-[1.55] tracking-[0.01em] text-[oklch(0.42_0.02_95)]">
-                  <p className="tracking-[0.14em] text-[oklch(0.32_0.02_95)] uppercase">
-                    Product brief
+                <div className="flex h-full flex-col py-5 pe-3 ps-5 font-mono text-[10px] leading-[1.55] tracking-normal text-[oklch(0.42_0.02_95)]">
+                  <p className="tracking-normal text-[oklch(0.32_0.02_95)]">
+                    خلاصهٔ محصول
                   </p>
                   <div className="mt-4 space-y-1">
-                    <p>from: s.jobs@</p>
-                    <p>to: the room</p>
-                    <p>re: {title}</p>
+                    <p>از: s.jobs@</p>
+                    <p>به: اتاق</p>
+                    <p>موضوع: {title}</p>
                   </div>
                   <div className="mt-4 h-px" style={{ background: RULE }} />
                   <p className="mt-4 max-w-[36ch] text-pretty">
-                    Do not design by committee. The work either sings in the
-                    hand or it does not. Cut until a stranger understands it in
-                    one look.
+                    با کمیته طراحی نکنید. کار یا در دست می‌خواند یا نه. ببُرید تا
+                    غریبه‌ای با یک نگاه بفهمد.
                   </p>
                   <ol className="mt-4 space-y-1 tabular-nums">
-                    <li>1. Start with the feeling</li>
-                    <li>2. Remove until it is obvious</li>
-                    <li>3. Ship before you explain</li>
+                    <li>۱. از حس شروع کنید</li>
+                    <li>۲. حذف کنید تا واضح شود</li>
+                    <li>۳. قبل از توضیح منتشر کنید</li>
                   </ol>
-                  <p className="mt-auto tracking-[0.12em] uppercase">{badge}</p>
+                  <p className="mt-auto tracking-normal">{badge}</p>
                 </div>
               )}
             </div>
@@ -490,19 +491,19 @@ export const ConfidentialFolder = forwardRef<
                     style={{ borderColor: RULE }}
                   >
                     <div>
-                      <p className="font-mono text-[10px] tracking-[0.16em] text-[oklch(0.42_0.02_95)] uppercase">
-                        Closed session
+                      <p className="font-mono text-[10px] tracking-normal text-[oklch(0.42_0.02_95)]">
+                        جلسهٔ بسته
                       </p>
-                      <p className="mt-1 font-sans text-[15px] leading-tight tracking-[-0.02em] text-[oklch(0.24_0.02_95)]">
-                        The room
+                      <p className="mt-1 font-sans text-[15px] leading-tight tracking-normal text-[oklch(0.24_0.02_95)]">
+                        اتاق
                       </p>
                     </div>
-                    <span className="font-mono text-[10px] tabular-nums tracking-[0.08em] text-[oklch(0.45_0.02_95)]">
+                    <span className="font-mono text-[10px] tabular-nums tracking-normal text-[oklch(0.45_0.02_95)]">
                       {badge}
                     </span>
                   </div>
                   <div className="my-auto space-y-3">
-                    <p className="font-sans text-[15px] leading-[1.45] tracking-[-0.015em] text-[oklch(0.24_0.02_95)] text-pretty">
+                    <p className="font-sans text-[15px] leading-[1.45] tracking-normal text-[oklch(0.24_0.02_95)] text-pretty">
                       {message}
                     </p>
                     <p className="font-sans text-[13px] leading-[1.45] text-[oklch(0.45_0.02_95)] text-pretty">
@@ -536,7 +537,7 @@ export const ConfidentialFolder = forwardRef<
                 <OrbitGraphic />
                 <div className="relative flex h-full flex-col justify-end px-6 py-7">
                   <div>
-                    <h3 className="font-sans text-[22px] leading-[1.12] tracking-[-0.03em] text-[oklch(0.94_0.01_260)]">
+                    <h3 className="font-sans text-[22px] leading-[1.12] tracking-normal text-[oklch(0.94_0.01_260)]">
                       {title}
                     </h3>
                     <p className="mt-2 whitespace-nowrap font-sans text-[13px] leading-snug text-[oklch(0.68_0.01_260)]">

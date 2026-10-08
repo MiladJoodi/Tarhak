@@ -1,9 +1,18 @@
 ---
 title: Client Card
-description: A client CRM card with payment and deadline rings, plus a morphing avatar stack.
+description: کارت CRM مشتری با حلقه‌های پرداخت و مهلت، به‌علاوهٔ پشتهٔ آواتار مورف‌شونده.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **چیدمان مشترک**: ریل آواتار با `layoutId` به شبکهٔ کامل چهره‌ها باز می‌شود.
+- **حلقهٔ پرداخت**: پیشرفت دایره‌ای از مبلغ پرداخت‌شده در برابر کل.
+- **حلقهٔ مهلت**: زمان مصرف‌شده در برابر بازهٔ قرارداد، با برچسب کوتاه «X روز مانده».
+- **هویت**: نام، کشور و پرتره روی کارتی جمع‌وجور.
+
+## نحوه استفاده
+
+مقادیر پیش‌فرض را با دادهٔ مشتری عوض کنید. `amountPaid` و `totalAmount` حلقهٔ پرداخت را می‌سازند؛ `startDate` و `deadline` حلقهٔ مهلت را.
 
 ```tsx
 import ClientCard from "@/components/client-card";
@@ -13,9 +22,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- Shared layout: The avatar rail expands into a full grid of faces with `layoutId`.
-- Paid ring: Circular progress from amount paid vs total.
-- Deadline ring: Time used vs the contract window, with a short “Xd left” label.
-- Identity: Name, country, and portrait on a compact card.
+- داشبورد CRM و حساب‌ها
+- لیست مشتریان آژانس
+- نمای پروژهٔ فریلنسری
+- کارت‌های وضعیت پرداخت
+- پنل مدیریت قرارداد

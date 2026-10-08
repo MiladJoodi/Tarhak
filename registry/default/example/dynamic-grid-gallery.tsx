@@ -25,45 +25,45 @@ export interface DynamicGridGalleryProps {
 export const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 1,
-    title: "Dune Crests",
+    title: "قلهٔ تپه‌های شنی",
     src: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=2560&auto=format&fit=crop",
-    alt: "Sculptural desert sand dunes with dramatic warm golden shadows",
+    alt: "تپه‌های شنی مجسمه‌گونه با سایه‌های طلایی گرم",
   },
   {
     id: 2,
-    title: "Canyon Glow",
+    title: "درخشش دره",
     src: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2560&auto=format&fit=crop",
-    alt: "Smooth flowing sandstone slot canyon with rich terracotta tones",
+    alt: "درهٔ ماسه‌سنگی روان با تن‌های سفالین",
   },
   {
     id: 3,
-    title: "Golden Monolith",
+    title: "ستون طلایی",
     src: "https://images.unsplash.com/photo-1518457607834-6e8d80c183c5?q=80&w=2560&auto=format&fit=crop",
-    alt: "Towering desert rock formations in golden hour sunset light",
+    alt: "صخره‌های بلند بیابان در نور طلایی غروب",
   },
   {
     id: 4,
-    title: "Terracotta Ridges",
+    title: "خط‌الراس سفالین",
     src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2560&auto=format&fit=crop",
-    alt: "Vast desert canyon highway framed by warm red rock formations",
+    alt: "جادهٔ درهٔ گسترده میان صخره‌های سرخ گرم",
   },
   {
     id: 5,
-    title: "Sahara Solitude",
+    title: "تنهایی صحرا",
     src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2560&auto=format&fit=crop",
-    alt: "Minimalist undulating sand dunes with deep warm contrast",
+    alt: "تپه‌های شنی مینیمال با کنتراست گرم عمیق",
   },
   {
     id: 6,
-    title: "Sedona Sunset",
+    title: "غروب سدونا",
     src: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?q=80&w=2560&auto=format&fit=crop",
-    alt: "Warm amber horizon across rugged desert cliffs and plateau",
+    alt: "افق کهربایی روی صخره‌ها و فلات بیابان",
   },
 ];
 
 /**
  * DynamicGridGallery - Framer-style interactive dynamic expandable 3x2 grid gallery.
- * Drop-in, fully responsive, Tailwind CSS & Shadcn friendly.
+ * Drop-in, fully responsive, Tailwind CSS & FarsiUI friendly.
  */
 export function DynamicGridGallery({
   items = DEFAULT_GALLERY_ITEMS,
@@ -111,7 +111,7 @@ export function DynamicGridGallery({
       onMouseLeave={() => setHoveredIndex(null)}
     >
       <div
-        className="w-full h-full grid transition-[grid-template-columns,grid-template-rows] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+        className="grid h-full w-full transition-[grid-template-columns,grid-template-rows] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
         style={{
           gridTemplateColumns: gridStyles.gridTemplateColumns,
           gridTemplateRows: gridStyles.gridTemplateRows,
@@ -125,17 +125,17 @@ export function DynamicGridGallery({
             <div
               key={item.id || index}
               onMouseEnter={() => setHoveredIndex(index)}
-              className={`relative w-full h-full overflow-hidden ${rounded} cursor-pointer select-none bg-neutral-900 group`}
+              className={`group relative h-full w-full cursor-pointer select-none overflow-hidden bg-neutral-900 ${rounded}`}
             >
               <img
                 src={item.src}
                 alt={item.alt || item.title || ""}
                 loading={index < 3 ? "eager" : "lazy"}
-                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-[0.98] contrast-[1.04]"
+                className="absolute inset-0 h-full w-full object-cover object-center brightness-[0.98] contrast-[1.04] transition-transform duration-700 ease-out group-hover:scale-105"
               />
               {/* Subtle ambient lighting vignette */}
               <div
-                className={`absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10 transition-opacity duration-300 pointer-events-none ${
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10 transition-opacity duration-300 ${
                   isHovered ? "opacity-0" : "opacity-40"
                 }`}
               />
@@ -149,7 +149,11 @@ export function DynamicGridGallery({
 
 export default function DynamicGridGalleryExample() {
   return (
-    <div className="aspect-[3/2] w-[min(100%-3rem,72rem)]">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="aspect-[3/2] w-[min(100%-3rem,72rem)] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <DynamicGridGallery />
     </div>
   );

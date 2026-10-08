@@ -1,9 +1,18 @@
 ---
 title: Holographic Referral Card
-description: A dark invite card that tilts in 3D with the pointer. A holographic glow follows. Touch stays still. Tab for a quiet glow.
+description: کارت دعوت تیره که با اشاره‌گر سه‌بعدی کج می‌شود. درخشش هولوگرافیک دنبال می‌کند. لمس ثابت می‌ماند. تب برای درخشش آرام.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **کج‌شدن با اشاره‌گر**: `rotateX`، `rotateY` و `translateZ` با فنر از اشاره‌گر می‌آیند.
+- **درخشش هولوگرافیک**: یک پوشش شعاعی با `mix-blend-overlay` اشاره‌گر را دنبال می‌کند.
+- **فقط اشاره‌گر دقیق**: لمس شیب را حرکت نمی‌دهد.
+- **صفحه‌کلید**: فوکوس درخشش را نشان می‌دهد. بلور کارت را ریست می‌کند.
+- **حرکت کاهش‌یافته**: تبدیل ثابت می‌ماند. کارت همچنان کار می‌کند.
+- به `motion` نیاز دارد. این یک دعوت بصری است، نه فرم.
+
+## نحوه استفاده
 
 ```tsx
 import HolographicReferralCard from "@/components/holographic-referral-card";
@@ -13,11 +22,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- Pointer tilt: `rotateX`, `rotateY`, and `translateZ` spring from the pointer.
-- Holographic glow: A radial overlay tracks the pointer with `mix-blend-overlay`.
-- Fine pointer only: Touch does not drive the tilt.
-- Keyboard: Focus reveals the glow. Blur resets the card.
-- Reduced motion: The transform stays put. The card still works.
-- Needs `motion`. This is a visual invite, not a form.
+- کارت‌های دعوت و ارجاع
+- بلیت رویداد یا پاس VIP
+- کمپین معرفی دوست
+- کارت‌های برند در لندینگ
+- پیش‌نمایش هدیه یا کوپن

@@ -1,7 +1,6 @@
 "use client";
 import {
   Tick02Icon,
-  CodeIcon,
   UnfoldMoreIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -9,10 +8,10 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 
-const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-type options = "Daily" | "Weekly" | "Monthly" | "Yearly";
+const days = ["ی", "د", "س", "چ", "پ", "ج", "ش"];
+type options = "روزانه" | "هفتگی" | "ماهانه" | "سالانه";
 // Change Here
-const options: options[] = ["Daily", "Weekly", "Monthly", "Yearly"];
+const options: options[] = ["روزانه", "هفتگی", "ماهانه", "سالانه"];
 
 const springTransition = {
   type: "spring",
@@ -23,36 +22,40 @@ const springTransition = {
 
 export default function DayPicker() {
   const [day, setDay] = useState(1);
-  const [option, setOption] = useState<options>("Daily");
+  const [option, setOption] = useState<options>("روزانه");
   const [isOptionOpen, setisOptionOpen] = useState(false);
   const [isSelectorOpen, setIsSelectorOpen] = useState(true);
 
   return (
-    <div className="w-full h-full  flex justify-center items-center font-medium text-sm">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-sm font-medium tracking-normal"
+    >
       <motion.div
         layout
         transition={springTransition}
-        className="flex flex-col gap-1.5 shadow-lg overflow-hidden rounded-3xl bg-muted p-1.5 max-w-xs w-full"
+        className="flex w-full max-w-xs flex-col gap-1.5 overflow-hidden rounded-3xl bg-muted p-1.5 shadow-lg"
       >
-        <div className="flex justify-between items-center relative">
+        <div className="relative flex items-center justify-between">
           <motion.div
             layout
             animate={{
               filter: isOptionOpen ? "blur(8px)" : "blur(0px)",
             }}
             transition={springTransition}
-            className="px-3 text-muted-foreground h-full flex items-center justify-center py-2 "
+            className="flex h-full items-center justify-center px-3 py-2 text-muted-foreground "
           >
-            Frequency
+            تکرار
           </motion.div>
           {isOptionOpen ? (
-            <div className="absolute w-full h-full flex justify-between gap-2 p-0">
-              <motion.div className="flex justify-between w-full relative items-center rounded-3xl ">
+            <div className="absolute flex h-full w-full justify-between gap-2 p-0">
+              <motion.div className="relative flex w-full items-center justify-between rounded-3xl ">
                 <motion.div
                   layout
                   transition={springTransition}
                   layoutId="options"
-                  className="absolute w-full rounded-3xl bg-background h-full"
+                  className="absolute h-full w-full rounded-3xl bg-background"
                 ></motion.div>
 
                 <div className="flex justify-between px-1">
@@ -74,7 +77,7 @@ export default function DayPicker() {
                           setIsSelectorOpen(true);
                         }}
                         className={cn(
-                          "px-2 cursor-pointer py-1 rounded-[24px] text-muted-foreground relative transition-colors duration-300",
+                          "relative cursor-pointer rounded-[24px] px-2 py-1 text-muted-foreground transition-colors duration-300",
                           option === op && "text-foreground"
                         )}
                       >
@@ -82,7 +85,7 @@ export default function DayPicker() {
                           <motion.div
                             layoutId="optionToSelect"
                             transition={springTransition}
-                            className="w-full h-full absolute inset-0 bg-secondary rounded-3xl"
+                            className="absolute inset-0 h-full w-full rounded-3xl bg-secondary"
                           ></motion.div>
                         )}
                         <span className="relative z-10">{op}</span>
@@ -113,7 +116,7 @@ export default function DayPicker() {
                   }}
                   transition={springTransition}
                   style={{ borderRadius: 24 }}
-                  className="bg-primary px-[10px] justify-center text-primary-foreground flex h-full items-center cursor-pointer"
+                  className="flex h-full cursor-pointer items-center justify-center bg-primary px-[10px] text-primary-foreground"
                 >
                   <HugeiconsIcon icon={Tick02Icon} size={16} />
                 </motion.div>
@@ -122,26 +125,26 @@ export default function DayPicker() {
           ) : (
             <motion.div
               onClick={() => setisOptionOpen(true)}
-              className="rounded-full w-fit px-0 p-0 relative flex gap-0 items-center cursor-pointer"
+              className="relative flex w-fit cursor-pointer items-center gap-0 rounded-full p-0 px-0"
             >
               <motion.div
                 layout
                 transition={springTransition}
                 layoutId="options"
-                className="absolute h-full w-full bg-background rounded-[24px]"
+                className="absolute h-full w-full rounded-[24px] bg-background"
               ></motion.div>
               <motion.div
                 initial={false}
-                className="pl-3 py-0 relative cursor-default text-foreground"
+                className="relative cursor-default py-0 ps-3 text-foreground"
                 layoutId={option}
               >
-                {option === "Weekly" ? option + ", " + days[day] : option}
+                {option === "هفتگی" ? option + "، " + days[day] : option}
               </motion.div>
               <AnimatePresence initial={false}>
                 <motion.div
                   key="code-icon"
                   layoutId="button"
-                  className="text-muted-foreground justify-center flex items-center w-fit h-fit px-3 pl-2 py-[10px]"
+                  className="flex h-fit w-fit items-center justify-center px-3 py-[10px] ps-2 text-muted-foreground"
                 >
                   <HugeiconsIcon
                     icon={UnfoldMoreIcon}
@@ -154,7 +157,7 @@ export default function DayPicker() {
           )}
         </div>
         <AnimatePresence mode="popLayout">
-          {isSelectorOpen && option === "Weekly" && (
+          {isSelectorOpen && option === "هفتگی" && (
             <motion.div
               initial={{
                 opacity: 0,
@@ -172,7 +175,7 @@ export default function DayPicker() {
                 filter: "blur(8px)",
               }}
               transition={springTransition}
-              className="flex justify-between text-muted-foreground px-2 bg-background overflow-hidden rounded-full py-1"
+              className="flex justify-between overflow-hidden rounded-full bg-background px-2 py-1 text-muted-foreground"
             >
               {days.map((d, index) => {
                 return (
@@ -197,7 +200,7 @@ export default function DayPicker() {
                     }}
                     onClick={() => setDay(index)}
                     className={cn(
-                      "px-2 py-1 rounded-3xl relative transition-colors duration-300 cursor-pointer",
+                      "relative cursor-pointer rounded-3xl px-2 py-1 transition-colors duration-300",
                       index === day
                         ? "text-foreground"
                         : "text-muted-foreground"
@@ -208,7 +211,7 @@ export default function DayPicker() {
                       <motion.div
                         transition={springTransition}
                         layoutId="dayOptions"
-                        className="absolute h-full w-full bg-secondary inset-0 rounded-3xl "
+                        className="absolute inset-0 h-full w-full rounded-3xl bg-secondary "
                       ></motion.div>
                     )}
                   </motion.div>

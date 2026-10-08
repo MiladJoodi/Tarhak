@@ -20,8 +20,8 @@
   },
   "showHint": true,
   "hintKind": "custom",
-  "hintHeading": "Tap to set a timer",
-  "hintDescription": "Spin the wheel, start, then pause or cancel. One surface morphs through every step.",
+  "hintHeading": "برای تنظیم تایمر بزن",
+  "hintDescription": "چرخ را بچرخان، شروع کن، بعد مکث یا لغو. یک سطح در هر مرحله شکل عوض می‌کند.",
   "tags": [
     "timer",
     "input"

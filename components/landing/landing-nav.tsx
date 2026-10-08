@@ -9,9 +9,9 @@ import { formatStarCount, GITHUB_URL } from "@/lib/github";
 import { BrandLogo } from "@/components/brand-logo";
 
 export const landingNavLinks = [
-  { label: "Component", href: "/browse" },
-  { label: "Documentation", href: "/docs" },
-  { label: "Sponsor", href: "/sponsor" },
+  { label: "کامپوننت‌ها", href: "/browse" },
+  { label: "مستندات", href: "/docs" },
+  { label: "تماس", href: "/contact" },
 ] as const;
 
 function GithubMarkLink({ stars }: { stars?: number | null }) {
@@ -67,11 +67,11 @@ export function LandingNav({
         <GithubMarkLink stars={githubStars} />
         <button
           type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? "بستن منو" : "باز کردن منو"}
           className="inline-flex size-10 items-center justify-center rounded-2xl text-[#071A31] transition-opacity duration-150 hover:opacity-70 lg:hidden"
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="sr-only">Menu</span>
+          <span className="sr-only">منو</span>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
             {open ? (
               <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.5" />

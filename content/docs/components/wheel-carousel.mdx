@@ -1,19 +1,19 @@
 ---
 title: Wheel Carousel
-description: A Ferris-wheel of names beside a large photo — drag, scroll, or arrow through, and the still crossfades.
+description: چرخ نام‌ها کنار عکس بزرگ — بکشید، اسکرول کنید یا پیکان بزنید تا تصویر کراس‌فید شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Arc of labels**: Titles sit on a wheel; the selected one sits at the apex.
-- **Photo lockup**: A large still on the side crossfades as the wheel moves.
-- **Drag, wheel, keys**: Pointer, trackpad, and arrows all snap to an item.
-- **Momentum then snap**: Flicks coast, then settle on a name.
-- **Edge fade**: Labels dissolve at the top and bottom of the arc so the list never looks clipped.
+- **قوس برچسب‌ها**: عنوان‌ها روی چرخ می‌نشینند؛ انتخاب‌شده در رأس قوس است.
+- **قفل عکس**: تصویر بزرگ کنار چرخ با حرکت کراس‌فید می‌شود.
+- **کشیدن، چرخ، کلید**: اشاره‌گر، ترک‌پد و پیکان‌ها روی یک آیتم اسنپ می‌شوند.
+- **تکانه بعد اسنپ**: پرتاب‌ها ادامه می‌یابند، بعد روی یک نام می‌نشینند.
+- **محو لبه**: برچسب‌ها در بالا و پایین قوس محو می‌شوند تا فهرست بریده به‌نظر نرسد.
 
-## Usage
+## نحوه استفاده
 
-Pass items with `label` and `image` (architecture, interiors, landscapes in the demo). Needs a wide stage — photo + wheel. This is a catalog browser, not a tiny widget. Tune radius and visible count if your names are long.
+آیتم‌ها را با `label` و `image` بدهید (معماری، داخلی، منظر در دمو). صحنهٔ عریض لازم است — عکس + چرخ. این مرورگر کاتالوگ است، نه ویجت کوچک. اگر نام‌ها بلندند، شعاع و تعداد قابل‌دید را تنظیم کنید.
 
 ```tsx
 import WheelCarousel from "@/components/wheel-carousel";
@@ -23,10 +23,10 @@ export default function Example() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Architecture or interior catalogs
-- Hotel or real-estate galleries
-- Fashion lookbooks
-- Exhibition indexes
-- Brand campaign archives
+- کاتالوگ معماری یا داخلی
+- گالری هتل یا املاک
+- لوک‌بوک مد
+- فهرست نمایشگاه
+- آرشیو کمپین برند

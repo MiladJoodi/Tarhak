@@ -151,51 +151,85 @@ export interface AccordionOSProps {
   onItemChange?: (index: number | null) => void;
 }
 
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+
+function toFaDigits(value: string | number) {
+  return String(value).replace(/\d/g, (d) => FA_DIGITS[Number(d)] ?? d);
+}
+
+function toFaPad2(value: number) {
+  return toFaDigits(String(value).padStart(2, "0"));
+}
+
+function FaDigits({
+  value,
+  className = "",
+}: {
+  value: string | number;
+  className?: string;
+}) {
+  const text = toFaDigits(value);
+  return (
+    <span
+      dir="ltr"
+      data-fa-num
+      className={`accordion-os-fa-num ${className}`.trim()}
+      aria-label={text}
+    >
+      {[...text].map((ch, i) => (
+        <span key={`${i}-${ch}`} aria-hidden="true">
+          {ch}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 const DEFAULT_ITEMS: AccordionItem[] = [
   {
     id: 1,
-    title: "Centering",
-    badge: "01",
+    title: "مرکز کردن",
+    badge: "۰۱",
     claim:
-      "Push the clay into the wheel's dead center. Until it stops wobbling, nothing else you do will hold.",
+      "گل را تا مرکز مردهٔ چرخ فشار دهید. تا وقتی که نلرزد، هیچ کار دیگری دوام نمی‌آورد.",
     image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1200&q=80",
-    alt: "Hands centering wet clay on a pottery wheel",
+    alt: "دست‌ها در حال مرکز کردن گل خیس روی چرخ سفالگری",
   },
   {
     id: 2,
-    title: "Pulling Walls",
-    badge: "02",
+    title: "کشیدن دیواره",
+    badge: "۰۲",
     claim:
-      "Two fingers inside, one outside. Pull slow and even—the wall rises or it collapses.",
+      "دو انگشت داخل، یکی بیرون. آهسته و یکنواخت بکشید — دیواره بالا می‌آید یا فرو می‌ریزد.",
     image: "https://images.unsplash.com/photo-1753164726043-31e583f8a9b8?auto=format&fit=crop&w=1200&q=80",
-    alt: "Potter pulling walls on a bowl at the wheel",
+    alt: "سفالگر در حال کشیدن دیوارهٔ کاسه روی چرخ",
   },
   {
     id: 3,
-    title: "Glaze Prep",
-    badge: "03",
+    title: "آماده‌سازی لعاب",
+    badge: "۰۳",
     claim:
-      "Oxides mixed in small bowls, tested on tile shards. The kiln decides if your recipe was right.",
+      "اکسیدها در کاسه‌های کوچک مخلوط می‌شوند و روی خرده‌کاشی آزمایش می‌شوند. کوره تصمیم می‌گیرد دستور شما درست بوده یا نه.",
     image: "https://images.unsplash.com/photo-1771523351104-03d9c2cc347c?auto=format&fit=crop&w=1200&q=80",
-    alt: "Bowls of colorful ceramic glazes on a studio table",
+    alt: "کاسه‌های لعاب سرامیکی رنگی روی میز کارگاه",
   },
   {
     id: 4,
-    title: "Trimming",
-    badge: "04",
+    title: "تراشیدن",
+    badge: "۰۴",
     claim:
-      "Foot ring cut while the bowl is still leather-hard. One cut too deep and months of work tips into the slop bucket.",
+      "حلقهٔ پایه وقتی کاسه هنوز چرم‌سخت است بریده می‌شود. یک برش عمیق‌تر و ماه‌ها کار به سطل گل می‌رود.",
     image: "https://images.unsplash.com/photo-1753164726182-4037e5b3bcaa?auto=format&fit=crop&w=1200&q=80",
-    alt: "Potter trimming a wide ceramic bowl in the studio",
+    alt: "سفالگر در حال تراشیدن یک کاسهٔ سرامیکی پهن در کارگاه",
   },
   {
     id: 5,
-    title: "Finished Ware",
-    badge: "05",
+    title: "اثر نهایی",
+    badge: "۰۵",
     claim:
-      "Cooling crackle, lids that fit, handles thick enough for hot tea. The kiln signed off.",
+      "ترک خنک‌شدن، درهایی که جا می‌خورند، دسته‌هایی به ضخامت چای داغ. کوره تأیید کرد.",
     image: "https://images.unsplash.com/photo-1771830937026-3e3474fdd947?auto=format&fit=crop&w=1200&q=80",
-    alt: "Handmade ceramic bowls and vases on display",
+    alt: "کاسه‌ها و گلدان‌های سرامیکی دست‌ساز در ویترین",
   },
 ];
 
@@ -366,7 +400,7 @@ export function AccordionOS({
                       <span className="accordion-os-title-text">{item.title}</span>
                       {isOpen && item.badge ? (
                         <span className="accordion-os-pill-badge accordion-os-pill-badge-active">
-                          {item.badge}
+                          <FaDigits value={item.badge} />
                         </span>
                       ) : null}
                     </div>
@@ -430,7 +464,7 @@ export function AccordionOS({
                   <button
                     type="button"
                     onClick={handlePrev}
-                    aria-label="Previous (Up Arrow)"
+                    aria-label="قبلی (فلش بالا)"
                     className="accordion-os-nav-btn"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="accordion-os-nav-svg">
@@ -439,15 +473,15 @@ export function AccordionOS({
                   </button>
 
                   <div className="accordion-os-counter">
-                    <span>{String((activeIndex ?? 0) + 1).padStart(2, "0")}</span>
+                    <FaDigits value={toFaPad2((activeIndex ?? 0) + 1)} />
                     <span className="accordion-os-counter-divider">/</span>
-                    <span>{String(items.length).padStart(2, "0")}</span>
+                    <FaDigits value={toFaPad2(items.length)} />
                   </div>
 
                   <button
                     type="button"
                     onClick={handleNext}
-                    aria-label="Next (Down Arrow)"
+                    aria-label="بعدی (فلش پایین)"
                     className="accordion-os-nav-btn"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="accordion-os-nav-svg">
@@ -475,7 +509,7 @@ export function AccordionOS({
           >
             <img
               src={staticImage}
-              alt="Handmade ceramic vessels on a studio shelf"
+              alt="ظروف سرامیکی دست‌ساز روی قفسهٔ کارگاه"
               className="accordion-os-image"
               loading="eager"
               decoding="async"
@@ -516,7 +550,7 @@ export function AccordionOS({
         .accordion-os-root {
           box-sizing: border-box;
           margin: 0 auto;
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--font-estedad), Tahoma, Arial, sans-serif;
           user-select: none;
           perspective: 1200px;
           container-type: inline-size;
@@ -626,7 +660,7 @@ export function AccordionOS({
           font-size: 15px;
           font-weight: 600;
           color: #111111;
-          letter-spacing: -0.015em;
+          letter-spacing: normal;
           white-space: nowrap;
         }
 
@@ -634,7 +668,20 @@ export function AccordionOS({
           font-size: 10px;
           font-weight: 700;
           color: rgba(0, 0, 0, 0.35);
-          font-variant-numeric: tabular-nums;
+        }
+
+        .accordion-os-fa-num {
+          display: inline-flex;
+          flex-direction: row;
+          direction: ltr;
+          unicode-bidi: isolate;
+          align-items: baseline;
+          font-variant-numeric: proportional-nums;
+          font-feature-settings: "tnum" 0, "pnum" 1;
+        }
+
+        .accordion-os-fa-num > span:not(:last-child) {
+          margin-inline-end: -0.28em;
         }
 
         .accordion-os-pill-badge-active {
@@ -710,7 +757,6 @@ export function AccordionOS({
           font-weight: 600;
           line-height: 1;
           color: #374151;
-          font-variant-numeric: tabular-nums;
         }
 
         .accordion-os-counter-divider {
@@ -811,7 +857,11 @@ export function AccordionOS({
 export default function Accordionos() {
   return (
     <TooltipProvider delayDuration={0}>
-      <div className="flex h-full w-full min-w-0 items-center justify-center overflow-auto p-4">
+      <div
+        dir="rtl"
+        lang="fa"
+        className="flex h-full w-full min-w-0 items-center justify-center overflow-auto p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      >
         <AccordionOS
           containerWidth="min(52.5rem, 100%)"
           containerHeight={520}

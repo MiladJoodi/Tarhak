@@ -1,9 +1,19 @@
 ---
 title: Corner Video
-description: A compact corner video player with smooth open/close morphing, autoplay, mute, enlarge, hover controls, and video scrubbing.
+description: پخش‌کنندهٔ جمع‌وجور گوشه با مورف باز/بسته، پخش خودکار، بی‌صدا، بزرگ‌نمایی، کنترل هاور و اسکراب ویدیو.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **مورف گوشه**: از تصویر-در-تصویر کوچک شروع می‌شود و به پخش‌کنندهٔ بزرگ‌تر نرم می‌شود.
+- **حلقهٔ همیشه روشن**: پخش خودکار و بی‌صدا پیش‌فرض تا بدون صدای بلند روی صفحه بماند.
+- **کروم هاور**: پخش، بی‌صدا و بزرگ‌نمایی با هاور روی قاب ظاهر می‌شوند.
+- **نوار اسکراب**: نوار پیشرفت را بکشید تا جابه‌جا شوید؛ زمان کنارش است.
+- **کلید بزرگ‌نمایی**: بدون ترک صفحه به اندازهٔ سخاوتمندانه‌تر کشیده می‌شود.
+
+## نحوه استفاده
+
+`title`، منبع ویدیو و `defaultMuted` را عوض کنید. گوشه با `end`/`bottom` ثابت است تا در RTL درست بنشیند.
 
 ```tsx
 import CornerVideo from "@/components/corner-video";
@@ -13,10 +23,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- Corner morph: Starts as a small picture-in-picture, then eases into a larger player.
-- Always-on loop: Autoplay and mute by default so it can sit on a page without blasting audio.
-- Hover chrome: Play, mute, and enlarge fade in when you hover the frame.
-- Scrub bar: Drag the progress track to seek; time stamps sit beside it.
-- Enlarge toggle: Stretch it toward a more generous size without leaving the page.
+- تور محصول روی لندینگ
+- دمو کوتاه در مستندات
+- ویدیو پشتیبانی گوشه‌ای
+- پیش‌نمایش ویژگی در آنبوردینگ
+- تبلیغ کمپین بدون مسدود کردن محتوا

@@ -14,14 +14,15 @@ const POSTER =
 const EASE = [0.23, 1, 0.32, 1] as const;
 
 function formatTime(timeInSeconds: number) {
-  if (Number.isNaN(timeInSeconds)) return "0:00";
+  if (Number.isNaN(timeInSeconds)) return "۰:۰۰";
   const mins = Math.floor(timeInSeconds / 60);
   const secs = Math.floor(timeInSeconds % 60);
-  return `${mins}:${secs.toString().padStart(2, "0")}`;
+  const raw = `${mins}:${secs.toString().padStart(2, "0")}`;
+  return raw.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]!);
 }
 
 function CornerPlayer({
-  title = "Watch studio tour",
+  title = "تماشای تور استودیو",
   defaultMuted = true,
   autoPlay = true,
 }: {
@@ -122,15 +123,18 @@ function CornerPlayer({
   const showControls = isHovered || isScrubbing;
   const openH = isEnlarged ? 498 : 320;
   const openW = isEnlarged ? 280 : 180;
+  const durationLabel = duration > 0
+    ? ` (${String(Math.round(duration)).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]!)}ث)`
+    : "";
 
   return (
-    <div className="fixed right-4 bottom-4 z-50">
+    <div className="fixed end-4 bottom-4 z-50">
       {/* One continuous shell — video stays mounted so minimize never blanks */}
       <motion.div
         layout
         transition={{ duration: 0.4, ease: EASE }}
         style={{
-          originX: 1,
+          originX: 0,
           originY: 1,
           borderRadius: isOpen ? "16px" : "22px",
         }}
@@ -174,12 +178,12 @@ function CornerPlayer({
             </video>
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[#D8F0E8] text-sm text-teal-800">
-              Preview unavailable
+              پیش‌نمایش در دسترس نیست
             </div>
           )}
 
           <div
-            className={`absolute top-2 right-2 left-2 z-10 flex justify-between transition-opacity duration-200 ${
+            className={`absolute top-2 end-2 start-2 z-10 flex justify-between transition-opacity duration-200 ${
               showControls ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
           >
@@ -188,7 +192,7 @@ function CornerPlayer({
                 type="button"
                 onClick={toggleMute}
                 className="flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-sky-950"
-                aria-label={isMuted ? "Unmute" : "Mute"}
+                aria-label={isMuted ? "صدا روشن" : "بی‌صدا"}
               >
                 {isMuted ? (
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -211,7 +215,7 @@ function CornerPlayer({
                   setIsEnlarged((v) => !v);
                 }}
                 className="flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-sky-950"
-                aria-label={isEnlarged ? "Shrink" : "Enlarge"}
+                aria-label={isEnlarged ? "کوچک کردن" : "بزرگ کردن"}
               >
                 {isEnlarged ? (
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -234,7 +238,7 @@ function CornerPlayer({
               type="button"
               onClick={handleClose}
               className="flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-sky-950"
-              aria-label="Close"
+              aria-label="بستن"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden>
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -247,10 +251,10 @@ function CornerPlayer({
             onMouseEnter={() => setIsBarHovered(true)}
             onMouseLeave={() => setIsBarHovered(false)}
             onMouseDown={handleMouseDown}
-            className="absolute right-0 bottom-0 left-0 z-10 flex h-8 cursor-pointer touch-none flex-col justify-end"
+            className="absolute end-0 bottom-0 start-0 z-10 flex h-8 cursor-pointer touch-none flex-col justify-end"
           >
             <div
-              className={`pointer-events-none absolute right-2.5 bottom-4 left-2.5 flex justify-between text-xs text-white tabular-nums transition-opacity ${
+              className={`pointer-events-none absolute end-2.5 bottom-4 start-2.5 flex justify-between text-xs text-white tabular-nums transition-opacity ${
                 isBarHovered || isScrubbing ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -290,7 +294,7 @@ function CornerPlayer({
           </svg>
           <span>
             {title}
-            {duration > 0 ? ` (${Math.round(duration)}s)` : ""}
+            {durationLabel}
           </span>
         </motion.button>
       </motion.div>
@@ -300,7 +304,11 @@ function CornerPlayer({
 
 export default function CornerVideo() {
   return (
-    <section className="relative h-full min-h-[28rem] w-full bg-[hsl(240_6%_7%)]">
+    <section
+      dir="rtl"
+      lang="fa"
+      className="relative h-full min-h-[28rem] w-full bg-[hsl(240_6%_7%)] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <CornerPlayer />
     </section>
   );

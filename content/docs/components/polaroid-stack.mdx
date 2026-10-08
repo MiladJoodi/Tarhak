@@ -1,19 +1,19 @@
 ---
 title: Polaroid Stack
-description: Seven Polaroids sit in a pile. Hover a card and they fan into an arc from one corner, like a hand of cards.
+description: هفت پولاروید روی هم. با هاور به قوسی از یک گوشه بادبزن می‌شوند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Idle pile**: Same size, white frame, thick Polaroid foot, stacked on center.
-- **CSS fan**: Hovering a card rotates the pile from −54° to 54°. No Motion, no JS state.
-- **Shared hinge**: `origin-bottom-left` so they pivot from one hand-held point.
-- **Card lift**: A single print scales to 1.1 on its own hover and rises above the rest.
-- **Fine pointer only**: The fan stays off on touch. Reduced motion keeps the pile still.
+- **پشتهٔ آرام**: همان اندازه، قاب سفید، پای ضخیم پولاروید، روی مرکز روی هم.
+- **بادبزن CSS**: هاور یک کارت پشته را از ۵۴° تا −۵۴° می‌چرخاند. بدون Motion و بدون state جاوااسکریپت.
+- **لولا مشترک**: `origin-bottom-right` تا از یک نقطهٔ دست‌گرفته بچرخند.
+- **بلند شدن کارت**: یک چاپ روی هاور خودش به ۱٫۱ اسکل می‌شود و بالای بقیه می‌آید.
+- **فقط اشاره‌گر دقیق**: روی لمس بادبزن خاموش می‌ماند. حرکت کمتر پشته را ثابت نگه می‌دارد.
 
-## Usage
+## نحوه استفاده
 
-Hover a card. Swap `fanCards` for your shots. This is a stack, not a carousel.
+روی کارت هاور کنید. `fanCards` را با شات‌های خود عوض کنید. پشته است، نه کاروسل.
 
 ```tsx
 import PolaroidStack from "@/components/polaroid-stack";
@@ -23,20 +23,20 @@ export default function Example() {
 }
 ```
 
-## Customize
+## سفارشی‌سازی
 
-- **Count**: Add or remove items in `fanCards`. Spread `hoverClassName` rotations evenly.
-- **Size**: `h-[226px] w-[152px]` on `cardClassName`.
-- **Fan angle**: The `rotate(...)` values. Keep the middle card at `0deg`.
-- **Speed**: `duration-200`. Keep it at or under 300ms.
-- **Photos**: `src` and `alt` on each card.
-- **Border**: `border-[5px]` and `border-b-[40px]` for the Polaroid foot.
-- **Scale**: `hover:[scale:1.1]`.
+- **تعداد**: آیتم‌های `fanCards` را کم یا زیاد کنید. چرخش‌های `hoverClassName` را یکنواخت پخش کنید.
+- **اندازه**: `h-[226px] w-[152px]` روی `cardClassName`.
+- **زاویهٔ بادبزن**: مقادیر `rotate(...)`. کارت وسط را روی `0deg` نگه دارید.
+- **سرعت**: `duration-200`. زیر یا برابر ۳۰۰ms بماند.
+- **عکس‌ها**: `src` و `alt` هر کارت.
+- **حاشیه**: `border-[5px]` و `border-b-[40px]` برای پای پولاروید.
+- **اسکل**: `hover:[scale:1.1]`.
 
-## Where to use
+## کجا استفاده شود
 
-- Photography and editorial portfolios
-- About or team pages
-- Lookbooks and mood boards
-- Wedding or travel recaps
-- Landing heroes that need a quiet photo object
+- پورتفولیو عکاسی و ادیتوریال
+- صفحهٔ درباره یا تیم
+- لوک‌بوک و مودبورد
+- خلاصهٔ عروسی یا سفر
+- هیرو لندینگ که به یک آبجکت عکس آرام نیاز دارد

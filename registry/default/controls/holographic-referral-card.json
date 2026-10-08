@@ -13,8 +13,8 @@
   },
   "showHint": false,
   "hintKind": "custom",
-  "hintHeading": "Move the pointer",
-  "hintDescription": "The card tilts toward the pointer. A holographic glow follows. Touch stays still. Tab to see a quiet glow.",
+  "hintHeading": "نشانگر را حرکت بده",
+  "hintDescription": "کارت به سمت نشانگر کج می‌شود. درخشش هولوگرافیک دنبال می‌کند. لمس ثابت می‌ماند. Tab برای درخشش آرام.",
   "hintTop": 80,
   "hintHideOnScroll": false,
   "tags": [

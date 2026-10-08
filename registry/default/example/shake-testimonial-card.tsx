@@ -18,41 +18,41 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Marcus Thorne",
-    role: "Head of Product, EcoStream",
+    name: "مریم رضایی",
+    role: "مدیر محصول، اکواستریم",
     avatar: "/ui/memoji/1.svg",
     content:
-      "The interface is so intuitive that our team was up and running in hours. Highly recommended for fast-moving startups.",
+      "رابط آن‌قدر ساده است که تیممان ظرف چند ساعت راه افتاد. برای استارتاپ‌های تندکار عالی است.",
     color: "#E0F2FE",
     textColor: "#1E3A8A",
   },
   {
     id: 2,
-    name: "Elena Rodriguez",
-    role: "Director of UX, CreativeFlow",
+    name: "سارا احمدی",
+    role: "مدیر تجربه کاربری، کرییتیوفلو",
     avatar: "/ui/memoji/6.svg",
     content:
-      "We've tried dozens of tools, but this one stands out for its elegant design. It's a game-changer for our workflow.",
+      "ده‌ها ابزار را امتحان کردیم؛ این یکی با طراحی تمیزش متمایز است. روند کارمان را عوض کرد.",
     color: "#F3E8FF",
     textColor: "#581C87",
   },
   {
     id: 3,
-    name: "Sarah Jenkins",
-    role: "CEO, TechNova",
+    name: "نیما کریمی",
+    role: "مدیرعامل، تکنووا",
     avatar: "/ui/memoji/4.svg",
     content:
-      "Scaling our infrastructure used to be a nightmare until we found this platform. Now we can focus on building features.",
+      "بزرگ‌کردن زیرساخت قبلاً کابوس بود. حالا می‌توانیم روی ساخت قابلیت تمرکز کنیم.",
     color: "#DCFCE7",
     textColor: "#064E3B",
   },
   {
     id: 4,
-    name: "David Kim",
-    role: "CTO, NextGen Solutions",
+    name: "علی موسوی",
+    role: "مدیر فنی، نکست‌جن",
     avatar: "/ui/memoji/6.svg",
     content:
-      "The security features alone are worth every penny. Our clients feel safer knowing their data is protected by encryption.",
+      "فقط امنیتش ارزشش را دارد. مشتری‌ها با خیال راحت‌تری می‌دانند داده‌شان رمزنگاری شده است.",
     color: "#FEF9C3",
     textColor: "#713F12",
   },
@@ -83,9 +83,13 @@ export default function ShakeTestimonial() {
   }, [handleNext]);
 
   return (
-    <div className="flex items-center justify-center w-full bg-transparent p-4 overflow-hidden py-4 min-h-[650px] max-sm:min-h-[500px]">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex min-h-[650px] w-full items-center justify-center overflow-hidden bg-transparent p-4 py-4 font-sans tracking-normal max-sm:min-h-[500px]"
+    >
       <div
-        className="relative w-full max-w-[370px] h-[240px] lg:max-w-[440px] lg:h-[310px] md:h-[320px]"
+        className="relative h-[240px] w-full max-w-[370px] md:h-[320px] lg:h-[310px] lg:max-w-[440px]"
         style={{ perspective: "1200px" }}
       >
         <AnimatePresence mode="popLayout">
@@ -101,7 +105,7 @@ export default function ShakeTestimonial() {
                   zIndex: testimonials.length - index,
                   position: "absolute",
                   top: 0,
-                  left: 0,
+                  insetInlineStart: 0,
                   transformOrigin: "center center",
                   borderColor: `${card.textColor}20`,
                 }}
@@ -142,32 +146,32 @@ export default function ShakeTestimonial() {
                         },
                 }}
                 className={cn(
-                  "w-full h-full rounded-[48px] p-8 md:p-10  shadow-[0_12px_20px_rgba(0,0,0,0.03)]",
-                  "border flex flex-col justify-between overflow-hidden",
-                  "cursor-pointer select-none ring-1 ring-black/5 backdrop-blur-3xl",
-                  "preserve-3d transition-shadow duration-500 hover:shadow-[0_13px_60px_rgba(0,0,0,0.1)]"
+                  "h-full w-full rounded-[48px] p-8 shadow-[0_12px_20px_rgba(0,0,0,0.03)] md:p-10",
+                  "flex flex-col justify-between overflow-hidden border",
+                  "cursor-pointer ring-1 ring-black/5 backdrop-blur-3xl select-none",
+                  "preserve-3d transition-shadow duration-500 hover:shadow-[0_13px_60px_rgba(0,0,0,0.1)]",
                 )}
                 onClick={handleNext}
               >
-                <div className="flex flex-col gap-4 md:gap-6 ">
+                <div className="flex flex-col gap-4 md:gap-6">
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-12 h-12 bg-white/50 rounded-2xl shadow-inner border border-black/5 overflow-hidden shrink-0 lg:w-14 lg:h-14 max-sm:rounded-xl">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-white/50 shadow-inner max-sm:rounded-xl lg:h-14 lg:w-14">
                       <img
                         src={card.avatar}
-                        className="w-full h-full object-contain"
+                        className="h-full w-full object-contain"
                         alt={card.name}
                       />
                     </div>
 
-                    <div className="flex flex-col justify-center">
+                    <div className="flex flex-col justify-center text-start">
                       <h3
-                        className="font-bold text-lg md:text-xl leading-tight !p-0 !m-0 max-sm:text-base "
+                        className="!m-0 !p-0 text-lg leading-tight font-bold max-sm:text-base md:text-xl"
                         style={{ color: card.textColor }}
                       >
                         {card.name}
                       </h3>
                       <p
-                        className="text-xs lg:text-sm opacity-60  !p-0 !m-0  max-sm:text-xss"
+                        className="!m-0 !p-0 text-xs opacity-60 max-sm:text-xss lg:text-sm"
                         style={{ color: card.textColor }}
                       >
                         {card.role}
@@ -175,10 +179,10 @@ export default function ShakeTestimonial() {
                     </div>
                   </div>
                   <p
-                    className="text-xl font-serif font-medium leading-[1.3] tracking-tight italic  lg:text-2xl md:text-2xl max-sm:text-lg !p-0 !m-0"
+                    className="!m-0 !p-0 text-xl leading-[1.5] font-medium max-sm:text-lg md:text-2xl lg:text-2xl"
                     style={{ color: card.textColor }}
                   >
-                    "{card.content}"
+                    «{card.content}»
                   </p>
                 </div>
               </motion.div>

@@ -1,20 +1,20 @@
 ---
 title: Scroll Stack Deck
-description: Scroll-linked project cards that pin in the viewport and stack, scale, and settle as you move down the page.
+description: کارت‌های پروژهٔ وابسته به اسکرول که در ویوپورت پین می‌شوند و با پایین‌آمدن پشته، مقیاس و نشست پیدا می‌کنند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Sticky viewport**: A `5 × 110vh` track pins a full-screen stage so the stack stays in view while you scroll.
-- **Scroll is the scrubber**: Motion `useScroll` maps progress to each card’s `y` and `scale` — later work slides up, earlier work recedes.
-- **Spring-smoothed progress**: A light spring on `scrollYProgress` keeps the stack from stuttering on wheel ticks.
-- **Tabbed folder cards**: Numbered tabs (01 · Loom, 02 · Meridian) sit on colored folder bodies with copy + still.
-- **Lenis on the window**: Optional smooth wheel for a real landing page. Pass `container` and `enableLenis={false}` inside nested overflow (this docs preview).
-- **Landing-page defaults**: Title, subtitle, scroll cue, and footer — hide them with empty strings / `showFooter={false}`.
+- **ویوپورت چسبان**: مسیر `۵ × ۱۱۰vh` یک صحنهٔ تمام‌صفحه را پین می‌کند تا پشته موقع اسکرول در دید بماند.
+- **اسکرول = اسکرابر**: `useScroll` پیشرفت را به `y` و `scale` هر کارت می‌بندد — کار بعدی بالا می‌آید، قبلی عقب می‌رود.
+- **پیشرفت فنری**: فنر ملایم روی `scrollYProgress` پشته را از پرش چرخ ماوس دور می‌کند.
+- **کارت پوشه‌ای**: تب‌های شماره‌دار روی بدنهٔ رنگی با متن و تصویر ثابت.
+- **Lenis روی پنجره**: چرخ نرم اختیاری برای لندینگ واقعی. داخل overflow تو در تو `container` و `enableLenis={false}` بدهید.
+- **پیش‌فرض لندینگ**: عنوان، زیرعنوان، راهنمای اسکرول و فوتر — با رشتهٔ خالی / `showFooter={false}` پنهان کنید.
 
-## Usage
+## نحوه استفاده
 
-This needs a long page. Don’t drop it in a short section — there’s nothing to scroll. Swap `DEFAULT_PROJECTS` for your work (title, description, still, tint). Images should be wide. Pair it with a case-study or studio homepage, not a dashboard.
+صفحهٔ بلند لازم است. در بخش کوتاه نگذارید — چیزی برای اسکرول نمی‌ماند. `DEFAULT_PROJECTS` را با کار خودتان عوض کنید. تصاویر عریض باشند. برای صفحهٔ کیس‌استادی یا استودیو مناسب است، نه داشبورد.
 
 ```tsx
 import ScrollStackDeck from "@/components/scroll-stack-deck";
@@ -24,10 +24,10 @@ export default function Example() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Studio or agency homepages
-- Case-study index pages
-- Product “selected work” stories
-- Architecture project sites
-- Annual recap or lookbook pages
+- صفحهٔ اصلی استودیو یا آژانس
+- فهرست کیس‌استادی
+- داستان «کارهای برگزیده» محصول
+- سایت پروژه‌های معماری
+- خلاصهٔ سالانه یا لوک‌بوک

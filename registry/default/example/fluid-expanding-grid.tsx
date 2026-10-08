@@ -15,24 +15,24 @@ interface GalleryItem {
 const ITEMS: GalleryItem[] = [
   {
     id: "grassy",
-    title: "Highlands",
-    subtitle: "Golden fields under the giant",
+    title: "ارتفاعات",
+    subtitle: "دشت طلایی زیر آسمان بلند",
     image:
       "https://images.unsplash.com/photo-1755441172753-ac9b90dcd930?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHx8fA%3D%3D",
     color: "#84cc16",
   },
   {
     id: "misty",
-    title: "Crimson",
-    subtitle: "A scarlet flame in the mountains",
+    title: "سرخ‌فام",
+    subtitle: "شعلهٔ سرخ در کوهستان",
     image:
       "https://plus.unsplash.com/premium_photo-1667423711653-1ffb899172bc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjZ8fHxlbnwwfHx8fHw%3D",
     color: "#10b981",
   },
   {
     id: "desert",
-    title: "Deep Sea",
-    subtitle: "Floating gracefully in the abyss",
+    title: "ژرفا",
+    subtitle: "شناور در اعماق آرام",
     image:
       "https://images.unsplash.com/photo-1757263005786-43d955f07fb1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fHw%3D",
     color: "#0369a1",
@@ -91,8 +91,10 @@ export default function FluidExpandingGrid({
 
   return (
     <div
+      dir="rtl"
+      lang="fa"
       className={cn(
-        "w-full h-full flex items-center justify-center overflow-hidden py-12 not-prose",
+        "flex h-full w-full items-center justify-center overflow-hidden py-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal not-prose",
         className
       )}
     >
@@ -100,7 +102,7 @@ export default function FluidExpandingGrid({
         <LayoutGroup id={id}>
           <motion.div
             layout
-            className="grid grid-cols-2 grid-rows-2 gap-6 w-full h-[340px] sm:h-[540px]"
+            className="grid h-[340px] w-full grid-cols-2 grid-rows-2 gap-6 sm:h-[540px]"
           >
             {items.map((item) => {
               const isRow1 = layout.row1.includes(item.id);
@@ -124,9 +126,9 @@ export default function FluidExpandingGrid({
                   key={item.id}
                   layoutId={`${id}-${item.id}`}
                   onClick={() => handleExpand(item.id)}
-                  style={{ gridRow, gridColumn } as any}
+                  style={{ gridRow, gridColumn } as React.CSSProperties}
                   className={cn(
-                    "relative cursor-pointer group w-full h-full",
+                    "group relative h-full w-full cursor-pointer",
                     isSelected ? "z-30" : "z-10"
                   )}
                   transition={{
@@ -146,7 +148,7 @@ export default function FluidExpandingGrid({
                       src={item.image}
                       alt={item.title}
                       className={cn(
-                        "absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out",
+                        "absolute inset-0 h-full w-full object-cover transition-all duration-1000 ease-in-out",
                         isSelected
                           ? "object-[center_35%]"
                           : "object-[center_50%]"
@@ -163,18 +165,18 @@ export default function FluidExpandingGrid({
 
                   <motion.div
                     layout="position"
-                    className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10 select-none"
+                    className="absolute inset-0 z-10 flex select-none flex-col justify-end p-6 text-white"
                   >
                     <motion.div layout="position" className="overflow-hidden">
                       <motion.h3
                         layout="position"
-                        className="text-2xl sm:text-3xl font-medium mb-1 tracking-tight"
+                        className="mb-1 text-2xl font-medium sm:text-3xl"
                       >
                         {item.title}
                       </motion.h3>
                       <motion.p
                         layout="position"
-                        className="text-xs sm:text-sm text-white/80 font-normal whitespace-nowrap"
+                        className="whitespace-nowrap text-xs font-normal text-white/80 sm:text-sm"
                       >
                         {item.subtitle}
                       </motion.p>
@@ -183,7 +185,7 @@ export default function FluidExpandingGrid({
 
                   <motion.div
                     layoutId={`${id}-${item.id}-overlay`}
-                    className="absolute inset-0 pointer-events-none"
+                    className="pointer-events-none absolute inset-0"
                     style={{
                       borderRadius: 32,
                       background:
@@ -192,7 +194,7 @@ export default function FluidExpandingGrid({
                   />
                   <motion.div
                     layoutId={`${id}-${item.id}-border`}
-                    className="absolute inset-0 border border-white/10 group-hover:border-white/20 transition-colors duration-500 pointer-events-none"
+                    className="pointer-events-none absolute inset-0 border border-white/10 transition-colors duration-500 group-hover:border-white/20"
                     style={{ borderRadius: 32 }}
                   />
                 </motion.div>

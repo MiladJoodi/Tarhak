@@ -1,28 +1,26 @@
 "use client";
 import { motion } from "motion/react";
 import { useState } from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Add01Icon } from "@hugeicons/core-free-icons";
 
 export default function EmptyTestimonial() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const pageVariants = {
-    spring: { type: "spring" as const, duration: 0.6 },
-  };
-
   return (
-    <div className="w-full flex flex-col items-center justify-center py-24 px-4">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex w-full flex-col items-center justify-center px-4 py-24 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <div className="mb-20 text-center">
-        <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          Wall of{" "}
+        <h2 className="text-3xl font-medium text-foreground md:text-4xl lg:text-5xl">
+          دیوار{" "}
           <motion.span
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
-            className="relative cursor-default inline-flex items-center gap-2 px-4 py-1 rounded-2xl bg-primary/5 border border-primary/10 text-primary hover:bg-primary/10 hover:border-primary/20 transition-colors duration-300"
+            className="relative inline-flex cursor-default items-center gap-2 rounded-2xl border border-primary/10 bg-primary/5 px-4 py-1 text-primary transition-colors duration-300 hover:border-primary/20 hover:bg-primary/10"
           >
-            Love
+            محبت
             <motion.span
               animate={
                 isHovered
@@ -46,10 +44,10 @@ export default function EmptyTestimonial() {
 
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="w-80 h-52 relative group cursor-pointer mb-12"
+        className="group relative mb-12 h-52 w-80 cursor-pointer"
       >
         <div
-          className="folder-back relative w-[87.5%] mx-auto h-full flex justify-center rounded-xl overflow-visible"
+          className="folder-back relative mx-auto flex h-full w-[87.5%] justify-center overflow-visible rounded-xl"
           style={{
             background: "#EBEBEB",
             border: "1px solid #D1D1D1",
@@ -97,7 +95,7 @@ export default function EmptyTestimonial() {
               initial={page.initial}
               animate={isOpen ? page.open : page.initial}
               transition={page.transition}
-              className={`absolute top-2 w-32 h-fit rounded-xl shadow-lg ${page.className}`}
+              className={`absolute top-2 h-fit w-32 rounded-xl shadow-lg ${page.className}`}
             >
               <Page />
             </motion.div>
@@ -107,11 +105,11 @@ export default function EmptyTestimonial() {
         <motion.div
           animate={{ rotateX: isOpen ? -35 : 0 }}
           transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-          className="absolute inset-x-0 -bottom-px z-30 h-44 rounded-3xl origin-bottom flex justify-center items-center overflow-visible"
+          className="absolute inset-x-0 -bottom-px z-30 flex h-44 origin-bottom items-center justify-center overflow-visible rounded-3xl"
         >
-          <div className="relative w-full h-full">
+          <div className="relative h-full w-full">
             <svg
-              className="w-full h-full overflow-visible"
+              className="h-full w-full overflow-visible"
               viewBox="0 0 235 121"
               fill="none"
               preserveAspectRatio="none"
@@ -125,52 +123,38 @@ export default function EmptyTestimonial() {
               />
             </svg>
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center pt-8 pointer-events-none">
-              <div className="flex gap-11 mb-2.5">
-                <div className="w-2.5 h-2.5 bg-neutral-600/40 rounded-full" />
-                <div className="w-2.5 h-2.5 bg-neutral-600/40 rounded-full" />
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center pt-8">
+              <div className="mb-2.5 flex gap-11">
+                <div className="h-2.5 w-2.5 rounded-full bg-neutral-600/40" />
+                <div className="h-2.5 w-2.5 rounded-full bg-neutral-600/40" />
               </div>
-              <div className="w-9 h-1 bg-neutral-600/40 rounded-full" />
+              <div className="h-1 w-9 rounded-full bg-neutral-600/40" />
             </div>
           </div>
         </motion.div>
       </div>
 
-      <div className="text-center space-y-4">
-        <p className="text-xl text-foreground tracking-tight">
-          Oops..There are no testimonials <br />
-          <span className="text-muted-foreground text-lg">
-            Be the first one to add a testimonial
+      <div className="text-center">
+        <p className="text-xl text-foreground">
+          هنوز نظری ثبت نشده
+          <br />
+          <span className="text-lg text-muted-foreground">
+            به‌زودی نقل‌قول‌ها اینجا می‌آیند
           </span>
         </p>
-        <div className="flex flex-col items-center gap-4 !bg-transparent">
-          <a
-            href="https://twitter.com/intent/tweet?text=Recently%20used%20uselayouts.com%20%5Byour%20experience%5D%20by%20%400xUrvish"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-3 px-6 py-3 rounded-full border border-dashed border-muted-foreground/30 bg-background hover:border-primary hover:bg-primary/5 transition-all duration-300"
-          >
-            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground transition-transform duration-300">
-              <HugeiconsIcon icon={Add01Icon} size={16} strokeWidth={3} />
-            </div>
-            <span className="text-md font-medium text-foreground group-hover:text-primary transition-colors">
-              Add Testimonial
-            </span>
-          </a>
-        </div>
       </div>
     </div>
   );
 }
 
 const Page = () => (
-  <div className="w-full h-full bg-linear-to-b from-white to-[#F5F5F7] rounded-xl border border-neutral-200 p-4">
+  <div className="h-full w-full rounded-xl border border-neutral-200 bg-linear-to-b from-white to-[#F5F5F7] p-4">
     <div className="flex flex-col gap-2">
-      <div className="w-full h-1.5 bg-neutral-100 rounded-full" />
+      <div className="h-1.5 w-full rounded-full bg-neutral-100" />
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="flex gap-2">
-          <div className="flex-1 h-1.5  bg-neutral-100 rounded-full" />
-          <div className="flex-1 h-1.5  bg-neutral-100 rounded-full" />
+          <div className="h-1.5 flex-1 rounded-full bg-neutral-100" />
+          <div className="h-1.5 flex-1 rounded-full bg-neutral-100" />
         </div>
       ))}
     </div>

@@ -1,9 +1,9 @@
 ---
 title: Scan Document
-description: Click Scan and a page unfolds, flips, and a glowing bar reads it. Done holds, then it resets.
+description: روی اسکن بزن؛ صفحه باز می‌شود، می‌چرخد و نوار نور آن را می‌خواند. بعد از انجام‌شدن ریست می‌شود.
 ---
 
-## Usage
+## نحوه استفاده
 
 ```tsx
 import ScanDocument from "@/components/scan-document";
@@ -13,11 +13,11 @@ export default function Example() {
 }
 ```
 
-## Features
+## قابلیت‌ها
 
-- Unfold from the button: The page grows up from the bottom, then settles.
-- Physical flip: A full `rotateY` cycle with a spine, front lines, and a gray back.
-- Scan light: An orange bar travels down, pauses, and returns. Two copies stay visible through the flip.
-- Status copy: Scan → Scanning → Done. The label is the source of truth, not the motion.
-- Auto-reset: After Done, it returns to Scan so you can run it again.
-- Reduced motion: No 3D cycle. A short fade, then Done, then reset.
+- باز شدن از دکمه: صفحه از پایین رشد می‌کند و می‌نشیند.
+- چرخش فیزیکی: یک دور کامل `rotateY` با عطف، خطوط جلو و پشت خاکستری.
+- نور اسکن: نوار نارنجی پایین می‌رود، مکث می‌کند و برمی‌گردد. دو نسخه در چرخش دیده می‌شوند.
+- متن وضعیت: اسکن ← در حال اسکن ← انجام شد. برچسب منبع حقیقت است، نه موشن.
+- ریست خودکار: بعد از انجام‌شدن به اسکن برمی‌گردد تا دوباره بزنید.
+- حرکت کمتر: بدون چرخهٔ سه‌بعدی. محو کوتاه، بعد انجام‌شدن، بعد ریست.

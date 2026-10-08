@@ -31,8 +31,8 @@ type Item = {
 
 const ITEMS: Item[] = [
   {
-    title: "Marbling",
-    description: "Wet color that settles into the grain instead of sitting on top.",
+    title: "مرمرسازی",
+    description: "رنگ خیس که در بافت می‌نشیند، نه فقط روی سطح.",
     image: `https://images.unsplash.com/photo-1541701494587-cb58502866ab?${IMG}`,
     icon: Droplets,
     seed: 648,
@@ -43,8 +43,8 @@ const ITEMS: Item[] = [
     ],
   },
   {
-    title: "Darkroom",
-    description: "Trays, safelight, and a print that only appears in the last minute.",
+    title: "اتاق تاریک",
+    description: "سینی، نور ایمن، و چاپی که فقط در دقیقهٔ آخر ظاهر می‌شود.",
     image: `https://images.unsplash.com/photo-1557672172-298e090bd0f1?${IMG}`,
     icon: Camera,
     seed: 732,
@@ -55,8 +55,8 @@ const ITEMS: Item[] = [
     ],
   },
   {
-    title: "Kiln",
-    description: "Clay that is unfinished until it comes back from the fire.",
+    title: "کوره",
+    description: "گلی که تا برگشتن از آتش هنوز ناتمام است.",
     image: `https://images.unsplash.com/photo-1574169208507-84376144848b?${IMG}`,
     icon: Flame,
     seed: 516,
@@ -67,8 +67,8 @@ const ITEMS: Item[] = [
     ],
   },
   {
-    title: "Binding",
-    description: "Signatures sewn so the book can open flat on a desk.",
+    title: "صحافی",
+    description: "دفترهایی که طوری دوخته شده‌اند تا روی میز صاف باز شوند.",
     image: `https://images.unsplash.com/photo-1550684848-fac1c5b4e853?${IMG}`,
     icon: BookOpen,
     seed: 884,
@@ -79,8 +79,8 @@ const ITEMS: Item[] = [
     ],
   },
   {
-    title: "Proofing",
-    description: "One last pass on the sheet before the press run starts.",
+    title: "نمونه‌گیری",
+    description: "یک بررسی آخر روی برگه قبل از شروع چاپ.",
     image: `https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?${IMG}`,
     icon: SwatchBook,
     seed: 291,
@@ -132,10 +132,12 @@ export default function LiquidIndex() {
 
   return (
     <div
+      dir="rtl"
+      lang="fa"
       className={
         isPhone
-          ? "flex w-full max-w-[931px] flex-col items-start gap-[27px]"
-          : "flex w-full max-w-[931px] flex-row items-stretch gap-12"
+          ? "flex w-full max-w-[931px] flex-col items-start gap-[27px] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+          : "flex w-full max-w-[931px] flex-row items-stretch gap-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
       }
     >
       <div
@@ -242,17 +244,17 @@ export default function LiquidIndex() {
                 }}
                 className={
                   isPhone
-                    ? "flex w-full cursor-pointer flex-col items-start gap-[5px] py-[5px] text-left"
-                    : "flex w-auto cursor-pointer flex-col items-start gap-0 py-[7px] text-left"
+                    ? "flex w-full cursor-pointer flex-col items-start gap-[5px] py-[5px] text-start"
+                    : "flex w-auto cursor-pointer flex-col items-start gap-0 py-[7px] text-start"
                 }
-                animate={{ paddingLeft: isActive ? 8 : 0 }}
+                animate={{ paddingInlineStart: isActive ? 8 : 0 }}
                 transition={transition}
               >
                 <motion.span
                   className={
                     isPhone
-                      ? "w-full select-none text-[26px] font-semibold leading-[1.14em] tracking-[-0.03em] whitespace-pre-wrap"
-                      : "w-auto select-none text-[44px] font-semibold leading-[1.1em] tracking-[-0.04em] whitespace-nowrap"
+                      ? "w-full select-none whitespace-pre-wrap text-[26px] font-semibold leading-[1.14em] tracking-normal"
+                      : "w-auto select-none whitespace-nowrap text-[44px] font-semibold leading-[1.1em] tracking-normal"
                   }
                   animate={{
                     color: inactive
@@ -273,7 +275,7 @@ export default function LiquidIndex() {
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={transition}
-                      className="max-w-[520px] overflow-hidden text-[17px] font-medium leading-[1.45em] tracking-[-0.018em] text-pretty text-muted-foreground"
+                      className="max-w-[520px] overflow-hidden text-[17px] font-medium leading-[1.45em] tracking-normal text-pretty text-muted-foreground"
                     >
                       {item.description}
                     </motion.p>
@@ -299,7 +301,7 @@ export default function LiquidIndex() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={transition}
-                className="text-[22px] font-medium leading-[1.42em] tracking-[-0.025em] text-pretty text-muted-foreground"
+                className="text-[22px] font-medium leading-[1.42em] tracking-normal text-pretty text-muted-foreground"
               >
                 {current.description}
               </motion.p>

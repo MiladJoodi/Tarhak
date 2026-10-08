@@ -1,36 +1,36 @@
 ---
 title: Dynamic Toolbar
-description: An icon strip that resizes as you page between primary tools and a second set.
+description: نوار آیکنی که با ورق زدن بین ابزارهای اصلی و مجموعهٔ دوم، عرضش را عوض می‌کند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Two trays**: Inbox, Messages, Paint, Tags on the first page; Image, Archive, Reload, Delete on the second.
-- **Width follows content**: Measured bounds so the pill grows and shrinks instead of leaving empty space.
-- **Blur on the seam**: Edge icons soften during the swap so the cut doesn’t feel harsh.
-- **Pager arrows**: Left/right move between the two tool sets.
-- **Danger sits last**: Delete is red and lives on the overflow page, not in the first glance.
+- **دو سینی**: صندوق ورودی، پیام‌ها، نقاشی، برچسب‌ها در صفحهٔ اول؛ تصویر، بایگانی، بارگذاری مجدد، حذف در صفحهٔ دوم.
+- **عرض دنبال محتوا**: با اندازه‌گیری مرزها قرص رشد و جمع می‌شود، نه فضای خالی اضافه.
+- **بلور روی درز**: آیکون‌های لبه هنگام تعویض نرم می‌شوند تا برش تند نباشد.
+- **پیکان صفحه‌بند**: جلو/عقب بین دو مجموعه ابزار جابه‌جا می‌کند.
+- **خطر آخر**: حذف قرمز است و در صفحهٔ سرریز می‌نشیند، نه در نگاه اول.
 
-## Usage
+## نحوه استفاده
 
-Treat it like a floating editor bar. Swap the `primaryTools` / `secondaryTools` arrays. Needs a short, wide stage and enough height so the arrows don’t collide. Wire each icon to an action — the demo is visual only.
+مثل نوار شناور ادیتور رفتار کنید. آرایه‌های `primaryTools` / `secondaryTools` را عوض کنید. صحنهٔ کوتاه و عریض با ارتفاع کافی لازم است تا پیکان‌ها برخورد نکنند. هر آیکون را به اکشن وصل کنید — دمو فقط بصری است.
 
 ```tsx
 import DynamicToolbar from "@/components/dynamic-toolbar";
 
 export default function Page() {
   return (
-    <div className="flex items-center justify-center h-[200px] w-full">
+    <div className="flex h-[200px] w-full items-center justify-center">
       <DynamicToolbar />
     </div>
   );
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Canvas or design-tool chrome
-- Email or notes editors
-- Image annotation bars
-- Admin “quick actions” strips
-- Prototype app shells
+- کروم بوم یا ابزار طراحی
+- ادیتور ایمیل یا یادداشت
+- نوار حاشیه‌نویسی تصویر
+- نوار «اقدام سریع» ادمین
+- پوستهٔ نمونهٔ اپ

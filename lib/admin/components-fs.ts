@@ -34,9 +34,9 @@ export type ComponentControlsMeta = {
   disabled: string[];
   updatedAt: string;
   previewBackground?: PreviewBackgrounds | string;
-  /** Cloudflare R2 CDN still (AVIF). */
+  /** @deprecated Local files live in browse-media/; kept for legacy controls JSON. */
   posterUrl?: string;
-  /** Cloudflare R2 CDN muted preview MP4. */
+  /** @deprecated Local files live in browse-media/; kept for legacy controls JSON. */
   videoUrl?: string;
   /** PreviewHint overlay top offset in px. Default 80. May be negative. */
   hintTop?: number;
@@ -248,13 +248,14 @@ async function renameComponentSlug(from: string, to: string) {
     await safeRename(demoFrom, demoTo);
   }
 
-  const { readBrowseMediaMap, writeBrowseMediaOverride, clearBrowseMediaOverride } =
-    await import("@/lib/browse/browse-media-map");
-  const media = (await readBrowseMediaMap())[from];
-  if (media) {
-    await writeBrowseMediaOverride(to, media);
-    await clearBrowseMediaOverride(from);
-  }
+  await safeRename(
+    path.join(ROOT, "browse-media/posters", `${from}.avif`),
+    path.join(ROOT, "browse-media/posters", `${to}.avif`),
+  );
+  await safeRename(
+    path.join(ROOT, "browse-media/videos", `${from}.mp4`),
+    path.join(ROOT, "browse-media/videos", `${to}.mp4`),
+  );
 
   const registry = await readRegistry();
   registry.items = registry.items.filter((item) => item.name !== from);
@@ -461,106 +462,6 @@ export async function updateControls(
     videoUrl: existing.controls?.videoUrl,
   });
   return { name, disabled };
-}
-
-/** Persist browse poster/video CDN URLs on the component controls file. */
-export async function updateComponentMedia(
-  name: string,
-  media: { posterUrl: string; videoUrl?: string | null },
-) {
-  const existing = await getComponent(name);
-  if (!existing) throw new Error("Component not found");
-
-  await writeControls(name, {
-    dialConfig: existing.controls?.dialConfig ?? {},
-    disabled: existing.controls?.disabled ?? [],
-    updatedAt: new Date().toISOString(),
-    previewBackground: existing.controls?.previewBackground,
-    posterUrl: media.posterUrl,
-    videoUrl: media.videoUrl ?? undefined,
-  });
-
-  const { writeBrowseMediaOverride } = await import("@/lib/browse/browse-media-map");
-  await writeBrowseMediaOverride(name, {
-    posterUrl: media.posterUrl,
-    videoUrl: media.videoUrl ?? undefined,
-  });
-
-  // Best-effort Supabase metadata sync (needs SUPABASE_SERVICE_ROLE_KEY).
-  try {
-    const { upsertComponentRow } = await import("@/lib/supabase/admin");
-    await upsertComponentRow({
-      slug: name,
-      title: existing.item.title,
-      description: existing.item.description,
-      poster_url: media.posterUrl,
-      video_url: media.videoUrl ?? null,
-      dependencies: existing.item.dependencies,
-    });
-  } catch {
-    // FS write already succeeded.
-  }
-
-  return {
-    name,
-    posterUrl: media.posterUrl,
-    videoUrl: media.videoUrl ?? null,
-  };
-}
-
-/** Clear poster and/or video from controls + browse map. */
-export async function clearComponentMedia(
-  name: string,
-  opts: { poster?: boolean; video?: boolean },
-) {
-  const existing = await getComponent(name);
-  if (!existing) throw new Error("Component not found");
-
-  const clearPoster = Boolean(opts.poster);
-  const clearVideo = Boolean(opts.video);
-  const nextPoster = clearPoster ? undefined : existing.controls?.posterUrl;
-  const nextVideo = clearVideo ? undefined : existing.controls?.videoUrl;
-
-  await writeControls(name, {
-    dialConfig: existing.controls?.dialConfig ?? {},
-    disabled: existing.controls?.disabled ?? [],
-    updatedAt: new Date().toISOString(),
-    previewBackground: existing.controls?.previewBackground,
-    posterUrl: nextPoster,
-    videoUrl: nextVideo,
-  });
-
-  const { writeBrowseMediaOverride, clearBrowseMediaOverride } = await import(
-    "@/lib/browse/browse-media-map"
-  );
-  if (!nextPoster) {
-    await clearBrowseMediaOverride(name, { poster: true, video: true });
-  } else {
-    await writeBrowseMediaOverride(name, {
-      posterUrl: nextPoster,
-      videoUrl: nextVideo,
-    });
-  }
-
-  try {
-    const { upsertComponentRow } = await import("@/lib/supabase/admin");
-    await upsertComponentRow({
-      slug: name,
-      title: existing.item.title,
-      description: existing.item.description,
-      poster_url: nextPoster ?? null,
-      video_url: nextVideo ?? null,
-      dependencies: existing.item.dependencies,
-    });
-  } catch {
-    // FS write already succeeded.
-  }
-
-  return {
-    name,
-    posterUrl: nextPoster ?? null,
-    videoUrl: nextVideo ?? null,
-  };
 }
 
 async function rebuildRegistry() {

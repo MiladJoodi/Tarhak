@@ -61,7 +61,11 @@ export default function CoverflowDrag() {
   }
 
   return (
-    <div className="relative flex h-[480px] w-full items-center justify-center overflow-hidden">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="relative flex h-[480px] w-full items-center justify-center overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <motion.div
         drag="x"
         style={{ x: containerX }}

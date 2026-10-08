@@ -1,19 +1,19 @@
 ---
 title: Morphing Input
-description: A search field whose placeholder letters flip, and whose icon toggles the mode — search vs generate.
+description: فیلد جستجویی که حروف placeholder ورق می‌خورند و آیکون حالت را عوض می‌کند — جستجو در برابر تولید.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Letter-by-letter placeholder**: “Search anything…” and “Generate Image” enter with a tiny 3D flip.
-- **Icon as mode**: Tap the leading icon to cycle presets.
-- **Submit still there**: An arrow on the right for the actual query.
-- **Empty vs typed**: Placeholder animation only while the field is empty.
-- **Compact bar**: One rounded field, not a whole command palette.
+- **placeholder حرف‌به‌حرف**: «هر چیزی جستجو کنید...» و «تولید تصویر» با یک ورق کوچک سه‌بعدی وارد می‌شوند.
+- **آیکون به‌عنوان حالت**: روی آیکون ابتدایی بزنید تا preset عوض شود.
+- **ارسال همچنان هست**: پیکان سمت چپ برای خود کوئری.
+- **خالی در برابر تایپ‌شده**: انیمیشن placeholder فقط وقتی فیلد خالی است.
+- **نوار فشرده**: یک فیلد گرد، نه کل پالت دستور.
 
-## Usage
+## نحوه استفاده
 
-Use it as a prompt or search control. Edit `placeholderOptions` for extra modes. Needs a click on the icon to switch; typing is a normal input. Sit it in a header or an AI bar. Don’t auto-play the placeholder while someone’s mid-sentence.
+به‌عنوان کنترل پرامپت یا جستجو استفاده کنید. `placeholderOptions` را برای حالت‌های بیشتر ویرایش کنید. برای تعویض باید روی آیکون کلیک شود؛ تایپ یک ورودی عادی است. در هدر یا نوار AI بگذارید. وقتی کسی وسط جمله است، placeholder را خودکار پخش نکنید.
 
 ```tsx
 import InputSwitch from "@/components/morphing-input";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- AI prompt bars
-- Site search in the header
-- Image-gen or mixed-mode tools
-- Docs command-style search
-- Product demos of a “one box” UI
+- نوار پرامپت AI
+- جستجوی سایت در هدر
+- ابزار تولید تصویر یا حالت ترکیبی
+- جستجوی شبیه دستور در مستندات
+- دموی محصول «یک باکس»

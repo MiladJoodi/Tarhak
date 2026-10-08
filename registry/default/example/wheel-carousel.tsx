@@ -9,7 +9,7 @@ import React, {
   memo,
 } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -76,18 +76,18 @@ const unsplash4K = (id: string) =>
   `https://images.unsplash.com/photo-${id}?q=95&w=2400&auto=format&fit=crop`;
 
 export const defaultCarouselItems: WheelCarouselItem[] = [
-  { id: 1, label: 'Aethel Sanctuary', image: unsplash4K('1600585154340-be6161a56a0c'), category: 'Architecture' },
-  { id: 2, label: 'Kanso Courtyard', image: unsplash4K('1600596542815-ffad4c1539a9'), category: 'Zen Design' },
-  { id: 3, label: 'Vesper Mono', image: unsplash4K('1513694203232-719a280e022f'), category: 'Brutalism' },
-  { id: 4, label: 'Sora Atrium', image: unsplash4K('1600607687939-ce8a6c25118c'), category: 'Interior' },
-  { id: 5, label: 'Elysian Void', image: unsplash4K('1509316975850-ff9c5deb0cd9'), category: 'Landscape' },
-  { id: 6, label: 'Solstice Villa', image: unsplash4K('1600566753376-12c8ab7fb75b'), category: 'Coastal' },
-  { id: 7, label: 'Nox Gallery', image: unsplash4K('1600585154526-990dced4db0d'), category: 'Cultural' },
-  { id: 8, label: 'Aura Sanctum', image: unsplash4K('1600210492486-724fe5c67fb0'), category: 'Minimalism' },
-  { id: 9, label: 'Terraza Brut', image: unsplash4K('1600607687644-c7171b42498f'), category: 'Monolithic' },
-  { id: 10, label: 'Calma House', image: unsplash4K('1600566753190-17f0baa2a6c3'), category: 'Residential' },
-  { id: 11, label: 'Zenith Rotunda', image: unsplash4K('1600585152220-90363fe7e115'), category: 'Oculus' },
-  { id: 12, label: 'Kyoto Basin', image: unsplash4K('1503899036084-c55cdd92da26'), category: 'Japanese Zen' },
+  { id: 1, label: 'پناهگاه اتل', image: unsplash4K('1600585154340-be6161a56a0c'), category: 'معماری' },
+  { id: 2, label: 'حیاط کانسو', image: unsplash4K('1600596542815-ffad4c1539a9'), category: 'طراحی ذن' },
+  { id: 3, label: 'وسپر مونو', image: unsplash4K('1513694203232-719a280e022f'), category: 'بروتالیسم' },
+  { id: 4, label: 'آتریوم سورا', image: unsplash4K('1600607687939-ce8a6c25118c'), category: 'داخلی' },
+  { id: 5, label: 'خلأ الیزی', image: unsplash4K('1509316975850-ff9c5deb0cd9'), category: 'منظر' },
+  { id: 6, label: 'ویلای انقلابین', image: unsplash4K('1600566753376-12c8ab7fb75b'), category: 'ساحلی' },
+  { id: 7, label: 'گالری نوکس', image: unsplash4K('1600585154526-990dced4db0d'), category: 'فرهنگی' },
+  { id: 8, label: 'مقدس آورا', image: unsplash4K('1600210492486-724fe5c67fb0'), category: 'مینیمالیسم' },
+  { id: 9, label: 'تراس بروت', image: unsplash4K('1600607687644-c7171b42498f'), category: 'یکپارچه' },
+  { id: 10, label: 'خانه کالما', image: unsplash4K('1600566753190-17f0baa2a6c3'), category: 'مسکونی' },
+  { id: 11, label: 'روتوندا زنیث', image: unsplash4K('1600585152220-90363fe7e115'), category: 'اُکولوس' },
+  { id: 12, label: 'حوضه کیوتو', image: unsplash4K('1503899036084-c55cdd92da26'), category: 'ذن ژاپنی' },
 ];
 
 const THEME_PRESETS = {
@@ -193,7 +193,7 @@ const PhotoCard = memo<PhotoCardProps>(
           {currentImage ? (
             <img
               src={currentImage}
-              alt={label || 'Carousel view'}
+              alt={label || 'نمای کاروسل'}
               decoding="async"
               loading="eager"
               className="absolute inset-0 w-full h-full object-cover"
@@ -236,10 +236,11 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
       itemFont = {
         fontSize: '28px',
         fontWeight: 600,
-        letterSpacing: '-0.028em',
+        letterSpacing: '0',
         lineHeight: '1.15em',
-        fontFamily: '"Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif',
+        fontFamily: 'var(--font-estedad), Tahoma, Arial, sans-serif',
       },
+
       textColor,
       selectedColor,
       showMarker = true,
@@ -362,17 +363,19 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
 
           const angleDeg = dist * sp;
           const angleRad = (angleDeg * Math.PI) / 180;
-          const translateX = -r * (1 - Math.cos(angleRad));
+          // Positive X curves toward the photo (end side in RTL).
+          const translateX = r * (1 - Math.cos(angleRad));
           const translateY = r * Math.sin(angleRad);
           const normalizedDist = Math.min(absDist / vis, 1);
           const opacity = Math.cos((normalizedDist * Math.PI) / 2);
           const scale = 1 - Math.min(absDist * 0.038, 0.42);
           const isSelected = absDist < 0.5;
 
-          el.style.transform = `translate3d(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px, 0px) translateY(-50%) rotate(${angleDeg.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+          el.style.transform = `translate3d(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px, 0px) translateY(-50%) rotate(${(-angleDeg).toFixed(2)}deg) scale(${scale.toFixed(4)})`;
           el.style.opacity = Math.max(0, opacity).toFixed(3);
           el.style.color = isSelected ? th.sel : th.text;
-          el.style.left = `${apex}%`;
+          el.style.right = `${apex}%`;
+          el.style.left = "auto";
         }
       },
       [getShortestDistance]
@@ -607,8 +610,10 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
 
     return (
       <motion.div
+        dir="rtl"
+        lang="fa"
         className={cn(
-          'wheel-carousel-container relative mx-auto flex h-full w-full max-w-full items-center justify-center overflow-hidden',
+          'wheel-carousel-container relative mx-auto flex h-full w-full max-w-full items-center justify-center overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal',
           className
         )}
         initial={{ opacity: 0, y: 16 }}
@@ -670,16 +675,16 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
               <div
                 className="absolute top-1/2 pointer-events-none"
                 style={{
-                  left: `calc(${apexInset}% - ${markerGap}px)`,
+                  right: `calc(${apexInset}% - ${markerGap}px)`,
                   width: markerSize,
                   height: markerSize,
-                  marginLeft: -markerSize,
+                  marginRight: -markerSize,
                   transform: 'translate3d(0, -50%, 0)',
                   color: theme.marker,
                   transition: 'color 0.35s ease',
                 }}
               >
-                <ChevronRight
+                <ChevronLeft
                   width={markerSize}
                   height={markerSize}
                   strokeWidth={2.5}
@@ -701,8 +706,9 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
                   }}
                   className="absolute top-1/2 -translate-y-1/2 cursor-pointer select-none whitespace-nowrap will-change-transform"
                   style={{
-                    left: `${apexInset}%`,
-                    transformOrigin: 'left center',
+                    right: `${apexInset}%`,
+                    left: 'auto',
+                    transformOrigin: 'right center',
                     backfaceVisibility: 'hidden',
                     transformStyle: 'preserve-3d',
                     ...itemFont,
@@ -746,7 +752,9 @@ export const WheelCarouselDemo: React.FC = () => {
 
   return (
     <div
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden font-sans"
+      dir="rtl"
+      lang="fa"
+      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
       style={{ backgroundColor: customBg }}
     >
       <div

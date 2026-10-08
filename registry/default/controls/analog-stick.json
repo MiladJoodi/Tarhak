@@ -12,9 +12,9 @@
     "items": []
   },
   "showHint": true,
-  "hintKind": "hover",
-  "hintHeading": "Hover a quadrant",
-  "hintDescription": "The stick tilts into the press. The matching arrow goes amber. CSS only — no JS hover state.",
+  "hintKind": "custom",
+  "hintHeading": "روی یک ربع هاور کن",
+  "hintDescription": "چوبک به سمت فشار خم می‌شود. فلش هم‌جهت کهربایی می‌شود. فقط CSS — بدون state جاوااسکریپت.",
   "hintTop": 150,
   "hintHideOnScroll": false,
   "posterUrl": "https://cdn.uselayouts.com/components/analog-stick/poster.avif",

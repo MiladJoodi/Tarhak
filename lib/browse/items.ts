@@ -1,7 +1,6 @@
 import { isNewComponent } from "@/lib/open/new-components";
-import { browseMediaUrl } from "@/lib/browse/media-url";
+import { localPosterUrl, localVideoUrl } from "@/lib/browse/media-url";
 import { titleFaFor } from "@/lib/browse/titles-fa";
-import browseMedia from "@/registry/default/browse-media.json";
 import registry from "@/registry.json";
 
 const LIVE_SLUGS = new Set(registry.items.map((item) => item.name));
@@ -17,17 +16,14 @@ export type BrowseItem = {
   tags?: string[];
   /** Still frame shown before/instead of the video. */
   poster: string;
-  /** Public fallback used when an uploaded CDN poster is temporarily unavailable. */
+  /** Unsplash fallback if the local poster is missing. */
   fallbackPoster: string;
-  /** Muted loop preview (empty string = image only). */
+  /** Muted loop preview from `browse-media/videos`. */
   video: string;
   isNew?: boolean;
 };
 
-/**
- * Placeholder media pools. Per-component Cloudflare R2 URLs in
- * `registry/default/browse-media.json` override these once uploaded from admin.
- */
+/** Unsplash stills used only when a local poster fails to load. */
 const POSTERS = [
   "photo-1506744038136-46273834b3fb",
   "photo-1470071459604-3b5ec3a7fe05",
@@ -43,20 +39,7 @@ const POSTERS = [
   "photo-1497436072909-60f360e1d4b1",
 ].map((id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=880&q=68`);
 
-const VIDEOS = [
-  "https://res.cloudinary.com/demo/video/upload/q_auto,w_720/samples/sea-turtle.mp4",
-  "https://res.cloudinary.com/demo/video/upload/q_auto,w_720/dog.mp4",
-  "https://res.cloudinary.com/demo/video/upload/q_auto,w_720/samples/cld-sample-video.mp4",
-  "https://res.cloudinary.com/demo/video/upload/q_auto,w_720/elephants.mp4",
-  "https://videos.pexels.com/video-files/857195/857195-hd_1280_720_25fps.mp4",
-  "https://videos.pexels.com/video-files/5527786/5527786-hd_1920_1080_25fps.mp4",
-  "https://videos.pexels.com/video-files/6981411/6981411-hd_1920_1080_25fps.mp4",
-];
-
 type Seed = { slug: string; title: string; description: string; category: string };
-type MediaOverride = { posterUrl?: string; videoUrl?: string };
-
-const MEDIA_OVERRIDES = browseMedia as Record<string, MediaOverride>;
 
 const SEEDS: Seed[] = [
   { slug: "3d-book", title: "3D Book", description: "Page flips with real depth.", category: "Display" },
@@ -111,7 +94,7 @@ const SEEDS: Seed[] = [
   { slug: "liquid-index", title: "Liquid Index", description: "A feature list with a liquid hover badge.", category: "Display" },
   { slug: "photo-albums", title: "Photo Albums", description: "Album stacks that open into a grid.", category: "Display" },
   { slug: "slide-subscribe", title: "Slide Subscribe", description: "Pick a plan, then slide to start.", category: "Input" },
-  { slug: "set-timer", title: "Set Timer", description: "A pill that morphs into a wheel, then a countdown.", category: "Input" },
+  { slug: "set-timer", title: "Set Timer", description: "قرصی که به چرخ دقیقه تبدیل می‌شود و بعد شمارش معکوس شروع می‌کند.", category: "Input" },
   { slug: "stacked-outline-text", title: "Stacked Outline Text", description: "Outlined type that leaves a velocity trail when you drag it.", category: "Display" },
   { slug: "drawer-buttons", title: "Drawer Buttons", description: "Buttons that fold open a payment drawer and a cart.", category: "Button" },
   { slug: "prompt-box", title: "Prompt Box", description: "A composer that expands into a prompt with a model menu.", category: "Input" },
@@ -127,28 +110,23 @@ const SEEDS: Seed[] = [
 
 export const browseItems: BrowseItem[] = SEEDS.filter((seed) => LIVE_SLUGS.has(seed.slug))
   .map((seed, index) => {
-    const override = MEDIA_OVERRIDES[seed.slug];
     return {
       ...seed,
       titleFa: titleFaFor(seed.slug),
-      poster: browseMediaUrl(override?.posterUrl ?? POSTERS[index % POSTERS.length]!),
-      // Media uploads live on a separately managed CDN. Keep a stable, public
-      // fallback so an outage or an accidental access-policy change does not
-      // turn the browse catalog into a grid of broken-image icons.
+      poster: localPosterUrl(seed.slug),
       fallbackPoster: POSTERS[index % POSTERS.length]!,
-      video: browseMediaUrl(override?.videoUrl ?? VIDEOS[index % VIDEOS.length]!),
+      video: localVideoUrl(seed.slug),
       isNew: isNewComponent(seed.slug),
     };
   })
   .sort((a, b) => a.title.localeCompare(b.title));
 
-/** Poster always; video only if uploaded in admin (no placeholder clips). */
+/** Local poster + video paths for a component slug. */
 export function browseUploadedMedia(slug: string) {
   const item = browseItems.find((entry) => entry.slug === slug);
-  const uploaded = MEDIA_OVERRIDES[slug]?.videoUrl?.trim() ?? "";
   return {
-    poster: item?.poster ?? "",
-    video: uploaded,
+    poster: item?.poster ?? localPosterUrl(slug),
+    video: item?.video ?? localVideoUrl(slug),
     title: item?.title ?? slug,
   };
 }

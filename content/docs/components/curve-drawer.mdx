@@ -1,9 +1,19 @@
 ---
 title: Curve Drawer
-description: Side drawers whose inner edge starts as a bulge and morphs into a straight line as the panel settles.
+description: کشوهای کناری که لبهٔ داخلی‌شان با برآمدگی شروع می‌شود و با نشستن پنل صاف می‌شود.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **لبهٔ ارگانیک**: منحنی درجه‌دوم SVG روی لبهٔ داخلی متحرک برآمده می‌شود، بعد صاف می‌نشیند.
+- **هر دو سمت**: چپ و راست. مسیر آینه می‌شود تا برآمدگی همیشه به داخل باشد.
+- **پوستهٔ Vaul**: اورلی، تلهٔ فوکوس و درگ فقط از دسته. Motion اسلاید را می‌راند تا منحنی همگام بماند.
+- **حرکت کاهش‌یافته**: اسلاید و مورف مسیر آنی می‌شوند. کشوها باز هم می‌شوند.
+- نیاز به `vaul` و `motion`. شیت بصری است، نه روتر.
+
+## نحوه استفاده
+
+`direction` و `curveSide` را هماهنگ کنید. در RTL دکمهٔ «راست» کشو را از سمت شروع باز می‌کند.
 
 ```tsx
 import CurveDrawer from "@/components/curve-drawer";
@@ -13,10 +23,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- Organic edge: An SVG quadratic curve bulges on the moving inner edge, then eases straight.
-- Both sides: Left and right. The path is mirrored so the bulge always faces inward.
-- Vaul shell: Overlay, focus trap, and handle-only drag. Motion drives the slide so the curve can sync.
-- Reduced motion: The slide and path morph become instant. The drawers still open.
-- Needs `vaul` and `motion`. This is a visual sheet, not a router.
+- منوی کناری اپ
+- پنل یادداشت یا جزئیات
+- فیلترهای موبایل
+- تنظیمات شناور
+- شیت‌هایی که به لبهٔ نرم نیاز دارند

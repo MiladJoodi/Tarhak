@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
+  "$schema": "https://farsiui.ir/schema.json",
   "style": "base-nova",
   "rsc": true,
   "tsx": true,

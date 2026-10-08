@@ -15,34 +15,34 @@ export const PREVIEW_HINT_PRESETS: Record<
   { label: string; heading: string; description: string }
 > = {
   click: {
-    label: "Click",
-    heading: "Click",
-    description: "Click to try it",
+    label: "کلیک",
+    heading: "کلیک",
+    description: "برای امتحان کلیک کن",
   },
   drag: {
-    label: "Drag",
-    heading: "Drag",
-    description: "Drag to move it",
+    label: "کشیدن",
+    heading: "بکش",
+    description: "بکش تا جابه‌جا شود",
   },
   scroll: {
-    label: "Scroll",
-    heading: "Scroll",
-    description: "Scroll to see it change",
+    label: "اسکرول",
+    heading: "اسکرول",
+    description: "اسکرول کن تا تغییر را ببینی",
   },
   hover: {
-    label: "Hover",
-    heading: "Hover",
-    description: "Hover to see it change",
+    label: "هاور",
+    heading: "هاور",
+    description: "هاور کن تا تغییر را ببینی",
   },
   swipe: {
-    label: "Swipe",
-    heading: "Swipe",
-    description: "Swipe to go to the next one",
+    label: "سوایپ",
+    heading: "سوایپ",
+    description: "سوایپ کن تا بعدی بیاید",
   },
   scale: {
-    label: "Scale",
-    heading: "Scale",
-    description: "Pinch or scroll to zoom",
+    label: "مقیاس",
+    heading: "مقیاس",
+    description: "پینچ یا اسکرول برای زوم",
   },
 };
 

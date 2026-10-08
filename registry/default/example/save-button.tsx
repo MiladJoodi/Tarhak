@@ -23,16 +23,20 @@ export function SaveButton() {
   const text = useMemo(() => {
     switch (status) {
       case "idle":
-        return "Save";
+        return "ذخیره";
       case "loading":
-        return "Saving";
+        return "ذخیره…";
       case "success":
-        return "Saved";
+        return "ذخیره شد";
     }
   }, [status]);
 
   return (
-    <div className="relative inline-flex group font-sans">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="relative inline-flex group font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <Button
         onClick={handleClick}
         className={cn(
@@ -44,32 +48,30 @@ export function SaveButton() {
         variant={"default"}
         disabled={status !== "idle"}
       >
-        <span className="flex items-center justify-center">
+        <span className="relative flex min-h-[1.25em] items-center justify-center overflow-hidden">
           <AnimatePresence mode="popLayout" initial={false}>
-            {text.split("").map((char, i) => (
-              <motion.span
-                key={`${char}-${i}`}
-                layout
-                initial={{ opacity: 0, scale: 0, filter: "blur(4px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0, filter: "blur(4px)" }}
-                transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 30,
-                  mass: 1,
-                }}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
+            <motion.span
+              key={status}
+              layout
+              initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
+              transition={{
+                type: "spring",
+                stiffness: 500,
+                damping: 30,
+                mass: 1,
+              }}
+              className="inline-block whitespace-nowrap"
+            >
+              {text}
+            </motion.span>
           </AnimatePresence>
         </span>
       </Button>
 
       {/* Status Indicator */}
-      <div className={cn("absolute -top-1 -right-1 z-10 pointer-events-none")}>
+      <div className={cn("absolute -top-1 -end-1 z-10 pointer-events-none")}>
         <AnimatePresence mode="wait">
           {status !== "idle" && (
             <motion.div

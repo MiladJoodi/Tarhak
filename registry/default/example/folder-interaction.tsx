@@ -10,13 +10,27 @@ function FolderInteraction() {
   };
 
   return (
-    <div className="w-full  flex justify-center items-center">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex w-full items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <div
+        role="button"
+        tabIndex={0}
+        aria-label={isOpen ? "بستن پوشه" : "باز کردن پوشه"}
+        aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-80 h-52 relative wrapper"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }
+        }}
+        className="wrapper relative h-52 w-80"
       >
         <div
-          className="folder relative w-[87.5%] mx-auto items-center h-full flex justify-center "
+          className="folder relative mx-auto flex h-full w-[87.5%] items-center justify-center"
           style={{
             background: "#18151B",
             boxShadow:
@@ -26,8 +40,8 @@ function FolderInteraction() {
         >
           {[
             {
-              initial: { rotate: -3, x: -38, y: 2 },
-              open: { rotate: -8, x: -70, y: -55 },
+              initial: { rotate: 3, x: 38, y: 2 },
+              open: { rotate: 8, x: 70, y: -55 },
               transition: {
                 ...pageVariants.spring,
                 bounce: 0.15,
@@ -38,7 +52,7 @@ function FolderInteraction() {
             },
             {
               initial: { rotate: 0, x: 0, y: 0 },
-              open: { rotate: 1, x: 2, y: -75 },
+              open: { rotate: -1, x: -2, y: -75 },
               transition: {
                 ...pageVariants.spring,
                 duration: 0.55,
@@ -49,8 +63,8 @@ function FolderInteraction() {
               className: "z-20 shadow-lg",
             },
             {
-              initial: { rotate: 3.5, x: 42, y: 1 },
-              open: { rotate: 9, x: 75, y: -60 },
+              initial: { rotate: -3.5, x: -42, y: 1 },
+              open: { rotate: -9, x: -75, y: -60 },
               transition: {
                 ...pageVariants.spring,
                 duration: 0.58,
@@ -66,7 +80,7 @@ function FolderInteraction() {
               initial={page.initial}
               animate={isOpen ? page.open : page.initial}
               transition={page.transition}
-              className={`absolute top-2 w-32 h-fit rounded-xl ${page.className}`}
+              className={`absolute top-2 h-fit w-32 rounded-xl ${page.className}`}
             >
               <Page />
             </motion.div>
@@ -76,10 +90,10 @@ function FolderInteraction() {
         <motion.div
           animate={{ rotateX: isOpen ? -40 : 0 }}
           transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-          className="absolute -left-[1px] -right-[1px] -bottom-[1px] z-20 h-44 rounded-3xl origin-bottom flex justify-center items-center overflow-visible"
+          className="absolute -start-[1px] -end-[1px] -bottom-[1px] z-20 flex h-44 origin-bottom items-center justify-center overflow-visible rounded-3xl"
         >
           <svg
-            className="w-full h-full overflow-visible"
+            className="h-full w-full overflow-visible"
             viewBox="0 0 235 121"
             fill="none"
             preserveAspectRatio="none"
@@ -144,13 +158,13 @@ function FolderInteraction() {
 export default FolderInteraction;
 
 const Page = () => (
-  <div className="w-full h-full bg-gradient-to-b from-[#E8E7F0] to-[#DCDAE8] rounded-xl shadow-lg p-3 sm:p-4">
+  <div className="h-full w-full rounded-xl bg-gradient-to-b from-[#E8E7F0] to-[#DCDAE8] p-3 shadow-lg sm:p-4">
     <div className="flex flex-col gap-1.5 sm:gap-2">
-      <div className="w-full h-1 sm:h-1.5 bg-[#CFCDE0] rounded-full" />
+      <div className="h-1 w-full rounded-full bg-[#CFCDE0] sm:h-1.5" />
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="flex gap-1.5 sm:gap-2">
-          <div className="flex-1 h-1 sm:h-1.5 bg-[#CFCDE0] rounded-full" />
-          <div className="flex-1 h-1 sm:h-1.5 bg-[#CFCDE0] rounded-full" />
+          <div className="h-1 flex-1 rounded-full bg-[#CFCDE0] sm:h-1.5" />
+          <div className="h-1 flex-1 rounded-full bg-[#CFCDE0] sm:h-1.5" />
         </div>
       ))}
     </div>

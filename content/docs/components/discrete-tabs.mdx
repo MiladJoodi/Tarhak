@@ -1,19 +1,19 @@
 ---
 title: Discrete Tabs
-description: Quiet icon tabs that expand to a label, with a brief shine when one becomes active.
+description: تب‌های آیکنی آرام که با برچسب باز می‌شوند و هنگام فعال شدن درخشش کوتاهی دارند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Icon, then name**: Inactive tabs stay compact; the active one grows to show Inbox, Planner, or Alerts.
-- **Shared layout**: The pill slides with a spring so neighboring tabs don’t jump.
-- **Shine on select**: A short highlight flashes across the active tab, then it’s gone.
-- **Custom glyphs**: Inbox, calendar, and bell are inline SVGs — easy to swap.
-- **No underline circus**: Motion is the indicator; you don’t need a second chrome bar.
+- **اول آیکن، بعد نام**: تب‌های غیرفعال جمع‌وجور می‌مانند؛ فعال صندوق، برنامه‌ریز یا هشدارها را نشان می‌دهد.
+- **چیدمان مشترک**: قرص با فنر جابه‌جا می‌شود تا همسایه‌ها نپرند.
+- **درخشش هنگام انتخاب**: هایلایت کوتاه روی تب فعال می‌آید و می‌رود.
+- **گلیف سفارشی**: صندوق، تقویم و زنگ SVG داخلی‌اند — عوض کردنشان آسان است.
+- **بدون زیرخط شلوغ**: حرکت خودش نشانگر است؛ نوار کروم دوم لازم نیست.
 
-## Usage
+## نحوه استفاده
 
-Use it as a small mode switch, not a page of content. Three tabs is the sweet spot. Put the panels yourself underneath — this only handles the control. Fine in a toolbar, a settings header, or a mail-style app chrome.
+برای سوییچ حالت کوچک، نه صفحهٔ محتوا. سه تب نقطهٔ شیرین است. پنل‌ها را خودتان زیرش بگذارید — این فقط کنترل است. در نوار ابزار، هدر تنظیمات یا کروم شبیه ایمیل جا می‌شود.
 
 ```tsx
 import DiscreteTabs from "@/components/discrete-tabs";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Mail or inbox toolbars
-- Planner vs alerts vs inbox in a productivity app
-- Compact settings headers
-- Mobile app top chrome
-- Dashboard section switches
+- نوار ابزار ایمیل یا صندوق
+- برنامه‌ریز در برابر هشدار در برابر صندوق در اپ بهره‌وری
+- هدر فشردهٔ تنظیمات
+- کروم بالای اپ موبایل
+- سوییچ بخش داشبورد

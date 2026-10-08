@@ -12,14 +12,14 @@ interface CardItem {
 
 // Soft bright pastels only (no photos / gradient globe imagery)
 const CARDS: CardItem[] = [
-  { id: "bloom", title: "Bloom", bgColor: "#C9DFF5", textColor: "#3B5B8C" },
-  { id: "mist", title: "Mist", bgColor: "#D4E8F2", textColor: "#3D6480" },
-  { id: "meadow", title: "Meadow", bgColor: "#C8EBD8", textColor: "#2F6B4A" },
-  { id: "coral", title: "Coral", bgColor: "#F7D4C8", textColor: "#A04A38" },
-  { id: "haze", title: "Haze", bgColor: "#F2D4E4", textColor: "#8A4A72" },
-  { id: "dawn", title: "Dawn", bgColor: "#F7E0C8", textColor: "#9A6430" },
-  { id: "lilac", title: "Lilac", bgColor: "#DDD4F2", textColor: "#5C4890" },
-  { id: "studio", title: "Studio", bgColor: "#D8E8F8", textColor: "#3A5A8A" },
+  { id: "bloom", title: "شکوفه", bgColor: "#C9DFF5", textColor: "#3B5B8C" },
+  { id: "mist", title: "مه", bgColor: "#D4E8F2", textColor: "#3D6480" },
+  { id: "meadow", title: "چمنزار", bgColor: "#C8EBD8", textColor: "#2F6B4A" },
+  { id: "coral", title: "مرجان", bgColor: "#F7D4C8", textColor: "#A04A38" },
+  { id: "haze", title: "غبار", bgColor: "#F2D4E4", textColor: "#8A4A72" },
+  { id: "dawn", title: "سپیده", bgColor: "#F7E0C8", textColor: "#9A6430" },
+  { id: "lilac", title: "یاس", bgColor: "#DDD4F2", textColor: "#5C4890" },
+  { id: "studio", title: "استودیو", bgColor: "#D8E8F8", textColor: "#3A5A8A" },
 ];
 
 const CARD_WIDTH = 240;
@@ -46,7 +46,11 @@ export default function PopTiltCards() {
   const containerHeight = CARD_HEIGHT + POP_HEIGHT + 40;
 
   return (
-    <section className="flex h-full w-full min-w-0 flex-col items-center justify-center overflow-x-hidden bg-[#F4F6F8] px-4 py-8 md:px-6">
+    <section
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full min-w-0 flex-col items-center justify-center overflow-x-hidden bg-[#F4F6F8] px-4 py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:px-6"
+    >
       <div
         className="flex w-full min-w-0 justify-center [container-type:inline-size]"
         style={{ maxWidth: containerWidth }}
@@ -134,7 +138,7 @@ export default function PopTiltCards() {
                     >
                       <div className="relative z-[2] flex items-center justify-center pointer-events-none">
                         <span
-                          className="inline-block whitespace-nowrap text-3xl font-semibold tracking-tight [text-orientation:mixed] [writing-mode:vertical-rl]"
+                          className="inline-block whitespace-nowrap text-3xl font-semibold [text-orientation:mixed] [writing-mode:vertical-rl]"
                           style={{ color: card.textColor }}
                         >
                           {card.title}

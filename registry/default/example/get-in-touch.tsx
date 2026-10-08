@@ -23,7 +23,7 @@ const slideSpring = {
   mass: 0.9,
 } as const;
 
-const CLUSTER_CENTER_X = 32;
+const CLUSTER_CENTER_X = -32;
 const HOVER_TEXT_DELAY = 0.2;
 
 const DEFAULT_PORTRAIT =
@@ -38,13 +38,15 @@ type BookACallLinkProps = Omit<
   imageSrc?: string;
   defaultText?: string;
   hoverText?: string;
+  youLabel?: string;
 };
 
 export function BookACallLink({
   href,
   imageSrc = DEFAULT_PORTRAIT,
-  defaultText = "GET IN TOUCH",
-  hoverText = "Let's Talk!",
+  defaultText = "تماس بگیرید",
+  hoverText = "بزن حرف بزنیم!",
+  youLabel = "شما",
   className,
   ...linkProps
 }: BookACallLinkProps) {
@@ -161,7 +163,7 @@ export function BookACallLink({
         initial={false}
         aria-hidden="true"
         data-book-layer="active"
-        className="absolute inset-0 flex items-center justify-start gap-0 pl-2 text-xs leading-none font-semibold opacity-0"
+        className="absolute inset-0 flex items-center justify-start gap-0 ps-2 text-xs leading-none font-semibold opacity-0"
         animate={{ opacity: isActive ? 1 : 0 }}
         transition={withMotion(textTransition)}
       >
@@ -177,8 +179,8 @@ export function BookACallLink({
             className="relative z-0 block size-10 shrink-0 overflow-hidden rounded-full"
             animate={{
               opacity: isActive ? 1 : 0,
-              rotate: isActive ? 0 : -180,
-              x: isActive ? 0 : -40,
+              rotate: isActive ? 0 : 180,
+              x: isActive ? 0 : 40,
             }}
             transition={withMotion({
               ...avatarSpring,
@@ -203,8 +205,8 @@ export function BookACallLink({
               opacity: isActive && !isEndState ? 1 : 0,
               scale: isActive && !isEndState ? 1 : 0.6,
               width: isActive && !isEndState ? 18 : 0,
-              marginLeft: isActive && !isEndState ? 8 : 0,
-              marginRight: isActive && !isEndState ? 8 : 0,
+              marginInlineStart: isActive && !isEndState ? 8 : 0,
+              marginInlineEnd: isActive && !isEndState ? 8 : 0,
             }}
             transition={withMotion({
               ...mergeSpring,
@@ -218,20 +220,20 @@ export function BookACallLink({
           <motion.span
             initial={false}
             data-avatar-layer="you"
-            className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-black"
+            className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-xs font-semibold text-black"
             animate={{
               opacity: isActive ? 1 : 0,
-              rotate: isActive ? 0 : 180,
-              x: isActive ? 0 : 40,
-              marginLeft: isEndState ? -12 : 0,
+              rotate: isActive ? 0 : -180,
+              x: isActive ? 0 : -40,
+              marginInlineStart: isEndState ? -12 : 0,
             }}
             transition={withMotion({
               ...avatarSpring,
-              marginLeft: mergeSpring,
+              marginInlineStart: mergeSpring,
               delay: isActive && !isEndState ? 0.1 : 0,
             })}
           >
-            YOU
+            {youLabel}
           </motion.span>
         </motion.span>
 
@@ -240,7 +242,7 @@ export function BookACallLink({
           className="block overflow-hidden whitespace-nowrap text-sm"
           animate={{
             width: isEndState ? "auto" : 0,
-            marginLeft: isEndState ? 10 : 0,
+            marginInlineStart: isEndState ? 10 : 0,
             opacity: isEndState ? 1 : 0,
           }}
           transition={withMotion({
@@ -248,7 +250,7 @@ export function BookACallLink({
               ...textTransition,
               delay: isEndState ? HOVER_TEXT_DELAY : 0,
             },
-            marginLeft: {
+            marginInlineStart: {
               ...textTransition,
               delay: isEndState ? HOVER_TEXT_DELAY : 0,
             },
@@ -267,7 +269,11 @@ export function BookACallLink({
 
 export default function GetInTouch() {
   return (
-    <div className="flex h-full w-full items-center justify-center px-4">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center px-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <BookACallLink href="#contact" />
     </div>
   );

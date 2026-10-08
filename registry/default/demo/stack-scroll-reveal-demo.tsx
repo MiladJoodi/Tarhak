@@ -1,11 +1,3 @@
 "use client";
 
-export default function StackScrollRevealDemo() {
-  return (
-    <iframe
-      title="Stack Scroll Reveal"
-      src="/preview/stack-scroll-reveal"
-      className="h-full min-h-0 w-full self-stretch border-0 bg-[oklch(0.97_0.008_85)]"
-    />
-  );
-}
+export { default } from "@/registry/default/example/stack-scroll-reveal";

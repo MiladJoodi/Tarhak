@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ClientCardProps {
@@ -37,6 +37,10 @@ const CLIENT_PROFILES = [
   "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&h=256&q=80",
   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&h=256&q=80",
 ];
+
+function toPersianDigits(value: string | number) {
+  return String(value).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]!);
+}
 
 function CircularProgress({
   value,
@@ -99,10 +103,10 @@ function CircularProgress({
 }
 
 export function ClientCard({
-  name = "Sarah Jenkins",
-  country = "United Kingdom",
+  name = "سارا جنکینز",
+  country = "بریتانیا",
   image = "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=256&h=256&q=80",
-  service = "Social Media Management & Content Strategy",
+  service = "مدیریت شبکه‌های اجتماعی و استراتژی محتوا",
   amountPaid = 4500,
   totalAmount = 6000,
   plan = "Professional",
@@ -125,19 +129,23 @@ export function ClientCard({
 
   const timeLeftLabel =
     diffDays < 0
-      ? "Overdue"
+      ? "معوق"
       : diffDays === 0
-        ? "Today"
+        ? "امروز"
         : diffDays < 30
-          ? `${diffDays}d left`
+          ? `${toPersianDigits(diffDays)} روز مانده`
           : diffDays < 365
-            ? `${Math.floor(diffDays / 30)}mo left`
-            : `${(diffDays / 365).toFixed(1)}y left`;
+            ? `${toPersianDigits(Math.floor(diffDays / 30))} ماه مانده`
+            : `${toPersianDigits((diffDays / 365).toFixed(1))} سال مانده`;
 
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
-    <div className="relative grid grid-cols-[4rem_20rem] grid-rows-1 items-stretch gap-2.5 overflow-hidden">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="relative grid grid-cols-[4rem_20rem] grid-rows-1 items-stretch gap-2.5 overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <div className="relative w-16">
         {isExpanded ? (
           <div className="invisible flex w-full flex-col gap-1.5 p-1" aria-hidden>
@@ -180,7 +188,7 @@ export function ClientCard({
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 35 }}
               >
-                +{CLIENT_PROFILES.length - 3}
+                +{toPersianDigits(CLIENT_PROFILES.length - 3)}
               </motion.button>
             )}
           </motion.div>
@@ -199,7 +207,7 @@ export function ClientCard({
           >
             <motion.div
               layout="position"
-              initial={{ opacity: 0, x: -8 }}
+              initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-2"
             >
@@ -209,12 +217,12 @@ export function ClientCard({
                 onClick={() => setIsExpanded(false)}
                 className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
-                <ArrowLeft className="size-3.5" />
-                Go Back
+                <ArrowRight className="size-3.5" />
+                بازگشت
               </motion.button>
             </motion.div>
 
-            <div className="flex flex-row flex-wrap content-start gap-1.5 overflow-y-auto pr-1">
+            <div className="flex flex-row flex-wrap content-start gap-1.5 overflow-y-auto pe-1">
               {CLIENT_PROFILES.map((src, idx) => (
                 <motion.div
                   key={idx}
@@ -263,7 +271,7 @@ export function ClientCard({
                 )}
               </div>
               <div className="min-w-0">
-                <h3 className="truncate text-sm font-semibold tracking-tight text-foreground">
+                <h3 className="truncate text-sm font-semibold tracking-normal text-foreground">
                   {name}
                 </h3>
                 <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
@@ -288,15 +296,15 @@ export function ClientCard({
             />
             <div className="flex flex-col gap-0.5">
               <span className="text-xs leading-none text-muted-foreground">
-                Amount Paid
+                مبلغ پرداخت‌شده
               </span>
               <span className="text-sm text-foreground">
-                {Math.round(paymentPercentage)}%
+                {toPersianDigits(Math.round(paymentPercentage))}٪
               </span>
             </div>
           </div>
           <div className="h-8 w-px bg-border" />
-          <div className="ml-0.5 flex flex-1 items-center justify-start gap-3">
+          <div className="ms-0.5 flex flex-1 items-center justify-start gap-3">
             <CircularProgress
               id={`deadline-${idPrefix}`}
               value={timePercentage}
@@ -305,7 +313,7 @@ export function ClientCard({
             />
             <div className="flex flex-col gap-0.5">
               <span className="text-xs leading-none text-muted-foreground">
-                Deadline
+                مهلت
               </span>
               <span className="text-sm text-foreground">{timeLeftLabel}</span>
             </div>

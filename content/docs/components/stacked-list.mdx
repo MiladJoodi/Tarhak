@@ -1,19 +1,19 @@
 ---
 title: Stacked List
-description: A people widget — a short stack of members that morphs into a searchable directory.
+description: ویجت افراد — پشتهٔ کوتاه اعضا که به فهرست قابل جستجو تبدیل می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Stacked preview**: A few avatars and names sit as the collapsed widget.
-- **Morph to directory**: Expand and the rest of the team slides out of the same card.
-- **Search in both states**: Filter without leaving the widget.
-- **Role badges**: PM, designer, data, creator — color-coded.
-- **Online ticks**: Presence on the preview so it feels like a live team.
+- **پیش‌نمایش پشته‌ای**: چند آواتار و نام در حالت جمع‌شده.
+- **تبدیل به فهرست**: با باز شدن، بقیهٔ تیم از همان کارت بیرون می‌آید.
+- **جستجو در هر دو حالت**: فیلتر بدون ترک ویجت.
+- **نشان نقش**: مدیر پروژه، طراح، داده، تولیدکننده — با رنگ جدا.
+- **وضعیت آنلاین**: حضور در پیش‌نمایش تا حس تیم زنده بدهد.
 
-## Usage
+## نحوه استفاده
 
-Point `ALL_MEMBERS` at your people (name, role, avatar, status). The collapsed view shows actives; expand for everyone. Needs a medium card width. Wire search and add to your data — the demo is local. Happy in a sidebar or a project header.
+آرایهٔ `ALL_MEMBERS` را به افراد خودتان (نام، نقش، آواتار، وضعیت) وصل کنید. نمای جمع‌شده فعال‌ها را نشان می‌دهد؛ باز کنید برای همه. عرض متوسط کارت لازم است. جستجو و افزودن را به دادهٔ خودتان وصل کنید — دمو محلی است. مناسب سایدبار یا هدر پروژه.
 
 ```tsx
 import StackedList from "@/components/stacked-list";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Project or workspace sidebars
-- Team widgets on a dashboard
-- Invite / members settings
-- Community directories
-- “Who’s on this file” panels
+- سایدبار پروژه یا فضای کاری
+- ویجت تیم روی داشبورد
+- تنظیمات دعوت / اعضا
+- فهرست‌های انجمن
+- پنل «چه کسانی روی این فایل هستند»

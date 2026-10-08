@@ -1,9 +1,19 @@
 ---
 title: Card Folder
-description: This component creates an animated folder-style card with a background image, floating 3D object, hover effects, and customizable colors and text. You can easily change the images, colors, content, and animation settings from the card props.
+description: کارت پوشه‌ای متحرک با تصویر پس‌زمینه، شیء شناور، افکت هاور و رنگ و متن قابل تنظیم.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **زبانهٔ پوشه**: کارت‌های شماره‌دار ۰۱، ۰۲، ۰۳ مثل پرونده می‌نشینند، نه کاشی معمولی.
+- **بلند شدن با هاور**: پوشه جلو می‌آید؛ یک شیء سه‌بعدی (پالت، دوربین، گیاه) بالای آن شناور می‌شود.
+- **نگاه به عکس**: پس‌زمینه از بدنهٔ پوشه دیده می‌شود تا هر کارت صحنه داشته باشد.
+- **کاغذ رنگی**: پرکننده‌های یاسی، هلویی و نعنایی نرم با رنگ تایپ هماهنگ.
+- **لینک اختیاری**: اگر `href` بدهید، کل کارت یک `<a>` می‌شود.
+
+## نحوه استفاده
+
+تصاویر، رنگ‌ها، محتوا و تنظیمات انیمیشن را از props کارت عوض کنید.
 
 ```tsx
 import CardFolder from "@/components/card-folder";
@@ -13,10 +23,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- Folder tab: Numbered 01, 02, 03 cards sit like file folders, not generic tiles.
-- Hover lift: The folder comes forward; a 3D object (palette, camera, plant) floats above it.
-- Photo peek: A background still shows through the folder body so each card has a scene.
-- Tinted paper: Soft lilac, peach, and mint fills with matching type colors.
-- Optional link: The whole card can be an `<a>` if you pass `href`.
+- گالری نمونه‌کار و پورتفolio
+- کارت‌های مجموعه در داشبورد طراحی
+- معرفی دستهٔ محصولات
+- صفحهٔ «پوشه‌های پروژه»
+- تیزر کمپین با صحنهٔ بصری

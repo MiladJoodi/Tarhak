@@ -1,9 +1,16 @@
 ---
 title: Dynamic Grid Gallery
-description: A 3×2 photo grid that grows the hovered row and column so one still takes the stage.
+description: گرید عکسی ۳×۲ که ردیف و ستون هاور‌شده را بزرگ می‌کند تا یک قاب مرکز صحنه شود.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **بزرگ‌شدن با هاور**: ردیف و ستون فعال `expandFactor` (پیش‌فرض ۱٫۹۵) می‌گیرند؛ بقیه عقب می‌نشینند.
+- **شش قاب**: صفحهٔ ۳×۲. با `items` عکس‌های خودتان را بگذارید.
+- **آسان نرم**: مسیرهای گرید با منحنی مکعبی عوض می‌شوند تا رشد ناگهانی نباشد.
+- **وینیت**: کاشی‌های بیکار کمی تیره می‌مانند؛ هاور‌شده روشن می‌شود.
+
+## نحوه استفاده
 
 ```tsx
 import DynamicGridGallery from "@/components/dynamic-grid-gallery";
@@ -13,9 +20,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- Expand on hover: The active row and column take `expandFactor` (1.95 by default); the rest recede.
-- Six stills: A 3×2 board. Swap `items` for your own shots.
-- Slow ease: Grid tracks tween with a cubic curve so the grow doesn’t snap.
-- Vignette: Idle tiles sit slightly dimmed; the hovered one clears.
+- گالری نمونهٔ کار استودیو
+- صفحهٔ داستان سفر یا طبیعت
+- ویترین محصول بصری
+- لندینگ عکاسی
+- نمونه‌های موشن گرید تعاملی

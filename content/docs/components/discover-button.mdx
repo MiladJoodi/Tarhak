@@ -1,19 +1,19 @@
 ---
 title: Discover Button
-description: A round search control that stretches into a field, sitting beside Popular and Favorites chips.
+description: کنترل گرد جستجو که کنار تراشه‌های محبوب و علاقه‌مندی‌ها به فیلد کشیده می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Search that grows**: Click the magnifier and the pill expands into a real text field.
-- **Category chips**: Popular and Favorites sit beside it with their own color and icon.
-- **Blur on collapse**: The input width, opacity, and blur ease together so it doesn’t snap shut.
-- **Close affordance**: An X appears once you’re searching so you can tuck it back.
-- **One-row chrome**: Search + filters share a single toolbar height.
+- **جستجوی در حال رشد**: روی ذره‌بین بزنید؛ قرص به فیلد متن واقعی باز می‌شود.
+- **تراشه‌های دسته**: محبوب و علاقه‌مندی‌ها کنارش با رنگ و آیکن خودشان می‌نشینند.
+- **محو هنگام جمع‌شدن**: عرض، شفافیت و بلور با هم نرم می‌شوند تا ناگهان بسته نشود.
+- **بستن واضح**: بعد از باز شدن جستجو، ضربدر برای جمع کردنش ظاهر می‌شود.
+- **یک ردیف**: جستجو و فیلترها یک ارتفاع نوار ابزار دارند.
 
-## Usage
+## نحوه استفاده
 
-Drop it in a header or a browse toolbar. You’ll edit the `TABS` array for extra categories. Needs a row that’s allowed to grow — don’t pin it to a fixed 40px width. Pair it with a results list; this is the control, not the grid.
+در هدر یا نوار مرور بگذارید. آرایهٔ `TABS` را برای دسته‌های بیشتر ویرایش کنید. به ردیفی نیاز دارد که بتواند رشد کند — به عرض ثابت ۴۰px قفل نکنید. با لیست نتایج جفت کنید؛ این کنترل است، نه گرید.
 
 ```tsx
 import DiscoverButton from "@/components/discover-button";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Marketplace or catalog headers
-- Recipe, music, or photo browse bars
-- Community “discover” pages
-- Docs or help search with topic chips
-- App store–style explore screens
+- هدر مارکت‌پلیس یا کاتالوگ
+- نوار مرور دستور، موسیقی یا عکس
+- صفحات «کشف» جامعه
+- جستجوی مستندات با تراشهٔ موضوع
+- صفحه‌های کاوش شبیه فروشگاه اپ

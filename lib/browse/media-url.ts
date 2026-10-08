@@ -1,13 +1,14 @@
-const COMPONENT_CDN_ORIGIN = "https://cdn.uselayouts.com";
-const COMPONENT_CDN_PREFIX = `${COMPONENT_CDN_ORIGIN}/components/`;
+/** Local browse media served from `browse-media/` via the API route. */
+export function localPosterUrl(slug: string): string {
+  return `/api/browse-media/components/${slug}/poster.avif`;
+}
 
-/**
- * Component media is protected against third-party hotlinking by the upstream
- * CDN. Serve those known public files from our own origin so local development,
- * preview deployments, and forks render the same previews as uselayouts.com.
- */
+export function localVideoUrl(slug: string): string {
+  return `/api/browse-media/components/${slug}/video.mp4`;
+}
+
+/** @deprecated Prefer localPosterUrl / localVideoUrl. Kept for call sites that still pass a path. */
 export function browseMediaUrl(url: string): string {
-  if (!url.startsWith(COMPONENT_CDN_PREFIX)) return url;
-
-  return `/api/browse-media${new URL(url).pathname}`;
+  if (url.startsWith("/api/browse-media/")) return url;
+  return url;
 }

@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   Pizza04Icon,
@@ -18,83 +24,83 @@ import { HugeiconsIcon } from "@hugeicons/react";
 const FEATURES = [
   {
     id: "sustainable",
-    label: "Sustainable Sourcing",
+    label: "تأمین پایدار",
     icon: Pizza04Icon,
     image:
       "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200&auto=format&fit=crop",
-    description: "Ethically sourced ingredients from local farmers.",
+    description: "مواد اولیهٔ اخلاقی از کشاورزان محلی.",
   },
   {
     id: "community",
-    label: "Community Focused",
+    label: "تمرکز روی جامعه",
     icon: CommandFreeIcons,
     image:
       "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop",
-    description: "Building stronger bonds through shared experiences.",
+    description: "پیوندهای قوی‌تر با تجربه‌های مشترک.",
   },
   {
     id: "global",
-    label: "Global Reach",
+    label: "دسترسی جهانی",
     icon: GlobalSearchIcon,
     image:
       "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop",
-    description: "Connecting visionaries across all continents.",
+    description: "اتصال رؤیاپردازان در همهٔ قاره‌ها.",
   },
   {
     id: "award",
-    label: "Award Winning",
+    label: "برندهٔ جایزه",
     icon: CheckmarkCircle01Icon,
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop",
-    description: "Recognized excellence in design and innovation.",
+    description: "کیفیت و نوآوری به‌رسمیت‌شناخته‌شده.",
   },
   {
     id: "cloud",
-    label: "Cloud Ready",
+    label: "آمادهٔ ابر",
     icon: AiCloudIcon,
     image:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
-    description: "Scale your infrastructure with seamless ease.",
+    description: "زیرساخت را بدون دردسر بزرگ کنید.",
   },
   {
     id: "mobile",
-    label: "Mobile First",
+    label: "موبایل‌محور",
     icon: SmartPhone01Icon,
     image:
       "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop",
-    description: "A world-class experience on every single device.",
+    description: "تجربه‌ای عالی روی هر دستگاه.",
   },
   {
     id: "analytics",
-    label: "Real-time Analytics",
+    label: "تحلیل لحظه‌ای",
     icon: DashboardSquare01Icon,
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    description: "Insights at your fingertips, updated in real-time.",
+    description: "بینش دم‌دست، به‌روز در لحظه.",
   },
   {
     id: "security",
-    label: "Enterprise Security",
+    label: "امنیت سازمانی",
     icon: CheckmarkCircle01Icon,
     image:
       "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=1200&auto=format&fit=crop",
-    description: "Bank-grade security protocols for your data.",
+    description: "پروتکل‌های امنیتی بانکی برای دادهٔ شما.",
   },
   {
     id: "magic",
-    label: "Magic Automations",
+    label: "خودکارسازی جادویی",
     icon: MagicWandIcon,
     image:
       "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop",
-    description: "Let AI handle the repetitive tasks for you.",
+    description: "کارهای تکراری را به هوش مصنوعی بسپارید.",
   },
   {
     id: "local",
-    label: "Locally Owned",
+    label: "مالکیت محلی",
     icon: CheckmarkCircle01Icon,
     image:
       "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop",
-    description: "Supporting local businesses and creators.",
+    description: "حمایت از کسب‌وکارها و سازندگان محلی.",
   },
 ];
 
@@ -105,6 +111,10 @@ function shortestOffset(index: number, current: number, len: number) {
   let d = ((index - current) % len + len) % len;
   if (d > len / 2) d -= len;
   return d;
+}
+
+function toFaDigits(n: number) {
+  return n.toLocaleString("fa-IR");
 }
 
 const chipSpring = {
@@ -150,9 +160,13 @@ export default function FeatureCarousel() {
   };
 
   return (
-    <div className="@container w-full max-w-7xl mx-auto md:p-8">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="@container mx-auto w-full max-w-7xl font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:p-8"
+    >
       <div className="relative flex min-h-[560px] flex-col overflow-hidden rounded-[2.5rem] border border-border/40 @min-[720px]:aspect-video @min-[720px]:min-h-0 @min-[720px]:flex-row @min-[720px]:rounded-[4rem]">
-        <div className="relative z-30 flex h-[280px] w-full shrink-0 flex-col items-start justify-center overflow-hidden bg-[#62B2FE] px-8 @min-[720px]:h-auto @min-[720px]:w-[40%] @min-[720px]:min-h-0 @min-[720px]:px-16 @min-[720px]:pl-16">
+        <div className="relative z-30 flex h-[280px] w-full shrink-0 flex-col items-start justify-center overflow-hidden bg-[#62B2FE] px-8 @min-[720px]:h-auto @min-[720px]:w-[40%] @min-[720px]:min-h-0 @min-[720px]:px-16 @min-[720px]:ps-16">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-12 bg-gradient-to-b from-[#62B2FE] via-[#62B2FE]/80 to-transparent @min-[720px]:h-16" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-12 bg-gradient-to-t from-[#62B2FE] via-[#62B2FE]/80 to-transparent @min-[720px]:h-16" />
           <div className="relative z-20 flex h-full w-full items-center justify-center @min-[720px]:justify-start">
@@ -172,7 +186,7 @@ export default function FeatureCarousel() {
           </div>
         </div>
 
-        <div className="relative flex min-h-[420px] flex-1 items-center justify-center overflow-hidden border-t border-border/20 bg-secondary/30 px-6 py-12 @min-[720px]:min-h-0 @min-[720px]:border-t-0 @min-[720px]:border-l @min-[720px]:px-10 @min-[720px]:py-16">
+        <div className="relative flex min-h-[420px] flex-1 items-center justify-center overflow-hidden border-t border-border/20 bg-secondary/30 px-6 py-12 @min-[720px]:min-h-0 @min-[720px]:border-t-0 @min-[720px]:border-s @min-[720px]:px-10 @min-[720px]:py-16">
           <div className="relative flex aspect-[4/5] w-full max-w-[420px] items-center justify-center">
             {FEATURES.map((feature, index) => {
               const status = getCardStatus(index);
@@ -185,10 +199,10 @@ export default function FeatureCarousel() {
                   key={feature.id}
                   initial={false}
                   animate={{
-                    x: isActive ? 0 : isPrev ? -100 : isNext ? 100 : 0,
+                    x: isActive ? 0 : isPrev ? 100 : isNext ? -100 : 0,
                     scale: isActive ? 1 : isPrev || isNext ? 0.85 : 0.7,
                     opacity: isActive ? 1 : isPrev || isNext ? 0.4 : 0,
-                    rotate: isPrev ? -3 : isNext ? 3 : 0,
+                    rotate: isPrev ? 3 : isNext ? -3 : 0,
                     zIndex: isActive ? 20 : isPrev || isNext ? 10 : 0,
                     pointerEvents: isActive ? "auto" : "none",
                   }}
@@ -212,9 +226,7 @@ export default function FeatureCarousel() {
                     {isActive && (
                       <motion.div
                         initial={
-                          reduceMotion
-                            ? false
-                            : { opacity: 0, y: 12 }
+                          reduceMotion ? false : { opacity: 0, y: 12 }
                         }
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
@@ -225,10 +237,10 @@ export default function FeatureCarousel() {
                         }
                         className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent p-10 pt-32"
                       >
-                        <div className="mb-3 w-fit rounded-full border border-border/50 bg-background px-4 py-1.5 text-[11px] font-normal uppercase tracking-[0.2em] text-foreground shadow-lg">
-                          {index + 1} • {feature.label}
+                        <div className="mb-3 w-fit rounded-full border border-border/50 bg-background px-4 py-1.5 text-[11px] font-normal text-foreground shadow-lg">
+                          {toFaDigits(index + 1)} • {feature.label}
                         </div>
-                        <p className="text-xl font-normal leading-tight tracking-tight text-white drop-shadow-md md:text-2xl">
+                        <p className="text-xl leading-tight font-normal text-white drop-shadow-md md:text-2xl">
                           {feature.description}
                         </p>
                       </motion.div>
@@ -296,7 +308,7 @@ function FeatureChip({
         onMouseEnter={onPause}
         onMouseLeave={onResume}
         className={cn(
-          "relative flex cursor-pointer items-center gap-4 rounded-full border px-6 py-3.5 text-left transition-[color,background-color,border-color] duration-150 ease-out active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none md:px-10 md:py-5 @min-[720px]:px-8 @min-[720px]:py-4",
+          "relative flex cursor-pointer items-center gap-4 rounded-full border px-6 py-3.5 text-start transition-[color,background-color,border-color] duration-150 ease-out active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none md:px-10 md:py-5 @min-[720px]:px-8 @min-[720px]:py-4",
           isActive
             ? "z-10 border-white bg-white text-[#62B2FE]"
             : "border-white/20 bg-transparent text-white/60 hover:border-white/40 hover:text-white"
@@ -310,7 +322,7 @@ function FeatureChip({
         >
           <HugeiconsIcon icon={feature.icon} size={18} strokeWidth={2} />
         </div>
-        <span className="whitespace-nowrap text-sm font-normal tracking-tight uppercase md:text-[15px]">
+        <span className="whitespace-nowrap text-sm font-normal md:text-[15px]">
           {feature.label}
         </span>
       </button>

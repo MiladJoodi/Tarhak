@@ -9,25 +9,25 @@ import { HugeiconsIcon } from "@hugeicons/react";
 // Change Here
 const SERVICES = [
   {
-    id: "01",
-    title: "Web Design",
+    id: "۰۱",
+    title: "طراحی وب",
     description:
-      "Creating beautiful, functional, and user-centric digital experiences.",
+      "تجربه‌های دیجیتال زیبا، کاربردی و کاربرمحور می‌سازیم.",
     image:
       "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200",
   },
   {
-    id: "02",
-    title: "Framer Development",
-    description: "Building high-performance, animated websites with Framer.",
+    id: "۰۲",
+    title: "توسعه با فریمر",
+    description: "سایت‌های پربازده و متحرک با فریمر می‌سازیم.",
     image:
       "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1200",
   },
   {
-    id: "03",
-    title: "Branding",
+    id: "۰۳",
+    title: "برندینگ",
     description:
-      "Defining your brand's visual identity and voice for a lasting impression.",
+      "هویت بصری و صدای برندتان را برای اثری ماندگار تعریف می‌کنیم.",
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200",
   },
@@ -77,16 +77,20 @@ export default function VerticalTabs() {
   const active = SERVICES[activeIndex]!;
 
   return (
-    <section className="@container w-full bg-background py-8 md:py-16">
+    <section
+      dir="rtl"
+      lang="fa"
+      className="@container w-full bg-background py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:py-16"
+    >
       <div className="mx-auto w-full px-6 sm:px-10 md:px-16 lg:px-24 xl:px-28">
         <div className="grid grid-cols-1 items-start gap-10 @min-[720px]:grid-cols-12 @min-[720px]:gap-12">
           <div className="flex flex-col justify-center order-2 pt-4 @min-[720px]:col-span-5 @min-[720px]:order-1">
-            <div className="space-y-1 mb-12">
-              <h2 className="tracking-tighter text-balance text-3xl font-medium md:text-4xl lg:text-5xl text-foreground">
-                How I can help you
+            <div className="mb-12 space-y-1">
+              <h2 className="text-balance text-3xl font-medium tracking-normal text-foreground md:text-4xl lg:text-5xl">
+                چطور می‌توانم کمکتان کنم
               </h2>
-              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-[0.3em] block ml-0.5">
-                (SERVICES)
+              <span className="ms-0.5 block text-[10px] font-medium tracking-normal text-muted-foreground">
+                (خدمات)
               </span>
             </div>
 
@@ -98,17 +102,17 @@ export default function VerticalTabs() {
                     key={service.id}
                     onClick={() => handleTabClick(index)}
                     className={cn(
-                      "group relative flex cursor-pointer items-start gap-4 border-t border-border/50 py-6 text-left transition-[color] duration-150 ease-out first:border-0 md:py-8",
+                      "group relative flex cursor-pointer items-start gap-4 border-t border-border/50 py-6 text-start transition-[color] duration-150 ease-out first:border-0 md:py-8",
                       isActive
                         ? "text-foreground"
                         : "text-muted-foreground/60 hover:text-foreground"
                     )}
                   >
-                    <div className="absolute left-[-16px] md:left-[-24px] top-0 bottom-0 w-[2px] bg-muted">
+                    <div className="absolute inset-y-0 start-[-16px] w-[2px] bg-muted md:start-[-24px]">
                       {isActive && (
                         <motion.div
                           key={`progress-${index}-${isPaused}`}
-                          className="absolute top-0 left-0 w-full bg-foreground origin-top"
+                          className="absolute top-0 start-0 w-full origin-top bg-foreground"
                           initial={{ height: "0%" }}
                           animate={
                             isPaused ? { height: "0%" } : { height: "100%" }
@@ -121,14 +125,14 @@ export default function VerticalTabs() {
                       )}
                     </div>
 
-                    <span className="text-[9px] md:text-[10px] font-medium mt-1 tabular-nums opacity-50">
-                      /{service.id}
+                    <span className="mt-1 text-[9px] font-medium tabular-nums opacity-50 md:text-[10px]">
+                      {service.id}/
                     </span>
 
                     <div className="flex flex-col gap-2 flex-1">
                       <span
                         className={cn(
-                          "text-2xl font-normal tracking-tight transition-colors duration-150 ease-out md:text-3xl @min-[720px]:text-4xl",
+                          "text-2xl font-normal tracking-normal transition-colors duration-150 ease-out md:text-3xl @min-[720px]:text-4xl",
                           isActive ? "text-foreground" : ""
                         )}
                       >
@@ -175,26 +179,26 @@ export default function VerticalTabs() {
                   />
                 </AnimatePresence>
 
-                <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 flex gap-2 md:gap-3 z-20">
+                <div className="absolute bottom-6 end-6 z-20 flex gap-2 md:bottom-8 md:end-8 md:gap-3">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handlePrev();
                     }}
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-background/80 backdrop-blur-md border border-border/50 flex items-center justify-center text-foreground hover:bg-background transition-all active:scale-90"
-                    aria-label="Previous"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-border/50 bg-background/80 text-foreground backdrop-blur-md transition-all hover:bg-background active:scale-90 md:h-12 md:w-12"
+                    aria-label="قبلی"
                   >
-                    <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+                    <HugeiconsIcon icon={ArrowRight01Icon} size={20} />
                   </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleNext();
                     }}
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-background/80 backdrop-blur-md border border-border/50 flex items-center justify-center text-foreground hover:bg-background transition-all active:scale-90"
-                    aria-label="Next"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-border/50 bg-background/80 text-foreground backdrop-blur-md transition-all hover:bg-background active:scale-90 md:h-12 md:w-12"
+                    aria-label="بعدی"
                   >
-                    <HugeiconsIcon icon={ArrowRight01Icon} size={20} />
+                    <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
                   </button>
                 </div>
               </div>

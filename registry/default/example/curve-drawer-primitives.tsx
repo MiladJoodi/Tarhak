@@ -172,6 +172,8 @@ export function CurveDrawerContent({
 
       <DrawerPrimitive.Content {...props} asChild>
         <motion.div
+          dir="rtl"
+          lang="fa"
           animate={{
             x: open ? "0" : drawerOffset,
             transition: {
@@ -180,7 +182,7 @@ export function CurveDrawerContent({
             },
           }}
           className={cn(
-            "group/curve-drawer-content fixed z-[110] flex h-auto flex-col overflow-visible bg-popover text-sm text-popover-foreground outline-none",
+            "group/curve-drawer-content fixed z-[110] flex h-auto flex-col overflow-visible bg-popover text-sm text-popover-foreground outline-none font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
             "data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:h-full data-[vaul-drawer-direction=left]:w-3/4 data-[vaul-drawer-direction=left]:max-w-sm data-[vaul-drawer-direction=left]:rounded-r-none",
             "data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:h-full data-[vaul-drawer-direction=right]:w-3/4 data-[vaul-drawer-direction=right]:max-w-sm data-[vaul-drawer-direction=right]:rounded-l-none",
             "data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mt-24 data-[vaul-drawer-direction=bottom]:max-h-[80vh] data-[vaul-drawer-direction=bottom]:rounded-t-xl data-[vaul-drawer-direction=bottom]:border-t",
@@ -192,7 +194,7 @@ export function CurveDrawerContent({
           ref={contentRef}
           style={{ ...style, animation: "none", transition: "none" }}
         >
-          <div className="relative h-full w-full overflow-visible">
+          <div className="relative h-full w-full overflow-visible text-start">
             {children}
             {showCurve ? (
               <Curve
@@ -215,7 +217,7 @@ export function CurveDrawerHeader({
   return (
     <div
       className={cn(
-        "flex flex-col gap-0.5 p-4 group-data-[vaul-drawer-direction=bottom]/curve-drawer-content:text-center group-data-[vaul-drawer-direction=top]/curve-drawer-content:text-center md:gap-0.5 md:text-left",
+        "flex flex-col gap-0.5 p-4 group-data-[vaul-drawer-direction=bottom]/curve-drawer-content:text-center group-data-[vaul-drawer-direction=top]/curve-drawer-content:text-center md:gap-0.5 md:text-start",
         className
       )}
       data-slot="curve-drawer-header"

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export type FramerCtaVariant = "dark" | "light";
 
 const ctaBaseClasses =
-  "relative inline-flex min-h-10 items-center justify-center gap-2.5 rounded-sm pl-2 pr-2.5 text-white transition-transform duration-200 hover:text-white active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transform-none motion-reduce:transition-none cursor-pointer";
+  "relative inline-flex min-h-10 items-center justify-center gap-2.5 rounded-sm ps-2 pe-2.5 text-white transition-transform duration-200 hover:text-white active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transform-none motion-reduce:transition-none cursor-pointer";
 
 function ctaStyle(variant: FramerCtaVariant) {
   const isDark = variant === "dark";

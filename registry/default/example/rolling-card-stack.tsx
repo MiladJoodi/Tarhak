@@ -88,10 +88,10 @@ const ArrowUpRightIcon = () => (
 export const DEFAULT_CARDS: CardItem[] = [
   {
     id: "spatial-design",
-    caption: "Spatial Architecture",
-    title: "Sculpting digital calm",
+    caption: "معماری فضایی",
+    title: "آرامش دیجیتال",
     description:
-      "Craft intentional spaces through minimalist geometry, tactile typography, and harmonious micro-interactions.",
+      "فضاهایی هدفمند با هندسهٔ مینیمال، تایپوگرافی ملموس و ریزتعامل‌های هماهنگ بسازید.",
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
     accentColor: "text-orange-500",
@@ -99,10 +99,10 @@ export const DEFAULT_CARDS: CardItem[] = [
   },
   {
     id: "neural-intelligence",
-    caption: "Neural Synthesis",
-    title: "Autonomous creative engine",
+    caption: "سنتز عصبی",
+    title: "موتور خلاق خودکار",
     description:
-      "Synthesize complex datasets into high-fidelity generative interfaces with ultra-low latency inference models.",
+      "داده‌های پیچیده را با مدل‌های استنتاج کم‌تأخیر به رابط‌های تولیدی باکیفیت تبدیل کنید.",
     image:
       "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=85",
     accentColor: "text-indigo-500",
@@ -110,10 +110,10 @@ export const DEFAULT_CARDS: CardItem[] = [
   },
   {
     id: "quantum-computing",
-    caption: "Quantum Pipeline",
-    title: "Pure algorithmic speed",
+    caption: "خط لولهٔ کوانتومی",
+    title: "سرعت خالص الگوریتمی",
     description:
-      "Accelerate mission-critical workflows with quantum-inspired parallel execution and effortless state caching.",
+      "گردش‌کارهای حیاتی را با اجرای موازی الهام‌گرفته از کوانتوم و کش حالت بدون اصطکاک شتاب دهید.",
     image:
       "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1600&q=85",
     accentColor: "text-sky-500",
@@ -121,10 +121,10 @@ export const DEFAULT_CARDS: CardItem[] = [
   },
   {
     id: "organic-materials",
-    caption: "Fluid Dynamics",
-    title: "Tactile motion & balance",
+    caption: "دینامیک سیال",
+    title: "حرکت ملموس و تعادل",
     description:
-      "Experience natural kinetic inertia designed to mimic liquid viscosity and frictionless physics across every viewport.",
+      "اینرسی جنبشی طبیعی که ویسکوزیتهٔ مایع و فیزیک بدون اصطکاک را در هر نما شبیه‌سازی می‌کند.",
     image:
       "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1600&q=85",
     accentColor: "text-purple-500",
@@ -216,14 +216,16 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
 
   return (
     <div
+      dir="rtl"
+      lang="fa"
       className={cn(
-        "min-h-screen w-full bg-[#E5E5E0] text-neutral-900 flex flex-col items-center justify-center p-4 md:p-12 font-sans select-none overflow-hidden relative",
+        "min-h-screen w-full bg-[#E5E5E0] text-neutral-900 flex flex-col items-center justify-center p-4 md:p-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal select-none overflow-hidden relative",
         "outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40",
         className
       )}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Card stack"
+      aria-label="پشتهٔ کارت"
       tabIndex={0}
       onKeyDown={handleKeyDown}
       {...props}
@@ -231,9 +233,12 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
       <div className="flex flex-col items-center justify-center w-full max-w-4xl relative z-10">
         {/* Device Switcher (Solid Opaque Pill) */}
         {showDeviceToggle && (
-          <div className="mb-6 shrink-0 flex items-center">
-            <div className="relative flex items-center bg-[#111111] rounded-full p-1 h-11 w-44 shadow-md overflow-hidden">
-              {/* Sliding Pill Indicator */}
+          <div className="mb-6 flex shrink-0 items-center">
+            {/* dir=ltr: pill uses physical left; keep order Desktop | Mobile under RTL page */}
+            <div
+              dir="ltr"
+              className="relative flex h-11 w-44 items-center overflow-hidden rounded-full bg-[#111111] p-1 shadow-md"
+            >
               <motion.div
                 layout
                 transition={{
@@ -242,7 +247,7 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
                   damping: 28,
                   mass: 0.7,
                 }}
-                className="absolute top-1 bottom-1 rounded-full bg-white shadow-sm z-10"
+                className="absolute top-1 bottom-1 z-10 rounded-full bg-white shadow-sm"
                 style={{
                   left: device === "desktop" ? "4px" : "calc(50% + 2px)",
                   width: "calc(50% - 6px)",
@@ -253,21 +258,25 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
                 type="button"
                 onClick={() => setDevice("desktop")}
                 className={cn(
-                  "relative z-20 w-1/2 h-full flex items-center justify-center text-xs font-semibold tracking-tight transition-colors duration-200",
-                  device === "desktop" ? "text-neutral-950" : "text-neutral-300 hover:text-white"
+                  "relative z-20 flex h-full w-1/2 items-center justify-center text-xs font-semibold transition-colors duration-200",
+                  device === "desktop"
+                    ? "text-neutral-950"
+                    : "text-neutral-300 hover:text-white"
                 )}
               >
-                Desktop
+                دسکتاپ
               </button>
               <button
                 type="button"
                 onClick={() => setDevice("mobile")}
                 className={cn(
-                  "relative z-20 w-1/2 h-full flex items-center justify-center text-xs font-semibold tracking-tight transition-colors duration-200",
-                  device === "mobile" ? "text-neutral-950" : "text-neutral-300 hover:text-white"
+                  "relative z-20 flex h-full w-1/2 items-center justify-center text-xs font-semibold transition-colors duration-200",
+                  device === "mobile"
+                    ? "text-neutral-950"
+                    : "text-neutral-300 hover:text-white"
                 )}
               >
-                Mobile
+                موبایل
               </button>
             </div>
           </div>
@@ -368,13 +377,15 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
                       >
                         {card.icon}
                       </div>
-                      <span className="font-semibold text-sm text-neutral-900 tracking-tight truncate">
+                      <span className="font-semibold text-sm text-neutral-900 truncate">
                         {card.caption}
                       </span>
                     </div>
 
-                    <span className="text-xs font-mono font-medium text-neutral-400">
-                      0{index + 1}
+                    <span className="text-xs font-medium text-neutral-400 tabular-nums">
+                      {String(index + 1)
+                        .padStart(2, "0")
+                        .replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)])}
                     </span>
                   </div>
 
@@ -396,7 +407,7 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
                     >
                       <h3
                         className={cn(
-                          "font-semibold text-neutral-950 leading-tight tracking-tight",
+                          "font-semibold text-neutral-950 leading-tight",
                           isMobile ? "text-lg" : "text-2xl"
                         )}
                       >
@@ -409,8 +420,8 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
                       {/* Explore Action Link */}
                       {!isMobile && (
                         <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-neutral-900 group-hover:text-black transition-colors">
-                          <span>Explore concept</span>
-                          <span className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                          <span>کاوش مفهوم</span>
+                          <span className="transition-transform duration-200 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
                             <ArrowUpRightIcon />
                           </span>
                         </div>
@@ -467,7 +478,7 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
                   key={i}
                   type="button"
                   onClick={() => handleCardClick(i)}
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`رفتن به اسلاید ${String(i + 1).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)])}`}
                   className={cn(
                     "group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-full",
                     isMobile ? "p-0.5" : "p-1"
@@ -495,24 +506,24 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
               <button
                 type="button"
                 onClick={handlePrev}
-                aria-label="Previous Card"
-                className={cn(
-                  "inline-flex items-center justify-center rounded-full bg-[#FFFFFF] hover:bg-[#F2F2EC] text-neutral-800 border border-[#DCDCD6] shadow-xs transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400",
-                  isMobile ? "w-6 h-6 [&_svg]:w-3.5 [&_svg]:h-3.5" : "w-8 h-8"
-                )}
-              >
-                <ChevronLeftIcon />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next Card"
+                aria-label="کارت قبلی"
                 className={cn(
                   "inline-flex items-center justify-center rounded-full bg-[#FFFFFF] hover:bg-[#F2F2EC] text-neutral-800 border border-[#DCDCD6] shadow-xs transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400",
                   isMobile ? "w-6 h-6 [&_svg]:w-3.5 [&_svg]:h-3.5" : "w-8 h-8"
                 )}
               >
                 <ChevronRightIcon />
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="کارت بعدی"
+                className={cn(
+                  "inline-flex items-center justify-center rounded-full bg-[#FFFFFF] hover:bg-[#F2F2EC] text-neutral-800 border border-[#DCDCD6] shadow-xs transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400",
+                  isMobile ? "w-6 h-6 [&_svg]:w-3.5 [&_svg]:h-3.5" : "w-8 h-8"
+                )}
+              >
+                <ChevronLeftIcon />
               </button>
             </div>
           </div>

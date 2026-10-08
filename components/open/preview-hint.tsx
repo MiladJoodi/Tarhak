@@ -145,10 +145,14 @@ function HintOverlay({
         )}
         style={{ top: "var(--preview-hint-top, 80px)" }}
       >
-        <div className="flex max-w-full flex-col items-center gap-1 text-center">
+        <div
+          dir="rtl"
+          lang="fa"
+          className="flex max-w-full flex-col items-center gap-1 text-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]"
+        >
           <p
             className={cn(
-              "text-balance font-[family-name:var(--font-geist-sans)] text-lg tracking-[-0.03em]",
+              "text-balance text-lg",
               tone === "light" ? "text-neutral-900" : "text-white",
             )}
           >
@@ -157,7 +161,7 @@ function HintOverlay({
           {description ? (
             <p
               className={cn(
-                "max-w-prose font-[family-name:var(--font-geist-sans)] text-sm tracking-[-0.03em] text-pretty",
+                "max-w-prose text-sm text-pretty",
                 tone === "light" ? "text-neutral-500" : "text-muted-foreground",
               )}
             >

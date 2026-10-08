@@ -1,19 +1,19 @@
 ---
 title: Animated Collection
-description: A collection of artworks that morph between list, card, and packed-stack views.
+description: مجموعه‌ای از آثار که بین نمای فهرست، کارت و پشتهٔ فشرده مورف می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Three layouts**: List, card grid, and a tight “pack” stack — same items, different posture.
-- **Shared-element morph**: Titles, images, and IDs slide into their new slots instead of blinking.
-- **Segmented toggle**: A small pill switch at the top makes the mode change feel like a camera, not a reload.
-- **Artwork cells**: Each piece carries a photo, category, and catalog number.
-- **Snappy springs**: Layout changes settle fast so browsing never feels sluggish.
+- **سه چیدمان**: فهرست، گرید کارت و پشتهٔ «بسته» — همان آیتم‌ها، وضعیت متفاوت.
+- **مورف shared-element**: عنوان‌ها، تصاویر و شناسه‌ها به‌جای چشمک‌زدن به جای جدید می‌لغزند.
+- **سوییچ قطعه‌ای**: سوئیچ کوچک قرصی در بالا تغییر حالت را مثل دوربین حس می‌کند، نه ریلود.
+- **سلول‌های اثر**: هر قطعه عکس، دسته و شمارهٔ کاتالوگ دارد.
+- **فنرهای سریع**: تغییر چیدمان زود می‌نشیند تا مرور کند حس نشود.
 
-## Usage
+## نحوه استفاده
 
-Drop it where someone is browsing a set of things they own or curate. You need a few items with images and titles; the toggle is built in. Give it a medium-width column — too narrow and the pack view crowds, too wide and the list looks lost.
+جایی بگذارید که کسی مجموعه‌ای از چیزهای خودش یا کیوریت‌شده را ورق می‌زند. چند آیتم با تصویر و عنوان لازم است؛ سوییچ داخلش است. ستون با عرض متوسط بدهید — خیلی باریک پشته شلوغ می‌شود، خیلی عریض فهرست گم می‌شود.
 
 ```tsx
 import AnimatedCollection from "@/components/animated-collection";
@@ -23,10 +23,10 @@ export default function Example() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Collector or gallery “my collection” pages
-- Music, ticket, or merch libraries
-- Design-system galleries of tokens or shots
-- Marketplace saved-items views
-- Portfolio indexes that want a view switcher
+- صفحات «مجموعهٔ من» کلکسیونر یا گالری
+- کتابخانه‌های موسیقی، بلیت یا مرچ
+- گالری‌های سیستم طراحی برای توکن یا شات
+- نمای آیتم‌های ذخیره‌شدهٔ مارکت‌پلیس
+- ایندکس پورتفولیو با سوییچ نما

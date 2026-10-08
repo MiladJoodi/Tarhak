@@ -104,7 +104,7 @@ function ManualDepCommand({
           openPressMotion,
         )}
         onClick={copy}
-        aria-label={copied ? "Copied" : "Copy"}
+        aria-label={copied ? "کپی شد" : "کپی"}
       >
         <img
           src={copied ? "/open/check.svg" : "/open/copy.svg"}
@@ -157,8 +157,8 @@ export function InstallGuide({
 
   return (
     <section className="flex min-w-0 flex-col gap-3.5">
-      <h2 className="text-lg leading-7 font-normal tracking-[-0.03em] text-white">
-        Installation
+      <h2 className="text-lg leading-7 font-normal tracking-normal text-white">
+        نصب
       </h2>
       <Tabs
         value={mode}
@@ -178,7 +178,7 @@ export function InstallGuide({
           {(
             [
               { value: "cli", label: "CLI" },
-              { value: "manual", label: "Manual" },
+              { value: "manual", label: "دستی" },
             ] as const
           ).map((option) => {
             const active = option.value === mode;
@@ -225,8 +225,8 @@ export function InstallGuide({
           ) : (
             <DocsSteps>
               <div className="flex min-w-0 flex-col gap-3">
-                <h3 className="text-base leading-6 font-normal tracking-[-0.48px] text-[#fafafa]">
-                  Install dependencies
+                <h3 className="text-base leading-6 font-normal tracking-normal text-[#fafafa]">
+                  نصب وابستگی‌ها
                 </h3>
                 {manualCmd ? (
                   <ManualDepCommand
@@ -236,13 +236,13 @@ export function InstallGuide({
                   />
                 ) : (
                   <p className="text-sm text-[hsl(240_5%_69%)]">
-                    No extra packages configured for this component.
+                    برای این کامپوننت پکیج اضافه‌ای تنظیم نشده.
                   </p>
                 )}
               </div>
               <div className="flex min-w-0 flex-col gap-3">
-                <h3 className="text-base leading-6 font-normal tracking-[-0.48px] text-[#fafafa]">
-                  Copy the code
+                <h3 className="text-base leading-6 font-normal tracking-normal text-[#fafafa]">
+                  کپی کد
                 </h3>
                 <DocsCodeBlock
                   html={codeHtml || ""}

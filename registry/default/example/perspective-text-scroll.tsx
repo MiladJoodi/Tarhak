@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const DEFAULT_TEXT =
-  "Design systems are not just a folder of components. They are a shared rhythm: spacing that breathes, type that reads at every scale, and motion that feels intentional rather than decorative. When those choices compound, every screen feels like it belongs to the same thoughtful product.";
+  "سیستم طراحی فقط پوشه‌ای از کامپوننت نیست. ریتمی مشترک است: فاصله‌هایی که نفس می‌کشند، تایپی که در هر مقیاس خوانا می‌ماند، و حرکتی که عمدی است نه تزئینی. وقتی این انتخاب‌ها روی هم جمع می‌شوند، هر صفحه حس می‌کند به همان محصول فکر‌شده تعلق دارد.";
 
 const KEYFRAMES = [
   { p: 0.0, rotX: 42, transY: 520, transZ: -30, opacity: 0.0 },
@@ -132,18 +132,20 @@ export function PerspectiveTextScroll() {
   return (
     <div
       ref={containerRef}
+      dir="rtl"
+      lang="fa"
       role="region"
-      aria-label="Perspective text scroll visualization"
-      className="relative w-full bg-[#F7F4F2] text-[#7B9E87]"
+      aria-label="اسکرول متن سه‌بعدی"
+      className="relative w-full bg-[#F7F4F2] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[#7B9E87]"
       style={{ height: "500vh" }}
     >
       <div
-        className="sticky top-0 left-0 flex h-screen w-full items-center justify-center overflow-hidden perspective-[200px]"
+        className="sticky top-0 start-0 flex h-screen w-full items-center justify-center overflow-hidden perspective-[200px]"
         style={{ perspectiveOrigin: "50% 50%" }}
       >
         <div
           ref={textRef}
-          className="relative w-full max-w-3xl px-6 text-center text-2xl font-bold leading-tight tracking-tight sm:text-3xl lg:text-4xl"
+          className="relative w-full max-w-3xl px-6 text-center text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl"
           style={{
             transformStyle: "preserve-3d",
             backfaceVisibility: "hidden",
@@ -158,7 +160,7 @@ export function PerspectiveTextScroll() {
           {DEFAULT_TEXT}
 
           <div
-            className="pointer-events-none absolute bottom-0 left-0 h-[40%] w-full select-none"
+            className="pointer-events-none absolute bottom-0 start-0 h-[40%] w-full select-none"
             style={{
               background: `linear-gradient(to bottom, transparent, ${backgroundColor})`,
             }}

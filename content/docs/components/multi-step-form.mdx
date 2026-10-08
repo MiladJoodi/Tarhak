@@ -1,19 +1,19 @@
 ---
 title: Multi Step Form
-description: A project-setup wizard that steps through details, team, and extras with a height that follows the fields.
+description: ویزارد راه‌اندازی پروژه که جزئیات، تیم و موارد اضافه را قدم‌به‌قدم طی می‌کند؛ ارتفاع با فیلدها هم‌خوان می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Stepped card**: Title and description change per step; Next / Back sit in the footer.
-- **Measured height**: The card grows with the fields so you don’t get a jump cut.
-- **Direction-aware slide**: Forward and back animate opposite ways.
-- **Real form stack**: React Hook Form + Zod, date picker, tags, mood, and a toast on finish.
-- **Progress in the chrome**: You always know which step you’re on.
+- **کارت گام‌به‌گام**: عنوان و توضیح در هر گام عوض می‌شود؛ ادامه / بازگشت در فوتر است.
+- **ارتفاع اندازه‌گیری‌شده**: کارت با فیلدها رشد می‌کند تا برش ناگهانی نباشد.
+- **اسلاید وابسته به جهت**: جلو و عقب خلاف هم انیمیت می‌شوند.
+- **پشتهٔ فرم واقعی**: React Hook Form + Zod، تقویم شمسی (جلالی)، برچسب، حال‌وهوا و toast در پایان.
+- **پیشرفت در قاب**: همیشه می‌دانید در کدام گام هستید.
 
-## Usage
+## نحوه استفاده
 
-This is a full wizard, not a single input. Replace `stepTitles` and the `content` switch with your fields. Give it a medium column (`max-w-xl`). Validation is already wired — hook submit to your API instead of the demo toast.
+این یک ویزارد کامل است، نه یک ورودی تکی. `stepTitles` و سوئیچ `content` را با فیلدهای خود عوض کنید. یک ستون متوسط (`max-w-xl`) بدهید. اعتبارسنجی از قبل وصل است — به‌جای toast دمو، ارسال را به API وصل کنید.
 
 ```tsx
 import MultiStepForm from "@/components/multi-step-form";
@@ -27,10 +27,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Create-project flows
-- Onboarding questionnaires
-- Request-a-quote forms
-- Hiring or application wizards
-- Settings that are too long for one screen
+- جریان ایجاد پروژه
+- پرسشنامهٔ آنبوردینگ
+- فرم درخواست قیمت
+- ویزارد استخدام یا درخواست
+- تنظیماتی که برای یک صفحه خیلی بلندند

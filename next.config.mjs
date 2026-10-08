@@ -8,16 +8,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  serverExternalPackages: ["ffmpeg-static", "sharp"],
-  // sharp@0.35 nests libvips in @img/sharp-libvips-*; ensure NFT packs it for Vercel.
-  outputFileTracingIncludes: {
-    "/api/admin/components/[name]/media": [
-      "./node_modules/@img/sharp-libvips-linux-x64/**/*",
-      "./node_modules/@img/sharp-linux-x64/**/*",
-      "./node_modules/@img/sharp-libvips-linuxmusl-x64/**/*",
-      "./node_modules/@img/sharp-linuxmusl-x64/**/*",
-    ],
-  },
   turbopack: {
     root: __dirname,
   },
@@ -51,7 +41,6 @@ const config = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
-
       {
         protocol: "https",
         hostname: "tapback.co",
@@ -62,33 +51,8 @@ const config = {
       },
       {
         protocol: "https",
-        hostname: "cdn.uselayouts.com",
-      },
-      {
-        protocol: "https",
         hostname: "raw.githubusercontent.com",
       },
-      // Cloudflare R2 public CDN (from R2_PUBLIC_URL when set)
-      ...(process.env.R2_PUBLIC_URL
-        ? (() => {
-            try {
-              const { hostname, protocol } = new URL(process.env.R2_PUBLIC_URL);
-              return [
-                {
-                  protocol: protocol.replace(":", "") || "https",
-                  hostname,
-                },
-              ];
-            } catch {
-              return [];
-            }
-          })()
-        : [
-            {
-              protocol: "https",
-              hostname: "*.r2.dev",
-            },
-          ]),
     ],
   },
 };

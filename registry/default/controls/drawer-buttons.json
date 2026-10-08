@@ -13,8 +13,8 @@
   },
   "showHint": true,
   "hintKind": "custom",
-  "hintHeading": "Open a drawer",
-  "hintDescription": "Payment folds in from the right. Cart folds in from the left. Fields stagger in behind the panel.",
+  "hintHeading": "یک کشو را باز کن",
+  "hintDescription": "پرداخت از راست تا می‌شود. سبد از چپ. فیلدها پشت پنل یکی‌یکی می‌آیند.",
   "tags": [
     "button",
     "drawer",

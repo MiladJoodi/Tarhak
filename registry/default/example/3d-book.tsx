@@ -72,10 +72,14 @@ export default function Component3dBook() {
   }
 
   return (
-    <div className="flex w-full h-full items-center justify-center  ">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <div
         ref={bookRef}
-        className="w-32 md:w-52 h-48 md:h-72 will-change-transform translate-x-16 md:translate-x-24 touch-none"
+        className="h-48 w-32 touch-none will-change-transform translate-x-16 md:h-72 md:w-52 md:translate-x-24"
         onPointerMove={handlePointerMove}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -131,38 +135,38 @@ export default function Component3dBook() {
 
           {/* Red top section */}
           <div
-            className="absolute top-0 left-0 right-0 h-[40%] z-10 p-1.5 md:p-3 pl-2 md:pl-4"
+            className="absolute inset-x-0 top-0 z-10 h-[40%] p-1.5 ps-2 md:p-3 md:ps-4"
             style={{
               backgroundColor: "rgb(187, 1, 58)",
             }}
           />
 
           {/* Spine edge */}
-          <div className="absolute top-0 left-0 bottom-0 w-2 md:w-3.5 z-30 flex flex-row justify-end">
-            <div className="w-0.5 h-full bg-background/25" />
-            <div className="w-0.5 h-full bg-foreground/15" />
+          <div className="absolute inset-y-0 start-0 z-30 flex w-2 flex-row justify-end md:w-3.5">
+            <div className="h-full w-0.5 bg-background/25" />
+            <div className="h-full w-0.5 bg-foreground/15" />
           </div>
 
           {/* Title */}
           <div
-            className="absolute bottom-1.5 left-3 md:left-6 right-1.5 text-sm md:text-2xl font-medium pointer-events-none select-none z-20 text-muted-foreground/30"
+            className="pointer-events-none absolute end-1.5 bottom-1.5 start-3 z-20 select-none text-sm font-medium text-muted-foreground/30 md:start-6 md:text-2xl"
             style={{
               textShadow: "0 0 2px hsl(var(--background))",
               backfaceVisibility: "hidden",
             }}
           >
-            Notebook
+            دفترچه
           </div>
 
           {/* Back label */}
           <div
-            className="absolute top-1/2 right-1/2 text-xs md:text-base font-semibold text-center text-primary"
+            className="absolute top-1/2 end-1/2 text-center text-xs font-semibold text-primary md:text-base"
             style={{
               transform: "translate(50%, -50%) rotateY(180deg) scaleX(-1)",
               backfaceVisibility: "hidden",
             }}
           >
-            Back Page
+            صفحهٔ پشت
           </div>
         </div>
       </div>

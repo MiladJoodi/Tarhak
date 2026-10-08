@@ -23,13 +23,13 @@ export function isPackageManager(value: string): value is PackageManager {
 export function cliInstallCommand(manager: PackageManager, item: string) {
   switch (manager) {
     case "bun":
-      return `bunx --bun shadcn@latest add ${item}`;
+      return `bunx --bun farsiui@latest add ${item}`;
     case "yarn":
-      return `yarn dlx shadcn@latest add ${item}`;
+      return `yarn dlx farsiui@latest add ${item}`;
     case "pnpm":
-      return `pnpm dlx shadcn@latest add ${item}`;
+      return `pnpm dlx farsiui@latest add ${item}`;
     default:
-      return `npx shadcn@latest add ${item}`;
+      return `npx farsiui@latest add ${item}`;
   }
 }
 

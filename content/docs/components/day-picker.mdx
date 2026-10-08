@@ -1,19 +1,19 @@
 ---
 title: Day Picker
-description: A frequency chip that expands into Daily / Weekly / Monthly / Yearly, then into days of the week.
+description: چیپ تکرار که به روزانه / هفتگی / ماهانه / سالانه باز می‌شود، بعد به روزهای هفته.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Frequency first**: Daily, Weekly, Monthly, Yearly sit in a morphing pill.
-- **Day chips**: When weekly is on, Sun–Sat appear so you can tap several days.
-- **Blur swap**: Opening the option row blurs the “Frequency” label so focus stays on the choice.
-- **Spring resize**: The card grows and shrinks with the content — no leftover empty box.
-- **Summary when closed**: Collapse it and you still see what you picked.
+- **تکرار اول**: روزانه، هفتگی، ماهانه، سالانه در قرص مورف‌شونده.
+- **چیپ روز**: وقتی هفتگی روشن است، ی–ش ظاهر می‌شوند تا چند روز را بزنید.
+- **تعویض بلور**: باز شدن ردیف گزینه برچسب «تکرار» را بلور می‌کند تا تمرکز روی انتخاب بماند.
+- **ریسایز فنری**: کارت با محتوا رشد و جمع می‌شود — بدون جعبهٔ خالی اضافه.
+- **خلاصه وقتی بسته**: جمع کنید و هنوز انتخاب‌تان را می‌بینید.
 
-## Usage
+## نحوه استفاده
 
-Meant for schedules, reminders, and billing cadence — not a full calendar. Drop it in a form or settings sheet. You’ll mostly change the `options` array. Give it a compact column (~320px); it already looks like a native control.
+برای زمان‌بندی، یادآور و دورهٔ صورتحساب است — نه تقویم کامل. در فرم یا شیت تنظیمات بگذارید. معمولاً آرایهٔ `options` را عوض می‌کنید. ستون جمع‌وجور (~۳۲۰px) بدهید؛ از قبل شبیه کنترل بومی است.
 
 ```tsx
 import DayPicker from "@/components/day-picker";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Recurring-task or reminder settings
-- Billing period pickers
-- Calendar-app onboarding
-- Newsletter or digest cadence
-- Booking flows that need “which days”
+- تنظیمات کار تکراری یا یادآور
+- انتخاب دورهٔ صورتحساب
+- آنبوردینگ اپ تقویم
+- تکرار خبرنامه یا دایجست
+- جریان رزرو که «کدام روزها» لازم دارد

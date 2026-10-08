@@ -1,7 +1,7 @@
 "use client";
 
 import { SetStateAction, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const Calendar: React.FC<React.SVGProps<SVGSVGElement> & { size?: number }> = ({
@@ -81,18 +81,23 @@ const Inbox: React.FC<React.SVGProps<SVGSVGElement> & { size?: number }> = ({
 
 // Change Here
 const TABS = [
-  { id: "Inbox", title: "Inbox", icon: Inbox },
-  { id: "Planner", title: "Planner", icon: Calendar },
-  { id: "Alerts", title: "Alerts", icon: Alert },
+  { id: "Inbox", title: "صندوق", icon: Inbox },
+  { id: "Planner", title: "برنامه‌ریز", icon: Calendar },
+  { id: "Alerts", title: "هشدارها", icon: Alert },
 ];
 
 export default function DiscreteTabs() {
   const [activeButton, setActiveButton] = useState(TABS[0].id);
   return (
-    <div className="flex gap-4 items-center">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex items-center gap-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       {TABS.map((tab) => (
         <Button
           key={tab.id}
+          id={tab.id}
           title={tab.title}
           ButtonIcon={tab.icon}
           isActive={activeButton === tab.id}
@@ -104,11 +109,13 @@ export default function DiscreteTabs() {
 }
 
 function Button({
+  id,
   title,
   ButtonIcon,
   isActive,
   setActiveButton,
 }: {
+  id: string;
   title: string;
   ButtonIcon: React.ComponentType<
     React.SVGProps<SVGSVGElement> & { size?: number }
@@ -131,7 +138,7 @@ function Button({
 
   return (
     <motion.div
-      layoutId={"button-id-" + title}
+      layoutId={"button-id-" + id}
       transition={{
         layout: {
           type: "spring",
@@ -142,9 +149,10 @@ function Button({
         },
       }}
       onClick={() => {
-        setActiveButton(title), setIsLoaded(true);
+        setActiveButton(id);
+        setIsLoaded(true);
       }}
-      className="w-fit h-fit flex"
+      className="flex h-fit w-fit"
       style={{ willChange: "transform" }}
     >
       <motion.div
@@ -158,20 +166,16 @@ function Button({
           },
         }}
         className={cn(
-          "flex items-center font-mono uppercase gap-1.5 bg-secondary outline outline-2 outline-border overflow-hidden shadow-md transition-colors duration-75 ease-out  p-3 cursor-pointer",
+          "flex cursor-pointer items-center gap-1.5 overflow-hidden bg-secondary p-3 shadow-md outline outline-2 outline-border transition-colors duration-75 ease-out",
           isActive && activeColor,
           isActive ? "px-4" : "px-3"
         )}
         style={{
           borderRadius: "25px",
-          //   paddingTop: "12px",
-          //   paddingBottom: "12px",
-          //   paddingLeft: isActive ? "15px" : "12px",
-          //   paddingRight: isActive ? "15px" : "12px",
         }}
       >
         <motion.div
-          layoutId={"icon-id" + title}
+          layoutId={"icon-id" + id}
           className="shrink-0"
           style={{ willChange: "transform" }}
         >
@@ -188,8 +192,8 @@ function Button({
             }}
           >
             <motion.span
-              layoutId={"text-id-" + title}
-              className="text-sm font-medium font-mono uppercase whitespace-nowrap relative inline-block"
+              layoutId={"text-id-" + id}
+              className="relative inline-block whitespace-nowrap text-sm font-medium"
               style={{ willChange: "transform" }}
             >
               {title}

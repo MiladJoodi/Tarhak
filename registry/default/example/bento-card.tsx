@@ -34,33 +34,33 @@ interface TabConfig {
 const TABS: TabConfig[] = [
   {
     id: "dashboard",
-    label: "Dashboard",
+    label: "داشبورد",
     icon: DashboardSquare01Icon,
-    header: "Project Overview",
-    description: "Daily summary of your team performance.",
+    header: "نمای کلی پروژه",
+    description: "خلاصهٔ روزانهٔ عملکرد تیم شما.",
   },
   {
     id: "management",
-    label: "Management",
+    label: "مدیریت",
     icon: UserGroupIcon,
-    header: "Team Management",
-    description: "Manage roles and user permissions.",
+    header: "مدیریت تیم",
+    description: "نقش‌ها و دسترسی کاربران را مدیریت کنید.",
     badge: "10",
   },
   {
     id: "threads",
-    label: "Threads",
+    label: "گفتگوها",
     icon: Message01Icon,
-    header: "Communications",
-    description: "High-priority team discussions.",
+    header: "ارتباطات",
+    description: "بحث‌های اولویت‌دار تیم.",
     badge: "12",
   },
   {
     id: "resources",
-    label: "Resources",
+    label: "منابع",
     icon: Folder02Icon,
-    header: "System Assets",
-    description: "Shared documentation and media logs.",
+    header: "دارایی‌های سیستم",
+    description: "مستندات مشترک و لاگ‌های رسانه.",
   },
 ];
 
@@ -83,37 +83,40 @@ const BentoCard = () => {
   }, [activeTab.id]);
 
   return (
-    <div className="flex items-center justify-center w-full antialiased">
-      <div className="group relative w-full max-w-xl overflow-hidden rounded-3xl sm:rounded-4xl border bg-card shadow-2xl shadow-primary/5 transition-all duration-500 hover:shadow-primary/10 hover:-translate-y-1 m-0">
-        <div className="p-4 sm:p-6 space-y-1.5 z-10 relative">
-          <h2 className="text-xs text-muted-foreground uppercase ">
-            Project Dashboard
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex w-full items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal antialiased"
+    >
+      <div className="group relative m-0 w-full max-w-xl overflow-hidden rounded-3xl border bg-card shadow-2xl shadow-primary/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-primary/10 sm:rounded-4xl">
+        <div className="relative z-10 space-y-1.5 p-4 sm:p-6">
+          <h2 className="text-xs text-muted-foreground">
+            داشبورد پروژه
           </h2>
-          <p className="text-lg sm:text-2xl text-foreground font-medium leading-snug max-w-[480px]">
-            High-performance analytics and team collaboration tools in one
-            place.
+          <p className="max-w-[480px] text-lg font-medium leading-snug text-foreground sm:text-2xl">
+            ابزارهای تحلیل پرتوان و همکاری تیمی، همه در یک جا.
           </p>
         </div>
 
-        <div className="relative w-full h-[260px] sm:h-[300px] overflow-hidden rounded-2xl sm:rounded-[2rem] ">
-          <div className="absolute top-16 left-16 w-full h-full bg-muted rounded-3xl border border-border/50  opacity-80" />
+        <div className="relative h-[260px] w-full overflow-hidden rounded-2xl sm:h-[300px] sm:rounded-[2rem]">
+          <div className="absolute top-16 start-16 h-full w-full rounded-3xl border border-border/50 bg-muted opacity-80" />
 
-          <div className="absolute top-8 left-24 w-full h-full bg-background rounded-tl-3xl shadow-xl flex flex-col overflow-hidden ring-6 ring-border">
-            <div className="px-5 py-4 rounded-tl-3xl border-b border-border/70 flex items-center relative backdrop-blur-sm">
+          <div className="absolute top-8 start-24 flex h-full w-full flex-col overflow-hidden rounded-ss-3xl bg-background shadow-xl ring-6 ring-border">
+            <div className="relative flex items-center rounded-ss-3xl border-b border-border/70 px-5 py-4 backdrop-blur-sm">
               <div className="flex gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-muted-foreground/20" />
-                <div className="w-2 h-2 rounded-full bg-muted-foreground/20" />
-                <div className="w-2 h-2 rounded-full bg-muted-foreground/20" />
+                <div className="h-2 w-2 rounded-full bg-muted-foreground/20" />
+                <div className="h-2 w-2 rounded-full bg-muted-foreground/20" />
+                <div className="h-2 w-2 rounded-full bg-muted-foreground/20" />
               </div>
-              <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
-                <span className="text-xs  text-muted-foreground/50  uppercase">
-                  Workspace
+              <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
+                <span className="text-xs text-muted-foreground/50">
+                  فضای کار
                 </span>
               </div>
             </div>
 
             <div className="flex flex-1 overflow-hidden">
-              <div className="w-36 border-r border-border/30 p-2 flex flex-col gap-1 pt-6 bg-muted/5">
+              <div className="flex w-36 flex-col gap-1 border-e border-border/30 bg-muted/5 p-2 pt-6">
                 <LayoutGroup>
                   {TABS.map((tab) => {
                     const isActive = activeTab.id === tab.id;
@@ -124,7 +127,7 @@ const BentoCard = () => {
                         key={tab.id}
                         onClick={() => setActiveTab(tab)}
                         className={cn(
-                          "relative flex items-center gap-1.5 p-2 rounded-xl text-xs transition-colors cursor-pointer",
+                          "relative flex cursor-pointer items-center gap-1.5 rounded-xl p-2 text-xs transition-colors",
                           isActive
                             ? "text-foreground"
                             : "text-muted-foreground hover:text-foreground",
@@ -133,18 +136,18 @@ const BentoCard = () => {
                         <HugeiconsIcon
                           icon={Icon}
                           size={14}
-                          className="z-20 shrink-0 relative"
+                          className="relative z-20 shrink-0"
                         />
-                        <span className="truncate z-20 relative font-medium">
+                        <span className="relative z-20 truncate font-medium">
                           {tab.label}
                         </span>
                         {tab.badge && (
                           <span
                             className={cn(
-                              "ml-auto text-[8px] leading-none py-0.5 px-1 rounded-md tabular-nums transition-all z-20 relative",
+                              "relative z-20 ms-auto rounded-md px-1 py-0.5 text-[8px] leading-none tabular-nums transition-all",
                               isActive
-                                ? "bg-primary/10 text-primary border border-primary/20"
-                                : "bg-muted text-muted-foreground border border-transparent",
+                                ? "border border-primary/20 bg-primary/10 text-primary"
+                                : "border border-transparent bg-muted text-muted-foreground",
                             )}
                           >
                             {tab.badge}
@@ -154,7 +157,7 @@ const BentoCard = () => {
                         {isActive && (
                           <motion.div
                             layoutId="sidebar-pill"
-                            className="absolute left-0 w-[2px] h-4 rounded-full bg-primary z-30 border border-primary/20"
+                            className="absolute start-0 z-30 h-4 w-[2px] rounded-full border border-primary/20 bg-primary"
                             transition={{
                               type: "spring",
                               bounce: 0.2,
@@ -165,7 +168,7 @@ const BentoCard = () => {
                         {isActive && (
                           <motion.div
                             layoutId="backgroundIndicator"
-                            className="absolute inset-0 rounded-lg bg-muted border border-border/40"
+                            className="absolute inset-0 rounded-lg border border-border/40 bg-muted"
                             transition={{
                               type: "spring",
                               bounce: 0.2,
@@ -181,10 +184,10 @@ const BentoCard = () => {
 
               <div className="flex-1 bg-background p-5 pt-6 flex flex-col gap-4 overflow-hidden relative">
                 <header className="flex flex-col gap-0.5">
-                  <h3 className="text-xs font-semibold text-foreground tracking-tight line-clamp-1 uppercase opacity-60">
+                  <h3 className="line-clamp-1 text-xs font-semibold text-foreground opacity-60">
                     {activeTab.header}
                   </h3>
-                  <p className="text-[10px] text-muted-foreground font-normal leading-tight line-clamp-1">
+                  <p className="line-clamp-1 text-[10px] font-normal leading-tight text-muted-foreground">
                     {activeTab.description}
                   </p>
                 </header>
@@ -202,7 +205,7 @@ const BentoCard = () => {
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="absolute bottom-0 left-0 right-0 h-10 bg-linear-to-t from-background to-transparent pointer-none z-20" />
+                <div className="pointer-none absolute inset-x-0 bottom-0 z-20 h-10 bg-linear-to-t from-background to-transparent" />
               </div>
             </div>
           </div>
@@ -220,7 +223,7 @@ const OverviewDashboard = () => (
       <div className="flex flex-col gap-2 relative z-10">
         <div className="flex items-center justify-between">
           <span className="text-[9px] font-medium text-muted-foreground">
-            Team Performance
+            عملکرد تیم
           </span>
           <HugeiconsIcon
             icon={CircleArrowUpRight02Icon}
@@ -229,41 +232,41 @@ const OverviewDashboard = () => (
           />
         </div>
         <div className="flex flex-col gap-0.5">
-          <span className="text-xl font-medium tracking-tight text-foreground">
-            94.2%
+          <span className="text-xl font-medium text-foreground">
+            ۹۴٫۲٪
           </span>
-          <div className="w-full h-1 bg-muted rounded-full overflow-hidden mt-1">
+          <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-muted">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: "94.2%" }}
-              className="h-full bg-primary rounded-full"
+              className="h-full rounded-full bg-primary"
             />
           </div>
         </div>
         <span className="text-[9px] text-muted-foreground">
-          Score for Search & Delivery campaigns
+          امتیاز کمپین‌های جستجو و تحویل
         </span>
       </div>
-      <div className="absolute -right-2 -bottom-2 opacity-5 scale-150 rotate-12">
+      <div className="absolute -end-2 -bottom-2 scale-150 rotate-12 opacity-5">
         <HugeiconsIcon icon={BarChartIcon} size={64} />
       </div>
     </div>
 
     <div className="grid grid-cols-2 gap-2">
-      <div className="p-3 rounded-xl border border-border/40 bg-background/50 flex items-center justify-between">
+      <div className="flex items-center justify-between rounded-xl border border-border/40 bg-background/50 p-3">
         <div className="flex flex-col">
-          <span className="text-[10px] font-medium text-foreground">1,070</span>
-          <span className="text-[8px] text-muted-foreground uppercase font-medium">
-            Keywords
+          <span className="text-[10px] font-medium text-foreground">۱٬۰۷۰</span>
+          <span className="text-[8px] font-medium text-muted-foreground">
+            کلیدواژه
           </span>
         </div>
         <HugeiconsIcon icon={Search01Icon} size={14} className="opacity-20" />
       </div>
-      <div className="p-3 rounded-xl border border-border/40 bg-background/50 flex items-center justify-between">
+      <div className="flex items-center justify-between rounded-xl border border-border/40 bg-background/50 p-3">
         <div className="flex flex-col">
-          <span className="text-[10px] font-medium text-foreground">2.3M</span>
-          <span className="text-[8px] text-muted-foreground uppercase font-medium">
-            Credits
+          <span className="text-[10px] font-medium text-foreground">۲٫۳م</span>
+          <span className="text-[8px] font-medium text-muted-foreground">
+            اعتبار
           </span>
         </div>
         <HugeiconsIcon
@@ -279,47 +282,47 @@ const OverviewDashboard = () => (
 const ManagementDashboard = () => (
   <div className="flex flex-col h-full not-prose">
     <div className="rounded-xl border border-border/40 overflow-hidden flex flex-col h-full bg-background/50">
-      <div className="bg-muted/30 px-3 py-2 border-b border-border/40 flex items-center justify-between">
-        <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wider">
-          Active Users
+      <div className="flex items-center justify-between border-b border-border/40 bg-muted/30 px-3 py-2">
+        <span className="text-[9px] font-semibold text-muted-foreground">
+          کاربران فعال
         </span>
-        <div className="flex items-center gap-1.5 px-1.5 py-0.5 rounded-md bg-background border border-border/40">
+        <div className="flex items-center gap-1.5 rounded-md border border-border/40 bg-background px-1.5 py-0.5">
           <HugeiconsIcon
             icon={Search01Icon}
             size={10}
             className="text-muted-foreground/50"
           />
-          <span className="text-[8px] text-muted-foreground font-medium">
-            Search
+          <span className="text-[8px] font-medium text-muted-foreground">
+            جستجو
           </span>
         </div>
       </div>
-      <div className="p-1 flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5 p-1">
         {[
           {
-            name: "Anthony Dionne",
-            role: "Pending admin approval",
-            status: "Waitlist",
+            name: "آنتونی دیون",
+            role: "در انتظار تأیید ادمین",
+            status: "لیست انتظار",
             color: "bg-amber-400",
           },
           {
-            name: "Nick Yahodin",
-            role: "Dealership group admin",
-            status: "Active",
+            name: "نیک یاهودین",
+            role: "ادمین گروه نمایندگی",
+            status: "فعال",
             color: "bg-emerald-400",
           },
           {
-            name: "Mujeeb Aimaq",
-            role: "Dealership group user",
-            status: "Active",
+            name: "مجیب آیماق",
+            role: "کاربر گروه نمایندگی",
+            status: "فعال",
             color: "bg-emerald-400",
           },
         ].map((user, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors group"
+            className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-muted/30"
           >
-            <div className="w-6 h-6 rounded-full bg-muted border border-border/40 flex items-center justify-center relative">
+            <div className="relative flex h-6 w-6 items-center justify-center rounded-full border border-border/40 bg-muted">
               <HugeiconsIcon
                 icon={UserIcon}
                 size={10}
@@ -327,7 +330,7 @@ const ManagementDashboard = () => (
               />
               <div
                 className={cn(
-                  "absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-background",
+                  "absolute -bottom-0.5 -end-0.5 h-2 w-2 rounded-full border border-background",
                   user.color,
                 )}
               />
@@ -359,47 +362,47 @@ const ThreadsDashboard = () => (
     <div className="grid grid-cols-2 gap-3">
       {[
         {
-          title: "Create a Page",
-          desc: "Build your project base.",
+          title: "ساخت صفحه",
+          desc: "پایهٔ پروژه را بسازید.",
           icon: Folder02Icon,
         },
         {
-          title: "Create a Task",
-          desc: "Organize with team.",
+          title: "ساخت کار",
+          desc: "با تیم سازماندهی کنید.",
           icon: Tick01Icon,
         },
       ].map((card, i) => (
         <div
           key={i}
-          className="p-3.5 rounded-xl border border-border/40 bg-background/50 flex flex-col gap-3 relative overflow-hidden group"
+          className="group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-border/40 bg-background/50 p-3.5"
         >
-          <div className="flex flex-col gap-1 z-10">
-            <span className="text-[12px] font-medium text-foreground leading-tight">
+          <div className="z-10 flex flex-col gap-1">
+            <span className="text-[12px] font-medium leading-tight text-foreground">
               {card.title}
             </span>
-            <span className="text-[9px] text-muted-foreground leading-tight">
+            <span className="text-[9px] leading-tight text-muted-foreground">
               {card.desc}
             </span>
           </div>
-          <button className="w-fit flex items-center gap-1.5 px-2 py-1 rounded-md bg-foreground text-background text-[8px] font-semibold transition-transform active:scale-95 group-hover:bg-primary z-10">
+          <button className="z-10 flex w-fit items-center gap-1.5 rounded-md bg-foreground px-2 py-1 text-[8px] font-semibold text-background transition-transform active:scale-95 group-hover:bg-primary">
             <HugeiconsIcon icon={Add01Icon} size={8} strokeWidth={3} />
-            Create
+            ایجاد
           </button>
         </div>
       ))}
     </div>
 
-    <div className="mt-auto p-3 rounded-xl bg-muted/20 border border-border/30 flex items-center justify-between">
+    <div className="mt-auto flex items-center justify-between rounded-xl border border-border/30 bg-muted/20 p-3">
       <div className="flex items-center gap-2">
-        <div className="p-1 px-1.5 rounded-md bg-background border border-border/40">
+        <div className="rounded-md border border-border/40 bg-background p-1 px-1.5">
           <HugeiconsIcon
             icon={InformationCircleIcon}
             size={10}
             className="text-muted-foreground"
           />
         </div>
-        <span className="text-[9px] text-muted-foreground font-medium">
-          Pin a new item
+        <span className="text-[9px] font-medium text-muted-foreground">
+          سنجاق کردن مورد جدید
         </span>
       </div>
       <HugeiconsIcon
@@ -414,9 +417,9 @@ const ThreadsDashboard = () => (
 const ResourcesDashboard = () => (
   <div className="flex flex-col gap-3 h-full overflow-hidden">
     <div className="flex-1 rounded-xl border border-border/40 flex flex-col bg-background/50 overflow-hidden">
-      <div className="bg-muted/30 px-3 py-2 border-b border-border/40 flex items-center justify-between">
-        <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wider">
-          Archives & Logs
+      <div className="flex items-center justify-between border-b border-border/40 bg-muted/30 px-3 py-2">
+        <span className="text-[9px] font-semibold text-muted-foreground">
+          آرشیو و لاگ‌ها
         </span>
         <HugeiconsIcon
           icon={DatabaseIcon}
@@ -424,29 +427,29 @@ const ResourcesDashboard = () => (
           className="text-muted-foreground/30"
         />
       </div>
-      <div className="flex-1 p-1 overflow-y-auto scrollbar-hide">
+      <div className="flex-1 overflow-y-auto p-1 scrollbar-hide">
         {[
           {
             file: "design_spec_v2.pdf",
-            size: "2.4 MB",
+            size: "۲٫۴ مگابایت",
             type: "PDF",
             icon: Mail01Icon,
           },
           {
             file: "q4_performance.xls",
-            size: "1.1 MB",
+            size: "۱٫۱ مگابایت",
             type: "XLS",
             icon: BarChartIcon,
           },
           {
             file: "branding_assets.zip",
-            size: "48 MB",
+            size: "۴۸ مگابایت",
             type: "ZIP",
             icon: Folder02Icon,
           },
           {
             file: "system_logs.json",
-            size: "4 KB",
+            size: "۴ کیلوبایت",
             type: "JSON",
             icon: Folder02Icon,
           },

@@ -30,64 +30,64 @@ interface Member {
 const ALL_MEMBERS: Member[] = [
   {
     id: "01",
-    name: "Oliver Smith",
-    status: "Online",
+    name: "علی رضایی",
+    status: "آنلاین",
     online: true,
-    role: "Project Manager",
+    role: "مدیر پروژه",
     roleType: "pm",
     avatar: "https://tapback.co/api/avatar/Oliver.webp",
   },
   {
     id: "02",
-    name: "Sophie Chen",
-    status: "17m ago",
+    name: "سارا احمدی",
+    status: "۱۷ دقیقه پیش",
     online: false,
-    role: "Designer",
+    role: "طراح",
     roleType: "designer",
     avatar: "https://tapback.co/api/avatar/Sophie.webp",
   },
   {
     id: "03",
-    name: "Noah Wilson",
-    status: "29m ago",
+    name: "نوید کریمی",
+    status: "۲۹ دقیقه پیش",
     online: false,
-    role: "Data Specialist",
+    role: "متخصص داده",
     roleType: "data",
     avatar: "https://tapback.co/api/avatar/Noah.webp",
   },
   {
     id: "04",
-    name: "Emma Davis",
-    status: "48m ago",
+    name: "مینا موسوی",
+    status: "۴۸ دقیقه پیش",
     online: false,
-    role: "Creator",
+    role: "تولیدکننده",
     roleType: "creator",
     avatar: "https://tapback.co/api/avatar/Emma.webp",
   },
   {
     id: "05",
-    name: "Leo Garcia",
-    status: "Online",
+    name: "امیر حسینی",
+    status: "آنلاین",
     online: true,
-    role: "Designer",
+    role: "طراح",
     roleType: "designer",
     avatar: "https://tapback.co/api/avatar/Leo.webp",
   },
   {
     id: "06",
-    name: "Mia Thompson",
-    status: "Online",
+    name: "نگار جعفری",
+    status: "آنلاین",
     online: true,
-    role: "Project Manager",
+    role: "مدیر پروژه",
     roleType: "pm",
     avatar: "https://tapback.co/api/avatar/Mia.webp",
   },
   {
     id: "07",
-    name: "Ethan Wright",
-    status: "5h ago",
+    name: "پارسا نوری",
+    status: "۵ ساعت پیش",
     online: false,
-    role: "Data Specialist",
+    role: "متخصص داده",
     roleType: "data",
     avatar: "https://tapback.co/api/avatar/Ethan.webp",
   },
@@ -144,7 +144,7 @@ const RoleBadge = ({
       className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border ${style.bg} ${style.text} ${style.border} shrink-0`}
     >
       <HugeiconsIcon icon={Icon} size={12} strokeWidth={1.8} />
-      <span className="text-xs font-regular tracking-tight uppercase whitespace-nowrap truncate max-w-[60px] sm:max-w-none">
+      <span className="text-xs font-regular whitespace-nowrap truncate max-w-[60px] sm:max-w-none">
         {label}
       </span>
     </div>
@@ -154,27 +154,27 @@ const RoleBadge = ({
 const MemberItem = ({ member }: { member: Member }) => (
   <motion.div
     variants={{
-      hidden: { opacity: 0, x: 10, y: 15, rotate: 1 },
+      hidden: { opacity: 0, x: -10, y: 15, rotate: -1 },
       visible: { opacity: 1, x: 0, y: 0, rotate: 0 },
     }}
     transition={sweepSpring}
-    style={{ originX: 1, originY: 1 }}
+    style={{ originX: 0, originY: 1 }}
     className="flex items-center group py-4 first:pt-0 border-b border-border/40 last:border-0"
   >
-    <div className="relative mr-4 shrink-0">
+    <div className="relative me-4 shrink-0">
       <img
         src={member.avatar}
         alt={member.name}
         className="w-12 h-12 rounded-full ring-2 ring-background shadow-sm grayscale-[0.1] group-hover:grayscale-0 transition-all duration-300"
       />
       {member.online && (
-        <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-background rounded-full flex items-center justify-center shadow-sm">
+        <div className="absolute bottom-0 end-0 w-3.5 h-3.5 bg-background rounded-full flex items-center justify-center shadow-sm">
           <div className="w-2 h-2 bg-green-500 rounded-full" />
         </div>
       )}
     </div>
     <div className="flex-1 min-w-0">
-      <h3 className="text-base font-semibold text-foreground tracking-tight leading-none mb-1.5 truncate">
+      <h3 className="text-base font-semibold text-foreground leading-none mb-1.5 truncate">
         {member.name}
       </h3>
       <div className="flex items-center gap-1.5 opacity-80">
@@ -211,20 +211,27 @@ export default function StackedList() {
   );
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full bg-muted/50 p-6 font-sans not-prose">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex items-center justify-center min-h-screen w-full bg-muted/50 p-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal not-prose"
+    >
       <div className="relative w-full max-w-[440px] pb-6 bg-background rounded-[40px] border border-border flex flex-col overflow-hidden shadow-none">
         <div className="flex flex-col h-full bg-background">
           <div className="p-8 pb-3">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-semibold text-foreground tracking-tight flex items-center gap-2">
-                Active Members
-                <span className="text-xs bg-muted px-2 py-1 mt-0.5 rounded-full text-muted-foreground leading-none font-normal">
-                  {ACTIVE_MEMBERS.length}
+              <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                اعضای فعال
+                <span className="text-xs bg-muted px-2 py-1 mt-0.5 rounded-full text-muted-foreground leading-none font-normal tabular-nums">
+                  {String(ACTIVE_MEMBERS.length).replace(/\d/g, (d) =>
+                    "۰۱۲۳۴۵۶۷۸۹"[Number(d)]
+                  )}
                 </span>
               </h2>
               <Button
                 variant="outline"
                 size="icon"
+                aria-label="افزودن عضو"
                 className="h-9 w-9 rounded-full border-border/50 text-muted-foreground hover:bg-muted/50"
               >
                 <HugeiconsIcon icon={Add01Icon} size={18} strokeWidth={2.5} />
@@ -234,14 +241,14 @@ export default function StackedList() {
             <div className="relative mb-4">
               <HugeiconsIcon
                 icon={Search01Icon}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 z-10"
+                className="absolute start-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 z-10"
                 size={16}
               />
               <Input
-                placeholder="Search teammates..."
+                placeholder="جستجوی هم‌تیمی…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-11 pl-11 pr-4 bg-muted/40 border-none focus-visible:ring-1 focus-visible:ring-border rounded-2xl text-base text-foreground placeholder:text-muted-foreground/50 transition-all w-full box-border"
+                className="h-11 ps-11 pe-4 bg-muted/40 border-none focus-visible:ring-1 focus-visible:ring-border rounded-2xl text-base text-foreground placeholder:text-muted-foreground/50 transition-all w-full box-border"
               />
             </div>
           </div>
@@ -293,11 +300,11 @@ export default function StackedList() {
                 <HugeiconsIcon icon={ProfileIcon} size={20} strokeWidth={2} />
               </div>
               <motion.div layout="position">
-                <h4 className="text-base font-medium text-foreground tracking-tight leading-none  ">
-                  Member Directory
+                <h4 className="text-base font-medium text-foreground leading-none">
+                  فهرست اعضا
                 </h4>
-                <p className="text-xs font-regular leading-none text-muted-foreground  mt-1">
-                  8 Members Registered
+                <p className="text-xs font-regular leading-none text-muted-foreground mt-1">
+                  ۸ عضو ثبت‌شده
                 </p>
               </motion.div>
             </div>
@@ -305,19 +312,22 @@ export default function StackedList() {
             <div className="flex items-center gap-3">
               {!isExpanded && (
                 <div className="flex items-center gap-0">
-                  <div className="flex -space-x-3">
+                  <div className="flex -space-x-3 space-x-reverse">
                     {ALL_MEMBERS.slice(0, 3).map((m) => (
                       <motion.img
                         key={`sum-${m.id}`}
                         layoutId={`avatar-${m.id}`}
                         src={m.avatar}
                         className="w-10 h-10 rounded-full ring-1 ring-background shadow-sm z-1"
-                        alt="avatar"
+                        alt={m.name}
                       />
                     ))}
                     <div className="w-10 h-10 rounded-full ring-1 ring-background bg-muted flex items-center justify-center shadow-sm relative z-0">
-                      <span className="text-sm font-regular leading-none text-muted-foreground">
-                        +{ALL_MEMBERS.length - 3}
+                      <span className="text-sm font-regular leading-none text-muted-foreground tabular-nums">
+                        +
+                        {String(ALL_MEMBERS.length - 3).replace(/\d/g, (d) =>
+                          "۰۱۲۳۴۵۶۷۸۹"[Number(d)]
+                        )}
                       </span>
                     </div>
                   </div>
@@ -326,6 +336,7 @@ export default function StackedList() {
 
               {isExpanded && (
                 <button
+                  aria-label="بستن فهرست"
                   className="h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground transition-all flex items-center justify-center bg-muted/60 active:scale-90"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -354,14 +365,14 @@ export default function StackedList() {
                   <div className="relative">
                     <HugeiconsIcon
                       icon={Search01Icon}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 z-10"
+                      className="absolute start-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 z-10"
                       size={15}
                     />
                     <Input
-                      placeholder="Search members..."
+                      placeholder="جستجوی اعضا…"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="h-10 bg-muted/30 border-none focus-visible:ring-1 focus-visible:ring-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground/40 transition-all w-full box-border pl-10"
+                      className="h-10 bg-muted/30 border-none focus-visible:ring-1 focus-visible:ring-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground/40 transition-all w-full box-border ps-10"
                     />
                   </div>
                 </motion.div>

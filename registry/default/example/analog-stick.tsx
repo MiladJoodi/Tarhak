@@ -89,11 +89,17 @@ const directionIcons: DirectionIcon[] = [
 export const AnalogStick = () => {
   return (
     <section
-      aria-label="Directional pressure button demo"
-      className={rowClassName}
+      lang="fa"
+      aria-label="دموی دکمهٔ جهتی فشاری"
+      className={cn(
+        rowClassName,
+        "font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      )}
     >
+      {/* Physical D-pad: keep LTR so left/right hover zones are not mirrored. */}
       <div
         aria-hidden="true"
+        dir="ltr"
         className="touch absolute z-10 flex size-[300px] rotate-45 flex-wrap"
       >
         {touchZoneClassNames.map((className) => (
@@ -101,7 +107,10 @@ export const AnalogStick = () => {
         ))}
       </div>
 
-      <div className="relative z-0 flex size-[300px] items-center justify-center">
+      <div
+        dir="ltr"
+        className="relative z-0 flex size-[300px] items-center justify-center"
+      >
         <div className="around flex size-50 items-center justify-center rounded-[50%] bg-[linear-gradient(0deg,#f5f8fa,#9da4a8)]">
           <div className="handle flex size-[155px] items-center justify-center rounded-[50%] bg-[#c5d1da] shadow-[0_0_10px_rgba(0,0,0,0.5),0_10px_10px_rgba(0,0,0,0.2),inset_0_0_16px_rgba(0,0,0,0.85),inset_0_0_24px_rgba(0,0,0,0.75),inset_0_0_48px_rgba(0,0,0,0.2)] perspective-near">
             <div className="button-wrapper flex size-25.5 items-center justify-center rounded-[50%] bg-[linear-gradient(0deg,#86969c,#eff1f1)] shadow-[0_9px_14px_rgba(0,0,0,0.5),0_19px_8px_-2px_rgba(0,0,0,0.2),0_33px_8px_rgba(0,0,0,0.4),0_-12px_10px_rgba(255,255,255,0.5),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)] transition-[transform,box-shadow] duration-[250ms] ease-out motion-reduce:transition-none">

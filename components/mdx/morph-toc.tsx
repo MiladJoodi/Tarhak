@@ -65,8 +65,8 @@ export function MorphToc({ toc }: { toc: TocItem[] }) {
 
   const activeTitle = React.useMemo(() => {
     const item = toc.find((t) => t.url === `#${activeId}`);
-    if (!item?.title) return "On this page";
-    return typeof item.title === "string" ? item.title : "On this page";
+    if (!item?.title) return "در این صفحه";
+    return typeof item.title === "string" ? item.title : "در این صفحه";
   }, [activeId, toc]);
 
   if (!toc?.length) return null;
@@ -77,7 +77,7 @@ export function MorphToc({ toc }: { toc: TocItem[] }) {
   const circumference = 2 * Math.PI * radius;
 
   return (
-    <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 xl:bottom-8 xl:right-[calc(312px+0.75rem)]">
+    <div className="pointer-events-none fixed end-6 bottom-6 z-50 flex flex-col items-end gap-3 xl:end-[calc(312px+0.75rem)] xl:bottom-8">
       <AnimatePresence>
         {open && (
           <motion.div

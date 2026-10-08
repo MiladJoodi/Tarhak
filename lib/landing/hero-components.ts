@@ -34,7 +34,7 @@ export async function writeLandingHeroConfig(slugs: string[]): Promise<LandingHe
   return next;
 }
 
-/** Sync resolve for the landing page — posters always; videos may be empty until admin upload. */
+/** Sync resolve for the landing page — local browse-media posters/videos. */
 export function resolveLandingHeroItems(slugs: string[]): BrowseItem[] {
   const bySlug = new Map(browseItems.map((item) => [item.slug, item]));
   const picked = slugs

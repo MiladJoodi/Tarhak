@@ -48,8 +48,8 @@ export default function Footer() {
           className="group flex flex-row items-center gap-1.5 font-medium text-[#4B565E] transition-colors duration-150 hover:text-[#071A31]"
         >
           <HugeiconsIcon
-            icon={ArrowLeft01Icon}
-            className="w-4 h-4 transition-transform group-hover:-translate-x-1"
+            icon={ArrowRight01Icon}
+            className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
           />
           <span>{previous.name}</span>
         </Link>
@@ -59,12 +59,12 @@ export default function Footer() {
       {next ? (
         <Link
           href={next.url}
-          className="group flex flex-row items-center gap-1.5 text-right font-medium text-[#4B565E] transition-colors duration-150 hover:text-[#071A31]"
+          className="group flex flex-row items-center gap-1.5 text-end font-medium text-[#4B565E] transition-colors duration-150 hover:text-[#071A31]"
         >
           <span>{next.name}</span>
           <HugeiconsIcon
-            icon={ArrowRight01Icon}
-            className="w-4 h-4 transition-transform group-hover:translate-x-1"
+            icon={ArrowLeft01Icon}
+            className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-1"
           />
         </Link>
       ) : (

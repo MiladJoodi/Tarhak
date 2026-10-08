@@ -14,39 +14,41 @@ import {
   CurveDrawerTrigger,
 } from "./curve-drawer-primitives";
 
-const NAV_ITEMS = ["Overview", "Projects", "Archive", "Settings"];
+const NAV_ITEMS = ["نمای کلی", "پروژه‌ها", "بایگانی", "تنظیمات"];
 
 export default function CurveDrawer() {
   return (
     <section
-      aria-label="Curve drawer demo"
-      className="flex h-full min-h-[520px] w-full items-center justify-center bg-background p-4 text-foreground"
+      dir="rtl"
+      lang="fa"
+      aria-label="دمو کشوی منحنی"
+      className="flex h-full min-h-[520px] w-full items-center justify-center bg-background p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-foreground"
     >
       <div className="flex flex-col items-center gap-3 sm:flex-row">
-        <CurveDrawerRoot direction="left" handleOnly>
+        <CurveDrawerRoot direction="right" handleOnly>
           <CurveDrawerTrigger asChild>
             <button
-              aria-label="Open menu drawer"
+              aria-label="باز کردن کشوی منو"
               className={cn(
                 buttonVariants({ variant: "outline" }),
                 "cursor-pointer"
               )}
               type="button"
             >
-              Open left
+              باز کردن راست
             </button>
           </CurveDrawerTrigger>
-          <CurveDrawerContent curveSide="left">
+          <CurveDrawerContent curveSide="right">
             <CurveDrawerHeader className="flex-row items-start justify-between gap-4 border-b border-border">
               <div className="min-w-0">
-                <CurveDrawerTitle>Menu</CurveDrawerTitle>
+                <CurveDrawerTitle>منو</CurveDrawerTitle>
                 <CurveDrawerDescription>
-                  The inner edge starts as a bulge, then settles straight.
+                  لبهٔ داخلی اول برآمدگی است، بعد صاف می‌نشیند.
                 </CurveDrawerDescription>
               </div>
               <CurveDrawerClose asChild>
                 <button
-                  aria-label="Close menu drawer"
+                  aria-label="بستن کشوی منو"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "shrink-0"
@@ -57,7 +59,7 @@ export default function CurveDrawer() {
                 </button>
               </CurveDrawerClose>
             </CurveDrawerHeader>
-            <nav aria-label="Demo menu" className="flex flex-col gap-1 p-4">
+            <nav aria-label="منوی دمو" className="flex flex-col gap-1 p-4">
               {NAV_ITEMS.map((item) => (
                 <span
                   className="rounded-lg px-3 py-2 text-sm text-foreground"
@@ -70,27 +72,27 @@ export default function CurveDrawer() {
           </CurveDrawerContent>
         </CurveDrawerRoot>
 
-        <CurveDrawerRoot direction="right" handleOnly>
+        <CurveDrawerRoot direction="left" handleOnly>
           <CurveDrawerTrigger asChild>
             <button
-              aria-label="Open notes drawer"
+              aria-label="باز کردن کشوی یادداشت"
               className={cn(buttonVariants(), "cursor-pointer")}
               type="button"
             >
-              Open right
+              باز کردن چپ
             </button>
           </CurveDrawerTrigger>
-          <CurveDrawerContent curveSide="right">
+          <CurveDrawerContent curveSide="left">
             <CurveDrawerHeader className="flex-row items-start justify-between gap-4 border-b border-border">
               <div className="min-w-0">
-                <CurveDrawerTitle>Notes</CurveDrawerTitle>
+                <CurveDrawerTitle>یادداشت‌ها</CurveDrawerTitle>
                 <CurveDrawerDescription>
-                  Same curve, mirrored on the left inner edge.
+                  همان منحنی، آینه‌شده روی لبهٔ داخلی راست.
                 </CurveDrawerDescription>
               </div>
               <CurveDrawerClose asChild>
                 <button
-                  aria-label="Close notes drawer"
+                  aria-label="بستن کشوی یادداشت"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "shrink-0"
@@ -103,12 +105,11 @@ export default function CurveDrawer() {
             </CurveDrawerHeader>
             <div className="space-y-3 p-4 text-sm leading-relaxed text-muted-foreground">
               <p>
-                The panel slides in over 800ms. The SVG arm morphs from a quadratic
-                bulge to a straight edge.
+                پنل در ۸۰۰ میلی‌ثانیه می‌لغزد. بازوی SVG از برآمدگی درجه‌دوم به
+                لبهٔ صاف مورف می‌شود.
               </p>
               <p>
-                Touch drag is handle-only so scrolling the sheet does not dismiss
-                it.
+                درگ لمسی فقط از دسته است تا اسکرول شیت آن را نبندد.
               </p>
             </div>
           </CurveDrawerContent>

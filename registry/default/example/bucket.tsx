@@ -13,26 +13,26 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const INITIAL_CHIPS = [
   {
     id: 1,
-    title: "Production Ready",
-    description: "Fully type-safe and tested",
+    title: "آمادهٔ تولید",
+    description: "کاملاً تایپ‌سیف و تست‌شده",
     icon: SecurityCheckIcon,
   },
   {
     id: 2,
-    title: "Fluid Motion",
-    description: "60fps optimizations built-in",
+    title: "حرکت روان",
+    description: "بهینه‌سازی ۶۰ فریم در ثانیه",
     icon: ZapIcon,
   },
   {
     id: 3,
-    title: "Accessible",
-    description: "Works perfectly for everyone",
+    title: "دسترس‌پذیر",
+    description: "برای همه به‌خوبی کار می‌کند",
     icon: UserStoryIcon,
   },
   {
     id: 4,
-    title: "Modern Design",
-    description: "Crafted for high-end feel",
+    title: "طراحی مدرن",
+    description: "ساخته‌شده برای حس حرفه‌ای",
     icon: SparklesIcon,
   },
 ];
@@ -53,7 +53,11 @@ const Bucket = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center h-fit relative w-full">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="relative flex h-fit w-full flex-col items-center justify-center gap-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <div
         className="relative isolate w-full max-w-[655px]"
         style={{ aspectRatio: "655/352" }}

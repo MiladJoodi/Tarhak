@@ -1,8 +1,8 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://farsiui.ir/schema/registry-item.json",
   "name": "smooth-dropdown",
   "title": "منوی بازشو نرم",
-  "description": "منوی بازشو با انتقال نرم و تغییر شکل دکمه به منو.",
+  "description": "دکمهٔ گردی که به منو تبدیل می‌شود — ردیف‌ها پلکانی می‌آیند، پوسته تغییر اندازه می‌دهد و با کلیک بیرون بسته می‌شود.",
   "dependencies": [
     "motion",
     "@hugeicons/core-free-icons",

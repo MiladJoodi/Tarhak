@@ -2,53 +2,51 @@
 
 import {
   Add01Icon,
-  MinusPlus01Icon,
   MinusSignIcon,
   Tick02Icon,
-  UserGroupIcon,
   UserStoryIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import NumberFlow from "@number-flow/react";
-import { AnimatePresence, motion, LayoutGroup } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 
 // Change Here
 const plans = [
   {
     id: "plus",
-    name: "Plus",
-    description: "solo",
-    monthlyPrice: 8.99,
-    yearlyPrice: 6.99,
+    name: "پلاس",
+    description: "انفرادی",
+    monthlyPrice: 299_000,
+    yearlyPrice: 249_000,
     features: [
-      "1TB of Space",
-      "30 days of file recovery",
-      "256-bit AES and SSL/TLS",
+      "۱ ترابایت فضا",
+      "۳۰ روز بازیابی فایل",
+      "رمزنگاری ۲۵۶بیتی AES و SSL/TLS",
     ],
   },
   {
     id: "standard",
-    name: "Standard",
-    description: "startup",
-    monthlyPrice: 12.99,
-    yearlyPrice: 9.99,
+    name: "استاندارد",
+    description: "استارتاپ",
+    monthlyPrice: 499_000,
+    yearlyPrice: 399_000,
     features: [
-      "1TB of Space",
-      "30 days of file recovery",
-      "256-bit AES and SSL/TLS",
+      "۱ ترابایت فضا",
+      "۳۰ روز بازیابی فایل",
+      "رمزنگاری ۲۵۶بیتی AES و SSL/TLS",
     ],
   },
   {
     id: "advanced",
-    name: "Advanced",
-    description: "teams",
-    monthlyPrice: 24.99,
-    yearlyPrice: 19.99,
+    name: "پیشرفته",
+    description: "تیم‌ها",
+    monthlyPrice: 899_000,
+    yearlyPrice: 749_000,
     features: [
-      "1TB of Space",
-      "30 days of file recovery",
-      "256-bit AES and SSL/TLS",
+      "۱ ترابایت فضا",
+      "۳۰ روز بازیابی فایل",
+      "رمزنگاری ۲۵۶بیتی AES و SSL/TLS",
     ],
   },
 ];
@@ -68,16 +66,20 @@ function PricingCard() {
   const [userCount, setUserCount] = useState(3);
 
   return (
-    <div className="w-full max-w-[450px] flex flex-col gap-6 p-5 px-4 sm:p-6 rounded-4xl sm:rounded-2xl border border-border bg-background shadow-sm transition-colors duration-300 not-prose">
-      <div className="flex flex-col gap-4 mb-2">
-        <h1 className="text-2xl font-semibold text-foreground tracking-tight">
-          Select a Plan
+    <div
+      dir="rtl"
+      lang="fa"
+      className="not-prose flex w-full max-w-[450px] flex-col gap-6 rounded-4xl border border-border bg-background p-5 px-4 shadow-sm transition-colors duration-300 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal sm:rounded-2xl sm:p-6"
+    >
+      <div className="mb-2 flex flex-col gap-4">
+        <h1 className="text-2xl font-semibold text-foreground">
+          انتخاب پلن
         </h1>
 
-        <div className="bg-muted p-1 h-10 w-full rounded-xl ring-1 ring-border flex">
+        <div className="flex h-10 w-full rounded-xl bg-muted p-1 ring-1 ring-border">
           <button
             onClick={() => setBillingCycle("monthly")}
-            className={`flex-1 h-full rounded-lg text-base font-medium  relative transition-colors duration-300 ${
+            className={`relative h-full flex-1 rounded-lg text-base font-medium transition-colors duration-300 ${
               billingCycle === "monthly"
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -86,15 +88,15 @@ function PricingCard() {
             {billingCycle === "monthly" && (
               <motion.div
                 layoutId="tab-bg"
-                className="absolute inset-0 bg-background rounded-lg shadow-sm ring-1 ring-border"
+                className="absolute inset-0 rounded-lg bg-background shadow-sm ring-1 ring-border"
                 transition={TRANSITION}
               />
             )}
-            <span className="relative z-10">Monthly</span>
+            <span className="relative z-10">ماهانه</span>
           </button>
           <button
             onClick={() => setBillingCycle("yearly")}
-            className={`flex-1 h-full rounded-lg text-base font-medium relative transition-colors duration-300 flex items-center justify-center gap-2 ${
+            className={`relative flex h-full flex-1 items-center justify-center gap-2 rounded-lg text-base font-medium transition-colors duration-300 ${
               billingCycle === "yearly"
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -103,13 +105,13 @@ function PricingCard() {
             {billingCycle === "yearly" && (
               <motion.div
                 layoutId="tab-bg"
-                className="absolute inset-0 bg-background rounded-lg shadow-sm ring-1 ring-border"
+                className="absolute inset-0 rounded-lg bg-background shadow-sm ring-1 ring-border"
                 transition={TRANSITION}
               />
             )}
-            <span className="relative z-10">Yearly</span>
-            <span className="relative z-10 bg-primary text-xs font-black px-1.5 py-0.5 rounded-full uppercase text-primary-foreground tracking-tight whitespace-nowrap font-light">
-              20% OFF
+            <span className="relative z-10">سالانه</span>
+            <span className="relative z-10 whitespace-nowrap rounded-full bg-primary px-1.5 py-0.5 text-xs font-medium text-primary-foreground">
+              ۲۰٪ تخفیف
             </span>
           </button>
         </div>
@@ -128,16 +130,16 @@ function PricingCard() {
               className="relative cursor-pointer"
             >
               <div
-                className={`relative rounded-xl bg-card border border-foreground/10 transition-colors duration-300 ${
-                  isSelected ? "z-10 border-primary border-2" : ""
+                className={`relative rounded-xl border border-foreground/10 bg-card transition-colors duration-300 ${
+                  isSelected ? "z-10 border-2 border-primary" : ""
                 }`}
               >
                 <div className="p-5">
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <div className="flex gap-4">
                       <div className="mt-1 shrink-0">
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                          className={`flex h-6 w-6 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                             isSelected
                               ? "border-primary"
                               : "border-muted-foreground/15"
@@ -149,7 +151,7 @@ function PricingCard() {
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0 }}
-                                className="w-4 h-4 rounded-full bg-primary"
+                                className="h-4 w-4 rounded-full bg-primary"
                                 transition={{
                                   type: "spring",
                                   stiffness: 300,
@@ -162,23 +164,27 @@ function PricingCard() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-foreground leading-tight">
+                        <h3 className="text-lg font-medium leading-tight text-foreground">
                           {plan.name}
                         </h3>
-                        <p className="text-sm text-muted-foreground lowercase">
+                        <p className="text-sm text-muted-foreground">
                           {plan.description}
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-xl font-medium text-foreground">
+                    <div className="text-end">
+                      <div className="flex items-baseline justify-end gap-1 text-xl font-medium text-foreground">
                         <NumberFlow
                           value={price}
-                          format={{ style: "currency", currency: "USD" }}
+                          locales="fa-IR"
+                          format={{ maximumFractionDigits: 0 }}
                         />
+                        <span className="text-sm font-normal text-muted-foreground">
+                          تومان
+                        </span>
                       </div>
-                      <div className="text-xs text-muted-foreground/60 flex items-center justify-end gap-1 ">
-                        {billingCycle === "monthly" ? "Month" : "Year"}
+                      <div className="flex items-center justify-end gap-1 text-xs text-muted-foreground/60">
+                        {billingCycle === "monthly" ? "ماه" : "سال"}
                       </div>
                     </div>
                   </div>
@@ -193,9 +199,9 @@ function PricingCard() {
                           duration: 0.4,
                           ease: [0.32, 0.72, 0, 1],
                         }}
-                        className="overflow-hidden w-full"
+                        className="w-full overflow-hidden"
                       >
-                        <div className="pt-6 flex flex-col gap-6">
+                        <div className="flex flex-col gap-6 pt-6">
                           <div className="flex flex-col gap-3.5">
                             {plan.features.map((feature, idx) => (
                               <motion.div
@@ -206,7 +212,7 @@ function PricingCard() {
                                   duration: 0.3,
                                 }}
                                 key={idx}
-                                className="flex items-center gap-3 text-sm text-foreground/80 "
+                                className="flex items-center gap-3 text-sm text-foreground/80"
                               >
                                 <HugeiconsIcon
                                   icon={Tick02Icon}
@@ -222,7 +228,7 @@ function PricingCard() {
 
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-full bg-muted shrink-0 flex items-center justify-center">
+                              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-muted">
                                 <HugeiconsIcon
                                   icon={UserStoryIcon}
                                   size={30}
@@ -230,34 +236,44 @@ function PricingCard() {
                                 />
                               </div>
                               <div className="flex flex-col">
-                                <span className="text-base font-medium  text-foreground leading-none">
-                                  Users
+                                <span className="text-base font-medium leading-none text-foreground">
+                                  کاربران
                                 </span>
-                                <span className="text-sm text-muted-foreground mt-0.5">
-                                  Starting at {userCount} users
+                                <span className="mt-0.5 text-sm text-muted-foreground">
+                                  از{" "}
+                                  <NumberFlow
+                                    value={userCount}
+                                    locales="fa-IR"
+                                  />{" "}
+                                  کاربر به بالا
                                 </span>
                               </div>
                             </div>
 
-                            <div className="flex items-center gap-4 bg-muted p-1.5 rounded-xl border border-border">
+                            <div className="flex items-center gap-4 rounded-xl border border-border bg-muted p-1.5">
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setUserCount(Math.max(1, userCount - 1));
                                 }}
-                                className="p-1.5 rounded-lg hover:bg-background hover:shadow-sm transition-all text-muted-foreground/60 hover:text-foreground active:scale-95"
+                                aria-label="کاهش تعداد کاربر"
+                                className="rounded-lg p-1.5 text-muted-foreground/60 transition-all hover:bg-background hover:text-foreground hover:shadow-sm active:scale-95"
                               >
                                 <HugeiconsIcon icon={MinusSignIcon} size={14} />
                               </button>
-                              <span className="text-sm  w-4 text-center tabular-nums text-foreground/80">
-                                <NumberFlow value={userCount} />
+                              <span className="w-4 text-center text-sm tabular-nums text-foreground/80">
+                                <NumberFlow
+                                  value={userCount}
+                                  locales="fa-IR"
+                                />
                               </span>
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setUserCount(userCount + 1);
                                 }}
-                                className="p-1.5 rounded-lg hover:bg-background hover:shadow-sm transition-all text-muted-foreground/60 hover:text-foreground active:scale-95"
+                                aria-label="افزایش تعداد کاربر"
+                                className="rounded-lg p-1.5 text-muted-foreground/60 transition-all hover:bg-background hover:text-foreground hover:shadow-sm active:scale-95"
                               >
                                 <HugeiconsIcon icon={Add01Icon} size={16} />
                               </button>

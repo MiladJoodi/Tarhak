@@ -11,7 +11,7 @@
 
 @import "fumadocs-ui/css/preset.css";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "farsiui/tailwind.css";
 
 .dialkit-inline-host {
   --dk-panel-width: 100%;
@@ -70,6 +70,57 @@
 
 /* Descendants of .light keep light utilities even under html.dark (admin / islands). */
 @custom-variant dark (&:is(.dark *):not(:is(.light, .light *)));
+
+/*
+ * Estedad Persian digits (۰–۹) have wide sidebearings. Chromium ignores
+ * `letter-spacing` between Arabic-script digits, so `.fa-num` / `[data-fa-num]`
+ * tighten via per-glyph spans (FaDigits) or a scaleX fallback for plain text.
+ * Latin `.tabular-nums` still responds to letter-spacing.
+ */
+.fa-num,
+[data-fa-num] {
+  font-variant-numeric: proportional-nums;
+  font-feature-settings: "tnum" 0, "pnum" 1;
+}
+
+.fa-num:has(> span),
+[data-fa-num]:has(> span) {
+  display: inline-flex;
+  flex-direction: row;
+  direction: ltr;
+  unicode-bidi: isolate;
+  align-items: baseline;
+}
+
+.fa-num:has(> span) > span:not(:last-child),
+[data-fa-num]:has(> span) > span:not(:last-child) {
+  margin-inline-end: -0.28em;
+}
+
+/*
+ * Plain-text / bg-clip-text numbers: letter-spacing is ignored for Arabic-script
+ * digits, and flex+bg-clip-text breaks gradient fills — use scaleX instead.
+ */
+.fa-num:not(:has(> span)),
+[data-fa-num]:not(:has(> span)),
+.fa-num.bg-clip-text,
+[data-fa-num].bg-clip-text {
+  display: inline-block;
+  transform: scaleX(0.78);
+  transform-origin: center;
+}
+
+.fa-num.bg-clip-text:has(> span),
+[data-fa-num].bg-clip-text:has(> span) {
+  display: inline-block;
+  flex-direction: unset;
+}
+
+.tabular-nums {
+  letter-spacing: -0.08em;
+  font-variant-numeric: proportional-nums;
+  font-feature-settings: "tnum" 0, "pnum" 1;
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -225,7 +276,7 @@
 }
 
 /*
- * Classic shadcn tokens for live component showcases only.
+ * Classic FarsiUI tokens for live component showcases only.
  * Product chrome (:root / .dark / .light above) stays unchanged.
  * Apply `.component-showcase` (+ `.dark` / `.light`) on preview wrappers.
  */

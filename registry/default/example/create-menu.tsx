@@ -33,14 +33,18 @@ export default function CreateMenu() {
   }, []);
 
   return (
-    <div className="relative h-10 w-full">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="relative h-10 w-full font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <motion.div
         ref={rootRef}
         layout
         transition={{ type: "spring", bounce: 0.3 }}
         style={{
           borderRadius: view === "button" ? 22 : 12,
-          transformOrigin: "top left",
+          transformOrigin: "top right",
         }}
         className={
           view === "button"
@@ -71,23 +75,23 @@ function NewButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       type="button"
-      className="z-10 flex w-fit cursor-pointer items-center justify-center gap-1.5 px-4 py-2 pl-3.5"
+      className="z-10 flex w-fit cursor-pointer items-center justify-center gap-1.5 px-4 py-2 ps-3.5"
       onClick={onClick}
     >
       <HugeiconsIcon icon={PlusSignCircleIcon} className="size-4" />
-      Start Creating
+      شروع ساخت
     </button>
   );
 }
 
 function MenuItems() {
   const items = [
-    { label: "New Post", icon: LicenseDraftIcon },
-    { label: "Generate Idea", icon: AiIdeaIcon },
-    { label: "Create Thread", icon: PencilEdit02Icon },
-    { label: "New Template", icon: AssignmentsIcon },
-    { label: "Repurpose Content", icon: AiContentGenerator02Icon },
-    { label: "AI Quick Tool", icon: AiBookIcon },
+    { label: "پست جدید", icon: LicenseDraftIcon },
+    { label: "تولید ایده", icon: AiIdeaIcon },
+    { label: "ساخت رشته", icon: PencilEdit02Icon },
+    { label: "قالب جدید", icon: AssignmentsIcon },
+    { label: "بازنویسی محتوا", icon: AiContentGenerator02Icon },
+    { label: "ابزار سریع هوش مصنوعی", icon: AiBookIcon },
   ];
 
   return (
@@ -96,7 +100,7 @@ function MenuItems() {
         <button
           key={item.label}
           type="button"
-          className="flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-3 py-2 pl-2.5 text-sm text-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground"
+          className="flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-3 py-2 ps-2.5 text-sm text-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground"
         >
           <HugeiconsIcon icon={item.icon} strokeWidth={1.6} className="size-4" />
           <span className="whitespace-nowrap">{item.label}</span>
@@ -105,4 +109,3 @@ function MenuItems() {
     </div>
   );
 }
-

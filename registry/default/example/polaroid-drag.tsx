@@ -62,14 +62,12 @@ export const PolaroidGallery = React.forwardRef<HTMLDivElement, PolaroidGalleryP
           enableConstraints,
         }}
       >
-        <link
-          href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Poppins:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
         <div
           ref={containerRef}
+          dir="rtl"
+          lang="fa"
           className={cn(
-            'relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#f6f4f6] py-12 px-4 select-none',
+            'relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#f6f4f6] py-12 px-4 select-none font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal',
             className
           )}
           {...props}
@@ -123,7 +121,7 @@ export interface PolaroidCardProps {
 export const PolaroidCard: React.FC<PolaroidCardProps> = ({
   id,
   src,
-  alt = 'Polaroid photo',
+  alt = 'عکس پولاروید',
   caption,
   aspectRatio = 'square',
   rotate = 0,
@@ -254,7 +252,6 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
               captionSizes
             )}
             style={{
-              fontFamily: '"Dawning of a New Day", cursive, sans-serif',
               color: textColor || 'inherit',
             }}
           >
@@ -275,8 +272,8 @@ export default function PolaroidDrag() {
         <PolaroidCard
           id="card-1"
           src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=800&auto=format&fit=crop"
-          alt="Lucidity of dreams"
-          caption="Lucidity of dreams"
+          alt="شفافیت رؤیاها"
+          caption="شفافیت رؤیاها"
           aspectRatio="square"
           rotate={-6}
           textColor="rgb(51, 28, 46)"
@@ -285,8 +282,8 @@ export default function PolaroidDrag() {
         <PolaroidCard
           id="card-2"
           src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop"
-          alt="The garden of memories"
-          caption="The garden of memories"
+          alt="باغ خاطره‌ها"
+          caption="باغ خاطره‌ها"
           aspectRatio="portrait"
           rotate={6}
           textColor="rgb(51, 51, 51)"
@@ -295,8 +292,8 @@ export default function PolaroidDrag() {
         <PolaroidCard
           id="card-3"
           src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?q=80&w=800&auto=format&fit=crop"
-          alt="Whispers of the sea"
-          caption="Whispers of the sea"
+          alt="نجوای دریا"
+          caption="نجوای دریا"
           aspectRatio="square"
           rotate={-2}
           textColor="rgb(44, 53, 64)"

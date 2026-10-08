@@ -25,50 +25,50 @@ export interface ProjectItem {
 export const DEFAULT_PROJECTS: ProjectItem[] = [
   {
     id: 1,
-    tabTitle: "01 · Loom",
-    title: "Loom: A quieter workspace for deep focus teams",
+    tabTitle: "۰۱ · لوم",
+    title: "لوم: فضای کاری آرام برای تیم‌های متمرکز",
     description:
-      "An uncluttered collaboration suite built around calm layouts, soft surfaces, and intentional empty space so teams can think without visual noise.",
+      "مجموعهٔ همکاری بدون شلوغی، با چیدمان آرام، سطوح نرم و فضای خالی هدفمند تا تیم بدون نویز بصری فکر کند.",
     image:
       "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80",
     color: "#C9DFF5",
   },
   {
     id: 2,
-    tabTitle: "02 · Meridian",
-    title: "Meridian: Mapping brand systems that scale",
+    tabTitle: "۰۲ · مریدین",
+    title: "مریدین: نگاشت سیستم برند که مقیاس می‌گیرد",
     description:
-      "A living token library and component kit that keeps product, marketing, and docs speaking the same visual language across every surface.",
+      "کتابخانهٔ زندهٔ توکن و کیت کامپوننت که محصول، مارکتینگ و داکس را روی یک زبان بصری نگه می‌دارد.",
     image:
       "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1600&q=80",
     color: "#C8EBD8",
   },
   {
     id: 3,
-    tabTitle: "03 · Drift",
-    title: "Drift: Editorial storytelling for modern labels",
+    tabTitle: "۰۳ · دریفت",
+    title: "دریفت: روایت سرمقاله‌ای برای لیبل‌های مدرن",
     description:
-      "A scrolling magazine experience for independent artists. Long-form interviews, soft typography, and photography that feels like a late-night listen.",
+      "تجربهٔ مجلهٔ اسکرولی برای هنرمندان مستقل. مصاحبهٔ بلند، تایپوگرافی نرم و عکسی مثل گوش‌دادن نیمه‌شب.",
     image:
       "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80",
     color: "#F2D4E4",
   },
   {
     id: 4,
-    tabTitle: "04 · Harbor",
-    title: "Harbor: Booking that feels like hospitality",
+    tabTitle: "۰۴ · هاربر",
+    title: "هاربر: رزروی که حس مهمان‌نوازی دارد",
     description:
-      "A reservation flow redesigned around trust cues, soft color, and clear hierarchy, so guests feel welcomed before they ever arrive.",
+      "جریان رزرو بازطراحی‌شده حول نشانه‌های اعتماد، رنگ نرم و سلسله‌مراتب روشن تا مهمان قبل از رسیدن احساس خوشامد کند.",
     image:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80",
     color: "#F7E0C8",
   },
   {
     id: 5,
-    tabTitle: "05 · Northline",
-    title: "Northline: Analytics without the overwhelm",
+    tabTitle: "۰۵ · نورث‌لاین",
+    title: "نورث‌لاین: آنالیتیکس بدون غرق‌شدن",
     description:
-      "A metrics dashboard that leads with narrative charts and muted accents, helping operators spot what matters without drowning in widgets.",
+      "داشبورد متریک با نمودارهای روایی و تأکید ملایم؛ اپراتور بدون ویجت‌زدگی می‌بیند چه چیزی مهم است.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
     color: "#DDD4F2",
@@ -174,26 +174,26 @@ function AnimatedCard({
         target={project.link ? "_blank" : undefined}
         rel={project.link ? "noopener noreferrer" : undefined}
         className="group block cursor-pointer text-inherit no-underline outline-none"
-        aria-label={`Open ${project.title}`}
+        aria-label={`باز کردن ${project.title}`}
       >
         <article className="relative box-border w-full pt-14">
           <div
             style={{ backgroundColor: project.color }}
-            className="absolute left-0 top-0 flex h-12 w-44 items-center rounded-t-2xl px-4 text-base font-semibold tracking-tight text-black shadow-[inset_0_-1px_0_rgba(0,0,0,0.04)] sm:h-14 sm:w-60 sm:px-6"
+            className="absolute start-0 top-0 flex h-12 w-44 items-center rounded-t-2xl px-4 text-base font-semibold text-black shadow-[inset_0_-1px_0_rgba(0,0,0,0.04)] sm:h-14 sm:w-60 sm:px-6"
           >
             <span className="truncate">{project.tabTitle}</span>
           </div>
 
           <div
             style={{ backgroundColor: project.color }}
-            className="relative grid min-h-[28rem] grid-cols-1 items-center gap-6 overflow-hidden rounded-b-2xl rounded-tr-2xl p-6 shadow-[0_4px_8px_-4px_rgba(0,0,0,0.12),inset_0_-2px_4px_-2px_rgba(0,0,0,0.25)] sm:p-8 md:min-h-[33rem] md:grid-cols-[minmax(0,1.12fr)_minmax(16rem,0.88fr)] md:gap-14 md:p-8"
+            className="relative grid min-h-[28rem] grid-cols-1 items-center gap-6 overflow-hidden rounded-b-2xl rounded-se-2xl p-6 shadow-[0_4px_8px_-4px_rgba(0,0,0,0.12),inset_0_-2px_4px_-2px_rgba(0,0,0,0.25)] sm:p-8 md:min-h-[33rem] md:grid-cols-[minmax(0,1.12fr)_minmax(16rem,0.88fr)] md:gap-14 md:p-8"
           >
-            <div className="z-10 flex flex-col items-start gap-3.5">
-              <h3 className="m-0 text-2xl font-medium leading-tight tracking-tight text-black sm:text-3xl">
+            <div className="z-10 flex flex-col items-start gap-3.5 text-start">
+              <h3 className="m-0 text-2xl font-medium leading-tight text-black sm:text-3xl">
                 {project.title}
               </h3>
 
-              <p className="m-0 text-base font-normal leading-snug tracking-normal text-black/60 sm:text-lg">
+              <p className="m-0 text-base font-normal leading-snug text-black/60 sm:text-lg">
                 {project.description}
               </p>
             </div>
@@ -229,9 +229,9 @@ export interface ScrollStackDeckProps {
 
 export function ScrollStackDeck({
   projects = DEFAULT_PROJECTS,
-  title = "Selected work",
-  subtitle = "Five recent builds: soft interfaces, clear systems, and product stories that hold up under a slow scroll.",
-  scrollIndicatorText = "Scroll",
+  title = "کارهای برگزیده",
+  subtitle = "پنج ساخت اخیر: رابط‌های نرم، سیستم‌های روشن، و داستان محصولی که با اسکرول آرام دوام می‌آورد.",
+  scrollIndicatorText = "اسکرول کنید",
   className = "",
   showFooter = true,
   enableLenis = true,
@@ -281,22 +281,24 @@ export function ScrollStackDeck({
 
   return (
     <div
+      dir="rtl"
+      lang="fa"
       className={`min-h-screen w-full bg-[#F4F6F8] font-sans text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white ${className}`}
     >
       {showIntro ? (
         <section className="flex w-full flex-col items-center justify-center px-4 py-16 text-center">
           <div className="flex max-w-3xl flex-col items-center gap-5">
             <div className="flex flex-col items-center gap-2.5">
-              <h1 className="m-0 text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+              <h1 className="m-0 text-3xl font-semibold text-neutral-900 sm:text-4xl">
                 {title}
               </h1>
-              <p className="m-0 max-w-2xl text-xl font-normal leading-relaxed tracking-tight text-neutral-600 sm:text-2xl">
+              <p className="m-0 max-w-2xl text-xl font-normal leading-relaxed text-neutral-600 sm:text-2xl">
                 {subtitle}
               </p>
             </div>
 
             <div className="mt-2 flex items-center justify-center gap-2.5">
-              <span className="text-lg font-normal leading-relaxed tracking-tight text-neutral-600 sm:text-xl">
+              <span className="text-lg font-normal leading-relaxed text-neutral-600 sm:text-xl">
                 {scrollIndicatorText}
               </span>
               <motion.svg
@@ -323,7 +325,7 @@ export function ScrollStackDeck({
 
       <section
         ref={containerRef}
-        aria-label="Stacked project showcase"
+        aria-label="نمایش پشته‌ای پروژه‌ها"
         className="relative w-full"
         style={{ height: `${projects.length * 110}vh` }}
       >
@@ -344,9 +346,9 @@ export function ScrollStackDeck({
 
       {showFooter ? (
         <footer className="flex h-[50vh] flex-col items-center justify-center gap-2 text-sm text-neutral-500">
-          <p>shadcnlabs</p>
+          <p>طرحک</p>
           <p className="text-xs text-neutral-400">
-            Soft systems · product craft · motion
+            سیستم نرم · ساخت محصول · موشن
           </p>
         </footer>
       ) : null}

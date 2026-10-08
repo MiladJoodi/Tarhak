@@ -22,9 +22,9 @@ const OBJECT =
 const DEMO_CARDS: FolderCardItem[] = [
   {
     id: "01",
-    number: "01",
-    title: "Palette Lab",
-    description: "Soft color systems for product teams.",
+    number: "۰۱",
+    title: "آزمایشگاه پالت",
+    description: "سامانهٔ رنگ نرم برای تیم‌های محصول.",
     folderColor: "#E8DFFB",
     borderColor: "#D4C4F5",
     textColor: "#3B2F63",
@@ -35,9 +35,9 @@ const DEMO_CARDS: FolderCardItem[] = [
   },
   {
     id: "02",
-    number: "02",
-    title: "Shot List",
-    description: "Campaign stills, ready to file.",
+    number: "۰۲",
+    title: "فهرست شات",
+    description: "عکس‌های کمپین، آمادهٔ بایگانی.",
     folderColor: "#FFE8D6",
     borderColor: "#FFD4B8",
     textColor: "#5C3D2E",
@@ -48,9 +48,9 @@ const DEMO_CARDS: FolderCardItem[] = [
   },
   {
     id: "03",
-    number: "03",
-    title: "Garden UI",
-    description: "Components that grow with your roadmap.",
+    number: "۰۳",
+    title: "رابط باغ",
+    description: "کامپوننت‌هایی که با نقشهٔ راه رشد می‌کنند.",
     folderColor: "#D8F5E4",
     borderColor: "#B8EBCE",
     textColor: "#1F4D38",
@@ -151,23 +151,23 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
             className="absolute inset-0 h-full w-full drop-shadow-[0_-10px_20px_rgba(0,0,0,0.15)]"
           >
             <path
-              d="M 0,20 C 0,9 9,0 20,0 L 122,0 C 133,0 140,5.5 143.5,15 C 147,24.5 154,30 164,30 L 262,30 C 272,30 280,38 280,48 L 280,380 L 0,380 Z"
+              d="M 280,20 C 280,9 271,0 260,0 L 158,0 C 147,0 140,5.5 136.5,15 C 133,24.5 126,30 116,30 L 18,30 C 8,30 0,38 0,48 L 0,380 L 280,380 Z"
               fill={card.folderColor}
             />
           </svg>
 
           <div
-            className="absolute left-6 top-4 font-mono text-[3.5rem] font-bold tabular-nums leading-none tracking-tighter select-none"
+            className="absolute start-6 top-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-[3.5rem] font-bold tabular-nums leading-none tracking-tighter select-none"
             style={{ color: textColor }}
           >
             {card.number}
           </div>
 
           <motion.div
-            className="absolute right-6 top-[46px] flex h-6 w-6 transform-gpu items-center justify-center will-change-[transform]"
+            className="absolute end-6 top-[46px] flex h-6 w-6 transform-gpu items-center justify-center will-change-[transform]"
             variants={{
               initial: { x: 0, scale: 1 },
-              hover: { x: 4, scale: 1.15 },
+              hover: { x: -4, scale: 1.15 },
             }}
             transition={gpuSpringTransition}
           >
@@ -180,8 +180,8 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
               strokeLinejoin="round"
               className="pointer-events-none h-5 w-5"
             >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 5 5 12 12 19" />
             </svg>
           </motion.div>
         </motion.div>
@@ -191,7 +191,7 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
           style={{ color: textColor }}
         >
           <h3
-            className="select-none font-sans text-base font-semibold leading-7 tracking-tight"
+            className="select-none font-sans text-base font-semibold leading-7 tracking-normal"
             style={{ color: textColor }}
           >
             {card.title}
@@ -210,7 +210,11 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
 
 export default function CardFolder() {
   return (
-    <section className="flex h-full w-full items-center justify-center px-6 py-8">
+    <section
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center px-6 py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <div className="flex flex-wrap items-center justify-center gap-8">
         {DEMO_CARDS.map((card) => (
           <FolderPeek key={card.id} card={card} />

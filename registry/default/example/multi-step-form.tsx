@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { format } from "date-fns";
+import { format } from "date-fns-jalali";
+import { faIR } from "date-fns-jalali/locale/fa-IR";
 import { Check, ChevronRight, ChevronLeft, CalendarIcon } from "lucide-react";
 import { useForm, FormProvider as Form } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +11,6 @@ import { toast } from "sonner";
 import {
   Field,
   FieldLabel,
-  FieldDescription,
   FieldError,
 } from "@/components/ui/field";
 import {
@@ -43,18 +43,18 @@ import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import useMeasure from "react-use-measure";
 
 const TEAM_SIZE_OPTIONS = [
-  { label: "Select team size", value: null },
-  { label: "1-5 Members", value: "1-5" },
-  { label: "5-10 Members", value: "5-10" },
-  { label: "10+ Members", value: "10+" },
+  { label: "اندازه تیم را انتخاب کنید", value: null },
+  { label: "۱ تا ۵ نفر", value: "1-5" },
+  { label: "۵ تا ۱۰ نفر", value: "5-10" },
+  { label: "بیش از ۱۰ نفر", value: "10+" },
 ];
 
 const PRIORITY_OPTIONS = [
-  { label: "Select priority", value: null },
-  { label: "Low", value: "Low" },
-  { label: "Medium", value: "Medium" },
-  { label: "High", value: "High" },
-  { label: "Critical", value: "Critical" },
+  { label: "اولویت را انتخاب کنید", value: null },
+  { label: "کم", value: "Low" },
+  { label: "متوسط", value: "Medium" },
+  { label: "زیاد", value: "High" },
+  { label: "بحرانی", value: "Critical" },
 ];
 
 const formSchema = z.object({
@@ -99,7 +99,7 @@ export default function MultiStepForm() {
       );
     } catch (error) {
       console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      toast.error("ارسال فرم ناموفق بود. دوباره تلاش کنید.");
     }
   }
 
@@ -124,17 +124,16 @@ export default function MultiStepForm() {
   // Change Here
   const stepTitles = [
     {
-      title: "Create New Project",
-      description:
-        "Start by providing the essential details for your workspace.",
+      title: "ایجاد پروژهٔ جدید",
+      description: "جزئیات اصلی فضای کاری را وارد کنید.",
     },
     {
-      title: "Configuration",
-      description: "Define team access and project priority settings.",
+      title: "پیکربندی",
+      description: "دسترسی تیم و اولویت پروژه را تنظیم کنید.",
     },
     {
-      title: "Project Kickoff Mood",
-      description: "How confident do you feel about this new project?",
+      title: "حال‌وهوای شروع پروژه",
+      description: "چقدر به این پروژهٔ جدید اطمینان دارید؟",
     },
   ];
 
@@ -146,10 +145,10 @@ export default function MultiStepForm() {
         return (
           <div className="space-y-6 py-4">
             <Field>
-              <FieldLabel htmlFor="project-name">Project Name</FieldLabel>
+              <FieldLabel htmlFor="project-name">نام پروژه</FieldLabel>
               <Input
                 id="project-name"
-                placeholder="e.g Website Design"
+                placeholder="مثلاً طراحی وب‌سایت"
                 {...form.register("project-name")}
               />
               <FieldError>
@@ -158,32 +157,40 @@ export default function MultiStepForm() {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="due-date">Due Date</FieldLabel>
+              <FieldLabel htmlFor="due-date">مهلت تحویل</FieldLabel>
               <Popover>
                 <PopoverTrigger
                   render={
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-full justify-start text-left font-normal",
+                        "w-full justify-start text-start font-normal",
                         !watchedValues["due-date"] && "text-muted-foreground"
                       )}
                     >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      <CalendarIcon className="me-2 h-4 w-4" />
                       {watchedValues["due-date"] ? (
-                        format(watchedValues["due-date"] as Date, "PPP")
+                        format(watchedValues["due-date"] as Date, "PPP", {
+                          locale: faIR,
+                        })
                       ) : (
-                        <span>Pick a date</span>
+                        <span>تاریخ را انتخاب کنید</span>
                       )}
                     </Button>
                   }
                 />
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent
+                  dir="rtl"
+                  lang="fa"
+                  className="w-auto p-0"
+                  align="start"
+                >
                   <Calendar
+                    jalali
                     mode="single"
                     selected={watchedValues["due-date"]}
                     onSelect={(date) => form.setValue("due-date", date)}
-                    initialFocus
+                    autoFocus
                   />
                 </PopoverContent>
               </Popover>
@@ -193,10 +200,10 @@ export default function MultiStepForm() {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="description">Description</FieldLabel>
+              <FieldLabel htmlFor="description">توضیحات</FieldLabel>
               <Textarea
                 id="description"
-                placeholder="Describe the project goals and scope..."
+                placeholder="اهداف و دامنهٔ پروژه را شرح دهید..."
                 className="min-h-[100px]"
                 {...form.register("description")}
               />
@@ -211,16 +218,17 @@ export default function MultiStepForm() {
           <div className="space-y-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <Field>
-                <FieldLabel htmlFor="team-size">Team Size</FieldLabel>
+                <FieldLabel htmlFor="team-size">اندازه تیم</FieldLabel>
                 <Select
+                  dir="rtl"
                   items={TEAM_SIZE_OPTIONS}
                   value={watchedValues["team-size"] ?? null}
                   onValueChange={(val) => form.setValue("team-size", val)}
                 >
-                  <SelectTrigger id="team-size" className="w-full">
+                  <SelectTrigger id="team-size" className="w-full text-start">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent dir="rtl" lang="fa">
                     {TEAM_SIZE_OPTIONS.map((opt) => (
                       <SelectItem key={opt.label} value={opt.value as any}>
                         {opt.label}
@@ -234,16 +242,17 @@ export default function MultiStepForm() {
               </Field>
 
               <Field>
-                <FieldLabel htmlFor="priority">Priority</FieldLabel>
+                <FieldLabel htmlFor="priority">اولویت</FieldLabel>
                 <Select
+                  dir="rtl"
                   items={PRIORITY_OPTIONS}
                   value={watchedValues["priority"] ?? null}
                   onValueChange={(val) => form.setValue("priority", val)}
                 >
-                  <SelectTrigger id="priority" className="w-full">
+                  <SelectTrigger id="priority" className="w-full text-start">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent dir="rtl" lang="fa">
                     {PRIORITY_OPTIONS.map((opt) => (
                       <SelectItem key={opt.label} value={opt.value as any}>
                         {opt.label}
@@ -258,9 +267,9 @@ export default function MultiStepForm() {
             </div>
 
             <Field>
-              <FieldLabel htmlFor="tag">Tags</FieldLabel>
+              <FieldLabel htmlFor="tag">برچسب‌ها</FieldLabel>
               <div className="space-y-2">
-                <div className="flex flex-wrap gap-2 mb-2">
+                <div className="mb-2 flex flex-wrap gap-2">
                   {watchedValues["tag"]?.map((t, i) => (
                     <Badge key={i} variant="secondary" className="gap-1">
                       {t}
@@ -282,7 +291,7 @@ export default function MultiStepForm() {
                 </div>
                 <Input
                   id="tag"
-                  placeholder="e.g. Design, Marketing"
+                  placeholder="مثلاً طراحی، بازاریابی"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
@@ -305,19 +314,19 @@ export default function MultiStepForm() {
       case 2:
         return (
           <div className="space-y-4 py-4">
-            <div className="rounded-xl border bg-background overflow-hidden relative">
-              <div className="flex w-full border-b divide-x bg-muted/5">
+            <div className="relative overflow-hidden rounded-xl border bg-background">
+              <div className="flex w-full divide-x border-b bg-muted/5">
                 {[
-                  { emoji: "😰", value: "anxious", label: "Anxious" },
-                  { emoji: "😟", value: "worried", label: "Worried" },
-                  { emoji: "😐", value: "neutral", label: "Neutral" },
-                  { emoji: "🙂", value: "good", label: "Good" },
-                  { emoji: "🤩", value: "excited", label: "Excited" },
+                  { emoji: "😰", value: "anxious", label: "مضطرب" },
+                  { emoji: "😟", value: "worried", label: "نگران" },
+                  { emoji: "😐", value: "neutral", label: "خنثی" },
+                  { emoji: "🙂", value: "good", label: "خوب" },
+                  { emoji: "🤩", value: "excited", label: "هیجان‌زده" },
                 ].map((option) => (
                   <button
                     key={option.value}
                     className={cn(
-                      "flex-1 p-3 md:p-4 text-2xl md:text-3xl transition-all hover:bg-muted focus:outline-none",
+                      "flex-1 p-3 text-2xl transition-all hover:bg-muted focus:outline-none md:p-4 md:text-3xl",
                       watchedValues["mood"] === option.value
                         ? "bg-primary/10 grayscale-0"
                         : "grayscale-[1] hover:grayscale-0"
@@ -332,13 +341,13 @@ export default function MultiStepForm() {
               </div>
               <Textarea
                 id="comment"
-                placeholder="Add a comment..."
-                className="min-h-[140px] resize-none border-0 focus-visible:ring-0 rounded-none bg-transparent p-4 placeholder:text-muted-foreground/60"
+                placeholder="نظر خود را بنویسید..."
+                className="min-h-[140px] resize-none rounded-none border-0 bg-transparent p-4 placeholder:text-muted-foreground/60 focus-visible:ring-0"
                 {...form.register("comment")}
               />
             </div>
             <p className="text-sm text-muted-foreground">
-              Your feedback helps us understand the project kickoff vibe.
+              بازخورد شما به درک حال‌وهوای شروع پروژه کمک می‌کند.
             </p>
           </div>
         );
@@ -349,11 +358,11 @@ export default function MultiStepForm() {
 
   const variants = {
     initial: (direction: number) => {
-      return { x: `${110 * direction}%`, opacity: 0 };
+      return { x: `${-110 * direction}%`, opacity: 0 };
     },
     animate: { x: "0%", opacity: 1 },
     exit: (direction: number) => {
-      return { x: `${-110 * direction}%`, opacity: 0 };
+      return { x: `${110 * direction}%`, opacity: 0 };
     },
   };
 
@@ -366,8 +375,12 @@ export default function MultiStepForm() {
           bounce: 0,
         }}
       >
-        <div className="flex w-full items-center justify-center bg-muted/10 p-4">
-          <Card className="w-full max-w-xl shadow-none border overflow-hidden bg-background">
+        <div
+          dir="rtl"
+          lang="fa"
+          className="flex w-full items-center justify-center bg-muted/10 p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+        >
+          <Card className="w-full max-w-xl overflow-hidden border bg-background shadow-none">
             <motion.div layout>
               <CardHeader className="flex flex-row items-start justify-between space-y-0 px-6 py-4">
                 <div className="flex flex-col gap-1">
@@ -399,7 +412,7 @@ export default function MultiStepForm() {
                 transition={{ type: "spring", bounce: 0, duration: 0.5 }}
               >
                 <div ref={ref}>
-                  <CardContent className="px-6 py-2 relative">
+                  <CardContent className="relative px-6 py-2">
                     <AnimatePresence
                       mode="popLayout"
                       initial={false}
@@ -421,24 +434,24 @@ export default function MultiStepForm() {
                 </div>
               </motion.div>
 
-              <CardFooter className="flex justify-between items-center border-t py-4">
+              <CardFooter className="flex items-center justify-between border-t py-4">
                 <Button
                   variant={"secondary"}
                   type="button"
                   onClick={prevStep}
                   disabled={currentStep === 0}
                 >
-                  <ChevronLeft className="h-4 w-4" />
-                  Back
+                  <ChevronRight className="h-4 w-4" />
+                  بازگشت
                 </Button>
                 <Button type="button" onClick={nextStep}>
                   {currentStep === stepTitles.length - 1 ? (
                     <>
-                      Finish <Check className="h-4 w-4" />
+                      پایان <Check className="h-4 w-4" />
                     </>
                   ) : (
                     <>
-                      Continue <ChevronRight className="h-4 w-4" />
+                      ادامه <ChevronLeft className="h-4 w-4" />
                     </>
                   )}
                 </Button>

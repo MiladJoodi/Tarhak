@@ -256,7 +256,11 @@ export const AccessibleAction = CardStack;
 
 export default function AccessibleActionExample() {
   return (
-    <div className="flex h-full w-full min-w-0 items-center justify-center overflow-hidden">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full min-w-0 items-center justify-center overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <CardStack />
     </div>
   );

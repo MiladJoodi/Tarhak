@@ -12,9 +12,9 @@
     "items": []
   },
   "showHint": true,
-  "hintKind": "click",
-  "hintHeading": "Click Scan",
-  "hintDescription": "A page unfolds, flips, and a light travels across it. When it says Done, it resets so you can scan again.",
+  "hintKind": "custom",
+  "hintHeading": "روی اسکن بزن",
+  "hintDescription": "صفحه باز می‌شود، می‌چرخد و نور از رویش می‌گذرد. وقتی انجام شد، ریست می‌شود تا دوباره اسکن کنی.",
   "hintTop": 140,
   "hintHideOnScroll": false,
   "posterUrl": "https://cdn.uselayouts.com/components/scan-document/poster.avif",

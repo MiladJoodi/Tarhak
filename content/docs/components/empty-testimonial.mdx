@@ -1,36 +1,34 @@
 ---
 title: Empty Testimonial
-description: A “Wall of Love” empty state — click the folder and three notes spring out, ready to add the first quote.
+description: حالت خالی «دیوار محبت» — روی پوشه بزنید؛ سه برگه با فنر بیرون می‌آیند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Empty, on purpose**: Headline plus a closed folder instead of a blank gray box.
-- **Papers fly out**: Click and three sheets fan up with a spring, like pulling notes from a file.
-- **Add affordance**: A plus sits in the scene so the next step is obvious.
-- **Hover heartbeat**: The “Love” chip and heart scale a little when you linger.
-- **Folder SVG**: Custom back and front so it feels like stationery, not a UI widget.
+- **خالی، عمداً**: تیتر به‌علاوهٔ پوشهٔ بسته، نه جعبهٔ خاکستری خالی.
+- **پرواز برگه‌ها**: کلیک کنید و سه برگه با فنر بادبزن می‌شوند، مثل بیرون کشیدن یادداشت از پرونده.
+- **ضربان هاور**: چیپ «محبت» و قلب با مکث کمی بزرگ می‌شوند.
+- **SVG پوشه**: پشت و جلوی سفارشی تا حس لوازم‌التحریر بدهد، نه ویجت UI.
 
-## Usage
+## نحوه استفاده
 
-Use it when you have zero testimonials yet — waitlists, new products, first customers. Click is the whole interaction. Swap the heading if “Wall of Love” isn’t your voice. Don’t show this next to a full quote carousel; pick one empty state.
+وقتی هنوز هیچ نظری ندارید — لیست انتظار، محصول تازه، اولین مشتری‌ها. کل تعامل همان کلیک روی پوشه است. اگر «دیوار محبت» زبان شما نیست تیتر را عوض کنید. کنار کاروسل نقل‌قول پر نشانش ندهید؛ یک حالت خالی کافی است.
 
 ```tsx
 import EmptyTestimonial from "@/components/empty-testimonial";
 
 export default function Page() {
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="flex h-screen items-center justify-center">
       <EmptyTestimonial />
     </div>
   );
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Pre-launch landing pages
-- New SaaS dashboards with no reviews yet
-- Waitlist thank-you screens
-- Community pages before the first member posts
-- Onboarding that asks for a first testimonial
+- لندینگ پیش از لانچ
+- داشبورد SaaS تازه بدون نظر
+- صفحهٔ تشکر لیست انتظار
+- صفحات جامعه قبل از اولین پست

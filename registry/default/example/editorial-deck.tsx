@@ -14,40 +14,40 @@ export type EditorialDeckCard = {
 export const DEFAULT_CARDS: EditorialDeckCard[] = [
   {
     id: "ambient",
-    date: "Published recently",
-    title: "The rise of ambient computing",
+    date: "منتشرشده اخیراً",
+    title: "برآمدن رایانش محیطی",
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
     tint: "#C9DFF5",
   },
   {
     id: "human",
-    date: "Published 4 days ago",
-    title: "Designing AI interfaces that feel human",
+    date: "منتشرشده ۴ روز پیش",
+    title: "طراحی رابط‌های هوش مصنوعی که انسانی حس شوند",
     image:
       "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80",
     tint: "#C8EBD8",
   },
   {
     id: "workflows",
-    date: "Published recently",
-    title: "Creative workflows powered by soft tools",
+    date: "منتشرشده اخیراً",
+    title: "گردش‌کار خلاق با ابزارهای نرم",
     image:
       "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
     tint: "#F2D4E4",
   },
   {
     id: "systems",
-    date: "Published recently",
-    title: "Minimal design systems for fast teams",
+    date: "منتشرشده اخیراً",
+    title: "سیستم‌های طراحی مینیمال برای تیم‌های سریع",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
     tint: "#F7E0C8",
   },
   {
     id: "intersect",
-    date: "Published recently",
-    title: "Where intelligence meets calm product craft",
+    date: "منتشرشده اخیراً",
+    title: "جایی که هوش با ساخت آرام محصول تلاقی می‌کند",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     tint: "#DDD4F2",
@@ -91,8 +91,8 @@ export interface EditorialDeckProps {
 
 export function EditorialDeck({
   cards = DEFAULT_CARDS,
-  title = "Editorial deck",
-  subtitle = "Drag to flip through stories",
+  title = "دک تحریریه",
+  subtitle = "بکشید تا داستان‌ها ورق بخورند",
   className = "",
 }: EditorialDeckProps) {
   const reduceMotion = useReducedMotion() ?? false;
@@ -151,17 +151,17 @@ export function EditorialDeck({
 
   return (
     <section
-      className={`flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center bg-[#F7F4F0] px-6 ${className}`}
+      dir="rtl"
+      lang="fa"
+      className={`flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center bg-[#F7F4F0] px-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal ${className}`}
     >
       {showIntro ? (
         <div className="mb-8 text-center">
           {title ? (
-            <p className="text-sm font-medium tracking-[0.08em] text-neutral-500">
-              {title}
-            </p>
+            <p className="text-sm font-medium text-neutral-500">{title}</p>
           ) : null}
           {subtitle ? (
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-neutral-900">
+            <h2 className="mt-2 text-3xl font-semibold text-neutral-900">
               {subtitle}
             </h2>
           ) : null}
@@ -253,11 +253,11 @@ export function EditorialDeck({
                     />
                   </div>
                 </div>
-                <div className="flex flex-1 flex-col justify-center gap-3 border-t border-black/10 px-7 py-6 md:border-l md:border-t-0 md:px-10 md:py-8">
-                  <p className="text-[13px] font-medium tracking-[0.06em] text-neutral-500">
+                <div className="flex flex-1 flex-col justify-center gap-3 border-t border-black/10 px-7 py-6 md:border-s md:border-t-0 md:px-10 md:py-8">
+                  <p className="text-[13px] font-medium text-neutral-500">
                     {c.date}
                   </p>
-                  <h3 className="text-2xl font-semibold leading-snug tracking-tight text-neutral-900 sm:text-[1.85rem]">
+                  <h3 className="text-2xl font-semibold leading-snug text-neutral-900 sm:text-[1.85rem]">
                     {c.title}
                   </h3>
                 </div>
@@ -271,7 +271,7 @@ export function EditorialDeck({
           <button
             key={c.id}
             type="button"
-            aria-label={`Go to card ${i + 1}`}
+            aria-label={`رفتن به کارت ${i + 1}`}
             onClick={() => {
               if (flying.current) return;
               const pos = order.indexOf(i);

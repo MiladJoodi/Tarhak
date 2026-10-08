@@ -26,17 +26,17 @@ interface CollectionItem {
 const ITEMS: CollectionItem[] = [
   {
     id: "1",
-    title: "Cinematic Horizons",
-    subtitle: "Photography",
-    idNumber: "209",
+    title: "افق‌های سینمایی",
+    subtitle: "عکاسی",
+    idNumber: "۲۰۹",
     image:
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400&h=400&auto=format&fit=crop",
   },
   {
     id: "2",
-    title: "Abstract Dreams",
-    subtitle: "Digital Art",
-    idNumber: "808",
+    title: "رؤیاهای انتزاعی",
+    subtitle: "هنر دیجیتال",
+    idNumber: "۸۰۸",
     image:
       "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=400&h=400&auto=format&fit=crop",
   },
@@ -65,41 +65,45 @@ export default function AnimatedCollection() {
   const [view, setView] = useState<ViewMode>("list");
 
   return (
-    <div className="mx-auto w-full max-w-xl p-4 font-sans antialiased [-webkit-font-smoothing:antialiased] selection:bg-foreground/10 md:p-8">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="mx-auto w-full max-w-xl p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal antialiased [-webkit-font-smoothing:antialiased] selection:bg-foreground/10 md:p-8"
+    >
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <div className="flex items-end justify-between gap-4">
-            <h2 className="text-xl font-medium tracking-tight text-balance text-foreground">
-              My Collection
+            <h2 className="text-balance text-xl font-medium text-foreground">
+              مجموعهٔ من
             </h2>
             <span className="shrink-0 text-xs font-medium tabular-nums text-muted-foreground">
-              {ITEMS.length} items
+              {ITEMS.length.toLocaleString("fa-IR")} مورد
             </span>
           </div>
 
           <LayoutGroup id="ac-tabs">
             <div
               role="tablist"
-              aria-label="Collection layout"
+              aria-label="چیدمان مجموعه"
               className="flex w-fit rounded-full bg-muted/70 p-1 shadow-[0_0_0_1px_rgba(0,0,0,0.06)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"
             >
               <Tab
                 active={view === "list"}
                 onClick={() => setView("list")}
                 icon={Playlist01Icon}
-                label="List"
+                label="فهرست"
               />
               <Tab
                 active={view === "card"}
                 onClick={() => setView("card")}
                 icon={GridViewIcon}
-                label="Cards"
+                label="کارت"
               />
               <Tab
                 active={view === "pack"}
                 onClick={() => setView("pack")}
                 icon={Layers01Icon}
-                label="Pack"
+                label="بسته"
               />
             </div>
           </LayoutGroup>
@@ -188,7 +192,7 @@ export default function AnimatedCollection() {
                         )}
                       >
                         <div className="flex min-w-0 flex-col gap-0.5">
-                          <h3 className="truncate text-[15px] font-medium leading-tight tracking-tight text-foreground">
+                          <h3 className="truncate text-[15px] font-medium leading-tight text-foreground">
                             {item.title}
                           </h3>
                           <p className="m-0 truncate text-xs text-muted-foreground">
@@ -213,11 +217,11 @@ export default function AnimatedCollection() {
                 transition={fadeMeta}
                 className="absolute inset-x-0 bottom-4 flex flex-col items-center gap-1 text-center"
               >
-                <p className="m-0 max-w-[28ch] text-sm font-medium tracking-tight text-balance text-foreground">
+                <p className="m-0 max-w-[28ch] text-balance text-sm font-medium text-foreground">
                   {ITEMS.map((item) => item.title).join(" · ")}
                 </p>
                 <p className="m-0 text-xs tabular-nums text-muted-foreground">
-                  {ITEMS.length} pieces
+                  {ITEMS.length.toLocaleString("fa-IR")} اثر
                 </p>
               </motion.div>
             )}

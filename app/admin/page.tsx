@@ -75,8 +75,7 @@ export default function AdminHomePage() {
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Components</h1>
           <p className="text-sm text-muted-foreground">
-            Local file editor — paste code, generate MDX, upload browse media.
-            Ranked by copies.
+            Local file editor — paste code, generate MDX. Ranked by copies.
           </p>
         </div>
         <Link href="/admin/new" className={cn(buttonVariants())}>

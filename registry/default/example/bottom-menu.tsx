@@ -30,24 +30,24 @@ const MAIN_NAV = [
 ];
 
 const HOME_ITEMS = [
-  { icon: PencilEdit02Icon, text: "Note" },
-  { icon: Mic01Icon, text: "Voice" },
-  { icon: Camera01Icon, text: "Screenshot" },
+  { icon: PencilEdit02Icon, text: "یادداشت" },
+  { icon: Mic01Icon, text: "صدا" },
+  { icon: Camera01Icon, text: "اسکرین‌شات" },
 ];
 
 const SEARCH_OPTIONS = [
-  { icon: FilterHorizontalIcon, text: "Filter" },
-  { icon: AutoConversationsIcon, text: "Trending" },
+  { icon: FilterHorizontalIcon, text: "فیلتر" },
+  { icon: AutoConversationsIcon, text: "پرطرفدار" },
 ];
 
-const NOTIFICATION_TYPES = ["Messages", "System Alerts"];
+const NOTIFICATION_TYPES = ["پیام‌ها", "هشدارهای سیستم"];
 
-const PROFILE_LINKS = ["My Account", "Settings", "Subscription / Billing"];
+const PROFILE_LINKS = ["حساب من", "تنظیمات", "اشتراک / صورتحساب"];
 
 const THEME_OPTIONS = [
-  { key: "light", icon: Sun03Icon, text: "Light" },
-  { key: "dark", icon: Moon02Icon, text: "Dark" },
-  { key: "system", icon: ComputerIcon, text: "System" },
+  { key: "light", icon: Sun03Icon, text: "روشن" },
+  { key: "dark", icon: Moon02Icon, text: "تیره" },
+  { key: "system", icon: ComputerIcon, text: "سیستم" },
 ];
 
 const BottomMenu = () => {
@@ -77,7 +77,7 @@ const BottomMenu = () => {
   }, []);
 
   const sharedHover =
-    "group transition-all duration-75 px-3 py-2 text-[15px] text-muted-foreground w-full text-left rounded-[12px] hover:bg-muted/80 hover:text-foreground";
+    "group w-full rounded-[12px] px-3 py-2 text-start text-[15px] text-muted-foreground transition-all duration-75 hover:bg-muted/80 hover:text-foreground";
 
   const content = useMemo(() => {
     switch (view) {
@@ -110,12 +110,12 @@ const BottomMenu = () => {
               <HugeiconsIcon
                 icon={Search01Icon}
                 size={17}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground"
               />
               <input
                 type="text"
-                placeholder="Search..."
-                className="w-full pl-9 pr-3 py-[6px] text-[14.5px] text-foreground bg-muted/80 border border-border rounded-[12px] focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent placeholder:text-muted-foreground/50"
+                placeholder="جستجو..."
+                className="w-full rounded-[12px] border border-border bg-muted/80 py-[6px] ps-9 pe-3 text-[14.5px] text-foreground placeholder:text-muted-foreground/50 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <div className="flex gap-1.5">
@@ -157,8 +157,8 @@ const BottomMenu = () => {
               </button>
             ))}
             <div className="border-t border-border my-[2px]" />
-            <button className="px-3 py-2 text-[15px] text-destructive w-full text-left rounded-[12px] hover:bg-destructive/10 transition-all duration-75">
-              Logout
+            <button className="w-full rounded-[12px] px-3 py-2 text-start text-[15px] text-destructive transition-all duration-75 hover:bg-destructive/10">
+              خروج
             </button>
           </div>
         );
@@ -197,7 +197,11 @@ const BottomMenu = () => {
   return (
     <div
       ref={containerRef}
-      className={cn("relative flex flex-col items-center")}
+      dir="rtl"
+      lang="fa"
+      className={cn(
+        "relative flex flex-col items-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      )}
     >
       {/* Hidden for measurement */}
       <div

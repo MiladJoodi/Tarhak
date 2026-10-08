@@ -8,7 +8,7 @@ import * as React from "react"
 export const Index: Record<string, any> = {
   "3d-book": {
     name: "3d-book",
-    description: "An interactive 3D book component with page flip animations.",
+    description: "یک کتاب سه‌بعدی تعاملی با انیمیشن ورق‌زدن صفحات.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -26,7 +26,7 @@ export const Index: Record<string, any> = {
   },
   "accessible-action": {
     name: "accessible-action",
-    description: "Interactive draggable card stack with 3D tilt, swipe-to-back gestures, click interactions, random rotation, and smooth spring animations.",
+    description: "پشتهٔ کارت قابل کشیدن با شیب سه‌بعدی، ژست ارسال به پشت، کلیک، چرخش تصادفی و فنر نرم.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -44,7 +44,7 @@ export const Index: Record<string, any> = {
   },
   "accordionos": {
     name: "accordionos",
-    description: "Interactive accordion showcase with animated content, image transitions, hover effects, keyboard navigation, autoplay, and responsive design.",
+    description: "آکاردئون شماره‌دار که با باز شدن هر ردیف تصویر بزرگ را عوض می‌کند، با پخش خودکار اختیاری.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -62,7 +62,7 @@ export const Index: Record<string, any> = {
   },
   "analog-stick": {
     name: "analog-stick",
-    description: "A metallic stick that tilts into the press. Hover a quadrant and the cap leans, the shadow shifts, and the matching arrow goes amber.",
+    description: "اهرم فلزی که با فشار کج می‌شود. روی یک ربع هاور کنید؛ کلاهک می‌لرزد، سایه جابه‌جا می‌شود و فلش همرنگ کهربایی می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -80,7 +80,7 @@ export const Index: Record<string, any> = {
   },
   "animated-collection": {
     name: "animated-collection",
-    description: "A collection of items with smooth layout transitions and animations.",
+    description: "مجموعه‌ای از آثار که بین نمای فهرست، کارت و پشتهٔ فشرده مورف می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -98,7 +98,7 @@ export const Index: Record<string, any> = {
   },
   "bento-card": {
     name: "bento-card",
-    description: "An interactive bento card with animated tabs and workspace preview.",
+    description: "یک کاشی شیشه‌ای با تب‌هایی که پیش‌نمای داشبورد را داخل همان کارت عوض می‌کنند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -116,7 +116,7 @@ export const Index: Record<string, any> = {
   },
   "bottom-menu": {
     name: "bottom-menu",
-    description: "A floating bottom navigation menu with smooth interactions.",
+    description: "داک فشرده‌ای که به جستجو، یادداشت، اعلان، پروفایل و تم باز می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -134,7 +134,7 @@ export const Index: Record<string, any> = {
   },
   "bucket": {
     name: "bucket",
-    description: "An interactive card component that simulates a bucket where chips are tossed and replaced with smooth physics-inspired animations.",
+    description: "قیف شیشه‌ای که چیپ‌های قابلیت را یکی‌یکی مثل سینی گیراندازی پرتاب می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -156,7 +156,7 @@ export const Index: Record<string, any> = {
   },
   "card-folder": {
     name: "card-folder",
-    description: "This component creates an animated folder-style card with a background image, floating 3D object, hover effects, and customizable colors and text. You can easily change the images, colors, content, and animation settings from the card props.",
+    description: "کارت پوشه‌ای متحرک با تصویر پس‌زمینه، شیء شناور، افکت هاور و رنگ و متن قابل تنظیم.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -174,7 +174,7 @@ export const Index: Record<string, any> = {
   },
   "client-card": {
     name: "client-card",
-    description: "A client CRM card with payment and deadline rings, plus a morphing avatar stack.",
+    description: "کارت CRM مشتری با حلقه‌های پرداخت و مهلت، به‌علاوهٔ پشتهٔ آواتار مورف‌شونده.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -192,7 +192,7 @@ export const Index: Record<string, any> = {
   },
   "confidential-folder": {
     name: "confidential-folder",
-    description: "A charcoal sleeve that pulls a letter out, flips it, and lands it in front of you.",
+    description: "غلاف زغالی که نامه را بیرون می‌کشد، برمی‌گرداند و روبه‌روی شما می‌نشاند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -210,7 +210,7 @@ export const Index: Record<string, any> = {
   },
   "corner-video": {
     name: "corner-video",
-    description: "A compact corner video player with smooth open/close morphing, autoplay, mute, enlarge, hover controls, and video scrubbing.",
+    description: "پخش‌کنندهٔ جمع‌وجور گوشه با مورف باز/بسته، پخش خودکار، بی‌صدا، بزرگ‌نمایی، کنترل هاور و اسکراب ویدیو.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -228,7 +228,7 @@ export const Index: Record<string, any> = {
   },
   "coverflow-drag": {
     name: "coverflow-drag",
-    description: "A drag coverflow of portraits that scale, dim, and snap as you swipe.",
+    description: "کاورفلوی افقی از پرتره‌ها که با کشیدن کوچک، کم‌نور و قفل می‌شوند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -246,7 +246,7 @@ export const Index: Record<string, any> = {
   },
   "create-menu": {
     name: "create-menu",
-    description: "A Start Creating pill that springs open into a list of create actions.",
+    description: "قرص «شروع ساخت» که با فنر به فهرست اکشن‌های ساخت باز می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -264,11 +264,19 @@ export const Index: Record<string, any> = {
   },
   "curve-drawer": {
     name: "curve-drawer",
-    description: "Side drawers whose inner edge starts as a bulge and morphs into a straight line as the panel settles.",
+    description: "کشوهای کناری که لبهٔ داخلی‌شان با برآمدگی شروع می‌شود و با نشستن پنل صاف می‌شود.",
     type: "registry:component",
     registryDependencies: ["button"],
     files: [{
       path: "registry/default/example/curve-drawer.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/curve-drawer-primitives.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/curve-drawer-curve.tsx",
       type: "registry:component",
       target: ""
     }],
@@ -282,7 +290,7 @@ export const Index: Record<string, any> = {
   },
   "day-picker": {
     name: "day-picker",
-    description: "A custom day picker component with smooth animations.",
+    description: "چیپ تکرار که به روزانه / هفتگی / ماهانه / سالانه باز می‌شود، بعد به روزهای هفته.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -300,7 +308,7 @@ export const Index: Record<string, any> = {
   },
   "delete-button": {
     name: "delete-button",
-    description: "A confirmation button with smooth icon transitions.",
+    description: "دکمهٔ قرمز حذف که قبل از انجام کار به شمارش معکوس با امکان لغو تبدیل می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -318,7 +326,7 @@ export const Index: Record<string, any> = {
   },
   "discover-button": {
     name: "discover-button",
-    description: "An interactive button with expanding discovery state.",
+    description: "کنترل گرد جستجو که کنار تراشه‌های محبوب و علاقه‌مندی‌ها به فیلد کشیده می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -336,7 +344,7 @@ export const Index: Record<string, any> = {
   },
   "discrete-tabs": {
     name: "discrete-tabs",
-    description: "A tab component with discrete sliding animations.",
+    description: "تب‌های آیکنی آرام که با برچسب باز می‌شوند و هنگام فعال شدن درخشش کوتاهی دارند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -354,11 +362,19 @@ export const Index: Record<string, any> = {
   },
   "drawer-buttons": {
     name: "drawer-buttons",
-    description: "Two buttons that open side drawers with a 3D fold. Payment comes from the right, cart from the left, and the fields stagger in.",
+    description: "دو دکمه که کشوی کناری را با تا شدن سه‌بعدی باز می‌کنند. پرداخت از راست، سبد از چپ؛ فیلدها پشت‌سرهم ظاهر می‌شوند.",
     type: "registry:component",
     registryDependencies: ["button","input","textarea","select","field"],
     files: [{
       path: "registry/default/example/drawer-buttons.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/drawer-buttons-drawer.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/drawer-buttons-field.tsx",
       type: "registry:component",
       target: ""
     }],
@@ -372,7 +388,7 @@ export const Index: Record<string, any> = {
   },
   "dynamic-grid-gallery": {
     name: "dynamic-grid-gallery",
-    description: "A 3×2 photo grid that grows the hovered row and column so one still takes the stage.",
+    description: "گرید عکسی ۳×۲ که ردیف و ستون هاور‌شده را بزرگ می‌کند تا یک قاب مرکز صحنه شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -390,7 +406,7 @@ export const Index: Record<string, any> = {
   },
   "dynamic-toolbar": {
     name: "dynamic-toolbar",
-    description: "A toolbar that adapts its size and layout based on content.",
+    description: "نوار آیکنی که با ورق زدن بین ابزارهای اصلی و مجموعهٔ دوم، عرضش را عوض می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -412,7 +428,7 @@ export const Index: Record<string, any> = {
   },
   "editorial-deck": {
     name: "editorial-deck",
-    description: "A stacked editorial story deck. Drag the front card and it springs back into the pile.",
+    description: "دستهٔ داستان تحریریه‌ای روی هم. کارت جلو را بکشید؛ با فنر به ته دسته برمی‌گردد.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -430,7 +446,7 @@ export const Index: Record<string, any> = {
   },
   "empty-testimonial": {
     name: "empty-testimonial",
-    description: "An interactive empty state for testimonials with a playful folder animation.",
+    description: "حالت خالی «دیوار محبت» — روی پوشه بزنید؛ سه برگه با فنر بیرون می‌آیند تا اولین نقل‌قول را اضافه کنید.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -448,7 +464,7 @@ export const Index: Record<string, any> = {
   },
   "expandable-gallery": {
     name: "expandable-gallery",
-    description: "A photo gallery with smooth item expansion.",
+    description: "گالری عکس با باز شدن نرم آیتم‌ها از پشته به شبکه.",
     type: "registry:component",
     registryDependencies: ["button"],
     files: [{
@@ -466,7 +482,7 @@ export const Index: Record<string, any> = {
   },
   "feature-carousel": {
     name: "feature-carousel",
-    description: "A smooth carousel for showcasing product features.",
+    description: "چیپ‌های شناور یک‌طرف، عکس بزرگ طرف دیگر — قابلیت را بزن، تصویر دنبال می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -484,7 +500,7 @@ export const Index: Record<string, any> = {
   },
   "filter-interaction": {
     name: "filter-interaction",
-    description: "Interactive list items with hover and focus effects.",
+    description: "فهرست فیلتر تعاملی با هاور، انتخاب و پنل تغییرشکل‌دهنده.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -502,7 +518,7 @@ export const Index: Record<string, any> = {
   },
   "fluid-expanding-grid": {
     name: "fluid-expanding-grid",
-    description: "A responsive gallery grid that fluidly shifts and expands items using motion layout.",
+    description: "شبکهٔ عکسی که با کلیک یکی ردیف را می‌گیرد و بقیه کنار می‌روند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -520,7 +536,7 @@ export const Index: Record<string, any> = {
   },
   "focus-testimonials": {
     name: "focus-testimonials",
-    description: "Interactive testimonial section with hover-based focus effects, animated author tooltips, and expandable testimonials.",
+    description: "ردیف آواتار — روی یکی هاور کن تا نقل‌قول جلو بیاید و تولتیپ نام دنبال ماوس برود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -538,7 +554,7 @@ export const Index: Record<string, any> = {
   },
   "folder-interaction": {
     name: "folder-interaction",
-    description: "A folder management system with drag-and-drop-like feel.",
+    description: "پوشه‌ای که با کلیک باز می‌شود و برگه‌ها با فنر بیرون می‌آیند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -556,11 +572,15 @@ export const Index: Record<string, any> = {
   },
   "get-in-touch": {
     name: "get-in-touch",
-    description: "A glossy contact pill. Hover and the label lifts away so a portrait and YOU merge, then Let’s Talk! writes in.",
+    description: "قرص براق تماس. هاور کنید تا برچسب برود، پرتره و «شما» یکی شوند، بعد «بزن حرف بزنیم!» نوشته شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
       path: "registry/default/example/get-in-touch.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/get-in-touch-button.tsx",
       type: "registry:component",
       target: ""
     }],
@@ -574,7 +594,7 @@ export const Index: Record<string, any> = {
   },
   "holographic-referral-card": {
     name: "holographic-referral-card",
-    description: "A dark invite card that tilts in 3D with the pointer. A holographic glow follows. Touch stays still. Tab for a quiet glow.",
+    description: "کارت دعوت تیره که با اشاره‌گر سه‌بعدی کج می‌شود؛ درخشش هولوگرافیک دنبال می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -592,7 +612,7 @@ export const Index: Record<string, any> = {
   },
   "gooey-navbar": {
     name: "gooey-navbar",
-    description: "A pill nav that melts into its neighbor when you hover — liquid bridges, active dot.",
+    description: "ناوبری قرصی که با هاور به همسایه ذوب می‌شود — پل مایع و نقطهٔ فعال.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -610,7 +630,7 @@ export const Index: Record<string, any> = {
   },
   "infinite-grid": {
     name: "infinite-grid",
-    description: "A free-panning product canvas that tiles forever — drag, scroll, and skim an endless grid of images and captions.",
+    description: "بوم محصول با حرکت آزاد که تا ابد کاشی می‌شود — بکشید، اسکرول کنید، ورق بزنید.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -628,7 +648,7 @@ export const Index: Record<string, any> = {
   },
   "inline-edit": {
     name: "inline-edit",
-    description: "An input that switches between read and edit modes.",
+    description: "ورودی که بین حالت خواندن و ویرایش جابه‌جا می‌شود.",
     type: "registry:component",
     registryDependencies: ["input"],
     files: [{
@@ -646,7 +666,7 @@ export const Index: Record<string, any> = {
   },
   "liquid-index": {
     name: "liquid-index",
-    description: "A feature list whose hover badge is a WebGL liquid gradient that tracks the row.",
+    description: "فهرست قابلیتی که نشان هاور آن گرادیان مایع WebGL است و ردیف را دنبال می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -668,7 +688,7 @@ export const Index: Record<string, any> = {
   },
   "magnified-bento": {
     name: "magnified-bento",
-    description: "A bento card component with a draggable magnifying lens effect over scrolling chips.",
+    description: "کارت بنتو با لنز ذره‌بین قابل‌کشیدن روی چیپ‌های در حال اسکرول.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -686,7 +706,7 @@ export const Index: Record<string, any> = {
   },
   "morphing-input": {
     name: "morphing-input",
-    description: "An input field that morphs between different states.",
+    description: "فیلد ورودی که بین حالت‌های مختلف شکل عوض می‌کند.",
     type: "registry:component",
     registryDependencies: ["input"],
     files: [{
@@ -704,7 +724,7 @@ export const Index: Record<string, any> = {
   },
   "multi-step-form": {
     name: "multi-step-form",
-    description: "A dynamic, animated multi-step form with validation.",
+    description: "فرم چندمرحله‌ای پویا و متحرک با اعتبارسنجی.",
     type: "registry:component",
     registryDependencies: ["card","button","input","textarea","select","badge","calendar","popover"],
     files: [{
@@ -722,7 +742,7 @@ export const Index: Record<string, any> = {
   },
   "overlapping-slider": {
     name: "overlapping-slider",
-    description: "A full-width landing row of portrait cards. They sit flat until you move — then the card on the left scales back.",
+    description: "ردیف تمام‌عرض کارت‌های پرتره؛ با حرکت، کارت قبلی کوچک و عقب می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -740,7 +760,7 @@ export const Index: Record<string, any> = {
   },
   "perspective-text-scroll": {
     name: "perspective-text-scroll",
-    description: "A polished example interaction built with React and Motion.",
+    description: "متنی که با اسکرول در پرسپکتیو می‌آید، می‌نشیند و دور می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -758,7 +778,7 @@ export const Index: Record<string, any> = {
   },
   "photo-albums": {
     name: "photo-albums",
-    description: "Tilted album stacks that expand into a shared-element photo grid.",
+    description: "پشته‌های کج آلبوم که به شبکهٔ عکس با المان مشترک باز می‌شوند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -776,7 +796,7 @@ export const Index: Record<string, any> = {
   },
   "paper-shred-button": {
     name: "paper-shred-button",
-    description: "Hover Delete and a page appears above it. Click and the page clips away while paper strips draw in below. After a few seconds it resets so you can shred again.",
+    description: "روی حذف هاور کنید تا صفحه ظاهر شود. کلیک کنید تا صفحه بریده شود و نوارهای کاغذ پایین کشیده شوند. بعد از چند ثانیه ریست می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -794,7 +814,7 @@ export const Index: Record<string, any> = {
   },
   "polaroid-drag": {
     name: "polaroid-drag",
-    description: "Draggable Polaroid photo gallery with realistic tilt, stacking, smooth animations, and customizable captions, sizes, and decorations.",
+    description: "چاپ‌های فوری که روی میز می‌کشید — با سرعت کج می‌شوند، روی هم می‌آیند و نوار چسب یا پونز می‌گیرند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -812,7 +832,7 @@ export const Index: Record<string, any> = {
   },
   "polaroid-stack": {
     name: "polaroid-stack",
-    description: "Seven Polaroids sit in a pile. Hover and they fan into an arc from one corner.",
+    description: "هفت پولاروید روی هم. با هاور به قوسی از یک گوشه بادبزن می‌شوند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -830,7 +850,7 @@ export const Index: Record<string, any> = {
   },
   "pop-tilt-cards": {
     name: "pop-tilt-cards",
-    description: "Interactive tilt card deck with smooth hover animations, 3D popping effects, images, links, and customizable card styling.",
+    description: "دستهٔ پاستلی بادبزنی — روی یک کارت هاور کنید تا بالا بپرد و همسایه‌ها کج شوند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -848,7 +868,7 @@ export const Index: Record<string, any> = {
   },
   "pricing-card": {
     name: "pricing-card",
-    description: "A focused pricing card layout with clear hierarchy.",
+    description: "انتخابگر باریک پلن با سوییچ ماهانه/سالانه، قیمت‌های غلتان و برچسب تخفیف.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -866,7 +886,7 @@ export const Index: Record<string, any> = {
   },
   "prompt-box": {
     name: "prompt-box",
-    description: "A collapsed chat composer that expands into a textarea with a model menu and send control.",
+    description: "کامپوزر چت جمع‌شده که به textarea با منوی مدل، کنترل ارسال و پیش‌نمایش هاور مدل انتخاب‌شده باز می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -888,7 +908,7 @@ export const Index: Record<string, any> = {
   },
   "rolling-card-stack": {
     name: "rolling-card-stack",
-    description: "It’s a responsive, animated rolling card stack component built with React, TypeScript, Tailwind CSS, and Framer Motion. It supports desktop/mobile layouts, swipe and keyboard navigation, autoplay, pagination, and customizable card content",
+    description: "پشتهٔ کارت غلتان واکنش‌گرا با سوایپ، کیبورد، پخش خودکار و محتوای قابل تنظیم.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -906,7 +926,7 @@ export const Index: Record<string, any> = {
   },
   "save-button": {
     name: "save-button",
-    description: "A button with animated states for idle, loading, and success.",
+    description: "دکمه‌ای با وضعیت‌های متحرک برای آماده، در حال ذخیره و موفق.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -924,7 +944,7 @@ export const Index: Record<string, any> = {
   },
   "scan-document": {
     name: "scan-document",
-    description: "Click Scan and a page unfolds, flips, and a glowing bar reads it. Done holds, then it resets.",
+    description: "روی اسکن بزن؛ صفحه باز می‌شود، می‌چرخد و نوار نور آن را می‌خواند. بعد از انجام‌شدن ریست می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -942,7 +962,7 @@ export const Index: Record<string, any> = {
   },
   "scroll-split-cards": {
     name: "scroll-split-cards",
-    description: "One photograph that splits into three panels as you scroll, then flips to copy.",
+    description: "یک عکس که با اسکرول به سه پنل می‌شکند، بعد برمی‌گردد و متن نشان می‌دهد.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -960,7 +980,7 @@ export const Index: Record<string, any> = {
   },
   "scroll-stack-deck": {
     name: "scroll-stack-deck",
-    description: "Scroll-linked project cards that pin in the viewport and stack, scale, and settle as you move down the page.",
+    description: "کارت‌های پروژهٔ وابسته به اسکرول که در ویوپورت پین می‌شوند و با پایین‌آمدن پشته، مقیاس و نشست پیدا می‌کنند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -978,7 +998,7 @@ export const Index: Record<string, any> = {
   },
   "set-timer": {
     name: "set-timer",
-    description: "A dark timer pill that morphs into a minute wheel picker, then into a running timer with pause, cancel, and a rounded-rectangle progress border.",
+    description: "چرخ را بچرخان، شروع کن، بعد مکث یا لغو. یک سطح در هر مرحله شکل عوض می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -996,7 +1016,7 @@ export const Index: Record<string, any> = {
   },
   "shake-testimonial-card": {
     name: "shake-testimonial-card",
-    description: "An eye-catching testimonial card with playful animations.",
+    description: "کارت‌های نظر که می‌لرزند و بعد به پشت پشته پرتاب می‌شوند — پخش خودکار یا کلیک.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1014,7 +1034,7 @@ export const Index: Record<string, any> = {
   },
   "slide-subscribe": {
     name: "slide-subscribe",
-    description: "Pick a billing period, then slide to start a trial.",
+    description: "دورهٔ صورتحساب را انتخاب کنید، بعد برای شروع آزمایش بکشید.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1040,7 +1060,7 @@ export const Index: Record<string, any> = {
   },
   "smooth-dropdown": {
     name: "smooth-dropdown",
-    description: "منوی بازشو با انتقال نرم و تغییر شکل دکمه به منو.",
+    description: "دکمهٔ گردی که به منو تبدیل می‌شود — ردیف‌ها پلکانی می‌آیند، پوسته تغییر اندازه می‌دهد و با کلیک بیرون بسته می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1058,7 +1078,7 @@ export const Index: Record<string, any> = {
   },
   "stack-scroll-reveal": {
     name: "stack-scroll-reveal",
-    description: "Scroll-linked case-study cards that pin in the viewport and peel, scale, and fade as you move down the page.",
+    description: "کارت‌های مطالعهٔ موردی وابسته به اسکرول که در ویوپورت پین می‌شوند و با پایین آمدن ورق می‌خورند، کوچک می‌شوند و محو می‌شوند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1076,7 +1096,7 @@ export const Index: Record<string, any> = {
   },
   "stacked-list": {
     name: "stacked-list",
-    description: "An expandable list widget with a stacked layout and smooth morphing transitions.",
+    description: "ویجت افراد — پشتهٔ کوتاه اعضا که به فهرست قابل جستجو تبدیل می‌شود.",
     type: "registry:component",
     registryDependencies: ["input","button"],
     files: [{
@@ -1094,7 +1114,7 @@ export const Index: Record<string, any> = {
   },
   "stacked-outline-text": {
     name: "stacked-outline-text",
-    description: "Heavy outlined type you can drag. Speed leaves a stacked white-on-black trail that springs back when you stop.",
+    description: "تایپ خط‌دار سنگین که می‌توانید بکشید. سرعت، رد سفید-روی-سیاه پشته‌ای می‌گذارد که با رها کردن برمی‌گردد.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1112,7 +1132,7 @@ export const Index: Record<string, any> = {
   },
   "theme-toggle": {
     name: "theme-toggle",
-    description: "A physical switch with a dotted grip. Click and the knob slides across a recessed track.",
+    description: "سوئیچ فیزیکی با دستگیرهٔ نقطه‌دار. بزن و دکمه روی شیار فرو‌رفته حرکت می‌کند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1130,7 +1150,7 @@ export const Index: Record<string, any> = {
   },
   "tactile-button": {
     name: "tactile-button",
-    description: "A liquid-glass rocker that tilts into its well when you press it.",
+    description: "راکر شیشه‌ای مایع که با فشار داخل چاهش کج می‌شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1148,7 +1168,7 @@ export const Index: Record<string, any> = {
   },
   "vertical-tabs": {
     name: "vertical-tabs",
-    description: "A vertical tab interaction with smooth content switching.",
+    description: "تب عمودی با جابه‌جایی نرم محتوا.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1166,7 +1186,7 @@ export const Index: Record<string, any> = {
   },
   "wheel-carousel": {
     name: "wheel-carousel",
-    description: "This component creates a smooth wheel-style carousel with photos and selectable items. It supports drag, scroll, keyboard controls, snapping, momentum, themes, image crossfades, and customizable layout and colors.",
+    description: "چرخ نام‌ها کنار عکس بزرگ — بکشید، اسکرول کنید یا پیکان بزنید تا تصویر کراس‌فید شود.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{

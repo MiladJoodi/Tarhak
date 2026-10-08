@@ -19,9 +19,9 @@ const DONE_RESET_DELAY_MS = 1100;
 const SCAN_BAR_TRAVEL = 132;
 
 const LABELS: Record<Status, string> = {
-  idle: "Scan",
-  scanning: "Scanning",
-  done: "Done",
+  idle: "اسکن",
+  scanning: "در حال اسکن",
+  done: "انجام شد",
 };
 
 const SCAN_MOVE_TIMES = [0, 0.1, 0.45, 0.55, 0.9, 1];
@@ -119,13 +119,13 @@ export function ScanningDocument({
           <div className="absolute top-0 left-1/2 h-full w-[7px] -translate-x-1/2 rounded-sm bg-gradient-to-r from-zinc-300 via-zinc-500 to-zinc-300 shadow-[0_8px_24px_rgba(0,0,0,0.18)]" />
 
           <div className="absolute inset-0 overflow-hidden rounded-md bg-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] [backface-visibility:hidden]">
-            <div className="mt-4 ml-4 h-2.5 w-2.5 rounded-full bg-zinc-300" />
-            <div className="mt-4 ml-4 h-[3px] w-12 rounded bg-zinc-300" />
-            <div className="mt-2 ml-4 h-[3px] w-16 rounded bg-zinc-200" />
-            <div className="mt-1.5 ml-4 h-[3px] w-14 rounded bg-zinc-200" />
-            <div className="mt-1.5 ml-4 h-[3px] w-16 rounded bg-zinc-200" />
-            <div className="mt-1.5 ml-4 h-[3px] w-10 rounded bg-zinc-200" />
-            <div className="mt-8 ml-5 h-4 w-12 -rotate-6 rounded-full border-b-2 border-zinc-300" />
+            <div className="mt-4 ms-4 h-2.5 w-2.5 rounded-full bg-zinc-300" />
+            <div className="mt-4 ms-4 h-[3px] w-12 rounded bg-zinc-300" />
+            <div className="mt-2 ms-4 h-[3px] w-16 rounded bg-zinc-200" />
+            <div className="mt-1.5 ms-4 h-[3px] w-14 rounded bg-zinc-200" />
+            <div className="mt-1.5 ms-4 h-[3px] w-16 rounded bg-zinc-200" />
+            <div className="mt-1.5 ms-4 h-[3px] w-10 rounded bg-zinc-200" />
+            <div className="mt-8 ms-5 h-4 w-12 -rotate-6 rounded-full border-b-2 border-zinc-300" />
           </div>
 
           <div className="absolute inset-0 [transform:rotateY(180deg)] rounded-md bg-zinc-300 shadow-[0_8px_24px_rgba(0,0,0,0.18)] [backface-visibility:hidden]" />
@@ -234,7 +234,7 @@ export function ScanDocumentButton() {
 
   return (
     <section
-      aria-label="Document scanner"
+      aria-label="اسکنر سند"
       className="relative flex h-[320px] flex-col items-center justify-center gap-8"
     >
       <div className="flex h-[170px] items-end">
@@ -261,7 +261,11 @@ export function ScanDocumentButton() {
 
 export default function ScanDocument() {
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <ScanDocumentButton />
     </div>
   );

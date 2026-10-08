@@ -31,13 +31,15 @@ export default function ThemeToggle() {
 
   return (
     <div
-      className={`flex h-full min-h-[140px] w-full flex-col items-center justify-center rounded-[0.75em] p-[1em] transition-colors duration-[220ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${wrapperClassName}`}
+      dir="rtl"
+      lang="fa"
+      className={`flex h-full min-h-[140px] w-full flex-col items-center justify-center rounded-[0.75em] p-[1em] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal transition-colors duration-[220ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${wrapperClassName}`}
     >
       <div
         className={`relative flex items-center justify-center rounded-[0.5em] p-[0.125em] text-[1.5em] ${toggleWrapperClassName}`}
       >
         <input
-          aria-label={checked ? "Switch off" : "Switch on"}
+          aria-label={checked ? "خاموش کردن" : "روشن کردن"}
           checked={checked}
           className="peer absolute inset-0 z-[1] h-full w-full cursor-pointer appearance-none rounded-[inherit] font-[inherit] opacity-0"
           onChange={handleChange}

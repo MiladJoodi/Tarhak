@@ -46,49 +46,49 @@ const shot = (id: string) =>
 export const DEFAULT_PROFILES: CardProfile[] = [
   {
     id: "1",
-    name: "Sophie Bennett",
-    handle: "@sophie34",
-    role: "Product Designer",
+    name: "سارا محمدی",
+    handle: "@sara.m",
+    role: "طراح محصول",
     image: shot("1534528741775-53994a69daeb"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(212, 123, 91) 96.8%)",
   },
   {
     id: "2",
-    name: "Luna Hart",
-    handle: "@lunahart",
-    role: "UI/UX Designer",
+    name: "نیلوفر احمدی",
+    handle: "@niloufar",
+    role: "طراح رابط کاربری",
     image: shot("1529626455594-4ff0802cfb7e"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(184, 212, 91) 96.8%)",
   },
   {
     id: "3",
-    name: "Maya Rivera",
-    handle: "@mayacodes",
-    role: "Frontend Developer",
+    name: "مریم رضایی",
+    handle: "@maryam.dev",
+    role: "توسعه‌دهنده فرانت‌اند",
     image: shot("1494790108377-be9c29b29330"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(153, 209, 255) 96.8%)",
   },
   {
     id: "4",
-    name: "Zoe Bennett",
-    handle: "@zoe",
-    role: "Product Designer",
+    name: "زهرا کریمی",
+    handle: "@zahra",
+    role: "طراح محصول",
     image: shot("1438761681033-6461ffad8d80"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(156, 122, 214) 96.8%)",
   },
   {
     id: "5",
-    name: "Isla Morgan",
-    handle: "@islaui",
-    role: "UI/UX Designer",
+    name: "آتنا موسوی",
+    handle: "@atena.ui",
+    role: "طراح رابط کاربری",
     image: shot("1580489944761-15a19d654956"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(214, 176, 72) 96.8%)",
   },
   {
     id: "6",
-    name: "Sofia Laurent",
-    handle: "@itssofia",
-    role: "Product Designer",
+    name: "النا حسینی",
+    handle: "@elena.h",
+    role: "طراح محصول",
     image: shot("1544005313-94ddf0286df2"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(214, 132, 148) 96.8%)",
   },
@@ -226,7 +226,11 @@ export function OverlappingSlider<T = CardProfile>({
   };
 
   return (
-    <div className={`relative flex w-full select-none flex-col ${className}`}>
+    <div
+      dir="rtl"
+      lang="fa"
+      className={`relative flex w-full select-none flex-col font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal ${className}`}
+    >
       <div
         className="flex w-full cursor-grab touch-pan-y items-center overflow-hidden py-10 active:cursor-grabbing"
         style={{ minHeight: cardHeight + 72 }}
@@ -237,7 +241,7 @@ export function OverlappingSlider<T = CardProfile>({
       >
         <div
           ref={trackRef}
-          className="flex items-end pl-8 sm:pl-12"
+          className="flex items-end ps-8 sm:ps-12"
           style={{ transform: "translate3d(var(--ox, 0px), 0, 0)" }}
         >
           {Array.from({ length: total }, (_, index) => (
@@ -251,7 +255,7 @@ export function OverlappingSlider<T = CardProfile>({
               style={{
                 width: cardWidth,
                 height: cardHeight,
-                marginRight: cardGap - cardWidth * overlapFactor,
+                marginInlineEnd: cardGap - cardWidth * overlapFactor,
                 zIndex: index,
                 transformOrigin,
                 transform: "translateY(var(--y, 0px)) rotate(var(--r, 0deg)) scale(var(--s, 1))",
@@ -273,23 +277,23 @@ export function OverlappingSlider<T = CardProfile>({
           {showArrows && (
             <div className="flex items-center gap-2">
               <ArrowButton
-                label="Previous"
+                label="قبلی"
                 disabled={activeIndex === 0}
                 onClick={() => goTo(activeIndex - 1)}
               >
-                <ChevronLeft className="size-4" strokeWidth={2.25} />
+                <ChevronRight className="size-4" strokeWidth={2.25} />
               </ArrowButton>
               <ArrowButton
-                label="Next"
+                label="بعدی"
                 disabled={activeIndex === total - 1}
                 onClick={() => goTo(activeIndex + 1)}
               >
-                <ChevronRight className="size-4" strokeWidth={2.25} />
+                <ChevronLeft className="size-4" strokeWidth={2.25} />
               </ArrowButton>
             </div>
           )}
           {showDots && (
-            <div className="ml-auto flex items-center gap-2">
+            <div className="ms-auto flex items-center gap-2">
               {Array.from({ length: total }, (_, i) => (
                 <button
                   key={i}
@@ -300,7 +304,7 @@ export function OverlappingSlider<T = CardProfile>({
                       ? "w-8 bg-neutral-900"
                       : "w-2 bg-neutral-300 hover:bg-neutral-400"
                   }`}
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`رفتن به اسلاید ${i + 1}`}
                 />
               ))}
             </div>
@@ -353,7 +357,7 @@ export function ProfileCard({ card }: { card: CardProfile }) {
       />
 
       <div className="relative flex items-center justify-center gap-1.5">
-        <h3 className="text-[22px] font-bold leading-tight tracking-tight text-white drop-shadow-md">
+        <h3 className="text-[22px] font-bold leading-tight tracking-normal text-white drop-shadow-md">
           {card.name}
         </h3>
         <svg className="size-5 shrink-0 text-white drop-shadow" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
@@ -371,8 +375,10 @@ export function ProfileCard({ card }: { card: CardProfile }) {
             referrerPolicy="no-referrer"
             className="size-11 shrink-0 rounded-full object-cover object-[50%_18%] ring-2 ring-white/20"
           />
-          <div className="min-w-0 text-left">
-            <div className="truncate text-sm font-medium text-white drop-shadow">{card.handle}</div>
+          <div className="min-w-0 text-start">
+            <div className="truncate text-sm font-medium text-white drop-shadow" dir="ltr">
+              {card.handle}
+            </div>
             <div className="truncate text-xs text-white/90">{card.role}</div>
           </div>
         </div>
@@ -389,7 +395,7 @@ export function ProfileCard({ card }: { card: CardProfile }) {
           <svg className="size-3 fill-current" viewBox="0 0 12 12" aria-hidden>
             <path d="M7 0H5v5H0v2h5v5h2V7h5V5H7z" />
           </svg>
-          {following ? "Following" : "Follow"}
+          {following ? "دنبال می‌کنید" : "دنبال کردن"}
         </button>
       </div>
     </div>

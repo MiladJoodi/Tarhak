@@ -92,7 +92,7 @@ export function OpenCliBar({
             )}
             aria-haspopup="listbox"
             aria-expanded={menuOpen}
-            aria-label={`Package manager: ${manager}`}
+            aria-label={`مدیر پکیج: ${manager}`}
             onClick={() => setMenuOpen((open) => !open)}
           >
             <span className="relative size-5 shrink-0 overflow-hidden">
@@ -116,7 +116,7 @@ export function OpenCliBar({
               </span>
             </span>
           </TooltipTrigger>
-          <TooltipContent>Package manager</TooltipContent>
+          <TooltipContent>مدیر پکیج</TooltipContent>
         </Tooltip>
 
         {/* Figma 91:4661 — command + copy; gap-1 from PM so hover bg doesn't kiss the text */}
@@ -129,7 +129,7 @@ export function OpenCliBar({
               "hover:bg-[#030202]",
             )}
             onClick={copyCommand}
-            aria-label={copied ? "Copied" : "Copy install command"}
+            aria-label={copied ? "کپی شد" : "کپی دستور نصب"}
             title={command}
           >
             <MiddleTruncation

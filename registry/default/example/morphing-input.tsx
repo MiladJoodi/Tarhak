@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Input } from "../../../components/ui/input";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  ArrowRight02Icon,
+  ArrowLeft02Icon,
   UnfoldMoreIcon,
   Album02Icon,
   SparklesIcon,
@@ -19,30 +19,34 @@ interface PlaceholderConfig {
 
 // Change Here
 const placeholderOptions: PlaceholderConfig[] = [
-  { id: 1, placeholder: "Search anything...", icon: SparklesIcon },
-  { id: 2, placeholder: "Generate Image", icon: Album02Icon },
+  { id: 1, placeholder: "هر چیزی جستجو کنید...", icon: SparklesIcon },
+  { id: 2, placeholder: "تولید تصویر", icon: Album02Icon },
 ];
 
+/** Whole-string / word stagger — never per-glyph: Arabic/Persian joining breaks in inline-block letters. */
 const AnimatedPlaceholder = ({ text }: { text: string }) => {
-  const letters = text.split("");
+  const parts = text.split(/(\s+)/).filter((part) => part.length > 0);
 
   return (
-    <span className="inline-flex overflow-hidden">
-      {letters.map((letter, index) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, y: 6, filter: "blur(2px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{
-            delay: 0.02 * index,
-            duration: 0.2,
-            ease: [0.32, 0.72, 0, 1],
-          }}
-          className="inline-block"
-        >
-          {letter === " " ? "\u00A0" : letter}
-        </motion.span>
-      ))}
+    <span className="inline">
+      {parts.map((part, index) => {
+        const isSpace = /^\s+$/.test(part);
+        return (
+          <motion.span
+            key={`${index}-${part}`}
+            initial={{ opacity: 0, y: 6, filter: "blur(2px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              delay: 0.04 * index,
+              duration: 0.2,
+              ease: [0.32, 0.72, 0, 1],
+            }}
+            className={isSpace ? "inline" : "inline-block"}
+          >
+            {isSpace ? "\u00A0".repeat(part.length) : part}
+          </motion.span>
+        );
+      })}
     </span>
   );
 };
@@ -59,7 +63,11 @@ const InputSwitch = () => {
   const IconComponent = currentConfig.icon;
 
   return (
-    <div className="flex w-full max-w-sm items-center justify-center overflow-hidden rounded-full bg-muted px-1 py-1">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex w-full max-w-sm items-center justify-center overflow-hidden rounded-full bg-muted px-1 py-1 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <motion.button
         type="button"
         className="flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full bg-background p-2.5 shadow-sm"
@@ -88,9 +96,9 @@ const InputSwitch = () => {
           className="size-3 shrink-0 text-muted-foreground"
         />
       </motion.button>
-      <div className="flex-1 relative min-w-0">
+      <div className="relative min-w-0 flex-1">
         {!inputValue && (
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex w-full items-center overflow-hidden pl-1.5">
+          <div className="pointer-events-none absolute inset-y-0 start-0 flex w-full items-center overflow-hidden ps-1.5">
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
                 key={currentConfig.id}
@@ -98,7 +106,7 @@ const InputSwitch = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.15, ease: [0.32, 0.72, 0, 1] }}
-                className="block overflow-hidden text-sm whitespace-nowrap text-muted-foreground"
+                className="block overflow-hidden whitespace-nowrap text-sm text-muted-foreground"
               >
                 <AnimatedPlaceholder text={currentConfig.placeholder} />
               </motion.span>
@@ -109,12 +117,12 @@ const InputSwitch = () => {
           type="text"
           value={inputValue}
           onChange={(e: any) => setInputValue(e.target.value)}
-          className="!border-0 outline-none border-none bg-transparent! m-0 !pl-1.5 text-sm focus-visible:ring-0 focus-visible:ring-offset-0 text-foreground"
+          className="m-0 !border-0 border-none bg-transparent! !ps-1.5 text-sm text-foreground outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
-      <button className="bg-background py-2.5 px-3 rounded-full flex shadow-sm items-center justify-center self-stretch cursor-pointer active:scale-95 transition-transform ease-in-out duration-150">
+      <button className="flex cursor-pointer items-center justify-center self-stretch rounded-full bg-background px-3 py-2.5 shadow-sm transition-transform duration-150 ease-in-out active:scale-95">
         <HugeiconsIcon
-          icon={ArrowRight02Icon}
+          icon={ArrowLeft02Icon}
           className="h-4 w-4 text-foreground"
         />
       </button>

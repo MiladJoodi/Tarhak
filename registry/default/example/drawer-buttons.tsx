@@ -116,6 +116,8 @@ const MotionDrawerContent = ({
         <DrawerPrimitive.Content asChild>
           <motion.div
             data-slot="drawer-content"
+            dir="rtl"
+            lang="fa"
             initial={
               shouldReduceMotion
                 ? false
@@ -139,7 +141,7 @@ const MotionDrawerContent = ({
             }
             className={cn(
               drawerContentClassName,
-              "pointer-events-auto my-auto h-[95dvh] overflow-y-auto p-0 [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform",
+              "pointer-events-auto my-auto h-[95dvh] overflow-y-auto p-0 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform",
               className,
             )}
             style={{
@@ -161,7 +163,11 @@ export const DrawerButtons = () => {
   const cartDrawer = useAnimatedDrawerState(DRAWER_REVEAL_DURATION_SECONDS);
 
   return (
-    <div className="flex h-full min-h-[520px] w-full items-center justify-center bg-background p-4 text-foreground">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full min-h-[520px] w-full items-center justify-center bg-background p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-foreground"
+    >
       <div className="flex flex-col items-center gap-3 sm:flex-row">
         <Drawer
           direction="right"
@@ -172,10 +178,10 @@ export const DrawerButtons = () => {
           <DrawerTrigger asChild>
             <button
               type="button"
-              aria-label="Open payment drawer"
+              aria-label="باز کردن کشوی پرداخت"
               className={cn(buttonVariants(), "cursor-pointer")}
             >
-              Payment details
+              جزئیات پرداخت
             </button>
           </DrawerTrigger>
           <MotionDrawerContent
@@ -186,15 +192,15 @@ export const DrawerButtons = () => {
           >
             <DrawerHeader className="flex-row items-start justify-between gap-4 border-b border-border">
               <div className="min-w-0">
-                <DrawerTitle>Payment details</DrawerTitle>
+                <DrawerTitle>جزئیات پرداخت</DrawerTitle>
                 <DrawerDescription>
-                  Enter checkout and billing information.
+                  اطلاعات تسویه و صورتحساب را وارد کنید.
                 </DrawerDescription>
               </div>
               <DrawerClose asChild>
                 <button
                   type="button"
-                  aria-label="Close payment drawer"
+                  aria-label="بستن کشوی پرداخت"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "shrink-0",
@@ -219,13 +225,13 @@ export const DrawerButtons = () => {
           <DrawerTrigger asChild>
             <button
               type="button"
-              aria-label="Open cart drawer"
+              aria-label="باز کردن کشوی سبد"
               className={cn(
                 buttonVariants({ variant: "outline" }),
                 "cursor-pointer",
               )}
             >
-              Cart summary
+              خلاصهٔ سبد
             </button>
           </DrawerTrigger>
           <MotionDrawerContent
@@ -236,15 +242,15 @@ export const DrawerButtons = () => {
           >
             <DrawerHeader className="flex-row items-start justify-between gap-4 border-b border-border">
               <div className="min-w-0">
-                <DrawerTitle>Cart summary</DrawerTitle>
+                <DrawerTitle>خلاصهٔ سبد</DrawerTitle>
                 <DrawerDescription>
-                  Review items, quantities, discounts, and total.
+                  کالاها، تعداد، تخفیف و مبلغ کل را ببینید.
                 </DrawerDescription>
               </div>
               <DrawerClose asChild>
                 <button
                   type="button"
-                  aria-label="Close cart drawer"
+                  aria-label="بستن کشوی سبد"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "shrink-0",

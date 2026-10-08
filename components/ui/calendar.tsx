@@ -2,10 +2,15 @@
 
 import * as React from "react"
 import {
-  DayPicker,
+  DayPicker as GregorianDayPicker,
   getDefaultClassNames,
   type DayButton,
+  type DayPickerProps,
 } from "react-day-picker"
+import {
+  DayPicker as PersianDayPicker,
+  faIR as faIRJalali,
+} from "react-day-picker/persian"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -20,15 +25,25 @@ function Calendar({
   buttonVariant = "ghost",
   formatters,
   components,
+  jalali = false,
+  locale,
+  dir,
+  numerals,
   ...props
-}: React.ComponentProps<typeof DayPicker> & {
+}: DayPickerProps & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
+  /** Solar Hijri (Jalali) calendar with Persian labels and digits. */
+  jalali?: boolean
 }) {
   const defaultClassNames = getDefaultClassNames()
+  const DayPicker = jalali ? PersianDayPicker : GregorianDayPicker
 
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      locale={jalali ? faIRJalali : locale}
+      dir={jalali ? "rtl" : dir}
+      numerals={jalali ? "arabext" : numerals}
       className={cn(
         "p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] bg-background group/calendar [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
@@ -38,7 +53,7 @@ function Calendar({
       captionLayout={captionLayout}
       formatters={{
         formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "short" }),
+          date.toLocaleString(jalali ? "fa-IR" : "default", { month: "short" }),
         ...formatters,
       }}
       classNames={{

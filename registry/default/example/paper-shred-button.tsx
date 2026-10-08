@@ -275,14 +275,16 @@ export function PaperShredButton() {
 
   return (
     <section
-      aria-label="Shred document button demo"
-      className="flex flex-col items-center justify-center"
+      aria-label="دموی دکمهٔ خرد کردن کاغذ"
+      className="flex flex-col items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      dir="rtl"
+      lang="fa"
     >
       <div className="relative h-92 w-60">
         <div className="relative isolate h-full w-full">
           <motion.button
             animate={shredState}
-            aria-label="Shred document"
+            aria-label="حذف"
             className={buttonClassName}
             disabled={isShredDisabled(shredState)}
             initial={false}
@@ -310,7 +312,7 @@ export function PaperShredButton() {
                 fillRule="evenodd"
               />
             </motion.svg>
-            Delete
+            حذف
           </motion.button>
 
           <motion.div

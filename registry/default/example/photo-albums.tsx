@@ -2,7 +2,7 @@
 
 import React, { useState, useId } from "react"
 import { motion, LayoutGroup } from "motion/react"
-import { ChevronLeft } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface Photo {
@@ -20,8 +20,8 @@ interface Collection {
 const COLLECTIONS: Collection[] = [
   {
     id: "c1",
-    title: "Travel & Exploration",
-    subtitle: "Private",
+    title: "سفر و کاوش",
+    subtitle: "خصوصی",
     photos: [
       {
         id: "p1-1",
@@ -51,8 +51,8 @@ const COLLECTIONS: Collection[] = [
   },
   {
     id: "c2",
-    title: "Industrial Design",
-    subtitle: "Private",
+    title: "طراحی صنعتی",
+    subtitle: "خصوصی",
     photos: [
       {
         id: "p2-1",
@@ -82,8 +82,8 @@ const COLLECTIONS: Collection[] = [
   },
   {
     id: "c3",
-    title: "Modern Architecture",
-    subtitle: "Private",
+    title: "معماری مدرن",
+    subtitle: "خصوصی",
     photos: [
       {
         id: "p3-1",
@@ -113,8 +113,8 @@ const COLLECTIONS: Collection[] = [
   },
   {
     id: "c4",
-    title: "Abstract Art",
-    subtitle: "Public",
+    title: "هنر انتزاعی",
+    subtitle: "عمومی",
     photos: [
       {
         id: "p4-1",
@@ -153,7 +153,11 @@ export default function PhotoAlbums() {
   const selectedCollection = COLLECTIONS.find((c) => c.id === selectedId)
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col items-center overflow-x-hidden px-8 pt-28 pb-32 font-sans text-foreground">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full min-h-0 w-full flex-col items-center overflow-x-hidden px-8 pt-28 pb-32 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-foreground"
+    >
       <LayoutGroup id={layoutGroupId}>
         <div
           className={cn(
@@ -200,13 +204,13 @@ function ExpandedAlbum({
           onClick={onBack}
           className="flex size-12 cursor-pointer items-center justify-center rounded-full bg-muted text-foreground transition-transform duration-150 ease-out active:scale-[0.96]"
         >
-          <ChevronLeft size={24} strokeWidth={2.5} />
-          <span className="sr-only">Go back</span>
+          <ChevronRight size={24} strokeWidth={2.5} />
+          <span className="sr-only">بازگشت</span>
         </button>
 
         <motion.h2
           layoutId={`title-${collection.id}`}
-          className="text-3xl leading-tight font-medium tracking-tight text-balance text-foreground"
+          className="text-3xl leading-tight font-medium text-balance text-foreground"
           transition={transition}
         >
           {collection.title}
@@ -279,7 +283,7 @@ function CollectionCard({
       </div>
       <motion.h3
         layoutId={`title-${collection.id}`}
-        className="px-2 text-center text-base font-medium tracking-tight text-foreground"
+        className="px-2 text-center text-base font-medium text-foreground"
         transition={transition}
       >
         {collection.title}

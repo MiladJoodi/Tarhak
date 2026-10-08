@@ -33,7 +33,7 @@ export function ShimmeringText({
           : cn(
               "bg-clip-text text-transparent",
               "[background-size:200%_100%]",
-              "[background-image:linear-gradient(90deg,var(--color)_40%,var(--shimmering-color)_50%,var(--color)_60%)]",
+              "[background-image:linear-gradient(-90deg,var(--color)_40%,var(--shimmering-color)_50%,var(--color)_60%)]",
               "[animation:shiny-text_var(--shimmer-duration,2s)_linear_infinite]",
               "motion-reduce:animate-none motion-reduce:bg-none motion-reduce:text-[var(--color)]",
             ),

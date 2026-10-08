@@ -28,6 +28,7 @@ import {
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { OpenNavItem } from "@/lib/open/component";
+import { FaDigits } from "@/lib/fa-digits";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/brand-logo";
 
@@ -75,12 +76,21 @@ function PinnedSidebarHeader({
 }) {
   return (
     <header
+      lang="fa"
+      dir="rtl"
       className={cn(
-        "flex w-full shrink-0 flex-col gap-6 overflow-hidden rounded-bl-[16px] rounded-br-[16px] bg-[hsl(240_5%_4%)] px-3.5 py-[15px]",
+        "flex w-full shrink-0 flex-col gap-5 overflow-hidden rounded-b-[16px] bg-[hsl(240_5%_4%)] px-3.5 py-[15px]",
         "shadow-[0_1px_0_0_hsla(0,0%,100%,0.02),0_6px_16px_-14px_hsla(0,0%,0%,0.06),0_4px_8px_-12px_hsla(0,0%,0%,0.08),0_2px_6px_-10px_hsla(0,0%,0%,0.1)]",
       )}
     >
       <div className="flex w-full items-center justify-between gap-3">
+        <Link
+          href="/browse"
+          className="flex min-w-0 items-center outline-none focus-visible:ring-0"
+          aria-label="طرحک — مرور کامپوننت‌ها"
+        >
+          <BrandLogo invert />
+        </Link>
         <button
           type="button"
           className={cn(
@@ -107,33 +117,16 @@ function PinnedSidebarHeader({
             />
           </span>
         </button>
-        <Link
-          href="/browse"
-          className="flex min-w-0 items-center outline-none focus-visible:ring-0"
-          aria-label="طرحک — مرور کامپوننت‌ها"
-        >
-          <BrandLogo invert />
-        </Link>
       </div>
-      <div
-        lang="fa"
-        dir="rtl"
-        className="flex flex-col items-end justify-center gap-1 text-end"
-      >
-        <div className="flex flex-wrap items-center justify-end gap-1.5">
-          <span className="inline-flex items-center overflow-hidden rounded-[14px] bg-white px-2 py-px">
-            <span className="bg-linear-to-b from-[hsl(240_3%_14%)] to-[hsl(240_3%_20%)] bg-clip-text text-lg leading-[1.3] font-medium tracking-[-0.54px] text-transparent">
-              {componentCount}
-            </span>
-          </span>
-          <span className="text-lg leading-[1.3] font-light tracking-normal text-[hsl(240_7%_70%)]">
-            قطعهٔ آماده
-          </span>
-        </div>
-        <span className="text-lg leading-[1.3] font-light tracking-normal text-[hsl(240_7%_70%)]">
-          با حرکت نرم، برای کپی و ساخت
+      <p className="flex flex-wrap items-center gap-1.5 text-start text-lg leading-[1.3] font-light tracking-normal text-[hsl(240_7%_70%)]">
+        <span className="inline-flex items-center overflow-hidden rounded-[14px] bg-white px-2 py-px">
+          <FaDigits
+            value={componentCount}
+            className="font-medium text-[hsl(240_3%_16%)]"
+          />
         </span>
-      </div>
+        <span>قطعهٔ آماده برای کپی</span>
+      </p>
     </header>
   );
 }
@@ -316,7 +309,31 @@ function OpenExperienceShell({
   const [peek, setPeek] = React.useState(false);
   const [hoverPreview, setHoverPreview] = React.useState<SidebarHoverTarget | null>(null);
   const peekPanelRef = React.useRef<HTMLDivElement>(null);
+  /** After unpin, ignore toggle hover briefly so the menu does not flash open under the cursor. */
+  const suppressPeekRef = React.useRef(false);
+  const suppressPeekTimerRef = React.useRef<number | null>(null);
   const reduce = useReducedMotion();
+
+  const armPeekSuppress = React.useCallback(() => {
+    suppressPeekRef.current = true;
+    setPeek(false);
+    setHoverPreview(null);
+    if (suppressPeekTimerRef.current != null) {
+      window.clearTimeout(suppressPeekTimerRef.current);
+    }
+    suppressPeekTimerRef.current = window.setTimeout(() => {
+      suppressPeekRef.current = false;
+      suppressPeekTimerRef.current = null;
+    }, 420);
+  }, []);
+
+  React.useEffect(() => {
+    return () => {
+      if (suppressPeekTimerRef.current != null) {
+        window.clearTimeout(suppressPeekTimerRef.current);
+      }
+    };
+  }, []);
 
   const slug = pathname.split("/").pop() ?? "";
   const current =
@@ -376,6 +393,18 @@ function OpenExperienceShell({
         exit: { opacity: 0, transform: "translateX(8px) scale(0.98)" },
       };
 
+  const pinnedSidebarMotion = reduce
+    ? {
+        initial: { width: 0, opacity: 0 },
+        animate: { width: SIDEBAR_WIDTH, opacity: 1 },
+        exit: { width: 0, opacity: 0 },
+      }
+    : {
+        initial: { width: 0, opacity: 0.6 },
+        animate: { width: SIDEBAR_WIDTH, opacity: 1 },
+        exit: { width: 0, opacity: 0.6 },
+      };
+
   const showDesktopPinned = pinned && !isMobile && !stage;
   const showToggle = !stage && !showDesktopPinned;
 
@@ -389,13 +418,18 @@ function OpenExperienceShell({
               peek && "z-40",
             )}
             onMouseEnter={() => {
-              if (!isMobile) setPeek(true);
+              if (isMobile || suppressPeekRef.current) return;
+              setPeek(true);
             }}
             onMouseLeave={() => {
-              if (!isMobile) {
-                setPeek(false);
-                setHoverPreview(null);
+              if (isMobile) return;
+              suppressPeekRef.current = false;
+              if (suppressPeekTimerRef.current != null) {
+                window.clearTimeout(suppressPeekTimerRef.current);
+                suppressPeekTimerRef.current = null;
               }
+              setPeek(false);
+              setHoverPreview(null);
             }}
           >
             <button
@@ -477,10 +511,14 @@ function OpenExperienceShell({
 
         {/* Above preview layers that escape stacking (e.g. magnified-bento lens z-40). Drawer portal is z-[110] so it covers this chrome. */}
         {stage ? null : (
-          <header className="pointer-events-none absolute inset-x-[18px] top-[18px] z-[100] flex items-start justify-between gap-4 *:pointer-events-auto">
-            <OpenActions panel={panel} onChange={setPanel} slug={current.slug} />
-            {showToggle ? <OpenSwitcher current={current} items={navItems} /> : <div />}
-            <div className={cn(showToggle && "w-10")} />
+          <header className="pointer-events-none absolute inset-x-[18px] top-[18px] z-[100] grid grid-cols-[1fr_auto_1fr] items-start gap-4 *:pointer-events-auto">
+            <div className="justify-self-start">
+              <OpenActions panel={panel} onChange={setPanel} slug={current.slug} />
+            </div>
+            <div className="justify-self-center">
+              {showToggle ? <OpenSwitcher current={current} items={navItems} /> : null}
+            </div>
+            <div className={cn("justify-self-end", showToggle && "w-10")} />
           </header>
         )}
 
@@ -503,26 +541,37 @@ function OpenExperienceShell({
         </SheetContent>
       </Sheet>
 
-      {showDesktopPinned ? (
-        <aside
-          className="sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-[hsl(240_6%_7%)] text-foreground"
-          style={{ width: SIDEBAR_WIDTH }}
-          data-sidebar="pinned"
-        >
-          <PinnedSidebarHeader
-            componentCount={navItems.length}
-            onClose={() => {
-              updatePinned(false);
-              setHoverPreview(null);
-            }}
-          />
-          <SidebarList
-            items={navItems}
-            activeHref={current.href}
-            surface="background"
-          />
-        </aside>
-      ) : null}
+      <AnimatePresence initial={false}>
+        {showDesktopPinned ? (
+          <motion.aside
+            key="pinned-sidebar"
+            className="sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-[hsl(240_6%_7%)] text-foreground"
+            data-sidebar="pinned"
+            initial={pinnedSidebarMotion.initial}
+            animate={pinnedSidebarMotion.animate}
+            exit={pinnedSidebarMotion.exit}
+            transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <div
+              className="flex h-full w-full flex-col items-center"
+              style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH }}
+            >
+              <PinnedSidebarHeader
+                componentCount={navItems.length}
+                onClose={() => {
+                  armPeekSuppress();
+                  updatePinned(false);
+                }}
+              />
+              <SidebarList
+                items={navItems}
+                activeHref={current.href}
+                surface="background"
+              />
+            </div>
+          </motion.aside>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

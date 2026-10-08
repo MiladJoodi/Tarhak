@@ -13,7 +13,6 @@ import {
   Tick02Icon,
   FilterHorizontalIcon,
 } from "@hugeicons/core-free-icons";
-import { HugeiconsFreeIcons } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 export type FilterKey = (typeof filterKeys)[number];
@@ -22,36 +21,42 @@ export type FilterKey = (typeof filterKeys)[number];
 export const filterKeys = [
   {
     name: "tasks",
+    label: "وظایف",
     Icon: ({ size }: { size: number }) => (
       <HugeiconsIcon icon={TaskDaily01Icon} size={size} />
     ),
   },
   {
     name: "events",
+    label: "رویدادها",
     Icon: ({ size }: { size: number }) => (
       <HugeiconsIcon icon={GoogleMapsIcon} size={size} />
     ),
   },
   {
     name: "reminders",
+    label: "یادآورها",
     Icon: ({ size }: { size: number }) => (
       <HugeiconsIcon icon={ReminderIcon} size={size} />
     ),
   },
   {
     name: "appointments",
+    label: "قرارها",
     Icon: ({ size }: { size: number }) => (
       <HugeiconsIcon icon={Appointment01Icon} size={size} />
     ),
   },
   {
     name: "meetings",
+    label: "جلسات",
     Icon: ({ size }: { size: number }) => (
       <HugeiconsIcon icon={ZoomIcon} size={size} />
     ),
   },
   {
     name: "celebrations",
+    label: "جشن‌ها",
     Icon: ({ size }: { size: number }) => (
       <HugeiconsIcon icon={BalloonsIcon} size={size} />
     ),
@@ -92,24 +97,24 @@ function ListItem(props: {
           setIsOpened(false);
         }, 150);
       }}
-      className="px-3 py-2 rounded-2xl flex justify-between items-center cursor-default hover:bg-accent  text-foreground"
+      className="flex cursor-default items-center justify-between rounded-2xl px-3 py-2 text-foreground hover:bg-accent"
     >
       <div className="flex items-center gap-x-3">
         <span className="text-muted-foreground">
           <filterKey.Icon size={24} />
         </span>
-        <span className="capitalize">{filterKey.name}</span>
+        <span>{filterKey.label}</span>
       </div>
       <div
         className={clsx(
-          "relative border-border w-6 h-6 overflow-hidden rounded-full",
+          "relative h-6 w-6 overflow-hidden rounded-full border-border",
           selectedFilterKey.name == filterKey.name
             ? "border-none"
             : "border-[2px]"
         )}
       >
         {selectedFilterKey.name == filterKey.name && (
-          <div className="absolute inset-0 bg-primary flex justify-center items-center text-primary-foreground">
+          <div className="absolute inset-0 flex items-center justify-center bg-primary text-primary-foreground">
             <HugeiconsIcon icon={Tick02Icon} size={16} />
           </div>
         )}
@@ -123,33 +128,47 @@ const FilterInteraction = () => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
-    <section className="flex justify-center items-center fill-muted-foreground/70">
+    <section
+      dir="rtl"
+      lang="fa"
+      aria-label="فیلتر فهرست"
+      className="flex items-center justify-center fill-muted-foreground/70 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <MotionConfig
         transition={{ type: "spring", duration: 0.85, bounce: 0.35 }}
       >
         <div
+          role="button"
+          tabIndex={0}
+          aria-label="باز کردن فیلترها"
+          aria-expanded={isOpened}
           onClick={() => setIsOpened(true)}
-          className="relative left-2.5 w-20 h-20 flex justify-center items-center"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setIsOpened(true);
+            }
+          }}
+          className="relative start-2.5 flex h-20 w-20 items-center justify-center"
         >
           <HugeiconsIcon
             icon={FilterHorizontalIcon}
-            className="text-foreground relative z-10 fill-none"
+            className="relative z-10 fill-none text-foreground"
             size={36}
           />
           <motion.div
             layoutId="wrapper"
-            className="absolute inset-0 z-[2] bg-background border-border"
+            className="absolute inset-0 z-[2] border-border bg-background"
             style={{ borderRadius: 40, borderWidth: 1 }}
           />
         </div>
         <motion.div
           initial={{ x: 0 }}
           animate={{
-            x: isOpened ? -20 : 0,
-            // transition: { delay: isOpened ? 0 : 0.2 },
+            x: isOpened ? 20 : 0,
           }}
           transition={{ type: "spring", bounce: 0.3, duration: 1.5 }}
-          className="relative right-2.5 w-20 h-20 border border-border rounded-full flex justify-center items-center bg-background"
+          className="relative end-2.5 flex h-20 w-20 items-center justify-center rounded-full border border-border bg-background"
         >
           <span className="text-muted-foreground">
             <selectedFilterKey.Icon size={36} />
@@ -159,7 +178,7 @@ const FilterInteraction = () => {
         {isOpened && (
           <motion.section
             layoutId="wrapper"
-            className="absolute z-20 w-72 px-1 py-1 bg-card border border-border text-xl overflow-hidden "
+            className="absolute z-20 w-72 overflow-hidden border border-border bg-card px-1 py-1 text-xl"
             style={{ borderRadius: 20, borderWidth: 1 }}
           >
             <div className="flex flex-col gap-1">

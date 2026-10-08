@@ -24,69 +24,85 @@ import { cn } from "@/lib/utils";
 // change here
 const TAG_ROWS = [
   [
-    { id: "discovery", icon: Search01Icon, label: "Discovery" },
-    { id: "client-review", icon: UserGroupIcon, label: "Client Review" },
-    { id: "system-design", icon: HierarchyIcon, label: "System Design" },
-    { id: "devops-integration", icon: UserIcon, label: "DevOps Integration" },
-    { id: "post-launch", icon: RotateLeftIcon, label: "Post-Launch Support" },
+    { id: "discovery", icon: Search01Icon, label: "کشف نیاز" },
+    { id: "client-review", icon: UserGroupIcon, label: "بازبینی مشتری" },
+    { id: "system-design", icon: HierarchyIcon, label: "طراحی سیستم" },
+    { id: "devops-integration", icon: UserIcon, label: "یکپارچه‌سازی DevOps" },
+    { id: "post-launch", icon: RotateLeftIcon, label: "پشتیبانی پس از انتشار" },
   ],
   [
-    { id: "qa-optimization", icon: Settings02Icon, label: "QA & Optimization" },
-    { id: "launch-deploy", icon: CpuIcon, label: "Launch & Deploy" },
-    { id: "full-stack", icon: CodeIcon, label: "Full-Stack Development" },
-    { id: "analytics", icon: Chart01Icon, label: "Analytics" },
-    { id: "mvp-engineering", icon: FlashIcon, label: "MVP Engineering" },
+    { id: "qa-optimization", icon: Settings02Icon, label: "تست و بهینه‌سازی" },
+    { id: "launch-deploy", icon: CpuIcon, label: "انتشار و استقرار" },
+    { id: "full-stack", icon: CodeIcon, label: "توسعه فول‌استک" },
+    { id: "analytics", icon: Chart01Icon, label: "تحلیل داده" },
+    { id: "mvp-engineering", icon: FlashIcon, label: "مهندسی MVP" },
   ],
   [
-    { id: "api-backend", icon: Link01Icon, label: "API & Backend" },
-    { id: "mobile-dev", icon: SmartPhone01Icon, label: "Mobile Development" },
+    { id: "api-backend", icon: Link01Icon, label: "API و بک‌اند" },
+    { id: "mobile-dev", icon: SmartPhone01Icon, label: "توسعه موبایل" },
     {
       id: "cloud-infrastructure",
       icon: CloudIcon,
-      label: "Cloud Infrastructure",
+      label: "زیرساخت ابری",
     },
-    { id: "database-design", icon: DatabaseIcon, label: "Database Design" },
-    { id: "security", icon: LockIcon, label: "Security" },
+    { id: "database-design", icon: DatabaseIcon, label: "طراحی پایگاه داده" },
+    { id: "security", icon: LockIcon, label: "امنیت" },
   ],
 ];
 
 // change here
 const CONFIG = {
-  title: "Intelligent Workflows",
+  title: "گردش‌کارهای هوشمند",
   description:
-    "Automatically categorize and search through your team's diverse skillsets and project phases with contextual awareness.",
+    "مهارت‌ها و مراحل پروژهٔ تیم را با آگاهی از زمینه به‌صورت خودکار دسته‌بندی و جستجو کنید.",
   containerHeight: "h-[200px] sm:h-[240px]",
   lensSize: 92,
+  /** Glass aperture is inset 6px with 60px diameter inside the 92px SVG → center is 10px off SVG midpoint. */
+  glassOffset: 10,
+  glassRadius: 30,
+  magnify: 1.28,
 };
+
+const tagChipBase =
+  "flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-border/50 bg-background/50 p-2 px-3 text-xs text-muted-foreground backdrop-blur-sm";
+const tagChipReveal =
+  "flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-primary/20 bg-background p-2 px-3 text-xs text-foreground shadow-sm";
 
 const MagnifiedBento = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const lensX = useMotionValue(0);
   const lensY = useMotionValue(0);
 
-  const clipPath = useMotionTemplate`circle(30px at calc(50% + ${lensX}px - 10px) calc(50% + ${lensY}px - 10px))`;
-  const inverseMask = useMotionTemplate`radial-gradient(circle 30px at calc(50% + ${lensX}px - 10px) calc(50% + ${lensY}px - 10px), transparent 100%, black 100%)`;
+  const { glassOffset: o, glassRadius: r, magnify } = CONFIG;
+  // Lens SVG is centered; optical glass center sits `o`px up/left of that midpoint.
+  const clipPath = useMotionTemplate`circle(${r}px at calc(50% + ${lensX}px - ${o}px) calc(50% + ${lensY}px - ${o}px))`;
+  const inverseMask = useMotionTemplate`radial-gradient(circle ${r}px at calc(50% + ${lensX}px - ${o}px) calc(50% + ${lensY}px - ${o}px), transparent 100%, black 100%)`;
+  const magnifyOrigin = useMotionTemplate`calc(50% + ${lensX}px - ${o}px) calc(50% + ${lensY}px - ${o}px)`;
 
   return (
-    <div className="flex items-center justify-center p-4 sm:p-6 w-full not-prose">
-      <div className="group relative w-full max-w-[420px] overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] border bg-card p-1.5 sm:p-2 shadow-2xl shadow-primary/5 transition-all duration-500 hover:shadow-primary/10 hover:-translate-y-1">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="not-prose flex w-full items-center justify-center p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal sm:p-6"
+    >
+      <div className="group relative w-full max-w-[420px] overflow-hidden rounded-[2rem] border bg-card p-1.5 shadow-2xl shadow-primary/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-primary/10 sm:rounded-[2.5rem] sm:p-2">
         <div
           ref={containerRef}
           className={cn(
-            "relative w-full overflow-hidden rounded-[1.6rem] sm:rounded-[2rem] bg-muted/30",
+            "relative w-full overflow-hidden rounded-[1.6rem] bg-muted/30 sm:rounded-[2rem]",
             CONFIG.containerHeight
           )}
         >
-          <div className="relative h-full w-full flex flex-col items-center justify-center">
+          <div className="relative flex h-full w-full flex-col items-center justify-center">
             {/* base layer */}
             <motion.div
               style={{ WebkitMaskImage: inverseMask, maskImage: inverseMask }}
-              className="flex flex-col gap-4 w-full h-full justify-center"
+              className="flex h-full w-full flex-col justify-center gap-4"
             >
               {TAG_ROWS.map((row, rowIndex) => (
                 <motion.div
                   key={`row-${rowIndex}`}
-                  className="flex gap-4 w-max"
+                  className="flex w-max gap-4"
                   animate={{
                     x:
                       rowIndex % 2 === 0
@@ -100,10 +116,7 @@ const MagnifiedBento = () => {
                   }}
                 >
                   {[...row, ...row, ...row].map((item, idx) => (
-                    <div
-                      key={`${item.id}-${idx}`}
-                      className="flex gap-2 bg-background/50 backdrop-blur-sm whitespace-nowrap w-fit text-muted-foreground p-2 px-3 items-center border border-border/50 rounded-full text-xs"
-                    >
+                    <div key={`${item.id}-${idx}`} className={tagChipBase}>
                       <HugeiconsIcon icon={item.icon} size={14} />
                       <span>{item.label}</span>
                     </div>
@@ -112,51 +125,57 @@ const MagnifiedBento = () => {
               ))}
             </motion.div>
 
-            {/* reveal layer */}
+            {/* reveal: same layout as base; scale from glass center so content under the lens stays aligned */}
             <motion.div
-              className="absolute inset-0 flex flex-col gap-4 justify-center pointer-events-none select-none z-10"
-              style={{
-                clipPath,
-              }}
+              className="pointer-events-none absolute inset-0 z-10 select-none overflow-hidden"
+              style={{ clipPath }}
             >
-              {TAG_ROWS.map((row, rowIndex) => (
-                <motion.div
-                  key={`row-reveal-${rowIndex}`}
-                  className="flex gap-4 w-max"
-                  animate={{
-                    x:
-                      rowIndex % 2 === 0
-                        ? ["0%", "-33.333%"]
-                        : ["-33.333%", "0%"],
-                  }}
-                  transition={{
-                    duration: 25,
-                    ease: "linear",
-                    repeat: Infinity,
-                  }}
-                >
-                  {[...row, ...row, ...row].map((item, idx) => (
-                    <div
-                      key={`${item.id}-${idx}-reveal`}
-                      className="flex gap-2 bg-background whitespace-nowrap w-fit text-foreground p-2 px-3 items-center border border-primary/20 shadow-sm rounded-full text-xs scale-125 ml-6"
-                    >
-                      <HugeiconsIcon
-                        icon={item.icon}
-                        size={14}
-                        className="text-primary"
-                      />
-                      <span className="font-medium text-primary">
-                        {item.label}
-                      </span>
-                    </div>
-                  ))}
-                </motion.div>
-              ))}
+              <motion.div
+                className="flex h-full w-full flex-col justify-center gap-4"
+                style={{
+                  scale: magnify,
+                  transformOrigin: magnifyOrigin,
+                }}
+              >
+                {TAG_ROWS.map((row, rowIndex) => (
+                  <motion.div
+                    key={`row-reveal-${rowIndex}`}
+                    className="flex w-max gap-4"
+                    animate={{
+                      x:
+                        rowIndex % 2 === 0
+                          ? ["0%", "-33.333%"]
+                          : ["-33.333%", "0%"],
+                    }}
+                    transition={{
+                      duration: 25,
+                      ease: "linear",
+                      repeat: Infinity,
+                    }}
+                  >
+                    {[...row, ...row, ...row].map((item, idx) => (
+                      <div
+                        key={`${item.id}-${idx}-reveal`}
+                        className={tagChipReveal}
+                      >
+                        <HugeiconsIcon
+                          icon={item.icon}
+                          size={14}
+                          className="text-primary"
+                        />
+                        <span className="font-medium text-primary">
+                          {item.label}
+                        </span>
+                      </div>
+                    ))}
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
 
-            {/* lens */}
+            {/* lens — physical left/top: SVG glass aperture is LTR-authored */}
             <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 cursor-grab active:cursor-grabbing drop-shadow-xl"
+              className="absolute top-1/2 left-1/2 z-40 -translate-x-1/2 -translate-y-1/2 cursor-grab drop-shadow-xl active:cursor-grabbing"
               drag
               dragMomentum={false}
               dragConstraints={containerRef}
@@ -164,17 +183,17 @@ const MagnifiedBento = () => {
             >
               <div className="relative">
                 <MagnifyingLens size={CONFIG.lensSize} />
-                <div className="absolute top-[6px] left-[6px] w-[60px] h-[60px] rounded-full bg-white/10 pointer-events-none" />
+                <div className="pointer-events-none absolute top-[6px] left-[6px] h-[60px] w-[60px] rounded-full bg-white/10" />
               </div>
             </motion.div>
           </div>
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background to-transparent z-20"></div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background to-transparent z-20"></div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-1/4 bg-linear-to-r from-background to-transparent"></div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/4 bg-linear-to-l from-background to-transparent"></div>
         </div>
 
-        <div className="p-4 sm:p-6 px-4 pb-6 sm:pb-8">
-          <h3 className="text-xl font-medium tracking-tight text-foreground">
+        <div className="p-4 px-4 pb-6 sm:p-6 sm:pb-8">
+          <h3 className="text-xl font-medium tracking-normal text-foreground">
             {CONFIG.title}
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

@@ -1,20 +1,20 @@
 ---
 title: Infinite Canvas
-description: A free-panning product canvas that tiles forever — drag, scroll, and skim an endless grid of images and captions.
+description: بوم محصول با حرکت آزاد که تا ابد کاشی می‌شود — بکشید، اسکرول کنید و شبکه‌ای بی‌پایان از تصویر و عنوان را ورق بزنید.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Endless tiled canvas**: A 3×3 wrap so the grid never runs out of space.
-- **Drag to pan**: Pointer drag with inertia and a little coast after you let go.
-- **Wheel and trackpad**: Two-axis scrolling with the same soft follow.
-- **Velocity skew**: Cells lean slightly with pan speed so the move feels physical.
-- **Image + caption**: Product shots with a title and price — no card chrome.
-- **Ambient blobs**: Optional soft color moving behind the grid.
+- **بوم کاشی‌شدهٔ بی‌پایان**: یک پوشش ۳×۳ تا شبکه تمام نشود.
+- **کشیدن برای حرکت**: درگ اشاره‌گر با اینرسی و کمی ادامه بعد از رها کردن.
+- **چرخ و ترک‌پد**: اسکرول دوحوره با همان دنبال‌کردن نرم.
+- **کجی سرعت**: سلول‌ها کمی با سرعت حرکت کج می‌شوند تا حس فیزیکی بدهد.
+- **تصویر + عنوان**: عکس محصول با عنوان و قیمت — بدون قاب کارت.
+- **لکه‌های محیطی**: رنگ نرم اختیاری پشت شبکه.
 
-## Usage
+## نحوه استفاده
 
-This wants a full viewport. Pass a list of products with photos, titles, and prices. Drag and trackpad both pan, so it works as a shop floor, not a CSS grid. Skip it in a short section — people need room to wander.
+به ویوپورت کامل نیاز دارد. لیستی از محصولات با عکس، عنوان و قیمت بدهید. درگ و ترک‌پد هر دو حرکت می‌دهند؛ مثل کف فروشگاه است نه گرید CSS. در بخش کوتاه نگذارید — جا برای گشتن لازم است.
 
 ```tsx
 import InfiniteGrid from "@/components/infinite-grid";
@@ -24,10 +24,10 @@ export default function Example() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Product catalog heroes
-- Furniture or object lookbooks
-- Fashion e-commerce browse
-- Archive or museum collection walls
-- Brand “everything we make” canvases
+- هیرو کاتالوگ محصول
+- لوک‌بوک مبلمان یا اشیا
+- مرور فروشگاه مد
+- دیوار آرشیو یا موزه
+- بوم «همه‌چیز ما می‌سازیم»

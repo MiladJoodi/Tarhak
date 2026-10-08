@@ -1,19 +1,19 @@
 ---
 title: Pricing Card
-description: A narrow plan picker with monthly/yearly toggle, rolling prices, and a popular badge.
+description: انتخابگر باریک پلن با سوییچ ماهانه/سالانه، قیمت‌های غلتان و برچسب تخفیف.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Period toggle**: Monthly and yearly share a sliding highlight.
-- **Rolling numbers**: Prices tick with NumberFlow instead of snapping.
-- **Plan select**: Plus / Pro / etc. get a border and check when chosen.
-- **Feature lists**: Short bullets under each plan — space, recovery, the usual.
-- **Popular tag**: One plan can wear the badge without extra layout.
+- **سوییچ دوره**: ماهانه و سالانه یک هایلایت کشویی مشترک دارند.
+- **اعداد غلتان**: قیمت‌ها با NumberFlow تیک می‌خورند، نه پرش ناگهانی.
+- **انتخاب پلن**: پلاس / استاندارد و بقیه با حاشیه و تیک انتخاب می‌شوند.
+- **لیست قابلیت**: بولت‌های کوتاه زیر هر پلن — فضا، بازیابی، رمزنگاری.
+- **برچسب تخفیف**: یک دوره می‌تواند بج بپوشد بدون چیدمان اضافه.
 
-## Usage
+## نحوه استفاده
 
-Edit the `plans` array for names, prices, and bullets. Keep the column around 320–384px — it’s a card, not a full pricing table. Wire the CTA to checkout. Yearly should be the cheaper unit price if you want the toggle to feel honest.
+آرایهٔ `plans` را برای نام، قیمت و بولت‌ها ویرایش کنید. ستون را حدود ۳۲۰–۳۸۴px نگه دارید — کارت است، نه جدول کامل قیمت. CTA را به تسویه وصل کنید. سالانه باید واحد ارزان‌تر باشد تا سوییچ صادق به نظر برسد.
 
 ```tsx
 import PricingCard from "@/components/pricing-card";
@@ -27,10 +27,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- SaaS pricing pages
-- Waitlist or upgrade modals
-- Billing settings
-- Product marketing mid-page
-- Comparison sections next to a FAQ
+- صفحات قیمت SaaS
+- مودال لیست انتظار یا ارتقا
+- تنظیمات صورتحساب
+- میانهٔ صفحهٔ مارکتینگ محصول
+- بخش مقایسه کنار FAQ

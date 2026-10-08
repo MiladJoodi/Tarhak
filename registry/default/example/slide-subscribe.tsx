@@ -5,9 +5,9 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
-  ArrowRight01Icon,
+  ArrowLeft01Icon,
   Tick02Icon,
-  ArrowRight02Icon,
+  ArrowLeft02Icon,
 } from "@hugeicons/core-free-icons"
 import {
   SlideToUnlock,
@@ -28,22 +28,22 @@ interface PricingOption {
 const pricingOptions: PricingOption[] = [
   {
     id: "pro-yearly",
-    title: "Annual",
-    price: "$9.99/mo",
-    trial: "14-day free trial",
-    yearlyPrice: "$89.98/yr",
+    title: "سالانه",
+    price: "۹۹٬۰۰۰ تومان/ماه",
+    trial: "۱۴ روز آزمایش رایگان",
+    yearlyPrice: "۸۹۸٬۰۰۰ تومان/سال",
   },
   {
     id: "pro-monthly",
-    title: "Monthly",
-    price: "$14.99/mo",
-    trial: "7-day free trial",
+    title: "ماهانه",
+    price: "۱۴۹٬۰۰۰ تومان/ماه",
+    trial: "۷ روز آزمایش رایگان",
   },
   {
     id: "enterprise",
-    title: "Enterprise",
-    price: "Custom",
-    trial: "Contact for pricing",
+    title: "سازمانی",
+    price: "توافقی",
+    trial: "برای قیمت تماس بگیرید",
   },
 ]
 
@@ -55,7 +55,11 @@ export default function SlideSubscribe() {
   const reduce = useReducedMotion() ?? false
 
   return (
-    <div className="w-full max-w-[380px] space-y-4">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="w-full max-w-[380px] space-y-4 font-sans tracking-normal"
+    >
       <div className="relative flex h-[302px] flex-col overflow-hidden rounded-2xl bg-muted/60 p-3 shadow-inner">
         <AnimatePresence mode="wait" initial={false}>
           {!isUnlocked ? (
@@ -86,7 +90,7 @@ export default function SlideSubscribe() {
 
               <div className="pt-6 pb-2">
                 <p className="text-center text-xs font-medium text-muted-foreground">
-                  Risk-free trial. Cancel anytime with one click.
+                  بدون ریسک. هر وقت خواستید با یک کلیک لغو کنید.
                 </p>
               </div>
             </motion.div>
@@ -116,9 +120,9 @@ export default function SlideSubscribe() {
                   initial={reduce ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2, delay: reduce ? 0 : 0.08, ease: easeOut }}
-                  className="text-xl font-medium tracking-tight text-balance text-foreground"
+                  className="text-xl font-medium text-balance text-foreground"
                 >
-                  Subscription Active
+                  اشتراک شما فعال شد
                 </motion.h3>
                 <motion.p
                   initial={reduce ? false : { opacity: 0, y: 8 }}
@@ -126,7 +130,7 @@ export default function SlideSubscribe() {
                   transition={{ duration: 0.2, delay: reduce ? 0 : 0.16, ease: easeOut }}
                   className="text-sm text-pretty text-muted-foreground"
                 >
-                  Your Pro trial has started. Check your email for next steps.
+                  دوره آزمایشی اشتراک شما شروع شد. برای ادامه، ایمیلتان را بررسی کنید.
                 </motion.p>
               </div>
             </motion.div>
@@ -151,28 +155,29 @@ export default function SlideSubscribe() {
               }
             >
               <SlideToUnlock
+                dir="rtl"
                 handleWidth={56}
                 onUnlock={() => setIsUnlocked(true)}
                 className="w-full overflow-hidden rounded-2xl bg-primary p-1 shadow-lg ring-0"
               >
                 <SlideToUnlockTrack className="relative h-12">
                   <SlideToUnlockHandle
-                    aria-label="Slide to start trial"
+                    aria-label="برای شروع آزمایش بکشید"
                     className="z-20 h-12 w-14 rounded-xl bg-primary-foreground text-primary shadow-md"
                   >
                     <HugeiconsIcon
-                      icon={ArrowRight01Icon}
+                      icon={ArrowLeft01Icon}
                       className="size-6"
                     />
                   </SlideToUnlockHandle>
 
-                  <SlideToUnlockText className="z-10 flex items-center justify-center pr-4 text-base text-primary-foreground">
+                  <SlideToUnlockText className="z-10 flex items-center justify-center pe-4 text-base text-primary-foreground">
                     {({ isDragging }) => (
                       <ShimmeringText
                         text={
                           isDragging
-                            ? "Release to confirm"
-                            : "Slide to start trial"
+                            ? "رها کنید تا تأیید شود"
+                            : "برای شروع آزمایش بکشید"
                         }
                         isStopped={isDragging}
                         className="font-medium [--color:color-mix(in_oklab,var(--primary-foreground)_42%,transparent)] [--shimmering-color:var(--primary-foreground)]"
@@ -196,10 +201,10 @@ export default function SlideSubscribe() {
                 "bg-primary text-primary-foreground",
               )}
             >
-              <span>Back to Dashboard</span>
+              <span>بازگشت به داشبورد</span>
               <HugeiconsIcon
-                icon={ArrowRight02Icon}
-                className="size-5 transition-transform duration-150 ease-out group-hover:translate-x-0.5"
+                icon={ArrowLeft02Icon}
+                className="size-5 transition-transform duration-150 ease-out group-hover:-translate-x-0.5"
               />
             </motion.button>
           )}
@@ -220,15 +225,15 @@ function PricingCard({
 }) {
   return (
     <button
+      type="button"
       onClick={onSelect}
       className={cn(
-        "group relative flex w-full cursor-pointer items-center gap-3 rounded-xl bg-card p-4 text-left transition-all duration-300",
+        "group relative flex w-full cursor-pointer items-center gap-3 rounded-xl bg-card p-4 text-start transition-all duration-300",
         isSelected
           ? "shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]"
           : "hover:bg-card/60"
       )}
     >
-      {/* Moving Stroke / Highlight */}
       <AnimatePresence>
         {isSelected && (
           <motion.div
@@ -244,7 +249,6 @@ function PricingCard({
         )}
       </AnimatePresence>
 
-      {/* Checkmark Circle */}
       <div
         className={cn(
           "relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-500 ease-out",
@@ -279,24 +283,23 @@ function PricingCard({
         </AnimatePresence>
       </div>
 
-      <div className="relative z-10 flex-1">
-        <div className="mb-0 flex items-baseline justify-between">
+      <div className="relative z-10 min-w-0 flex-1">
+        <div className="mb-0 flex items-baseline justify-between gap-2">
           <h3
             className={cn(
-              "text-lg font-medium tracking-tight transition-colors duration-300",
-              "font-serif",
+              "text-lg font-medium transition-colors duration-300",
               isSelected ? "text-foreground" : "text-foreground/90"
             )}
           >
             {option.title}
           </h3>
-          <div className="text-right">
-            <span className="text-base font-medium tracking-tight text-foreground">
+          <div className="text-end">
+            <span className="text-base font-medium text-foreground">
               {option.price}
             </span>
           </div>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <p className="text-xs font-normal text-muted-foreground">
             {option.trial}
           </p>

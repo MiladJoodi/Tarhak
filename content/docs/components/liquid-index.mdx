@@ -1,18 +1,18 @@
 ---
 title: Liquid Index
-description: A feature list whose hover badge is a WebGL liquid gradient that follows the active row.
+description: فهرست قابلیتی که نشان شناورش یک گرادیان مایع WebGL است و ردیف فعال را دنبال می‌کند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Row-tracking badge**: The shader tile slides to the hovered title.
-- **Liquid fill**: A small WebGL canvas mixes brand colors in motion.
-- **Icon swap**: A solid mark sits in the tile and crossfades with the row.
-- **Copy on hover**: Description appears for the active item; tap on phones.
+- **نشان دنبال‌کنندهٔ ردیف**: کاشی شیدر به عنوان هاور‌شده می‌لغزد.
+- **پرشدن مایع**: یک canvas کوچک WebGL رنگ‌های برند را در حرکت مخلوط می‌کند.
+- **تعویض آیکون**: یک علامت توپر در کاشی می‌نشیند و با ردیف کراس‌فید می‌شود.
+- **متن با هاور**: توضیح برای آیتم فعال ظاهر می‌شود؛ در موبایل با ضربه.
 
-## Usage
+## نحوه استفاده
 
-Edit `ITEMS` for titles, copy, Unsplash stills, icons, seeds, and RGB colors. Needs WebGL2. Type uses `foreground` / `muted-foreground`, so it follows the theme.
+`ITEMS` را برای عنوان، متن، تصاویر Unsplash، آیکون، seed و رنگ RGB ویرایش کنید. به WebGL2 نیاز دارد. تایپوگرافی از `foreground` / `muted-foreground` می‌آید و با تم هماهنگ است.
 
 ```tsx
 import LiquidIndex from "@/components/liquid-index";
@@ -22,10 +22,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Product feature pages
-- Platform capability indexes
-- Pricing “what’s included” lists
-- About / studio service lists
-- Marketing homepages
+- صفحات قابلیت محصول
+- فهرست توانمندی‌های پلتفرم
+- لیست «چه چیزی شامل می‌شود» در قیمت‌گذاری
+- فهرست خدمات استودیو / درباره ما
+- صفحهٔ اصلی بازاریابی

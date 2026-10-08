@@ -1,18 +1,18 @@
 ---
 title: Slide Subscribe
-description: Choose a billing period, then slide to start the trial.
+description: دورهٔ صورتحساب را انتخاب کنید، بعد برای شروع آزمایش بکشید.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Plan select**: Annual, monthly, and enterprise share a moving border.
-- **Slide to confirm**: The handle has to travel the full track — not a tap.
-- **Shimmer copy**: Track text shifts when you’re dragging.
-- **Done state**: A check and dashboard button after unlock.
+- **انتخاب پلن**: سالانه، ماهانه و سازمانی با حاشیهٔ متحرک مشترک.
+- **کشیدن برای تأیید**: دسته باید تمام مسیر را برود — نه فقط یک ضربه.
+- **متن درخشان**: متن مسیر هنگام کشیدن عوض می‌شود.
+- **پایان کار**: بعد از باز شدن، تیک و دکمهٔ داشبورد.
 
-## Usage
+## نحوه استفاده
 
-Wire `onUnlock` to your checkout or trial API. Edit `pricingOptions` for amounts and trial length. Keep the column near 380px.
+`onUnlock` را به API پرداخت یا شروع آزمایش وصل کنید. مقادیر و طول آزمایش را در `pricingOptions` عوض کنید. عرض ستون را نزدیک ۳۸۰px نگه دارید.
 
 ```tsx
 import SlideSubscribe from "@/components/slide-subscribe";
@@ -22,10 +22,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Paywalls and upgrade screens
-- Trial start in onboarding
-- Mobile-ish checkout
-- Plan change confirmations
-- Pro feature gates
+- دیوار پرداخت و ارتقا
+- شروع آزمایش در آنبوردینگ
+- تسویهٔ شبه‌موبایل
+- تأیید تغییر پلن
+- قفل قابلیت‌های پرو

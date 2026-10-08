@@ -1,18 +1,18 @@
 ---
 title: Create Menu
-description: A Start Creating pill that springs open into a list of write and generate actions.
+description: قرص «شروع ساخت» که با فنر به فهرست اکشن‌های ساخت باز می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Island morph**: The pill grows from a single button into a stacked menu with a spring.
-- **Create actions**: Post, idea, thread, template, repurpose, and AI tool in one place.
-- **Click outside**: The menu folds back to the button when you click away.
-- **Sidebar-shaped demo**: Shown in a fake app chrome so you see where it lives.
+- **مورف جزیره**: قرص از یک دکمه به منوی پشته‌ای با فنر رشد می‌کند.
+- **اکشن‌های ساخت**: پست، ایده، رشته، قالب، بازنویسی و ابزار هوش مصنوعی در یک جا.
+- **کلیک بیرون**: با کلیک بیرون منو به دکمه جمع می‌شود.
+- **دمو شبیه سایدبار**: در کروم ساختگی اپ نشان داده می‌شود تا جای زندگی‌اش معلوم باشد.
 
-## Usage
+## نحوه استفاده
 
-Keep it near the top of a sidebar or editor chrome. Edit the items array for your create types. Give the parent `overflow-visible` so the expanding menu isn’t clipped.
+نزدیک بالای سایدبار یا کروم ادیتور نگه دارید. آرایهٔ آیتم‌ها را برای انواع ساخت خودتان ویرایش کنید. به والد `overflow-visible` بدهید تا منوی بازشده بریده نشود.
 
 ```tsx
 import CreateMenu from "@/components/create-menu";
@@ -22,10 +22,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Writing or CMS sidebars
-- Social scheduling tools
-- AI content studios
-- Project “new” menus
-- Dashboard empty states that start with create
+- سایدبار نوشتن یا CMS
+- ابزار زمان‌بندی شبکهٔ اجتماعی
+- استودیو محتوای هوش مصنوعی
+- منوهای «جدید» پروژه
+- حالت خالی داشبورد که با ساخت شروع می‌شود

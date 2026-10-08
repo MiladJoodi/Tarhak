@@ -31,30 +31,36 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+
+function toFaDigits(value: string | number) {
+  return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
+}
+
 const months = [
-  { label: "MM", value: "mm" },
-  { label: "01", value: "01" },
-  { label: "02", value: "02" },
-  { label: "03", value: "03" },
-  { label: "04", value: "04" },
-  { label: "05", value: "05" },
-  { label: "06", value: "06" },
-  { label: "07", value: "07" },
-  { label: "08", value: "08" },
-  { label: "09", value: "09" },
-  { label: "10", value: "10" },
-  { label: "11", value: "11" },
-  { label: "12", value: "12" },
+  { label: "ماه", value: "mm" },
+  { label: "۰۱", value: "01" },
+  { label: "۰۲", value: "02" },
+  { label: "۰۳", value: "03" },
+  { label: "۰۴", value: "04" },
+  { label: "۰۵", value: "05" },
+  { label: "۰۶", value: "06" },
+  { label: "۰۷", value: "07" },
+  { label: "۰۸", value: "08" },
+  { label: "۰۹", value: "09" },
+  { label: "۱۰", value: "10" },
+  { label: "۱۱", value: "11" },
+  { label: "۱۲", value: "12" },
 ];
 
 const years = [
-  { label: "YYYY", value: "yyyy" },
-  { label: "2024", value: "2024" },
-  { label: "2025", value: "2025" },
-  { label: "2026", value: "2026" },
-  { label: "2027", value: "2027" },
-  { label: "2028", value: "2028" },
-  { label: "2029", value: "2029" },
+  { label: "سال", value: "yyyy" },
+  { label: "۱۴۰۳", value: "1403" },
+  { label: "۱۴۰۴", value: "1404" },
+  { label: "۱۴۰۵", value: "1405" },
+  { label: "۱۴۰۶", value: "1406" },
+  { label: "۱۴۰۷", value: "1407" },
+  { label: "۱۴۰۸", value: "1408" },
 ];
 
 const COUPON_CODE = "SAVE10";
@@ -66,25 +72,25 @@ const REVEAL_STAGGER = 0.05;
 const initialCartItems = [
   {
     id: "headphones",
-    name: "Wireless Headphones",
-    variant: "Midnight Black",
-    price: 149.99,
+    name: "هدفون بی‌سیم",
+    variant: "مشکی نیمه‌شب",
+    price: 7_499_000,
     quantity: 1,
     imageClassName: "bg-zinc-900",
   },
   {
     id: "tote",
-    name: "Leather Tote Bag",
-    variant: "Tan · Medium",
-    price: 89,
+    name: "کیف دستی چرمی",
+    variant: "قهوه‌ای · متوسط",
+    price: 4_450_000,
     quantity: 2,
     imageClassName: "bg-amber-700",
   },
   {
     id: "mug",
-    name: "Ceramic Mug Set",
-    variant: "4-piece",
-    price: 34.5,
+    name: "ست ماگ سرامیکی",
+    variant: "۴ تکه",
+    price: 1_725_000,
     quantity: 1,
     imageClassName: "bg-sky-200",
   },
@@ -177,10 +183,7 @@ const RevealItem = ({
 };
 
 const formatPrice = (amount: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
+  `${toFaDigits(amount.toLocaleString("fa-IR"))} تومان`;
 
 type DrawerFieldContentProps = {
   revealOpen?: boolean;
@@ -188,17 +191,21 @@ type DrawerFieldContentProps = {
 
 export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
   return (
-    <div className="w-full max-w-md text-foreground [&_input]:text-foreground [&_textarea]:text-foreground [&_[data-slot=select-trigger]]:text-foreground">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="w-full max-w-md text-start text-foreground [&_input]:text-foreground [&_textarea]:text-foreground [&_[data-slot=select-trigger]]:text-foreground"
+    >
       <DrawerReveal direction="right" open={revealOpen}>
         <form>
           <FieldGroup>
             <FieldSet>
               <RevealItem>
                 <FieldLegend className="text-foreground">
-                  Payment Method
+                  روش پرداخت
                 </FieldLegend>
                 <FieldDescription className="text-zinc-500">
-                  All transactions are secure and encrypted
+                  همهٔ تراکنش‌ها امن و رمزگذاری‌شده‌اند
                 </FieldDescription>
               </RevealItem>
               <FieldGroup>
@@ -208,11 +215,11 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       htmlFor="checkout-7j9-card-name-43j"
                       className="text-foreground"
                     >
-                      Name on Card
+                      نام روی کارت
                     </FieldLabel>
                     <Input
                       id="checkout-7j9-card-name-43j"
-                      placeholder="John Doe"
+                      placeholder="علی محمدی"
                       required
                     />
                   </Field>
@@ -223,15 +230,17 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       htmlFor="checkout-7j9-card-number-uw1"
                       className="text-foreground"
                     >
-                      Card Number
+                      شماره کارت
                     </FieldLabel>
                     <Input
                       id="checkout-7j9-card-number-uw1"
-                      placeholder="1234 5678 9012 3456"
+                      placeholder="۶۰۳۷-****-****-۱۲۳۴"
+                      dir="ltr"
+                      className="text-start"
                       required
                     />
                     <FieldDescription className="text-zinc-500">
-                      Enter your 16-digit card number
+                      شمارهٔ ۱۶ رقمی کارت را وارد کنید
                     </FieldDescription>
                   </Field>
                 </RevealItem>
@@ -241,7 +250,7 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       htmlFor="checkout-exp-month-ts6"
                       className="text-foreground"
                     >
-                      Month
+                      ماه
                     </FieldLabel>
                     <Select>
                       <SelectTrigger id="checkout-exp-month-ts6">
@@ -263,7 +272,7 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       htmlFor="checkout-7j9-exp-year-f59"
                       className="text-foreground"
                     >
-                      Year
+                      سال
                     </FieldLabel>
                     <Select>
                       <SelectTrigger id="checkout-7j9-exp-year-f59">
@@ -287,7 +296,13 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                     >
                       CVV
                     </FieldLabel>
-                    <Input id="checkout-7j9-cvv" placeholder="123" required />
+                    <Input
+                      id="checkout-7j9-cvv"
+                      placeholder="۱۲۳"
+                      dir="ltr"
+                      className="text-start"
+                      required
+                    />
                   </Field>
                 </RevealItem>
               </FieldGroup>
@@ -298,10 +313,10 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
             <RevealItem>
               <FieldSet>
                 <FieldLegend className="text-foreground">
-                  Billing Address
+                  آدرس صورتحساب
                 </FieldLegend>
                 <FieldDescription className="text-zinc-500">
-                  The billing address associated with your payment method
+                  آدرس صورتحساب مرتبط با روش پرداخت شما
                 </FieldDescription>
                 <FieldGroup>
                   <Field orientation="horizontal">
@@ -315,7 +330,7 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       htmlFor="checkout-7j9-same-as-shipping-wgm"
                       className="font-normal text-foreground"
                     >
-                      Same as shipping address
+                      همان آدرس ارسال
                     </FieldLabel>
                   </Field>
                 </FieldGroup>
@@ -329,11 +344,11 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       htmlFor="checkout-7j9-optional-comments"
                       className="text-foreground"
                     >
-                      Comments
+                      توضیحات
                     </FieldLabel>
                     <Textarea
                       id="checkout-7j9-optional-comments"
-                      placeholder="Add any additional comments"
+                      placeholder="توضیح اضافه‌ای دارید بنویسید"
                       className="resize-none"
                     />
                   </Field>
@@ -342,13 +357,13 @@ export const FieldDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
             </RevealItem>
             <RevealItem>
               <Field orientation="horizontal">
-                <Button type="submit">Submit</Button>
+                <Button type="submit">ثبت</Button>
                 <Button
                   variant="outline"
                   type="button"
                   className="text-foreground"
                 >
-                  Cancel
+                  انصراف
                 </Button>
               </Field>
             </RevealItem>
@@ -390,13 +405,13 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
     const normalizedCode = couponInput.trim().toUpperCase();
 
     if (!normalizedCode) {
-      setCouponError("Enter a coupon code");
+      setCouponError("کد تخفیف را وارد کنید");
       setAppliedCoupon(null);
       return;
     }
 
     if (normalizedCode !== COUPON_CODE) {
-      setCouponError("Invalid coupon code");
+      setCouponError("کد تخفیف نامعتبر است");
       setAppliedCoupon(null);
       return;
     }
@@ -408,20 +423,23 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
   const handlePurchase = () => {};
 
   return (
-    <div className="w-full max-w-md text-foreground [&_input]:text-foreground">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="w-full max-w-md text-start text-foreground [&_input]:text-foreground"
+    >
       <DrawerReveal direction="left" open={revealOpen}>
         <div className="space-y-5">
           <RevealItem>
             <h2 className="text-base font-semibold text-foreground">
-              Your cart
+              سبد خرید شما
             </h2>
             <p className="mt-0.5 text-sm text-zinc-500">
-              {itemCount} {itemCount === 1 ? "item" : "items"} ready for
-              checkout
+              {toFaDigits(itemCount)} کالا آمادهٔ تسویه
             </p>
           </RevealItem>
 
-          <div className="space-y-3" role="list" aria-label="Cart items">
+          <div className="space-y-3" role="list" aria-label="اقلام سبد">
             {cartItems.map((item) => (
               <RevealItem key={item.id} role="listitem">
                 <div className="flex gap-3 rounded-xl border border-border p-3">
@@ -450,11 +468,11 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       <div
                         className="inline-flex items-center rounded-lg border border-border"
                         role="group"
-                        aria-label={`Quantity for ${item.name}`}
+                        aria-label={`تعداد ${item.name}`}
                       >
                         <button
                           type="button"
-                          aria-label={`Decrease quantity of ${item.name}`}
+                          aria-label={`کاهش تعداد ${item.name}`}
                           onClick={() => handleQuantityChange(item.id, -1)}
                           className="flex size-7 items-center justify-center text-foreground transition-colors duration-200 ease hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:opacity-40"
                           disabled={item.quantity <= 1}
@@ -465,11 +483,11 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                           className="min-w-8 px-1 text-center text-sm font-medium tabular-nums text-foreground"
                           aria-live="polite"
                         >
-                          {item.quantity}
+                          {toFaDigits(item.quantity)}
                         </span>
                         <button
                           type="button"
-                          aria-label={`Increase quantity of ${item.name}`}
+                          aria-label={`افزایش تعداد ${item.name}`}
                           onClick={() => handleQuantityChange(item.id, 1)}
                           className="flex size-7 items-center justify-center text-foreground transition-colors duration-200 ease hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                         >
@@ -477,7 +495,7 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                         </button>
                       </div>
                       <p className="text-xs text-zinc-500 tabular-nums">
-                        {formatPrice(item.price)} each
+                        هر عدد {formatPrice(item.price)}
                       </p>
                     </div>
                   </div>
@@ -488,7 +506,7 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
 
           <RevealItem className="space-y-2 rounded-xl border border-border p-3">
             <FieldLabel htmlFor="cart-coupon-code" className="text-foreground">
-              Apply coupon
+              اعمال کد تخفیف
             </FieldLabel>
             <div className="flex gap-2">
               <Input
@@ -498,7 +516,9 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                   setCouponInput(event.target.value);
                   setCouponError(null);
                 }}
-                placeholder="Enter code…"
+                placeholder="کد را وارد کنید…"
+                dir="ltr"
+                className="min-w-0 flex-1 text-start"
                 aria-describedby={
                   couponError
                     ? "cart-coupon-error"
@@ -506,7 +526,6 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                       ? "cart-coupon-success"
                       : undefined
                 }
-                className="min-w-0 flex-1"
               />
               <Button
                 type="button"
@@ -514,7 +533,7 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                 className="shrink-0 text-foreground"
                 onClick={handleApplyCoupon}
               >
-                Apply
+                اعمال
               </Button>
             </div>
             {couponError ? (
@@ -523,26 +542,28 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
               </p>
             ) : appliedCoupon ? (
               <p id="cart-coupon-success" className="text-xs text-emerald-600">
-                {appliedCoupon} applied — {COUPON_DISCOUNT_RATE * 100}% off
+                {appliedCoupon} اعمال شد — {toFaDigits(COUPON_DISCOUNT_RATE * 100)}٪ تخفیف
               </p>
             ) : (
-              <p className="text-xs text-zinc-500">Try SAVE10 for 10% off</p>
+              <p className="text-xs text-zinc-500">
+                برای ۱۰٪ تخفیف کد SAVE10 را امتحان کنید
+              </p>
             )}
           </RevealItem>
 
           <RevealItem className="space-y-2 rounded-xl bg-muted/60 p-3 text-sm">
             <div className="flex items-center justify-between text-zinc-600">
-              <span>Subtotal</span>
+              <span>جمع جزء</span>
               <span className="tabular-nums">{formatPrice(subtotal)}</span>
             </div>
             {appliedCoupon ? (
               <div className="flex items-center justify-between text-emerald-700">
-                <span>Discount</span>
+                <span>تخفیف</span>
                 <span className="tabular-nums">-{formatPrice(discount)}</span>
               </div>
             ) : null}
             <div className="flex items-center justify-between border-t border-border pt-2 font-semibold text-foreground">
-              <span>Total</span>
+              <span>مبلغ کل</span>
               <span className="tabular-nums">{formatPrice(total)}</span>
             </div>
           </RevealItem>
@@ -553,7 +574,7 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
               className="h-10 w-full"
               onClick={handlePurchase}
             >
-              Purchase · {formatPrice(total)}
+              خرید · {formatPrice(total)}
             </Button>
           </RevealItem>
         </div>

@@ -13,8 +13,8 @@
   },
   "showHint": true,
   "hintKind": "custom",
-  "hintHeading": "Drag the type",
-  "hintDescription": "Velocity leaves a stacked outline trail. Arrow keys nudge it.",
+  "hintHeading": "تایپ را بکش",
+  "hintDescription": "سرعت ردّ خط‌چین لایه‌ای می‌گذارد. کلیدهای جهت‌نما جابه‌جایش می‌کنند.",
   "tags": [
     "text",
     "drag"

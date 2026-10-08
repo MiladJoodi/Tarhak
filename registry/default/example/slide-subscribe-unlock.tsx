@@ -18,6 +18,7 @@ type SlideToUnlockContextValue = {
   isDragging: boolean
   handleWidth: number
   textOpacity: MotionValue<number>
+  dir: "ltr" | "rtl"
   onDragStart: () => void
   onDragEnd: () => void
 }
@@ -42,6 +43,8 @@ export type SlideToUnlockRootProps = ComponentProps<"div"> & {
    * @defaultValue 56
    * */
   handleWidth?: number
+  /** Slide direction. RTL starts the handle on the right and unlocks leftward. */
+  dir?: "ltr" | "rtl"
   /** Called when the handle is dragged fully to the end. */
   onUnlock?: () => void
 }
@@ -49,6 +52,7 @@ export type SlideToUnlockRootProps = ComponentProps<"div"> & {
 export function SlideToUnlock({
   className,
   handleWidth = 56,
+  dir = "ltr",
   children,
   onUnlock,
   ...props
@@ -56,9 +60,14 @@ export function SlideToUnlock({
   const trackRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
   const x = useMotionValue(0)
+  const isRtl = dir === "rtl"
 
   const fadeDistance = handleWidth
-  const textOpacity = useTransform(x, [0, fadeDistance], [1, 0])
+  const textOpacity = useTransform(
+    x,
+    isRtl ? [0, -fadeDistance] : [0, fadeDistance],
+    [1, 0],
+  )
 
   const handleDragStart = useCallback(() => {
     setIsDragging(true)
@@ -69,13 +78,14 @@ export function SlideToUnlock({
 
     const trackWidth = trackRef.current?.offsetWidth || 0
     const maxX = trackWidth - handleWidth
+    const unlocked = isRtl ? x.get() <= -maxX : x.get() >= maxX
 
-    if (x.get() >= maxX) {
+    if (unlocked) {
       onUnlock?.()
     } else {
       animate(x, 0, { type: "spring", bounce: 0, duration: 0.25 })
     }
-  }, [x, onUnlock, handleWidth])
+  }, [x, onUnlock, handleWidth, isRtl])
 
   return (
     <SlideToUnlockContext.Provider
@@ -85,12 +95,14 @@ export function SlideToUnlock({
         isDragging,
         handleWidth,
         textOpacity,
+        dir,
         onDragStart: handleDragStart,
         onDragEnd: handleDragEnd,
       }}
     >
       <div
         data-slot="slide-to-unlock"
+        dir={dir}
         className={cn(
           "w-54 rounded-xl bg-muted p-1 shadow-inner ring-1 ring-foreground/10 ring-inset",
           className
@@ -150,14 +162,21 @@ export function SlideToUnlockText({
   style,
   ...props
 }: SlideToUnlockTextProps) {
-  const { handleWidth, textOpacity, isDragging } = useSlideToUnlock()
+  const { handleWidth, textOpacity, isDragging, dir } = useSlideToUnlock()
+  const isRtl = dir === "rtl"
 
   return (
     <motion.div
       data-slot="text"
       data-dragging={isDragging}
-      className={cn("pl-1 text-lg font-medium", className)}
-      style={{ marginLeft: handleWidth, opacity: textOpacity, ...style }}
+      className={cn("ps-1 text-lg font-medium", className)}
+      style={{
+        ...(isRtl
+          ? { marginRight: handleWidth }
+          : { marginLeft: handleWidth }),
+        opacity: textOpacity,
+        ...style,
+      }}
       {...props}
     >
       {typeof children === "function" ? children({ isDragging }) : children}
@@ -181,7 +200,9 @@ export function SlideToUnlockHandle({
     onDragStart,
     onDragEnd,
     handleWidth: width,
+    dir,
   } = useSlideToUnlock()
+  const isRtl = dir === "rtl"
 
   return (
     <motion.div
@@ -190,7 +211,8 @@ export function SlideToUnlockHandle({
       aria-valuemin={0}
       aria-valuemax={100}
       className={cn(
-        "absolute top-0 left-0 flex h-10 cursor-grab items-center justify-center rounded-lg bg-background text-muted-foreground shadow-sm active:cursor-grabbing",
+        "absolute top-0 flex h-10 cursor-grab items-center justify-center rounded-lg bg-background text-muted-foreground shadow-sm active:cursor-grabbing",
+        isRtl ? "right-0" : "left-0",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6",
         className
       )}

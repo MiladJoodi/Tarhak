@@ -13,8 +13,8 @@
   },
   "showHint": true,
   "hintKind": "custom",
-  "hintHeading": "Tap the composer",
-  "hintDescription": "It expands into a textarea. Open the model menu, then hover the collapsed field to see the selected model.",
+  "hintHeading": "روی کادر بنویس بزن",
+  "hintDescription": "به textarea باز می‌شود. منوی مدل را باز کن، بعد روی فیلد جمع‌شده هاور کن تا مدل انتخابی را ببینی.",
   "tags": [
     "input",
     "prompt",

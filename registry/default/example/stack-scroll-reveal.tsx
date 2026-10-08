@@ -21,31 +21,31 @@ const IMG = "auto=format&fit=crop&w=1200&q=80";
 
 const CARDS: Card[] = [
   {
-    index: "01",
-    title: "Thrown forms, quiet finishes",
+    index: "۰۱",
+    title: "فرم‌های دستی، پرداخت‌های آرام",
     description:
-      "Hand-built ceramics that reward a slow look — soft glaze, honest weight, and surfaces that feel made rather than manufactured.",
+      "سرامیک دست‌ساز که نگاه آهسته را پاداش می‌دهد — لعاب نرم، وزن صادق، و سطحی که ساخته به‌نظر می‌رسد نه تولید انبوه.",
     image: `https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?${IMG}`,
   },
   {
-    index: "02",
-    title: "Light through linen and clay",
+    index: "۰۲",
+    title: "نور از میان کتان و خاک",
     description:
-      "A studio catalog built around texture and restraint, where each frame leaves room for the object to breathe.",
+      "کاتالوگ استودیو حول بافت و خویشتن‌داری؛ هر قاب جا می‌گذارد تا شیء نفس بکشد.",
     image: `https://images.unsplash.com/photo-1589939705384-5185137a7f0f?${IMG}`,
   },
   {
-    index: "03",
-    title: "Objects with a longer memory",
+    index: "۰۳",
+    title: "اشیایی با حافظهٔ بلندتر",
     description:
-      "Pieces shaped to outlast trends — matte stoneware, warm ash glaze, and forms that settle into daily use.",
+      "قطعاتی برای ماندن فراتر از مُد — سنگ‌رسی مات، لعاب خاکستر گرم، و فرم‌هایی که در استفادهٔ روزمره جا می‌گیرند.",
     image: `https://images.unsplash.com/photo-1541123603104-512919d6a96c?${IMG}`,
   },
   {
-    index: "04",
-    title: "A shelf worth returning to",
+    index: "۰۴",
+    title: "قفسه‌ای که به آن برمی‌گردی",
     description:
-      "Curated vessels and tableware arranged like a small exhibition — tactile, calm, and easy to browse.",
+      "ظروف و سرویس چیده مثل نمایشگاه کوچک — ملموس، آرام، و آسان برای مرور.",
     image: `https://images.unsplash.com/photo-1513519245088-0e12902e5a38?${IMG}`,
   },
 ];
@@ -132,11 +132,11 @@ function StackCard({
             aria-hidden
           />
           <div className="relative flex h-full flex-col justify-between p-8 text-white md:p-10">
-            <p className="m-0 text-[clamp(2.75rem,7vw,4.5rem)] font-light leading-none tabular-nums tracking-[-0.04em]">
+            <p className="m-0 text-[clamp(2.75rem,7vw,4.5rem)] font-light leading-none tabular-nums tracking-normal">
               {card.index}
             </p>
             <div className="flex max-w-[34rem] flex-col gap-3">
-              <h2 className="m-0 text-[clamp(1.5rem,3.2vw,2.35rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-balance">
+              <h2 className="m-0 text-[clamp(1.5rem,3.2vw,2.35rem)] font-semibold leading-[1.12] tracking-normal text-balance">
                 {card.title}
               </h2>
               <p className="m-0 text-[0.98rem] leading-relaxed text-pretty text-white/78">
@@ -190,13 +190,17 @@ export default function StackScrollReveal() {
   }, []);
 
   return (
-    <div className="bg-[oklch(0.97_0.008_85)] font-sans text-[oklch(0.28_0.03_75)] antialiased">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="w-full min-w-0 bg-[oklch(0.97_0.008_85)] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[oklch(0.28_0.03_75)] antialiased"
+    >
       <div className="h-[400px]" aria-hidden />
       <section className="px-4 sm:px-5">
         <div ref={trackRef} className="relative h-[570vh]">
           <div className="sticky top-0 flex h-[100dvh] items-center justify-center [perspective:1200px]">
             <div
-              className="relative w-full max-w-[1000px] [transform-style:preserve-3d]"
+              className="relative mx-auto w-full max-w-[1000px] [transform-style:preserve-3d]"
               style={{
                 height: `calc(min(72dvh, 520px) + ${PEEK * 3}px)`,
                 maxHeight: `calc(78dvh + ${PEEK * 3}px)`,
@@ -218,8 +222,8 @@ export default function StackScrollReveal() {
       </section>
 
       <section className="grid min-h-[50vh] place-content-center px-4 pb-24 pt-10 text-center sm:min-h-[60vh]">
-        <p className="m-0 text-[clamp(1.5rem,4vw,3rem)] font-medium tracking-[-0.05em]">
-          THE END
+        <p className="m-0 text-[clamp(1.5rem,4vw,3rem)] font-medium tracking-normal">
+          پایان
         </p>
       </section>
     </div>

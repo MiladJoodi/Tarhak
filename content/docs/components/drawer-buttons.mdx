@@ -1,9 +1,17 @@
 ---
 title: Drawer Buttons
-description: Two buttons that open side drawers with a 3D fold. Payment comes from the right, cart from the left, and the fields stagger in.
+description: دو دکمه که کشوی کناری را با تا شدن سه‌بعدی باز می‌کنند. پرداخت از راست، سبد از چپ؛ فیلدها پشت‌سرهم ظاهر می‌شوند.
 ---
 
-## Usage
+## قابلیت‌ها
+
+- **تا شدن سه‌بعدی**: هر پنل روی محور Y از بیرون صفحه می‌چرخد و صاف می‌نشیند.
+- **دو سمت**: جزئیات پرداخت از راست. خلاصهٔ سبد از چپ.
+- **فیلدهای پشت‌سرهم**: ردیف‌های فرم و خطوط سبد با Motion محو، سر می‌خورند و از بلور درمی‌آیند.
+- **اقدامات سبد**: تعداد، کد تخفیف `SAVE10` و مبلغ زنده.
+- **حرکت کمتر**: تا شدن و استگر به محو آنی تبدیل می‌شوند. کشوها همچنان باز می‌شوند.
+
+## نحوه استفاده
 
 ```tsx
 import DrawerButtons from "@/components/drawer-buttons";
@@ -13,10 +21,10 @@ export default function Example() {
 }
 ```
 
-## Features
+## کجا استفاده شود
 
-- 3D fold: Each panel rotates in on the Y axis from off-screen, then settles flat.
-- Two sides: Payment details from the right. Cart summary from the left.
-- Staggered fields: Form rows and cart lines fade, slide, and un-blur in sequence with Motion.
-- Cart actions: Quantity, coupon `SAVE10`, and a live total.
-- Reduced motion: The fold and stagger become instant fades. The drawers still open.
+- تسویهٔ فروشگاه و پرداخت
+- سبد شناور در هدر
+- فرم‌های صورتحساب کناری
+- پیش‌نمایش سفارش قبل از خرید
+- دموهای موشن پنل کناری

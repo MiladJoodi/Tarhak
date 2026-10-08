@@ -94,15 +94,15 @@ export const Index: Record<string, any> = {`;
 //   )
 // }
 
-function shadcnBin() {
+function farsiuiBin() {
   const ext = process.platform === "win32" ? ".cmd" : "";
-  return path.join(process.cwd(), "node_modules", ".bin", `shadcn${ext}`);
+  return path.join(process.cwd(), "node_modules", ".bin", `farsiui${ext}`);
 }
 
 async function buildRegistry() {
   return new Promise((resolve, reject) => {
     const child = spawn(
-      shadcnBin(),
+      farsiuiBin(),
       ["build", "registry.json", "--output", "public/r"],
       {
         cwd: process.cwd(),
@@ -114,7 +114,7 @@ async function buildRegistry() {
     child.on("error", (error) => {
       reject(
         new Error(
-          `Failed to start shadcn (${shadcnBin()}). Run npm install first. ${error.message}`,
+          `Failed to start farsiui (${farsiuiBin()}). Run npm install first. ${error.message}`,
         ),
       );
     });
@@ -123,7 +123,7 @@ async function buildRegistry() {
       if (code === 0) {
         resolve(undefined);
       } else {
-        reject(new Error(`shadcn build exited with code ${code}`));
+        reject(new Error(`farsiui build exited with code ${code}`));
       }
     });
   });

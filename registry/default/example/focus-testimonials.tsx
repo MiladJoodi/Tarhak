@@ -27,106 +27,131 @@ export interface Testimonial {
 const INITIAL_TESTIMONIALS: Testimonial[] = [
   {
     id: 0,
-    author: "Cristiano Ronaldo",
-    role: "Athlete & Entrepreneur",
-    company: "CR7 Brand",
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "This product has completely transformed how we work. The interface is intuitive and the features are exactly what we needed.",
+    author: "کریستیانو رونالدو",
+    role: "ورزشکار و کارآفرین",
+    company: "برند CR7",
+    avatar:
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "این محصول کاملاً شیوهٔ کارمان را عوض کرد. رابطش شهودی است و دقیقاً همان قابلیت‌هایی را دارد که لازم داشتیم.",
   },
   {
     id: 1,
-    author: "Jensen Huang",
-    role: "CEO & Founder",
-    company: "NVIDIA",
-    avatar: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "I've tried many solutions, but this one stands out for its simplicity and power. Highly recommended!",
+    author: "جنسن هوانگ",
+    role: "مدیرعامل و بنیان‌گذار",
+    company: "انویدیا",
+    avatar:
+      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "راه‌حل‌های زیادی امتحان کردم؛ این یکی با سادگی و قدرتش متمایز است. جداً پیشنهاد می‌کنم.",
   },
   {
     id: 2,
-    author: "Antony Raphy",
-    role: "Staff Product Designer",
-    company: "Studio Craft",
-    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "The team behind this is incredibly responsive and the product keeps getting better with each update.",
+    author: "آنتونی رافی",
+    role: "طراح ارشد محصول",
+    company: "استودیو کرافت",
+    avatar:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "تیم پشت محصول فوق‌العاده پاسخ‌گوست و با هر به‌روزرسانی بهتر می‌شود.",
   },
   {
     id: 3,
-    author: "Leo Das",
-    role: "Managing Director",
-    company: "Das Capital",
-    avatar: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "Best investment we've made this year. The ROI has been incredible and our team loves using it.",
+    author: "لئو داس",
+    role: "مدیرعامل",
+    company: "داس کپیتال",
+    avatar:
+      "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "بهترین سرمایه‌گذاری امسال‌مان بود. بازگشت سرمایه عالی بوده و تیم عاشق کار با آن است.",
   },
 ];
 
 const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
   {
     id: 4,
-    author: "Sarah Chen",
-    role: "VP of Product",
-    company: "Apex Systems",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "Switching to this platform cut our team onboarding time in half. New members are productive on day one.",
+    author: "سارا چن",
+    role: "معاون محصول",
+    company: "اپکس سیستمز",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "جابه‌جایی به این پلتفرم زمان آنبوردینگ تیم را نصف کرد. اعضای جدید از روز اول بهره می‌دهند.",
   },
   {
     id: 5,
-    author: "Marcus Williams",
-    role: "Principal Architect",
-    company: "HyperScale",
-    avatar: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "The analytics engine alone is worth it. We finally have real-time visibility across our entire architecture.",
+    author: "مارکوس ویلیامز",
+    role: "معمار اصلی",
+    company: "هایپراسکیل",
+    avatar:
+      "https://images.unsplash.com/photo-1463453091185-61582044d556?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "فقط موتور تحلیلش ارزشش را دارد. بالاخره دید لحظه‌ای روی کل معماری داریم.",
   },
   {
     id: 6,
-    author: "Priya Nair",
-    role: "Head of Design",
-    company: "Design Lab",
-    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "Customer support is phenomenal. Every single question is resolved within minutes with exceptional care.",
+    author: "پریا نایر",
+    role: "سرپرست طراحی",
+    company: "دیزاین لب",
+    avatar:
+      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "پشتیبانی مشتری عالی است. هر سؤال ظرف چند دقیقه با دقت پاسخ داده می‌شود.",
   },
   {
     id: 7,
-    author: "Tom Eriksson",
-    role: "Founder & CEO",
-    company: "NorthTech",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "We evaluated dozens of tools before picking this one. Nothing else even comes close to its polish and speed.",
+    author: "تام اریکسون",
+    role: "بنیان‌گذار و مدیرعامل",
+    company: "نورت‌تک",
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "ده‌ها ابزار را قبل از این ارزیابی کردیم. هیچ‌کدام به صیقل و سرعتش نزدیک هم نیست.",
   },
   {
     id: 8,
-    author: "Aisha Okafor",
-    role: "Director of Operations",
-    company: "GlobalSync",
-    avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "The mobile workflows are seamless. I manage mission-critical deployments on the go without missing a beat.",
+    author: "عایشه اوکافور",
+    role: "مدیر عملیات",
+    company: "گلوبال‌سینک",
+    avatar:
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "گردش‌کارهای موبایل بی‌نقص‌اند. استقرارهای حیاتی را در حرکت مدیریت می‌کنم بدون اینکه چیزی از دست برود.",
   },
   {
     id: 9,
-    author: "David Park",
-    role: "Group PM",
-    company: "Flowstate",
-    avatar: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "Our entire engineering and design staff adopted it without friction. That has never happened with prior tooling.",
+    author: "دیوید پارک",
+    role: "مدیر محصول گروهی",
+    company: "فلو‌استیت",
+    avatar:
+      "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "کل تیم مهندسی و طراحی بدون اصطکاک پذیرفتندش. با ابزارهای قبلی هرگز چنین اتفاقی نیفتاده بود.",
   },
   {
     id: 10,
-    author: "Lena Müller",
-    role: "Chief Technology Officer",
-    company: "Quantum Labs",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "Automation features save us over 25 hours every single week. It paid for itself in less than a month.",
+    author: "لنا مولر",
+    role: "مدیر فناوری",
+    company: "کوانتوم لب",
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "قابلیت‌های خودکارسازی بیش از ۲۵ ساعت در هفته صرفه‌جویی می‌کند. ظرف کمتر از یک ماه هزینه‌اش برگشت.",
   },
   {
     id: 11,
-    author: "Ravi Shankar",
-    role: "Creative Director",
-    company: "Luminary",
-    avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
-    quote: "Incredible attention to detail. Every transition and gesture feels silky, fluid, and delightful.",
+    author: "راوی شانکار",
+    role: "مدیر خلاقیت",
+    company: "لومینری",
+    avatar:
+      "https://images.unsplash.com/photo-1548142813-c348350df52b?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+    quote:
+      "دقت به جزئیات باورنکردنی است. هر انتقال و ژستی نرم، روان و لذت‌بخش حس می‌شود.",
   },
 ];
 
 const ALL_ITEMS = [...INITIAL_TESTIMONIALS, ...ADDITIONAL_TESTIMONIALS];
+const ALL_COUNT_FA = ALL_ITEMS.length.toLocaleString("fa-IR");
 
 const TestimonialSpanItem = memo(function TestimonialSpanItem({
   item,
@@ -142,14 +167,14 @@ const TestimonialSpanItem = memo(function TestimonialSpanItem({
   const stateClass = !hasHover
     ? "opacity-75 blur-0 text-[rgb(115,115,122)]"
     : isHovered
-    ? "opacity-100 blur-0 text-[rgb(10,10,14)]"
-    : "opacity-30 blur-[2.8px] text-[rgb(175,175,175)]";
+      ? "opacity-100 blur-0 text-[rgb(10,10,14)]"
+      : "opacity-30 blur-[2.8px] text-[rgb(175,175,175)]";
 
   const avatarClass = !hasHover
     ? "grayscale-[25%] opacity-90 scale-100"
     : isHovered
-    ? "grayscale-0 opacity-100 scale-110 shadow-none"
-    : "grayscale-[70%] blur-[1.2px] opacity-35 scale-95 shadow-none";
+      ? "grayscale-0 opacity-100 scale-110 shadow-none"
+      : "grayscale-[70%] blur-[1.2px] opacity-35 scale-95 shadow-none";
 
   return (
     <span
@@ -161,7 +186,7 @@ const TestimonialSpanItem = memo(function TestimonialSpanItem({
     >
       <span
         className={cn(
-          "inline-block align-middle mr-2.5 overflow-hidden rounded-full transition-[transform,filter,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,filter,opacity]",
+          "me-2.5 inline-block overflow-hidden rounded-full align-middle transition-[transform,filter,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,filter,opacity]",
           avatarClass
         )}
       >
@@ -172,11 +197,11 @@ const TestimonialSpanItem = memo(function TestimonialSpanItem({
           width={44}
           height={44}
           loading="eager"
-          className="inline-block w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full object-cover align-middle border-0 outline-none shadow-none ring-0 scale-110"
+          className="inline-block h-8 w-8 scale-110 rounded-full border-0 object-cover align-middle outline-none shadow-none ring-0 sm:h-10 sm:w-10 md:h-11 md:w-11"
         />
       </span>
       {item.quote}
-      <span className="relative inline-block w-0 h-0 align-baseline" />{" "}
+      <span className="relative inline-block h-0 w-0 align-baseline" />{" "}
     </span>
   );
 });
@@ -231,7 +256,11 @@ export default function FocusTestimonials() {
   const hasHover = hoveredId !== null;
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent p-4 sm:p-8 md:p-14 lg:p-20 select-none">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="relative flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-transparent p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal sm:p-8 md:p-14 lg:p-20"
+    >
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
@@ -257,26 +286,26 @@ export default function FocusTestimonials() {
               style={{
                 x: smoothX,
                 y: smoothY,
-                translateX: 18,
+                translateX: -18,
                 translateY: -56,
               }}
-              className="pointer-events-none absolute left-0 top-0 z-50 flex items-center gap-2.5 rounded-full border border-white/20 bg-neutral-950/90 pl-2 pr-4 py-2 text-white shadow-2xl backdrop-blur-xl will-change-[transform,opacity]"
+              className="pointer-events-none absolute top-0 start-0 z-50 flex items-center gap-2.5 rounded-full border border-white/20 bg-neutral-950/90 py-2 ps-2 pe-4 text-white shadow-2xl backdrop-blur-xl will-change-[transform,opacity]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <div className="h-7 w-7 rounded-full overflow-hidden flex-shrink-0">
+              <div className="h-7 w-7 flex-shrink-0 overflow-hidden rounded-full">
                 <img
                   src={activeItem.avatar}
                   alt={activeItem.author}
                   width={28}
                   height={28}
-                  className="h-full w-full object-cover border-0 outline-none shadow-none ring-0 scale-110"
+                  className="h-full w-full scale-110 border-0 object-cover outline-none shadow-none ring-0"
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-xs sm:text-sm font-semibold tracking-tight text-white whitespace-nowrap">
+                <span className="whitespace-nowrap text-xs font-semibold text-white sm:text-sm">
                   {activeItem.author}
                 </span>
-                <span className="text-[10px] sm:text-xs font-normal text-slate-300 whitespace-nowrap">
+                <span className="whitespace-nowrap text-[10px] font-normal text-slate-300 sm:text-xs">
                   {activeItem.role} ·{" "}
                   <span className="font-medium text-white">
                     {activeItem.company}
@@ -287,7 +316,7 @@ export default function FocusTestimonials() {
           )}
         </AnimatePresence>
 
-        <div className="relative flex-1 text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-medium leading-[148%] tracking-[-0.025em] text-slate-900">
+        <div className="relative flex-1 text-2xl leading-[148%] font-medium text-slate-900 sm:text-3xl md:text-4xl lg:text-[38px]">
           {INITIAL_TESTIMONIALS.map((item) => (
             <TestimonialSpanItem
               key={item.id}
@@ -316,16 +345,16 @@ export default function FocusTestimonials() {
           </span>
         </div>
 
-        <div className="mt-8 sm:mt-10 flex justify-center">
+        <div className="mt-8 flex justify-center sm:mt-10">
           <button
             type="button"
             onClick={handleToggleShowMore}
-            className="group inline-flex items-center gap-1.5 text-sm tracking-tight text-slate-500 transition-colors hover:text-slate-900 active:scale-[0.98] focus-visible:outline-none focus-visible:underline"
+            className="group inline-flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-slate-900 focus-visible:underline focus-visible:outline-none active:scale-[0.98]"
           >
             <span>
               {showMore
-                ? "Show less"
-                : `Read all testimonials (${ALL_ITEMS.length})`}
+                ? "کمتر نشان بده"
+                : `همهٔ نظرات را بخوان (${ALL_COUNT_FA})`}
             </span>
 
             <motion.span

@@ -6,9 +6,20 @@ import { useDialKit } from "dialkit";
 import { motion, AnimatePresence } from "motion/react";
 import React, { useEffect, useState } from "react";
 
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+
+function toFaDigits(value: string | number) {
+  return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
+}
+
+/** Word tokens — never split Persian letters (breaks joining). */
+function splitLabel(text: string) {
+  return text.split(/(\s+)/).filter((part) => part.length > 0);
+}
+
 export const dialConfig = {
-  deleteText: "Delete Account",
-  cancelText: "Cancel Deletion",
+  deleteText: "حذف حساب",
+  cancelText: "لغو حذف",
   countdown: [10, 3, 20, 1],
   deleteColor: "#FE322A",
   softColor: "#FFEDF1",
@@ -59,7 +70,11 @@ const DeleteButton = () => {
   const cancelText = params.cancelText;
 
   return (
-    <div className="flex items-center justify-center">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <AnimatePresence mode="popLayout" initial={false}>
         {!isDeleting ? (
           <motion.button
@@ -93,26 +108,26 @@ const DeleteButton = () => {
           >
             <motion.span
               layoutId="buttonText"
-              className="flex"
+              className="inline-flex"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
             >
-              {deleteText.split("").map((char, i) => (
+              {splitLabel(deleteText).map((part, i) => (
                 <motion.span
-                  key={`delete-${i}-${char}`}
+                  key={`delete-${i}-${part}`}
                   initial={{ y: 20, opacity: 0, scale: 0.3 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   exit={{ y: -20, opacity: 0, scale: 0.3 }}
                   transition={{
                     duration: params.char.duration,
                     ease: [...params.char.ease],
-                    delay: i * 0.005,
+                    delay: i * 0.04,
                   }}
-                  style={{ display: "inline-block", whiteSpace: "pre" }}
+                  className="inline-block whitespace-pre"
                 >
-                  {char}
+                  {part}
                 </motion.span>
               ))}
             </motion.span>
@@ -160,27 +175,27 @@ const DeleteButton = () => {
 
             <motion.span
               layoutId="buttonText"
-              className="flex font-medium"
+              className="inline-flex font-medium"
               style={{ color: params.deleteColor }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
             >
-              {cancelText.split("").map((char, i) => (
+              {splitLabel(cancelText).map((part, i) => (
                 <motion.span
-                  key={`cancel-${i}-${char}`}
+                  key={`cancel-${i}-${part}`}
                   initial={{ y: 20, opacity: 0, scale: 0.3 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   exit={{ y: -20, opacity: 0, scale: 0.3 }}
                   transition={{
                     duration: params.char.duration,
                     ease: [...params.char.ease],
-                    delay: i * 0.006,
+                    delay: i * 0.04,
                   }}
-                  style={{ display: "inline-block", whiteSpace: "pre" }}
+                  className="inline-block whitespace-pre"
                 >
-                  {char}
+                  {part}
                 </motion.span>
               ))}
             </motion.span>
@@ -202,7 +217,7 @@ const DeleteButton = () => {
                   transition={{ duration: 0.2, ease: [0.33, 1, 0.68, 1] }}
                   className="absolute"
                 >
-                  {count}
+                  {toFaDigits(count)}
                 </motion.span>
               </AnimatePresence>
             </motion.div>

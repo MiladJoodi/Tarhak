@@ -1,19 +1,19 @@
 ---
 title: Prompt Box
-description: A collapsed chat composer that expands into a textarea with a model menu, send control, and a hover preview of the selected model.
+description: کامپوزر چت جمع‌شده که به textarea با منوی مدل، کنترل ارسال و پیش‌نمایش هاور مدل انتخاب‌شده باز می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Collapsed to compose**: One tap opens a growing textarea. Empty blur snaps it back.
-- **Model menu**: Featured options stagger in. The highlight slides under the pointer.
-- **Send and voice**: The send control scales in. Empty shows a mic, typed text swaps in an arrow.
-- **Hover tell**: On a fine pointer, the collapsed field shows the selected model with a spin-in icon.
-- **Reduced motion**: Springs and spins become short fades. The composer still opens and submits.
+- **جمع تا نوشتن**: یک ضربه textarea در حال رشد را باز می‌کند. بلور خالی جمعش می‌کند.
+- **منوی مدل**: گزینه‌های ویژه با تأخیر می‌آیند. هایلایت زیر اشاره‌گر می‌لغزد.
+- **ارسال و صدا**: کنترل ارسال اسکیل می‌گیرد. خالی میکروفون نشان می‌دهد؛ با تایپ، فلش جایش می‌نشیند.
+- **نشانهٔ هاور**: روی اشاره‌گر دقیق، فیلد جمع‌شده مدل انتخاب‌شده را با آیکن چرخان نشان می‌دهد.
+- **حرکت کمتر**: فنر و چرخش به محو کوتاه تبدیل می‌شوند. کامپوزر همچنان باز و ارسال می‌شود.
 
-## Usage
+## نحوه استفاده
 
-Needs `@base-ui/react`. Pass `settingGroups` for the model menu and `onSubmit` for send.
+به `@base-ui/react` نیاز دارد. برای منوی مدل `settingGroups` و برای ارسال `onSubmit` بدهید.
 
 ```tsx
 import PromptBox from "@/components/prompt-box";
@@ -23,10 +23,10 @@ export default function Example() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Chat and agent composers
-- Search bars that grow into prompts
-- Support widgets
-- AI playgrounds
-- Command boxes with a model picker
+- کامپوزر چت و ایجنت
+- نوار جستجویی که به پرامپت رشد می‌کند
+- ویجت پشتیبانی
+- زمین‌بازی AI
+- جعبه‌های فرمان با انتخاب مدل

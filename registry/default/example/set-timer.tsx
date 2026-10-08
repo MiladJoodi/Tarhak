@@ -43,20 +43,58 @@ const DEFAULT_MINUTES = 5;
 const OPTION_ITEM_HEIGHT = 44;
 const PROGRESS_COLOR = "#ff9f0a";
 
+/** Estedad digit sidebearings — Chromium ignores letter-spacing on Arabic-script digits. */
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+
+function toFaDigits(value: string | number) {
+  return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
+}
+
+function FaDigits({
+  value,
+  className,
+  ...props
+}: { value: string | number } & ComponentProps<"span">) {
+  const text = toFaDigits(value);
+  const ariaLabel =
+    typeof props["aria-label"] === "string" ? props["aria-label"] : text;
+
+  return (
+    <span
+      dir="ltr"
+      data-fa-num
+      className={cn("fa-num", className)}
+      {...props}
+      aria-label={ariaLabel}
+    >
+      {[...text].map((ch, i) => (
+        <span key={`${i}-${ch}`} aria-hidden="true">
+          {ch}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 const MINUTE_OPTIONS: WheelPickerOption<number>[] = Array.from(
   { length: MAX_MINUTES - MIN_MINUTES + 1 },
   (_, index) => {
     const value = MIN_MINUTES + index;
-    return { label: String(value), value, textValue: `${value} minutes` };
+    return {
+      label: <FaDigits value={value} />,
+      value,
+      textValue: `${toFaDigits(value)} دقیقه`,
+    };
   },
 );
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
+
+const formatTimeFa = (seconds: number) => toFaDigits(formatTime(seconds));
 
 function WheelPickerWrapper({
   className,
@@ -198,7 +236,10 @@ function MinutePicker({ selectedMinutes, onChange }: MinutePickerProps) {
   const bandHeight = `calc(50% - ${OPTION_ITEM_HEIGHT / 2}px)`;
 
   return (
-    <div className="relative w-[176px] cursor-grab active:cursor-grabbing [&_[data-rwp]]:cursor-grab! [&_[data-rwp]]:active:cursor-grabbing!">
+    <div
+      dir="ltr"
+      className="relative w-[176px] cursor-grab active:cursor-grabbing [&_[data-rwp]]:cursor-grab! [&_[data-rwp]]:active:cursor-grabbing!"
+    >
       <WheelPickerWrapper className="w-full rounded-none border-0 bg-transparent px-0 shadow-none dark:bg-transparent">
         <WheelPicker<number>
           options={MINUTE_OPTIONS}
@@ -211,11 +252,11 @@ function MinutePicker({ selectedMinutes, onChange }: MinutePickerProps) {
           scrollSensitivity={10}
           classNames={{
             optionItem:
-              "pr-16! text-[40px]! font-normal leading-none text-white/30 tabular-nums dark:text-white/30",
+              "pe-16! font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]! text-[40px]! font-normal leading-none text-white/30 dark:text-white/30",
             highlightWrapper:
-              "bg-white/[0.08] text-white dark:bg-white/[0.08] dark:text-white data-rwp-focused:inset-ring-white/30 dark:data-rwp-focused:inset-ring-white/30",
+              "bg-white/[0.08] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-white dark:bg-white/[0.08] dark:text-white data-rwp-focused:inset-ring-white/30 dark:data-rwp-focused:inset-ring-white/30",
             highlightItem:
-              "pr-16! text-[40px] font-normal leading-none text-white tabular-nums",
+              "pe-16! font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]! text-[40px] font-normal leading-none text-white",
           }}
         />
       </WheelPickerWrapper>
@@ -243,9 +284,10 @@ function MinutePicker({ selectedMinutes, onChange }: MinutePickerProps) {
 
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute left-[92px] top-1/2 mt-1.5 -translate-y-1/2 text-[20px] font-medium text-white"
+        lang="fa"
+        className="pointer-events-none absolute start-[92px] top-1/2 mt-1.5 -translate-y-1/2 text-[20px] font-medium text-white"
       >
-        mins
+        دقیقه
       </span>
     </div>
   );
@@ -413,11 +455,15 @@ export const SetTimer = () => {
   };
 
   return (
-    <div className="flex h-[500px] w-full items-center justify-center overflow-hidden bg-[#e9e9e9]">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-[500px] w-full items-center justify-center overflow-hidden bg-[#e9e9e9] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <motion.div
         ref={surfaceRef}
         role="group"
-        aria-label="Timer"
+        aria-label="تایمر"
         initial={{ opacity: 0, ...SURFACE_DIMENSIONS.compact }}
         animate={{ opacity: 1, ...dimensions }}
         transition={
@@ -432,10 +478,10 @@ export const SetTimer = () => {
             <button
               type="button"
               onClick={handleOpenPicker}
-              className="flex size-full cursor-pointer items-center gap-4 rounded-[42px] pl-[22px] pr-8 text-[28px] font-medium tracking-tight text-white outline-none transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/70"
+              className="flex size-full cursor-pointer items-center gap-4 rounded-[42px] ps-[22px] pe-8 text-[28px] font-medium text-white outline-none transition-colors hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/70"
             >
               <TimerIcon />
-              Set timer
+              تنظیم تایمر
             </button>
           </div>
         </ContentLayer>
@@ -443,7 +489,7 @@ export const SetTimer = () => {
         <ContentLayer isVisible={mode === "picker"}>
           <div
             data-timer-layer="picker"
-            className="flex items-center justify-between pl-4 pr-6"
+            className="flex items-center justify-between ps-4 pe-6"
             style={SURFACE_DIMENSIONS.picker}
           >
             <MinutePicker
@@ -459,7 +505,7 @@ export const SetTimer = () => {
                 "h-14 w-[96px] bg-[#34c759]/20 text-[#34c759] hover:bg-[#34c759]/30",
               )}
             >
-              Start
+              شروع
             </motion.button>
           </div>
         </ContentLayer>
@@ -501,18 +547,17 @@ export const SetTimer = () => {
                   }
                   className="block"
                 >
-                  {mode === "paused" ? "Resume" : "Pause"}
+                  {mode === "paused" ? "ادامه" : "مکث"}
                 </motion.span>
               </AnimatePresence>
             </motion.button>
 
-            <span
+            <FaDigits
               role="timer"
-              aria-label={`${formatTime(remainingSeconds)} remaining${mode === "paused" ? ", paused" : ""}`}
-              className="relative text-[48px] font-light leading-none tracking-tight text-white tabular-nums"
-            >
-              {formatTime(remainingSeconds)}
-            </span>
+              aria-label={`${formatTimeFa(remainingSeconds)} باقی‌مانده${mode === "paused" ? "، متوقف" : ""}`}
+              value={formatTime(remainingSeconds)}
+              className="relative text-[48px] font-light leading-none text-white"
+            />
 
             <motion.button
               type="button"
@@ -523,7 +568,7 @@ export const SetTimer = () => {
                 "relative h-14 w-[92px] bg-white/10 text-white hover:bg-white/15",
               )}
             >
-              Cancel
+              لغو
             </motion.button>
           </div>
         </ContentLayer>

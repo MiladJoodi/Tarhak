@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://farsiui.ir/schema/registry-item.json",
   "name": "bucket-demo",
   "title": "Bucket Demo",
   "description": "Bucket component demo.",

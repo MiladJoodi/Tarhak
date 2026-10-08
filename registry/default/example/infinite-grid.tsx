@@ -31,50 +31,50 @@ export interface LiquidGlassInfiniteGridProps extends React.HTMLAttributes<HTMLD
 export const DEFAULT_GRID_ITEMS: GridItem[] = [
   {
     id: 'a-01',
-    title: 'A-01 OVER-EAR STUDIO',
-    subtitle: '$540.00',
+    title: 'A-01 هدفون استودیو',
+    subtitle: '۵۴۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 'w-02',
-    title: 'W-02 CHRONO AUTOMATIC',
-    subtitle: '$2,100.00',
+    title: 'W-02 کرنوگراف اتوماتیک',
+    subtitle: '۲٬۱۰۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 'c-03',
-    title: 'C-03 MONOCHROME OPTIC',
-    subtitle: '$3,450.00',
+    title: 'C-03 دوربین مونوکروم',
+    subtitle: '۳٬۴۵۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 's-04',
-    title: 'S-04 TRANSLUCENT SPEAKER',
-    subtitle: '$680.00',
+    title: 'S-04 اسپیکر شفاف',
+    subtitle: '۶۸۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 'k-05',
-    title: 'K-05 MACHINED KEYBOARD',
-    subtitle: '$320.00',
+    title: 'K-05 کیبورد ماشین‌کاری‌شده',
+    subtitle: '۳۲۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 'm-06',
-    title: 'M-06 ERGONOMIC POINTER',
-    subtitle: '$160.00',
+    title: 'M-06 موس ارگونومیک',
+    subtitle: '۱۶۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 'e-07',
-    title: 'E-07 TITANIUM EYEWEAR',
-    subtitle: '$410.00',
+    title: 'E-07 عینک تیتانیوم',
+    subtitle: '۴۱۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=85&w=1200&auto=format&fit=crop',
   },
   {
     id: 'l-08',
-    title: 'L-08 ARCHITECTURAL LAMP',
-    subtitle: '$750.00',
+    title: 'L-08 چراغ معماری',
+    subtitle: '۷۵۰٬۰۰۰ تومان',
     imageUrl: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=85&w=1200&auto=format&fit=crop',
   },
 ];
@@ -117,12 +117,12 @@ export const LiquidGlassCard = forwardRef<HTMLDivElement, LiquidGlassCardProps>(
               )}
             </div>
 
-            <div className="flex flex-col items-center w-full text-center pointer-events-none">
-              <p className="font-mono text-[13px] leading-[1.2em] font-medium uppercase tracking-tight text-neutral-950">
+            <div className="flex w-full flex-col items-center text-center pointer-events-none">
+              <p className="text-[13px] font-medium leading-[1.2em] tracking-normal text-neutral-950">
                 {item.title}
               </p>
               {item.subtitle && (
-                <p className="font-mono text-[13px] leading-[1.2em] font-normal uppercase mt-0.5 text-neutral-400">
+                <p className="mt-0.5 text-[13px] font-normal leading-[1.2em] tracking-normal text-neutral-400" dir="ltr">
                   {item.subtitle}
                 </p>
               )}
@@ -334,7 +334,12 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
     return (
       <div
         ref={ref}
-        className={cn('infinite-grid-root relative h-full min-h-dvh w-full overflow-hidden bg-white', className)}
+        dir="rtl"
+        lang="fa"
+        className={cn(
+          'infinite-grid-root relative h-full min-h-dvh w-full overflow-hidden bg-white font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal',
+          className
+        )}
       >
         <style>{`
           @keyframes fluidBlob1 {
@@ -373,15 +378,16 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
           {...props}
         >
           {enableLiquidBlobs && (
-            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
-              <div className="absolute top-1/4 left-1/5 w-[45vw] h-[45vw] rounded-full bg-slate-100 blur-[90px] animate-fluid-1" />
-              <div className="absolute top-2/3 right-1/4 w-[50vw] h-[50vw] rounded-full bg-zinc-100 blur-[100px] animate-fluid-2" />
-              <div className="absolute -top-1/4 right-1/3 w-[40vw] h-[40vw] rounded-full bg-slate-50 blur-[85px] animate-fluid-3" />
+            <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
+              <div className="absolute top-1/4 start-1/5 h-[45vw] w-[45vw] animate-fluid-1 rounded-full bg-slate-100 blur-[90px]" />
+              <div className="absolute top-2/3 end-1/4 h-[50vw] w-[50vw] animate-fluid-2 rounded-full bg-zinc-100 blur-[100px]" />
+              <div className="absolute -top-1/4 end-1/3 h-[40vw] w-[40vw] animate-fluid-3 rounded-full bg-slate-50 blur-[85px]" />
             </div>
           )}
 
           <div
             ref={gridMatrixRef}
+            // Physical left: pan math is LTR/clientX-based; start-0 under dir=rtl pins the matrix to the right and throws content off-screen.
             className="absolute top-0 left-0"
             style={{
               display: 'grid',

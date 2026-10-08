@@ -97,25 +97,34 @@ export interface GooeyNavbarProps {
   className?: string;
 }
 
+/**
+ * Visual left→right order under the LTR gooey layout.
+ * With RTL reading, خانه sits on the right (start) and تماس on the left (end).
+ */
 export const DEFAULT_NAV_ITEMS: NavItem[] = [
-  { label: "Home", link: "#home" },
-  { label: "Work", link: "#work" },
-  { label: "About", link: "#about" },
-  { label: "Lab", link: "#lab" },
-  { label: "Contact", link: "#contact" },
+  { label: "تماس", link: "#contact" },
+  { label: "آزمایشگاه", link: "#lab" },
+  { label: "درباره", link: "#about" },
+  { label: "کارها", link: "#work" },
+  { label: "خانه", link: "#home" },
 ];
+
+const DEFAULT_ACTIVE_INDEX = DEFAULT_NAV_ITEMS.length - 1;
+
+const ESTEDAD_FONT =
+  'var(--font-estedad), Estedad, Tahoma, Arial, sans-serif';
 
 let measureCanvas: HTMLCanvasElement | null = null;
 
-/** Pixel width of an uppercase Inter 600 label — keeps SVG pills and links in sync. */
+/** Pixel width of an Estedad 600 label — keeps SVG pills and links in sync. */
 function measureLabelWidth(label: string, fontSize: number) {
-  const fallback = label.length * fontSize * 0.78;
+  const fallback = label.length * fontSize * 0.85;
   if (typeof document === "undefined") return fallback;
   measureCanvas ??= document.createElement("canvas");
   const ctx = measureCanvas.getContext("2d");
   if (!ctx) return fallback;
-  ctx.font = `600 ${fontSize}px Inter, "Inter Placeholder", system-ui, sans-serif`;
-  return ctx.measureText(label.toUpperCase()).width;
+  ctx.font = `600 ${fontSize}px ${ESTEDAD_FONT}`;
+  return ctx.measureText(label).width;
 }
 
 /**
@@ -123,7 +132,7 @@ function measureLabelWidth(label: string, fontSize: number) {
  */
 export function GooeyNavbar({
   items = DEFAULT_NAV_ITEMS,
-  defaultActiveIndex = 0,
+  defaultActiveIndex = DEFAULT_ACTIVE_INDEX,
   activeIndex: controlledActiveIndex,
   onSelect,
   pillColor = "rgb(0, 0, 0)",
@@ -175,10 +184,16 @@ export function GooeyNavbar({
 
   // Spring Physics Solver Loop
   const [animatedPushFactors, setAnimatedPushFactors] = useState<number[]>(() =>
-    baseRects.slice(0, -1).map((_, i) => (i === defaultActiveIndex ? 1 : 0))
+    baseRects.slice(0, -1).map((_, i) =>
+      i === defaultActiveIndex || i + 1 === defaultActiveIndex ? 1 : 0
+    )
   );
-  const currentPush = useRef<number[]>([1, 0, 0, 0]);
-  const currentVel = useRef<number[]>([0, 0, 0, 0]);
+  const currentPush = useRef<number[]>(
+    baseRects.slice(0, -1).map((_, i) =>
+      i === defaultActiveIndex || i + 1 === defaultActiveIndex ? 1 : 0
+    )
+  );
+  const currentVel = useRef<number[]>(baseRects.slice(0, -1).map(() => 0));
 
   useEffect(() => {
     let animId: number;
@@ -321,9 +336,11 @@ export function GooeyNavbar({
   return (
     <div
       ref={containerRef}
+      // Gooey bridge math is LTR (left pill → right pill). Keep layout LTR; order items for RTL reading.
+      dir="ltr"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative block w-max select-none mx-auto ${className}`}
+      className={`relative mx-auto block w-max select-none ${className}`}
     >
       {/* SVG Liquid Contour Layer */}
       <svg
@@ -331,15 +348,15 @@ export function GooeyNavbar({
         height="100%"
         aria-hidden="true"
         focusable="false"
-        className="absolute inset-0 z-0 pointer-events-none overflow-visible"
+        className="pointer-events-none absolute inset-0 z-0 overflow-visible"
       >
         <path d={fullSvgPath} fill={pillColor} fillRule="nonzero" />
       </svg>
 
       {/* Foreground Navigation Links */}
       <nav
-        aria-label="Main"
-        className="relative z-10 flex items-center justify-center w-max min-w-max"
+        aria-label="ناوبری اصلی"
+        className="relative z-10 flex w-max min-w-max items-center justify-center"
         style={{ gap: `${gap}px` }}
       >
         {items.map((item, idx) => {
@@ -357,12 +374,12 @@ export function GooeyNavbar({
               onClick={(e) => handleSelect(idx, e)}
               onMouseEnter={() => setHoveredIndex(idx)}
               style={{
-                fontFamily: 'Inter, "Inter Placeholder", system-ui, sans-serif',
+                fontFamily: ESTEDAD_FONT,
                 fontWeight: 600,
                 fontSize: `${fontSize}px`,
                 lineHeight: 1,
-                letterSpacing: "-0.1px",
-                textTransform: "uppercase",
+                letterSpacing: "normal",
+                textTransform: "none",
                 textAlign: "center",
                 whiteSpace: "nowrap",
                 width: `${baseRects[idx]?.width ?? 0}px`,
@@ -414,7 +431,11 @@ export function GooeyNavbar({
 
 export default function GooeyNavbarExample() {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-white px-6">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex h-full w-full items-center justify-center bg-white px-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <GooeyNavbar />
     </div>
   );

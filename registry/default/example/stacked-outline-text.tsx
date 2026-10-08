@@ -20,7 +20,7 @@ type StackedOutlineTextProps = {
   stacks?: number;
 };
 
-const DEFAULT_TEXT = "LMNO";
+const DEFAULT_TEXT = "طرح";
 const DEFAULT_FONT_SIZE = 250;
 const MIN_STACK_COUNT = 5;
 const MAX_STACK_COUNT = 10;
@@ -140,7 +140,7 @@ export const StackedOutlineText = ({
   const shadowOpacity = useSpring(rawShadowOpacity, shadowSpring);
   const displayText = text.trim() || DEFAULT_TEXT;
   const stackCount = getSafeStackCount(stacks);
-  const letterSpacing = fontSize * -0.04;
+  const letterSpacing = 0;
   const layerIndexes = getLayerIndexes(stackCount);
   const svgMetrics = getSvgMetrics(displayText, fontSize);
 
@@ -244,15 +244,17 @@ export const StackedOutlineText = ({
   return (
     <section
       ref={containerRef}
-      aria-label={`${displayText} stacked outline typography`}
+      dir="rtl"
+      lang="fa"
+      aria-label={`تایپوگرافی خط‌چین لایه‌ای ${displayText}`}
       className={cn(
-        "relative flex h-full min-h-[520px] w-full items-center justify-center overflow-hidden bg-black px-4 py-12 text-white",
+        "relative flex h-full min-h-[520px] w-full items-center justify-center overflow-hidden bg-black px-4 py-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-white",
         className,
       )}
     >
       <motion.div
         ref={draggableRef}
-        aria-label={`Drag ${displayText} typography`}
+        aria-label={`کشیدن تایپ ${displayText}`}
         className="touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black"
         drag
         dragConstraints={containerRef}
@@ -287,7 +289,7 @@ export const StackedOutlineText = ({
         >
           <g
             dominantBaseline="middle"
-            fontFamily="Arial Black, Impact, var(--font-geist-sans), sans-serif"
+            fontFamily="var(--font-estedad), Tahoma, Arial Black, Impact, sans-serif"
             fontSize={fontSize}
             fontWeight="900"
             letterSpacing={letterSpacing}

@@ -105,7 +105,7 @@ export function CodeBlockCommand({
             openPressMotion,
           )}
           onClick={copy}
-          aria-label={copied ? "Copied" : "Copy"}
+          aria-label={copied ? "کپی شد" : "کپی"}
         >
           <img
             src={copied ? "/open/check.svg" : "/open/copy.svg"}

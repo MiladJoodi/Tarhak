@@ -12,9 +12,9 @@
     "items": []
   },
   "showHint": true,
-  "hintKind": "click",
-  "hintHeading": "Click the switch",
-  "hintDescription": "The dotted grip slides across the recessed track. On, it goes blue. Off, it sits left.",
+  "hintKind": "custom",
+  "hintHeading": "روی سوئیچ بزن",
+  "hintDescription": "دستگیره نقطه‌دار روی شیار حرکت می‌کند. روشن آبی می‌شود. خاموش سمت چپ می‌ماند.",
   "tags": [
     "button",
     "theme",

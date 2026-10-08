@@ -24,30 +24,36 @@ export const DEFAULT_IMAGE =
 
 export const DEFAULT_CARDS: SplitCard[] = [
   {
-    title: "Fort Point",
-    kicker: "Presidio",
+    title: "قلعهٔ فورت پوینت",
+    kicker: "پرسیدیو",
     description:
-      "A Civil War battery under the south tower. The fog hits the brick before it hits the city.",
+      "باتری جنگ داخلی زیر برج جنوبی. مه قبل از شهر به آجر می‌خورد.",
     bgColor: "#ead9c4",
     textColor: "#2a1810",
   },
   {
-    title: "The Span",
-    kicker: "1.7 miles",
+    title: "دهانه",
+    kicker: "۲٫۷ کیلومتر",
     description:
-      "International Orange, mixed to cut through fog. The deck hangs 220 feet over the strait.",
+      "نارنجی بین‌المللی، مخلوط شده تا از مه رد شود. عرشه ۲۲۰ فوت بالای تنگه است.",
     bgColor: "#c4452d",
     textColor: "#fff4ec",
   },
   {
-    title: "Marin Head",
-    kicker: "North tower",
+    title: "دماغهٔ مارین",
+    kicker: "برج شمالی",
     description:
-      "The walk from Battery Spencer. On a thick day the city is only a smear of lights.",
+      "پیاده‌روی از باتری اسپنسر. در روز غلیظ، شهر فقط لکه‌ای از نور است.",
     bgColor: "#2c3033",
     textColor: "#e6e2da",
   },
 ];
+
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+
+function toFaDigits(value: string | number) {
+  return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
+}
 
 export function clamp01(n: number) {
   return Math.min(1, Math.max(0, n));
@@ -123,7 +129,9 @@ function Panel({
       </motion.div>
 
       <motion.div
-        className="absolute inset-0 flex flex-col justify-between overflow-hidden p-5 antialiased [backface-visibility:hidden] sm:p-6"
+        dir="rtl"
+        lang="fa"
+        className="absolute inset-0 flex flex-col justify-between overflow-hidden p-5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] antialiased [backface-visibility:hidden] sm:p-6"
         style={{
           backgroundColor: card.bgColor,
           color: card.textColor,
@@ -132,16 +140,16 @@ function Panel({
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
         }}
       >
-        <div className="flex items-center justify-between gap-3 font-mono text-[10px] font-medium uppercase tracking-[0.16em] tabular-nums opacity-55">
-          <span>{String(index + 1).padStart(2, "0")}</span>
+        <div className="flex items-center justify-between gap-3 text-[10px] font-medium tabular-nums opacity-55">
+          <span>{toFaDigits(String(index + 1).padStart(2, "0"))}</span>
           {card.kicker ? <span className="truncate">{card.kicker}</span> : null}
         </div>
-        <div>
+        <div className="text-start">
           <div
             className="mb-4 h-px w-7 opacity-50"
             style={{ backgroundColor: "currentColor" }}
           />
-          <h3 className="text-[22px] font-semibold leading-[1.12] tracking-tight text-balance sm:text-[26px]">
+          <h3 className="text-[22px] font-semibold leading-[1.25] text-balance sm:text-[26px]">
             {card.title}
           </h3>
           <p className="mt-2.5 text-[13px] leading-relaxed text-pretty opacity-80 sm:text-sm">
@@ -172,10 +180,13 @@ export function ScrollSplitCards({
   return (
     <div
       ref={trackRef}
+      lang="fa"
       className={`relative h-[400vh] w-full bg-neutral-950 ${className}`}
     >
+      {/* Image strip stays LTR so the photo seams stay correct. */}
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden [perspective:1400px]">
         <motion.div
+          dir="ltr"
           className="flex h-[min(420px,56vh)] w-full max-w-4xl px-4 [transform-style:preserve-3d]"
           style={{ scale, y: lift }}
         >

@@ -86,7 +86,7 @@ export function DocsCodeBlock({
           openPressMotion,
         )}
         onClick={copy}
-        aria-label={copied ? "Copied" : "Copy Code"}
+        aria-label={copied ? "کپی شد" : "کپی کد"}
       >
         <img
           src={copied ? "/open/check.svg" : "/open/copy-white-18.svg"}
@@ -95,7 +95,7 @@ export function DocsCodeBlock({
           height={18}
           className="size-[18px] shrink-0"
         />
-        <span className="shrink-0">{copied ? "Copied" : "Copy Code"}</span>
+        <span className="shrink-0">{copied ? "کپی شد" : "کپی کد"}</span>
       </button>
     </div>
   ) : null;

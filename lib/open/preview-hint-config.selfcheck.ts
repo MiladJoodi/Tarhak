@@ -11,8 +11,8 @@ assert.equal(resolvePreviewHint(parsePreviewHint({})), null);
 assert.equal(resolvePreviewHint(parsePreviewHint({ showHint: false, hintKind: "click" })), null);
 
 assert.deepEqual(resolvePreviewHint(parsePreviewHint({ showHint: true, hintKind: "click" })), {
-  heading: "Click",
-  description: "Click to try it",
+  heading: "کلیک",
+  description: "برای امتحان کلیک کن",
   hideOnScroll: false,
 });
 
@@ -25,8 +25,8 @@ assert.deepEqual(
     }),
   ),
   {
-    heading: "Scroll",
-    description: "Scroll to see it change",
+    heading: "اسکرول",
+    description: "اسکرول کن تا تغییر را ببینی",
     hideOnScroll: true,
   },
 );

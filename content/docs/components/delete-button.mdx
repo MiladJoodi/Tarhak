@@ -1,19 +1,19 @@
 ---
 title: Delete Button
-description: A red delete control that morphs into a countdown with undo before anything is gone.
+description: دکمهٔ قرمز حذف که قبل از انجام کار به شمارش معکوس با امکان لغو تبدیل می‌شود.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Idle to armed**: One tap turns the soft button into a hard red “delete” state.
-- **Countdown ring**: A timer ticks down so accidental taps have a window to recover.
-- **Undo in place**: The same control becomes “Cancel Deletion” — no extra modal.
-- **Character morph**: Labels swap with a small blur so the change feels like one button, not two.
-- **Locked while animating**: Clicks are ignored mid-transition so you can’t double-fire.
+- **آماده تا مسلح**: یک ضربه دکمهٔ نرم را به حالت قرمز «حذف» تبدیل می‌کند.
+- **حلقهٔ شمارش**: تایمر پایین می‌آید تا ضربهٔ تصادفی فرصت برگشت داشته باشد.
+- **لغو درجا**: همان کنترل «لغو حذف» می‌شود — بدون مودال اضافه.
+- **مورف کاراکتر**: برچسب‌ها با محو کوتاه عوض می‌شوند تا یک دکمه حس شود، نه دو تا.
+- **قفل هنگام انیمیشن**: وسط انتقال کلیک نادیده گرفته می‌شود تا دوبار اجرا نشود.
 
-## Usage
+## نحوه استفاده
 
-Use it for account deletion, trash, or any action you can’t easily reverse. Wire the countdown finish to your real delete. Keep it away from primary CTAs. Labels and duration live in the component — change `deleteText` / `cancelText` / countdown there.
+برای حذف حساب، سطل زباله یا هر کاری که برگشتش سخت است. پایان شمارش را به حذف واقعی وصل کنید. دور از CTAهای اصلی نگه دارید. متن و مدت در خود کامپوننت است — `deleteText` / `cancelText` / شمارش را آنجا عوض کنید.
 
 ```tsx
 import DeleteButton from "@/components/delete-button";
@@ -23,10 +23,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Account and team settings
-- Trash or archive confirms
-- Billing cancellation
-- Admin destructive actions
-- File or project delete in a dashboard
+- تنظیمات حساب و تیم
+- تأیید سطل زباله یا آرشیو
+- لغو اشتراک صورتحساب
+- عملیات مخرب ادمین
+- حذف فایل یا پروژه در داشبورد

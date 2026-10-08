@@ -76,7 +76,9 @@ const CometLogo = () => (
 );
 
 const PassNumber = () => (
-  <span className="font-serif text-base leading-none text-white/50">01</span>
+  <span className="text-base leading-none text-white/50 tabular-nums" dir="ltr">
+    01
+  </span>
 );
 
 const isImageLogo = (
@@ -110,16 +112,16 @@ const renderLogo = (logo: CardLogo, className: string, fallbackAlt: string) => {
 
 export function HolographicReferralCard({
   image = INVITE_BACKGROUND_URL,
-  imageAlt = "Invite background",
-  title = "Comet",
-  description = "Admit One",
+  imageAlt = "پس‌زمینه کارت دعوت",
+  title = "پاس دعوت",
+  description = "ورود یک‌نفره",
   logo = <CometLogo />,
-  logoAlt = "Comet avatar",
+  logoAlt = "لوگوی برند",
   secondLogo = <PassNumber />,
-  secondLogoAlt = "Pass number",
+  secondLogoAlt = "شماره پاس",
   secondLogoHref,
   secondLogoAriaLabel,
-  ariaLabel = "Comet invite card",
+  ariaLabel = "کارت دعوت هولوگرافیک",
   className,
 }: HolographicReferralCardProps) {
   const shouldReduceMotion = Boolean(useReducedMotion());
@@ -197,15 +199,17 @@ export function HolographicReferralCard({
 
   return (
     <div
+      dir="rtl"
+      lang="fa"
       className={cn(
-        "w-[min(100vw-2rem,375px)] p-5 [perspective:1000px]",
+        "w-[min(100vw-2rem,375px)] p-5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal [perspective:1000px]",
         className
       )}
     >
       <motion.article
         aria-label={ariaLabel}
         className={cn(
-          "relative flex w-full flex-col rounded-2xl bg-[#1f2121] p-2 text-left will-change-transform saturate-0 outline-none md:p-4",
+          "relative flex w-full flex-col rounded-2xl bg-[#1f2121] p-2 text-start will-change-transform saturate-0 outline-none md:p-4",
           "shadow-[0_520px_146px_rgba(0,0,0,0.01),0_333px_133px_rgba(0,0,0,0.04),0_83px_83px_rgba(0,0,0,0.26),0_21px_46px_rgba(0,0,0,0.29)]",
           "focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1f2121]"
         )}
@@ -249,9 +253,9 @@ export function HolographicReferralCard({
           </div>
         </div>
 
-        <div className="mt-2 flex shrink-0 items-center justify-between p-2 text-xs text-white">
-          <span className="truncate uppercase">{title}</span>
-          <span className="truncate pl-3 font-serif text-base leading-none text-white/50">
+        <div className="mt-2 flex shrink-0 items-center justify-between gap-3 p-2 text-xs text-white">
+          <span className="truncate">{title}</span>
+          <span className="truncate text-base leading-none text-white/50">
             {description}
           </span>
         </div>

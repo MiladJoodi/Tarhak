@@ -1,39 +1,57 @@
 ---
-title: Introduction
-description: Animated React components you copy into your project. Edit them like any other file.
+title: مقدمه
+description: کامپوننت‌های متحرک React که می‌توانید مستقیم داخل پروژه‌تان استفاده کنید و مثل هر کد دیگری تغییرشان دهید.
 ---
 
-useLayouts is a free library of animated UI for React. Tabs, buttons, galleries, small interactions. You copy a component into your app and it's just your code.
+**useLayouts** یک مجموعه رایگان از کامپوننت‌های متحرک برای React است؛ از تب و دکمه گرفته تا گالری و تعاملات کوچک رابط کاربری. کامپوننت را به پروژه‌تان اضافه می‌کنید و کدش کاملاً در اختیار خودتان است.
 
-## When it felt dead
+## وقتی رابط کاربری بی‌روح بود
 
-I remember shipping a product page at 1am. The hover states were fine. The motion was "smooth." Nobody complained.
+یادم هست یک شب، صفحه محصول را تمام کردم. هاورها درست کار می‌کردند، انیمیشن‌ها نرم بودند و هیچ مشکلی هم وجود نداشت.
 
-I still felt nothing when I moved the cursor.
+اما وقتی خودم با صفحه کار می‌کردم، چیزی کم بود.
 
-### What I was shipping
+رابط کاربری کار می‌کرد، ولی حس نمی‌داد.
 
-Defaults from a kit. A scale on hover. A fade on open. The same three transitions on every surface, because that was what the docs showed and what we had time for.
+### چه چیزی ساخته بودم؟
 
-### What I wanted instead
+همان چیزهایی که معمولاً در یک UI Kit می‌بینیم:
 
-A grip that slides. A card that remembers the pointer. A delete that feels like a decision, not a CSS class. Motion that tells you the UI is listening.
+بزرگ شدن یک عنصر هنگام هاور، محو شدن هنگام باز شدن و چند ترنزیشن تکراری که روی بیشتر بخش‌های صفحه استفاده می‌شوند.
 
-So I started building those pieces myself. Motion and Tailwind. One component at a time. Then I put the source in the repo so you can own it the same way.
+همه‌چیز درست بود، اما زیادی قابل‌پیش‌بینی بود.
 
-## What this is
+### چه چیزی می‌خواستم؟
 
-Not a locked package. Not a theme you fight.
+می‌خواستم تعامل‌ها کمی بیشتر از یک تغییر ساده در CSS باشند.
 
-You pick a component, run the CLI, and the file lands in your project. Change the spring. Swap the copy. Delete half of it. It's yours.
+دکمه‌ای که هنگام کلیک واکنش نشان بدهد. کارتی که به حرکت نشانگر واکنش نشان دهد. حذف شدن یک آیتم طوری باشد که واقعاً حس شود چیزی از صفحه حذف شده.
 
-## Install
+می‌خواستم رابط کاربری نشان بدهد که به کاری که کاربر انجام می‌دهد واکنش دارد.
 
-It's a [shadcn](https://ui.shadcn.com/docs/cli) registry. Add uselayouts once, then install by name.
+برای همین شروع کردم به ساختن این کامپوننت‌ها با Motion و Tailwind، یکی‌یکی.
 
-### Add the registry
+بعد تصمیم گرفتم کدشان را در یک ریپو قرار بدهم تا دیگران هم بتوانند آن‌ها را بردارند، تغییر دهند و برای پروژه خودشان استفاده کنند.
 
-In your project's `components.json`:
+## این چیست؟
+
+نه یک پکیج بسته که نتوانید داخلش دست ببرید، نه یک تم آماده که مجبور باشید خودتان را با آن هماهنگ کنید.
+
+کامپوننت را انتخاب می‌کنید، با CLI به پروژه اضافه‌اش می‌کنید و کدش داخل پروژه خودتان قرار می‌گیرد.
+
+می‌توانید انیمیشنش را تغییر دهید، ظاهرش را عوض کنید، بخشی از آن را حذف کنید یا حتی کاملاً مطابق نیاز خودتان بازنویسی‌اش کنید.
+
+از اینجا به بعد، کد متعلق به شماست.
+
+## نصب
+
+این پروژه از Registry مربوط به **FarsiUI** استفاده می‌کند.
+
+یک‌بار Registry را به پروژه اضافه کنید و بعد کامپوننت‌های موردنظرتان را با نامشان نصب کنید.
+
+### افزودن Registry
+
+در فایل `components.json` پروژه:
 
 ```json
 {
@@ -43,64 +61,80 @@ In your project's `components.json`:
 }
 ```
 
-### Pick a component
+### انتخاب کامپوننت
+
+برای مثال:
 
 ```bash
-npx shadcn@latest add @uselayouts/discrete-tabs
+npx farsiui@latest add @uselayouts/discrete-tabs
 ```
 
-### Package managers
+### مدیرهای پکیج
 
-pnpm, yarn, and bun work the same way:
+با pnpm، yarn و bun هم می‌توانید همین کار را انجام دهید:
 
 ```bash
-pnpm dlx shadcn@latest add @uselayouts/discrete-tabs
-yarn dlx shadcn@latest add @uselayouts/discrete-tabs
-bunx --bun shadcn@latest add @uselayouts/discrete-tabs
+pnpm dlx farsiui@latest add @uselayouts/discrete-tabs
+
+yarn dlx farsiui@latest add @uselayouts/discrete-tabs
+
+bunx --bun farsiui@latest add @uselayouts/discrete-tabs
 ```
 
-You can add a few at once:
+چند کامپوننت را هم می‌توانید هم‌زمان اضافه کنید:
 
 ```bash
-npx shadcn@latest add @uselayouts/delete-button @uselayouts/status-button
+npx farsiui@latest add @uselayouts/delete-button @uselayouts/status-button
 ```
 
-You need React and Tailwind. Motion (and anything else a component needs) gets installed for you.
+پروژه شما باید React و Tailwind داشته باشد. Motion و سایر وابستگی‌های موردنیاز هر کامپوننت هم هنگام نصب اضافه می‌شوند.
 
-## Open one and break it
+## یکی را باز کنید و تغییرش دهید
 
-Don't treat these as finished products. Treat them as a starting point you can ruin on purpose.
+با این کامپوننت‌ها مثل یک محصول نهایی رفتار نکنید.
 
-Change the easing until it feels like your product. Rename the props. Strip the chrome. The point of owning the file is that you stop asking permission from a library.
+آن‌ها نقطه شروع هستند.
 
-## Motion that means something
+انیمیشن را تغییر دهید، سرعتش را کم یا زیاد کنید، ظاهرش را با طراحی خودتان هماهنگ کنید، پراپ‌ها را تغییر دهید یا هر بخشی را که نیاز ندارید حذف کنید.
 
-Every animation here is supposed to do a job: feedback, focus, or flow. If it only looks expensive, cut it.
+مزیت اینکه کد داخل پروژه خودتان قرار می‌گیرد همین است: برای تغییر دادن آن لازم نیست منتظر کتابخانه بمانید.
 
-These components were built for the moments where a static UI feels rude — waiting, deleting, switching, dragging. That is the whole bet.
+## انیمیشن باید دلیل داشته باشد
 
-## Where to look
+هر انیمیشن باید یک کاربرد مشخص داشته باشد؛ مثلاً ایجاد بازخورد، نشان دادن تغییر وضعیت یا کمک به درک بهتر جریان کار.
 
-### Browse
+اگر یک حرکت فقط برای جذاب‌تر شدن اضافه شده و چیز بیشتری به تجربه کاربر اضافه نمی‌کند، احتمالاً بهتر است حذف شود.
 
-[Browse](/browse) is the wall. Skim, hover, open whatever pulls you in.
+این کامپوننت‌ها بیشتر برای لحظه‌هایی ساخته شده‌اند که یک رابط کاربری کاملاً ثابت نمی‌تواند به‌اندازه کافی منظورش را منتقل کند؛ مثل انتظار، حذف شدن، جابه‌جایی و کشیدن عناصر.
 
-### Docs pages
+## از کجا شروع کنیم؟
 
-Each [component](/docs/components/pricing-card) page has a live preview, the install command, and the source you get when you add it.
+### مرور کامپوننت‌ها
 
-## Who this is for
+صفحه [**مرور**](/browse) محل خوبی برای شروع است.
 
-### If you're shipping alone
+کامپوننت‌ها را ببینید، روی آن‌ها حرکت کنید و هرکدام را که به کارتان می‌آید باز کنید.
 
-You need something that already feels cared for, so you can spend the night on the product instead of reinventing a tab indicator.
+### صفحات کامپوننت
 
-### If you're on a team
+هر صفحه [**کامپوننت**](/docs/components/pricing-card) شامل پیش‌نمایش زنده، دستور نصب و سورسی است که با دستور `add` وارد پروژه شما می‌شود.
 
-Drop a component in, make it match your design system, and stop debating hover opacity in Slack.
+## این پروژه برای چه کسانی است؟
 
-## Keep it free
+### اگر به‌تنهایی روی محصول کار می‌کنید
 
-I want this to stay free for people who need a better starting point than another dead hover.
+اگر نمی‌خواهید برای هر تعامل کوچک رابط کاربری را از صفر بسازید، می‌توانید از این کامپوننت‌ها به‌عنوان نقطه شروع استفاده کنید و وقتتان را روی خود محصول بگذارید.
 
-If a company gets value from it, [sponsor](/sponsor) so the lights stay on. If you're building something small and personal, take what you need and ship.
+### اگر تیمی کار می‌کنید
+
+کامپوننت را وارد پروژه کنید، با طراحی خودتان هماهنگش کنید و در صورت نیاز کدش را تغییر دهید.
+
+اینجا قرار نیست یک کامپوننت غیرقابل‌تغییر تحویل بگیرید؛ قرار است کدی داشته باشید که بتوانید خودتان کنترلش کنید.
+
+## رایگان می‌ماند
+
+هدف این پروژه این است که یک نقطه شروع خوب برای ساخت رابط‌های کاربری متحرک در اختیار همه باشد.
+
+اگر سؤال یا پیشنهادی دارید یا دوست دارید در پروژه همکاری کنید، از صفحه [**تماس**](/contact) با ما در ارتباط باشید.
+
+اگر کامپوننتی به کارتان می‌آید، بردارید، تغییرش دهید و در پروژه خودتان استفاده کنید.

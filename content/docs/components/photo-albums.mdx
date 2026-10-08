@@ -1,18 +1,18 @@
 ---
 title: Photo Albums
-description: Tilted album stacks that open into a shared-element grid of photos.
+description: پشته‌های کج آلبوم که به شبکهٔ عکس با المان مشترک باز می‌شوند.
 ---
 
-## Features
+## قابلیت‌ها
 
-- **Stacked covers**: Three photos sit at a fan, then morph into the album grid.
-- **The rest leave**: Other albums fade out so only the one you opened stays.
-- **Shared titles**: The album name travels with `layoutId`.
-- **Hover lift**: Stacks tilt a little on hover.
+- **جلدهای پشته‌ای**: سه عکس بادبزنی می‌نشینند، بعد به شبکهٔ آلبوم مورف می‌شوند.
+- **بقیه می‌روند**: آلبوم‌های دیگر محو می‌شوند تا فقط بازشده بماند.
+- **عنوان مشترک**: نام آلبوم با `layoutId` همراه می‌آید.
+- **بلند شدن با هاور**: پشته‌ها کمی کج می‌شوند.
 
-## Usage
+## نحوه استفاده
 
-Replace `COLLECTIONS` with your albums. Click a stack to open, back to return. Keep the parent from clipping overflow so the morph isn’t cut.
+`COLLECTIONS` را با آلبوم‌های خود عوض کنید. روی پشته بزنید تا باز شود، برگشت برای بستن. والد را طوری نگذارید که overflow را ببرد و مورف قطع شود.
 
 ```tsx
 import PhotoAlbums from "@/components/photo-albums";
@@ -22,10 +22,10 @@ export default function Page() {
 }
 ```
 
-## Where to use
+## کجا استفاده شود
 
-- Photo apps and camera rolls
-- Travel journals
-- Portfolio case indexes
-- Mood boards
-- Private / public album pickers
+- اپ عکس و رول دوربین
+- دفترچهٔ سفر
+- فهرست کیس‌های پورتفولیو
+- مودبورد
+- انتخابگر آلبوم خصوصی / عمومی
