@@ -31,7 +31,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     role: "ورزشکار و کارآفرین",
     company: "برند CR7",
     avatar:
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1539571696357-5a69c17a67c6.webp",
     quote:
       "این محصول کاملاً شیوهٔ کارمان را عوض کرد. رابطش شهودی است و دقیقاً همان قابلیت‌هایی را دارد که لازم داشتیم.",
   },
@@ -41,7 +41,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     role: "مدیرعامل و بنیان‌گذار",
     company: "انویدیا",
     avatar:
-      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1502920917128-1aa500764cbd.webp",
     quote:
       "راه‌حل‌های زیادی امتحان کردم؛ این یکی با سادگی و قدرتش متمایز است. جداً پیشنهاد می‌کنم.",
   },
@@ -51,7 +51,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     role: "طراح ارشد محصول",
     company: "استودیو کرافت",
     avatar:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1524504388940-b1c1722653e1.webp",
     quote:
       "تیم پشت محصول فوق‌العاده پاسخ‌گوست و با هر به‌روزرسانی بهتر می‌شود.",
   },
@@ -61,7 +61,7 @@ const INITIAL_TESTIMONIALS: Testimonial[] = [
     role: "مدیرعامل",
     company: "داس کپیتال",
     avatar:
-      "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1507591064344-4c6ce005b128.webp",
     quote:
       "بهترین سرمایه‌گذاری امسال‌مان بود. بازگشت سرمایه عالی بوده و تیم عاشق کار با آن است.",
   },
@@ -74,7 +74,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "معاون محصول",
     company: "اپکس سیستمز",
     avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1494790108377-be9c29b29330.webp",
     quote:
       "جابه‌جایی به این پلتفرم زمان آنبوردینگ تیم را نصف کرد. اعضای جدید از روز اول بهره می‌دهند.",
   },
@@ -84,7 +84,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "معمار اصلی",
     company: "هایپراسکیل",
     avatar:
-      "https://images.unsplash.com/photo-1463453091185-61582044d556?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1463453091185-61582044d556.webp",
     quote:
       "فقط موتور تحلیلش ارزشش را دارد. بالاخره دید لحظه‌ای روی کل معماری داریم.",
   },
@@ -94,7 +94,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "سرپرست طراحی",
     company: "دیزاین لب",
     avatar:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1531123897727-8f129e1688ce.webp",
     quote:
       "پشتیبانی مشتری عالی است. هر سؤال ظرف چند دقیقه با دقت پاسخ داده می‌شود.",
   },
@@ -104,7 +104,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "بنیان‌گذار و مدیرعامل",
     company: "نورت‌تک",
     avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1472099645785-5658abf4ff4e.webp",
     quote:
       "ده‌ها ابزار را قبل از این ارزیابی کردیم. هیچ‌کدام به صیقل و سرعتش نزدیک هم نیست.",
   },
@@ -114,7 +114,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "مدیر عملیات",
     company: "گلوبال‌سینک",
     avatar:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1487412720507-e7ab37603c6f.webp",
     quote:
       "گردش‌کارهای موبایل بی‌نقص‌اند. استقرارهای حیاتی را در حرکت مدیریت می‌کنم بدون اینکه چیزی از دست برود.",
   },
@@ -124,7 +124,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "مدیر محصول گروهی",
     company: "فلو‌استیت",
     avatar:
-      "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1506744038136-46273834b3fb.webp",
     quote:
       "کل تیم مهندسی و طراحی بدون اصطکاک پذیرفتندش. با ابزارهای قبلی هرگز چنین اتفاقی نیفتاده بود.",
   },
@@ -134,7 +134,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "مدیر فناوری",
     company: "کوانتوم لب",
     avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1438761681033-6461ffad8d80.webp",
     quote:
       "قابلیت‌های خودکارسازی بیش از ۲۵ ساعت در هفته صرفه‌جویی می‌کند. ظرف کمتر از یک ماه هزینه‌اش برگشت.",
   },
@@ -144,7 +144,7 @@ const ADDITIONAL_TESTIMONIALS: Testimonial[] = [
     role: "مدیر خلاقیت",
     company: "لومینری",
     avatar:
-      "https://images.unsplash.com/photo-1548142813-c348350df52b?w=120&h=120&auto=format&fit=crop&crop=faces&q=80",
+      "/unsplash/1506794778202-cad84cf45f1d.webp",
     quote:
       "دقت به جزئیات باورنکردنی است. هر انتقال و ژستی نرم، روان و لذت‌بخش حس می‌شود.",
   },

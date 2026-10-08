@@ -28,14 +28,14 @@ const GRADIENTS = {
 type GradientVariant = keyof typeof GRADIENTS;
 
 const CLIENT_PROFILES = [
-  "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1534308143481-c55f00be8bd7?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=256&h=256&q=80",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&h=256&q=80",
+  "/unsplash/1522075469751-3a6694fb2f61.webp",
+  "/unsplash/1534308143481-c55f00be8bd7.webp",
+  "/unsplash/1476514525535-07fb3b4ae5f1.webp",
+  "/unsplash/1507003211169-0a1dd7228f2d.webp",
+  "/unsplash/1438761681033-6461ffad8d80.webp",
+  "/unsplash/1472099645785-5658abf4ff4e.webp",
+  "/unsplash/1517841905240-472988babdf9.webp",
+  "/unsplash/1500648767791-00dcc994a43e.webp",
 ];
 
 function toPersianDigits(value: string | number) {
@@ -105,7 +105,7 @@ function CircularProgress({
 export function ClientCard({
   name = "سارا جنکینز",
   country = "بریتانیا",
-  image = "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=256&h=256&q=80",
+  image = "/unsplash/1438761681033-6461ffad8d80.webp",
   service = "مدیریت شبکه‌های اجتماعی و استراتژی محتوا",
   amountPaid = 4500,
   totalAmount = 6000,

@@ -33,7 +33,7 @@ const ITEMS: Item[] = [
   {
     title: "مرمرسازی",
     description: "رنگ خیس که در بافت می‌نشیند، نه فقط روی سطح.",
-    image: `https://images.unsplash.com/photo-1541701494587-cb58502866ab?${IMG}`,
+    image: `/unsplash/1541701494587-cb58502866ab.webp`,
     icon: Droplets,
     seed: 648,
     colors: [
@@ -45,7 +45,7 @@ const ITEMS: Item[] = [
   {
     title: "اتاق تاریک",
     description: "سینی، نور ایمن، و چاپی که فقط در دقیقهٔ آخر ظاهر می‌شود.",
-    image: `https://images.unsplash.com/photo-1557672172-298e090bd0f1?${IMG}`,
+    image: `/unsplash/1508615039623-a25605d2b022.webp`,
     icon: Camera,
     seed: 732,
     colors: [
@@ -57,7 +57,7 @@ const ITEMS: Item[] = [
   {
     title: "کوره",
     description: "گلی که تا برگشتن از آتش هنوز ناتمام است.",
-    image: `https://images.unsplash.com/photo-1574169208507-84376144848b?${IMG}`,
+    image: `/unsplash/1509316785289-025f5b846b35.webp`,
     icon: Flame,
     seed: 516,
     colors: [
@@ -69,7 +69,7 @@ const ITEMS: Item[] = [
   {
     title: "صحافی",
     description: "دفترهایی که طوری دوخته شده‌اند تا روی میز صاف باز شوند.",
-    image: `https://images.unsplash.com/photo-1550684848-fac1c5b4e853?${IMG}`,
+    image: `/unsplash/1509316975850-ff9c5deb0cd9.webp`,
     icon: BookOpen,
     seed: 884,
     colors: [
@@ -81,7 +81,7 @@ const ITEMS: Item[] = [
   {
     title: "نمونه‌گیری",
     description: "یک بررسی آخر روی برگه قبل از شروع چاپ.",
-    image: `https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?${IMG}`,
+    image: `/unsplash/1511285560929-80b456fea0bc.webp`,
     icon: SwatchBook,
     seed: 291,
     colors: [

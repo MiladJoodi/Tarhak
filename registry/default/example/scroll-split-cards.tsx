@@ -20,7 +20,7 @@ export type ScrollSplitCardsProps = {
 };
 
 export const DEFAULT_IMAGE =
-  "https://images.unsplash.com/photo-1759340642551-f7b6059fe2ba?q=80&w=2400&auto=format&fit=crop";
+  "/unsplash/1524504388940-b1c1722653e1.webp";
 
 export const DEFAULT_CARDS: SplitCard[] = [
   {

@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function sliderStep(cardWidth: number, overlapFactor: number, cardGap: number) {
@@ -41,7 +46,7 @@ export type CardProfile = {
 };
 
 const shot = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&q=80`;
+  `/unsplash/${id}.webp`;
 
 export const DEFAULT_PROFILES: CardProfile[] = [
   {
@@ -57,7 +62,7 @@ export const DEFAULT_PROFILES: CardProfile[] = [
     name: "نیلوفر احمدی",
     handle: "@niloufar",
     role: "طراح رابط کاربری",
-    image: shot("1529626455594-4ff0802cfb7e"),
+    image: shot("1511379938547-c1f69419868d"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(184, 212, 91) 96.8%)",
   },
   {
@@ -81,7 +86,7 @@ export const DEFAULT_PROFILES: CardProfile[] = [
     name: "آتنا موسوی",
     handle: "@atena.ui",
     role: "طراح رابط کاربری",
-    image: shot("1580489944761-15a19d654956"),
+    image: shot("1513519245088-0e12902e5a38"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(214, 176, 72) 96.8%)",
   },
   {
@@ -89,7 +94,7 @@ export const DEFAULT_PROFILES: CardProfile[] = [
     name: "النا حسینی",
     handle: "@elena.h",
     role: "طراح محصول",
-    image: shot("1544005313-94ddf0286df2"),
+    image: shot("1517841905240-472988babdf9"),
     gradient: "linear-gradient(rgba(255, 252, 252, 0) 0%, rgb(214, 132, 148) 96.8%)",
   },
 ];
@@ -135,14 +140,20 @@ export function OverlappingSlider<T = CardProfile>({
     ? ((item: T) => <ProfileCard card={item as CardProfile} />)
     : renderItem;
   const total = resolvedItems ? resolvedItems.length : childArray.length;
-  const step = sliderStep(cardWidth, overlapFactor, cardGap);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [layoutWidth, setLayoutWidth] = useState(cardWidth);
+  const shellRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
+  const activeIndexRef = useRef(0);
+  const stepRef = useRef(sliderStep(cardWidth, overlapFactor, cardGap));
   const dragRef = useRef({
     down: false,
+    axis: null as null | "x" | "y",
+    pointerId: -1,
     startX: 0,
+    startY: 0,
     origin: 0,
     lastX: 0,
     lastT: 0,
@@ -150,15 +161,21 @@ export function OverlappingSlider<T = CardProfile>({
     moved: 0,
   });
 
+  const layoutHeight = Math.round(cardHeight * (layoutWidth / cardWidth));
+  const step = sliderStep(layoutWidth, overlapFactor, cardGap);
+  stepRef.current = step;
+
   const apply = (x: number, animate: boolean) => {
     offsetRef.current = x;
     const track = trackRef.current;
     if (!track) return;
-    const transition = animate ? "transform 380ms cubic-bezier(0.22, 1, 0.36, 1)" : "none";
+    const currentStep = stepRef.current;
+    const transition = animate
+      ? "transform 380ms cubic-bezier(0.22, 1, 0.36, 1)"
+      : "none";
     track.style.transition = transition;
     track.style.setProperty("--ox", `${x}px`);
-    const activeExact = -x / step;
-    const active = Math.max(0, Math.min(Math.round(activeExact), total - 1));
+    const activeExact = -x / currentStep;
     for (let i = 0; i < track.children.length; i++) {
       const card = track.children[i] as HTMLElement;
       const diff = i - activeExact;
@@ -176,72 +193,142 @@ export function OverlappingSlider<T = CardProfile>({
 
   const goTo = (index: number) => {
     const next = Math.max(0, Math.min(index, total - 1));
+    activeIndexRef.current = next;
     setActiveIndex(next);
-    apply(-next * step, true);
+    apply(-next * stepRef.current, true);
     onActiveChange?.(next);
   };
 
   useLayoutEffect(() => {
-    apply(offsetRef.current, false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- drag writes transforms on the track; this only re-paints when card metrics change
-  }, [cardWidth, cardHeight, overlapFactor, cardGap, maxRotation, total]);
+    const shell = shellRef.current;
+    if (!shell) return;
 
-  const onPointerDown = (e: React.PointerEvent) => {
+    const updateWidth = () => {
+      const max = Math.max(220, shell.clientWidth - 40);
+      setLayoutWidth(Math.min(cardWidth, max));
+    };
+
+    updateWidth();
+    const ro = new ResizeObserver(updateWidth);
+    ro.observe(shell);
+    return () => ro.disconnect();
+  }, [cardWidth]);
+
+  useLayoutEffect(() => {
+    apply(-activeIndexRef.current * stepRef.current, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- drag writes transforms on the track; this only re-paints when card metrics change
+  }, [layoutWidth, layoutHeight, overlapFactor, cardGap, maxRotation, total]);
+
+  const endDrag = (target: HTMLElement, pointerId: number, snap: boolean) => {
+    const drag = dragRef.current;
+    if (!drag.down && drag.axis == null) return;
+    const wasHorizontal = drag.axis === "x";
+    drag.down = false;
+    drag.axis = null;
+    target.style.touchAction = "";
+    if (drag.pointerId === pointerId) {
+      try {
+        target.releasePointerCapture(pointerId);
+      } catch {
+        /* already released */
+      }
+      drag.pointerId = -1;
+    }
+    if (snap && wasHorizontal) {
+      goTo(
+        snapSliderIndex(
+          offsetRef.current,
+          stepRef.current,
+          drag.velocity,
+          total,
+        ),
+      );
+    }
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
     const drag = dragRef.current;
     drag.down = true;
+    drag.axis = null;
+    drag.pointerId = e.pointerId;
     drag.startX = e.clientX;
+    drag.startY = e.clientY;
     drag.origin = offsetRef.current;
     drag.lastX = e.clientX;
     drag.lastT = performance.now();
     drag.velocity = 0;
     drag.moved = 0;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
 
-  const onPointerMove = (e: React.PointerEvent) => {
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current;
-    if (!drag.down) return;
+    if (!drag.down || drag.pointerId !== e.pointerId) return;
+
+    const dx = e.clientX - drag.startX;
+    const dy = e.clientY - drag.startY;
+
+    // Wait for intent — vertical page scroll must not drive the track.
+    if (drag.axis == null) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+      drag.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      if (drag.axis === "y") {
+        drag.down = false;
+        return;
+      }
+      const target = e.currentTarget;
+      target.style.touchAction = "none";
+      target.setPointerCapture(e.pointerId);
+    }
+
+    if (drag.axis !== "x") return;
+
     const now = performance.now();
     const dt = Math.max(1, now - drag.lastT);
     drag.velocity = ((e.clientX - drag.lastX) / dt) * 1000;
     drag.lastX = e.clientX;
     drag.lastT = now;
-    drag.moved = Math.max(drag.moved, Math.abs(e.clientX - drag.startX));
-    const x = drag.origin + (e.clientX - drag.startX);
+    drag.moved = Math.max(drag.moved, Math.abs(dx));
+    const x = drag.origin + dx;
     apply(x, false);
-    const predicted = Math.max(0, Math.min(Math.round(-x / step), total - 1));
-    if (predicted !== activeIndex) {
+    const predicted = Math.max(
+      0,
+      Math.min(Math.round(-x / stepRef.current), total - 1),
+    );
+    if (predicted !== activeIndexRef.current) {
+      activeIndexRef.current = predicted;
       setActiveIndex(predicted);
       onActiveChange?.(predicted);
     }
   };
 
-  const onPointerUp = (e: React.PointerEvent) => {
-    const drag = dragRef.current;
-    if (!drag.down) return;
-    drag.down = false;
-    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-    goTo(snapSliderIndex(offsetRef.current, step, drag.velocity, total));
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    endDrag(e.currentTarget, e.pointerId, true);
+  };
+
+  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    endDrag(e.currentTarget, e.pointerId, false);
+    apply(-activeIndexRef.current * stepRef.current, true);
   };
 
   return (
     <div
+      ref={shellRef}
       dir="rtl"
       lang="fa"
       className={`relative flex w-full select-none flex-col font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal ${className}`}
     >
       <div
-        className="flex w-full cursor-grab touch-pan-y items-center overflow-hidden py-10 active:cursor-grabbing"
-        style={{ minHeight: cardHeight + 72 }}
+        className="flex w-full cursor-grab touch-pan-y items-center overflow-hidden py-8 active:cursor-grabbing sm:py-10"
+        style={{ minHeight: layoutHeight + 64 }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
+        onPointerCancel={onPointerCancel}
       >
         <div
           ref={trackRef}
-          className="flex items-end ps-8 sm:ps-12"
+          className="flex items-end ps-5 sm:ps-12"
           style={{ transform: "translate3d(var(--ox, 0px), 0, 0)" }}
         >
           {Array.from({ length: total }, (_, index) => (
@@ -253,19 +340,24 @@ export function OverlappingSlider<T = CardProfile>({
               }
               className="shrink-0"
               style={{
-                width: cardWidth,
-                height: cardHeight,
-                marginInlineEnd: cardGap - cardWidth * overlapFactor,
+                width: layoutWidth,
+                height: layoutHeight,
+                marginInlineEnd: cardGap - layoutWidth * overlapFactor,
                 zIndex: index,
                 transformOrigin,
-                transform: "translateY(var(--y, 0px)) rotate(var(--r, 0deg)) scale(var(--s, 1))",
+                transform:
+                  "translateY(var(--y, 0px)) rotate(var(--r, 0deg)) scale(var(--s, 1))",
               }}
               onClick={() => {
                 if (dragRef.current.moved < 8) goTo(index);
               }}
             >
               {resolvedItems && resolvedRenderItem
-                ? resolvedRenderItem(resolvedItems[index], index, activeIndex === index)
+                ? resolvedRenderItem(
+                    resolvedItems[index],
+                    index,
+                    activeIndex === index,
+                  )
                 : childArray[index]}
             </div>
           ))}

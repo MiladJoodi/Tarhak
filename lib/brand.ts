@@ -21,3 +21,6 @@ export const OG_IMAGE_ALT = "Tarhak — کامپوننت‌های متحرک Rea
 
 /** Site icon — `public/tarhak/favicon.png`. */
 export const FAVICON_PATH = "/tarhak/favicon.png";
+
+/** Shell / browser chrome — matches landing & docs atmosphere. */
+export const SHELL_BG = "#0c0d12";

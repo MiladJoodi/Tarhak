@@ -27,7 +27,7 @@ const CLUSTER_CENTER_X = -32;
 const HOVER_TEXT_DELAY = 0.2;
 
 const DEFAULT_PORTRAIT =
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&h=160&q=80";
+  "/unsplash/1507003211169-0a1dd7228f2d.webp";
 
 type InteractionPhase = "idle" | "start" | "end";
 

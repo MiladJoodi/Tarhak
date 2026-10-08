@@ -36,27 +36,27 @@ export const DEFAULT_CARDS: CardStackItem[] = [
   {
     id: "card-0",
     color: "#2c2018",
-    image: `https://images.unsplash.com/photo-1715196372160-31ba56b1a2f9?${CARD_IMG}`,
+    image: `/unsplash/1438761681033-6461ffad8d80.webp`,
   },
   {
     id: "card-1",
     color: "#2a2418",
-    image: `https://images.unsplash.com/photo-1725598942850-264692e08148?${CARD_IMG}`,
+    image: `/unsplash/1441974231531-c6227db76b6e.webp`,
   },
   {
     id: "card-2",
     color: "#3a2418",
-    image: `https://images.unsplash.com/photo-1771926623926-a644527a40dc?${CARD_IMG}`,
+    image: `/unsplash/1447752875215-b2761acb3c5d.webp`,
   },
   {
     id: "card-3",
     color: "#1c2a24",
-    image: `https://images.unsplash.com/photo-1768078557733-f3fb33926de0?${CARD_IMG}`,
+    image: `/unsplash/1460925895917-afdab827c52f.webp`,
   },
   {
     id: "card-4",
     color: "#1a2e1a",
-    image: `https://images.unsplash.com/photo-1765660463147-ffe356af64c6?${CARD_IMG}`,
+    image: `/unsplash/1463453091185-61582044d556.webp`,
   },
 ];
 

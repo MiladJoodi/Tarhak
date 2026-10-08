@@ -8,12 +8,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/lib/utils";
 
 const shot = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&q=80`;
+  `/unsplash/${id}.webp`;
 
 const PHOTOS = [
   {
     id: "photo-1",
-    src: shot("1517336714731-489689fd1ca8"),
+    src: shot("1490750967868-88aa4486c946"),
     alt: "چیدمان فناوری",
     rotation: -15,
     x: -90,
@@ -22,7 +22,7 @@ const PHOTOS = [
   },
   {
     id: "photo-2",
-    src: shot("1581291518633-83b4ebd1d83e"),
+    src: shot("1492691527719-9d1e07e534b4"),
     alt: "پژوهش طراحی",
     rotation: -3,
     x: -10,
@@ -40,12 +40,12 @@ const PHOTOS = [
   },
   {
     id: "photo-4",
-    src: shot("1551288049-bebda4e38f71"),
+    src: shot("1494790108377-be9c29b29330"),
     alt: "رابط داشبورد",
   },
   {
     id: "photo-5",
-    src: shot("1561070791-2526d30994b5"),
+    src: shot("1497215728101-856f4ea42174"),
     alt: "طراحی محصول",
   },
   {
@@ -55,12 +55,12 @@ const PHOTOS = [
   },
   {
     id: "photo-7",
-    src: shot("1522071820081-009f0129c71c"),
+    src: shot("1497366216548-37526070297c"),
     alt: "همکاری تیمی",
   },
   {
     id: "photo-8",
-    src: shot("1586281380349-632531db7ed4"),
+    src: shot("1498050108023-c5249f4df085"),
     alt: "وایرفریم تجربه کاربری",
   },
   {

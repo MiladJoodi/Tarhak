@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { type BrowseItem } from "@/lib/browse/items";
 import { HeroSpotlightCanvas } from "@/components/landing/hero-spotlight-canvas";
@@ -130,11 +131,27 @@ export default function LandingPage({
   categoryCards?: unknown;
   githubStars?: number | null;
 }) {
+  useEffect(() => {
+    const html = document.documentElement;
+    const { body } = document;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+    const prevBodyOverscroll = body.style.overscrollBehavior;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    body.style.overscrollBehavior = "none";
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+      body.style.overscrollBehavior = prevBodyOverscroll;
+    };
+  }, []);
+
   return (
     <main
       dir="rtl"
       lang="fa"
-      className="relative h-svh max-h-svh overflow-hidden bg-[#0c0d12] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-white"
+      className="fixed inset-0 overflow-hidden bg-[#0c0d12] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-white"
     >
       <HeroSection heroItems={heroItems} />
       <LandingNav githubStars={githubStars} tone="dark" overlay />

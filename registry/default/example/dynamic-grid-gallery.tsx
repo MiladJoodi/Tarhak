@@ -26,37 +26,37 @@ export const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 1,
     title: "قلهٔ تپه‌های شنی",
-    src: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=2560&auto=format&fit=crop",
+    src: "/unsplash/1509316785289-025f5b846b35.webp",
     alt: "تپه‌های شنی مجسمه‌گونه با سایه‌های طلایی گرم",
   },
   {
     id: 2,
     title: "درخشش دره",
-    src: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2560&auto=format&fit=crop",
+    src: "/unsplash/1509316975850-ff9c5deb0cd9.webp",
     alt: "درهٔ ماسه‌سنگی روان با تن‌های سفالین",
   },
   {
     id: 3,
     title: "ستون طلایی",
-    src: "https://images.unsplash.com/photo-1518457607834-6e8d80c183c5?q=80&w=2560&auto=format&fit=crop",
+    src: "/unsplash/1518457607834-6e8d80c183c5.webp",
     alt: "صخره‌های بلند بیابان در نور طلایی غروب",
   },
   {
     id: 4,
     title: "خط‌الراس سفالین",
-    src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2560&auto=format&fit=crop",
+    src: "/unsplash/1469854523086-cc02fe5d8800.webp",
     alt: "جادهٔ درهٔ گسترده میان صخره‌های سرخ گرم",
   },
   {
     id: 5,
     title: "تنهایی صحرا",
-    src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2560&auto=format&fit=crop",
+    src: "/unsplash/1518709268805-4e9042af9f23.webp",
     alt: "تپه‌های شنی مینیمال با کنتراست گرم عمیق",
   },
   {
     id: 6,
     title: "غروب سدونا",
-    src: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?q=80&w=2560&auto=format&fit=crop",
+    src: "/unsplash/1473580044384-7ba9967e16a0.webp",
     alt: "افق کهربایی روی صخره‌ها و فلات بیابان",
   },
 ];

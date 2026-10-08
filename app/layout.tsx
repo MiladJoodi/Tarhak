@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import NextTopLoader from "nextjs-toploader";
@@ -11,6 +11,7 @@ import {
   OG_IMAGE_HEIGHT,
   OG_IMAGE_PATH,
   OG_IMAGE_WIDTH,
+  SHELL_BG,
   SITE_URL,
 } from "@/lib/brand";
 import { estedad } from "./fonts/estedad";
@@ -40,6 +41,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: SHELL_BG,
+  colorScheme: "dark",
+};
+
 export const metadata: Metadata = {
   title: {
     default: siteTitle,
@@ -55,6 +61,11 @@ export const metadata: Metadata = {
     apple: [{ url: FAVICON_PATH, type: "image/png" }],
   },
   manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: BRAND_NAME,
+  },
   openGraph: {
     type: "website",
     locale: "fa_IR",
@@ -85,9 +96,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`dark ${estedad.variable} ${geistSans.variable} ${geistMono.variable}`}
+      style={{ backgroundColor: SHELL_BG }}
     >
       <body
-        className={`${estedad.className} flex flex-col min-h-screen antialiased`}
+        className={`${estedad.className} flex min-h-svh flex-col antialiased`}
+        style={{ backgroundColor: SHELL_BG }}
       >
         {/* theme.enabled: false drops next-themes entirely — it is what wrote
             `html.light` from localStorage/system, and it also registered a

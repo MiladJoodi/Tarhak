@@ -192,7 +192,7 @@ const DEFAULT_ITEMS: AccordionItem[] = [
     badge: "۰۱",
     claim:
       "گل را تا مرکز مردهٔ چرخ فشار دهید. تا وقتی که نلرزد، هیچ کار دیگری دوام نمی‌آورد.",
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1200&q=80",
+    image: "/unsplash/1469474968028-56623f02e42e.webp",
     alt: "دست‌ها در حال مرکز کردن گل خیس روی چرخ سفالگری",
   },
   {
@@ -201,7 +201,7 @@ const DEFAULT_ITEMS: AccordionItem[] = [
     badge: "۰۲",
     claim:
       "دو انگشت داخل، یکی بیرون. آهسته و یکنواخت بکشید — دیواره بالا می‌آید یا فرو می‌ریزد.",
-    image: "https://images.unsplash.com/photo-1753164726043-31e583f8a9b8?auto=format&fit=crop&w=1200&q=80",
+    image: "/unsplash/1469854523086-cc02fe5d8800.webp",
     alt: "سفالگر در حال کشیدن دیوارهٔ کاسه روی چرخ",
   },
   {
@@ -210,7 +210,7 @@ const DEFAULT_ITEMS: AccordionItem[] = [
     badge: "۰۳",
     claim:
       "اکسیدها در کاسه‌های کوچک مخلوط می‌شوند و روی خرده‌کاشی آزمایش می‌شوند. کوره تصمیم می‌گیرد دستور شما درست بوده یا نه.",
-    image: "https://images.unsplash.com/photo-1771523351104-03d9c2cc347c?auto=format&fit=crop&w=1200&q=80",
+    image: "/unsplash/1470071459604-3b5ec3a7fe05.webp",
     alt: "کاسه‌های لعاب سرامیکی رنگی روی میز کارگاه",
   },
   {
@@ -219,7 +219,7 @@ const DEFAULT_ITEMS: AccordionItem[] = [
     badge: "۰۴",
     claim:
       "حلقهٔ پایه وقتی کاسه هنوز چرم‌سخت است بریده می‌شود. یک برش عمیق‌تر و ماه‌ها کار به سطل گل می‌رود.",
-    image: "https://images.unsplash.com/photo-1753164726182-4037e5b3bcaa?auto=format&fit=crop&w=1200&q=80",
+    image: "/unsplash/1470240731273-7821a6eeb6bd.webp",
     alt: "سفالگر در حال تراشیدن یک کاسهٔ سرامیکی پهن در کارگاه",
   },
   {
@@ -228,12 +228,12 @@ const DEFAULT_ITEMS: AccordionItem[] = [
     badge: "۰۵",
     claim:
       "ترک خنک‌شدن، درهایی که جا می‌خورند، دسته‌هایی به ضخامت چای داغ. کوره تأیید کرد.",
-    image: "https://images.unsplash.com/photo-1771830937026-3e3474fdd947?auto=format&fit=crop&w=1200&q=80",
+    image: "/unsplash/1470770841072-f978cf4d019e.webp",
     alt: "کاسه‌ها و گلدان‌های سرامیکی دست‌ساز در ویترین",
   },
 ];
 
-const DEFAULT_STATIC_IMAGE = "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80";
+const DEFAULT_STATIC_IMAGE = "/unsplash/1472099645785-5658abf4ff4e.webp";
 
 const springPhysics = {
   type: "spring" as const,

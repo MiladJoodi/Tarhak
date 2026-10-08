@@ -34,11 +34,11 @@ const TESTIMONIALS: Testimonial[] = [
       { value: "۴۵٪", label: "رشد تعامل صفحه" },
     ],
     photoSrc:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=90&w=3840&auto=format&fit=crop&crop=face",
+      "/unsplash/1507003211169-0a1dd7228f2d.webp",
     photoSrcSet:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=90&w=400&auto=format&fit=crop&crop=face 400w, " +
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=90&w=800&auto=format&fit=crop&crop=face 800w, " +
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=90&w=3840&auto=format&fit=crop&crop=face 3840w",
+      "/unsplash/1507003211169-0a1dd7228f2d.webp 400w, " +
+      "/unsplash/1507003211169-0a1dd7228f2d.webp 800w, " +
+      "/unsplash/1507003211169-0a1dd7228f2d.webp 3840w",
   },
   {
     name: "پریا ناندن",
@@ -50,11 +50,11 @@ const TESTIMONIALS: Testimonial[] = [
       { value: "۶۰٪", label: "کاهش تیکت پشتیبانی" },
     ],
     photoSrc:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=90&w=3840&auto=format&fit=crop&crop=face",
+      "/unsplash/1486312338219-ce68d2c6f44d.webp",
     photoSrcSet:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=90&w=400&auto=format&fit=crop&crop=face 400w, " +
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=90&w=800&auto=format&fit=crop&crop=face 800w, " +
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=90&w=3840&auto=format&fit=crop&crop=face 3840w",
+      "/unsplash/1486325212027-8081e485255e.webp 400w, " +
+      "/unsplash/1486406146926-c627a92ad1ab.webp 800w, " +
+      "/unsplash/1487412720507-e7ab37603c6f.webp 3840w",
   },
   {
     name: "مارکوس اویه‌لاران",
@@ -66,11 +66,11 @@ const TESTIMONIALS: Testimonial[] = [
       { value: "۳۰٪", label: "کاهش زمان بیلد" },
     ],
     photoSrc:
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=90&w=3840&auto=format&fit=crop&crop=face",
+      "/unsplash/1531746020798-e6953c6e8e04.webp",
     photoSrcSet:
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=90&w=400&auto=format&fit=crop&crop=face 400w, " +
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=90&w=800&auto=format&fit=crop&crop=face 800w, " +
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=90&w=3840&auto=format&fit=crop&crop=face 3840w",
+      "/unsplash/1531746020798-e6953c6e8e04.webp 400w, " +
+      "/unsplash/1531746020798-e6953c6e8e04.webp 800w, " +
+      "/unsplash/1531746020798-e6953c6e8e04.webp 3840w",
   },
   {
     name: "مایکل راس",
@@ -82,11 +82,11 @@ const TESTIMONIALS: Testimonial[] = [
       { value: "۲۲٪", label: "رشد نرخ کلیک" },
     ],
     photoSrc:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=90&w=3840&auto=format&fit=crop&crop=face",
+      "/unsplash/1472099645785-5658abf4ff4e.webp",
     photoSrcSet:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=90&w=400&auto=format&fit=crop&crop=face 400w, " +
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=90&w=800&auto=format&fit=crop&crop=face 800w, " +
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=90&w=3840&auto=format&fit=crop&crop=face 3840w",
+      "/unsplash/1472099645785-5658abf4ff4e.webp 400w, " +
+      "/unsplash/1472099645785-5658abf4ff4e.webp 800w, " +
+      "/unsplash/1472099645785-5658abf4ff4e.webp 3840w",
   },
   {
     name: "اولیویا بنت",
@@ -98,11 +98,11 @@ const TESTIMONIALS: Testimonial[] = [
       { value: "۹۰٪", label: "رضایت مشتری" },
     ],
     photoSrc:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=90&w=3840&auto=format&fit=crop&crop=face",
+      "/unsplash/1438761681033-6461ffad8d80.webp",
     photoSrcSet:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=90&w=400&auto=format&fit=crop&crop=face 400w, " +
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=90&w=800&auto=format&fit=crop&crop=face 800w, " +
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=90&w=3840&auto=format&fit=crop&crop=face 3840w",
+      "/unsplash/1438761681033-6461ffad8d80.webp 400w, " +
+      "/unsplash/1438761681033-6461ffad8d80.webp 800w, " +
+      "/unsplash/1438761681033-6461ffad8d80.webp 3840w",
   },
 ];
 

@@ -10,13 +10,13 @@ import {
 } from "motion/react"
 
 const images = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=800&auto=format&fit=crop",
+  "/unsplash/1507003211169-0a1dd7228f2d.webp",
+  "/unsplash/1517841905240-472988babdf9.webp",
+  "/unsplash/1534528741775-53994a69daeb.webp",
+  "/unsplash/1506794778202-cad84cf45f1d.webp",
+  "/unsplash/1494790108377-be9c29b29330.webp",
+  "/unsplash/1500648767791-00dcc994a43e.webp",
+  "/unsplash/1539571696357-5a69c17a67c6.webp",
 ]
 
 const N = images.length

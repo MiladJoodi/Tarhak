@@ -37,7 +37,7 @@ const POSTERS = [
   "photo-1439066615861-d1af74d74000",
   "photo-1519681393784-d120267933ba",
   "photo-1497436072909-60f360e1d4b1",
-].map((id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=880&q=68`);
+].map((id) => `/unsplash/${id.replace(/^photo-/, "")}.webp`);
 
 type Seed = { slug: string; title: string; description: string; category: string };
 

@@ -18,7 +18,7 @@ const ITEMS: GalleryItem[] = [
     title: "ارتفاعات",
     subtitle: "دشت طلایی زیر آسمان بلند",
     image:
-      "https://images.unsplash.com/photo-1755441172753-ac9b90dcd930?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHx8fA%3D%3D",
+      "/unsplash/1500648767791-00dcc994a43e.webp",
     color: "#84cc16",
   },
   {
@@ -26,7 +26,7 @@ const ITEMS: GalleryItem[] = [
     title: "سرخ‌فام",
     subtitle: "شعلهٔ سرخ در کوهستان",
     image:
-      "https://plus.unsplash.com/premium_photo-1667423711653-1ffb899172bc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjZ8fHxlbnwwfHx8fHw%3D",
+      "/unsplash/1501854140801-50d01698950b.webp",
     color: "#10b981",
   },
   {
@@ -34,7 +34,7 @@ const ITEMS: GalleryItem[] = [
     title: "ژرفا",
     subtitle: "شناور در اعماق آرام",
     image:
-      "https://images.unsplash.com/photo-1757263005786-43d955f07fb1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fHw%3D",
+      "/unsplash/1501785888041-af3ef285b470.webp",
     color: "#0369a1",
   },
 ];

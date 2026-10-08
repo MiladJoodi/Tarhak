@@ -27,7 +27,7 @@ const FEATURES = [
     label: "تأمین پایدار",
     icon: Pizza04Icon,
     image:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1469474968028-56623f02e42e.webp",
     description: "مواد اولیهٔ اخلاقی از کشاورزان محلی.",
   },
   {
@@ -35,7 +35,7 @@ const FEATURES = [
     label: "تمرکز روی جامعه",
     icon: CommandFreeIcons,
     image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1441974231531-c6227db76b6e.webp",
     description: "پیوندهای قوی‌تر با تجربه‌های مشترک.",
   },
   {
@@ -43,7 +43,7 @@ const FEATURES = [
     label: "دسترسی جهانی",
     icon: GlobalSearchIcon,
     image:
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1470071459604-3b5ec3a7fe05.webp",
     description: "اتصال رؤیاپردازان در همهٔ قاره‌ها.",
   },
   {
@@ -51,7 +51,7 @@ const FEATURES = [
     label: "برندهٔ جایزه",
     icon: CheckmarkCircle01Icon,
     image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1506905925346-21bda4d32df4.webp",
     description: "کیفیت و نوآوری به‌رسمیت‌شناخته‌شده.",
   },
   {
@@ -59,7 +59,7 @@ const FEATURES = [
     label: "آمادهٔ ابر",
     icon: AiCloudIcon,
     image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1500530855697-b586d89ba3ee.webp",
     description: "زیرساخت را بدون دردسر بزرگ کنید.",
   },
   {
@@ -67,7 +67,7 @@ const FEATURES = [
     label: "موبایل‌محور",
     icon: SmartPhone01Icon,
     image:
-      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1492691527719-9d1e07e534b4.webp",
     description: "تجربه‌ای عالی روی هر دستگاه.",
   },
   {
@@ -75,7 +75,7 @@ const FEATURES = [
     label: "تحلیل لحظه‌ای",
     icon: DashboardSquare01Icon,
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1460925895917-afdab827c52f.webp",
     description: "بینش دم‌دست، به‌روز در لحظه.",
   },
   {
@@ -83,7 +83,7 @@ const FEATURES = [
     label: "امنیت سازمانی",
     icon: CheckmarkCircle01Icon,
     image:
-      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1502920917128-1aa500764cbd.webp",
     description: "پروتکل‌های امنیتی بانکی برای دادهٔ شما.",
   },
   {
@@ -91,7 +91,7 @@ const FEATURES = [
     label: "خودکارسازی جادویی",
     icon: MagicWandIcon,
     image:
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1511285560929-80b456fea0bc.webp",
     description: "کارهای تکراری را به هوش مصنوعی بسپارید.",
   },
   {
@@ -99,7 +99,7 @@ const FEATURES = [
     label: "مالکیت محلی",
     icon: CheckmarkCircle01Icon,
     image:
-      "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop",
+      "/unsplash/1500530855697-b586d89ba3ee.webp",
     description: "حمایت از کسب‌وکارها و سازندگان محلی.",
   },
 ];

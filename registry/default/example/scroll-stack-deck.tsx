@@ -30,7 +30,7 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     description:
       "مجموعهٔ همکاری بدون شلوغی، با چیدمان آرام، سطوح نرم و فضای خالی هدفمند تا تیم بدون نویز بصری فکر کند.",
     image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80",
+      "/unsplash/1497366216548-37526070297c.webp",
     color: "#C9DFF5",
   },
   {
@@ -40,7 +40,7 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     description:
       "کتابخانهٔ زندهٔ توکن و کیت کامپوننت که محصول، مارکتینگ و داکس را روی یک زبان بصری نگه می‌دارد.",
     image:
-      "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1600&q=80",
+      "/unsplash/1526170375885-4d8ecf77b99f.webp",
     color: "#C8EBD8",
   },
   {
@@ -50,7 +50,7 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     description:
       "تجربهٔ مجلهٔ اسکرولی برای هنرمندان مستقل. مصاحبهٔ بلند، تایپوگرافی نرم و عکسی مثل گوش‌دادن نیمه‌شب.",
     image:
-      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80",
+      "/unsplash/1511379938547-c1f69419868d.webp",
     color: "#F2D4E4",
   },
   {
@@ -60,7 +60,7 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     description:
       "جریان رزرو بازطراحی‌شده حول نشانه‌های اعتماد، رنگ نرم و سلسله‌مراتب روشن تا مهمان قبل از رسیدن احساس خوشامد کند.",
     image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80",
+      "/unsplash/1531123897727-8f129e1688ce.webp",
     color: "#F7E0C8",
   },
   {
@@ -70,7 +70,7 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     description:
       "داشبورد متریک با نمودارهای روایی و تأکید ملایم؛ اپراتور بدون ویجت‌زدگی می‌بیند چه چیزی مهم است.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
+      "/unsplash/1531746020798-e6953c6e8e04.webp",
     color: "#DDD4F2",
   },
 ];

@@ -271,7 +271,7 @@ export default function PolaroidDrag() {
       <PolaroidArena>
         <PolaroidCard
           id="card-1"
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=800&auto=format&fit=crop"
+          src="/unsplash/1518495973542-4542c06a5843.webp"
           alt="شفافیت رؤیاها"
           caption="شفافیت رؤیاها"
           aspectRatio="square"
@@ -281,7 +281,7 @@ export default function PolaroidDrag() {
 
         <PolaroidCard
           id="card-2"
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop"
+          src="/unsplash/1507525428034-b723cf961d3e.webp"
           alt="باغ خاطره‌ها"
           caption="باغ خاطره‌ها"
           aspectRatio="portrait"
@@ -291,7 +291,7 @@ export default function PolaroidDrag() {
 
         <PolaroidCard
           id="card-3"
-          src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?q=80&w=800&auto=format&fit=crop"
+          src="/unsplash/1470240731273-7821a6eeb6bd.webp"
           alt="نجوای دریا"
           caption="نجوای دریا"
           aspectRatio="square"

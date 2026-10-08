@@ -14,14 +14,14 @@ const SERVICES = [
     description:
       "تجربه‌های دیجیتال زیبا، کاربردی و کاربرمحور می‌سازیم.",
     image:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200",
+      "/unsplash/1539571696357-5a69c17a67c6.webp",
   },
   {
     id: "۰۲",
     title: "توسعه با فریمر",
     description: "سایت‌های پربازده و متحرک با فریمر می‌سازیم.",
     image:
-      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1200",
+      "/unsplash/1541123603104-512919d6a96c.webp",
   },
   {
     id: "۰۳",
@@ -29,7 +29,7 @@ const SERVICES = [
     description:
       "هویت بصری و صدای برندتان را برای اثری ماندگار تعریف می‌کنیم.",
     image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200",
+      "/unsplash/1541701494587-cb58502866ab.webp",
   },
 ];
 

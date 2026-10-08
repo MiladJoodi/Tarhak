@@ -30,7 +30,7 @@ const ITEMS: CollectionItem[] = [
     subtitle: "عکاسی",
     idNumber: "۲۰۹",
     image:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400&h=400&auto=format&fit=crop",
+      "/unsplash/1506744038136-46273834b3fb.webp",
   },
   {
     id: "2",
@@ -38,7 +38,7 @@ const ITEMS: CollectionItem[] = [
     subtitle: "هنر دیجیتال",
     idNumber: "۸۰۸",
     image:
-      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=400&h=400&auto=format&fit=crop",
+      "/unsplash/1541701494587-cb58502866ab.webp",
   },
 ];
 

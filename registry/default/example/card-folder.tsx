@@ -30,7 +30,7 @@ const DEMO_CARDS: FolderCardItem[] = [
     textColor: "#3B2F63",
     subTextColor: "rgba(59, 47, 99, 0.65)",
     bgImage:
-      "https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1200&q=85",
+      "/unsplash/1473580044384-7ba9967e16a0.webp",
     characterImage: `${OBJECT}/Activities/Artist%20Palette.png`,
   },
   {
@@ -43,7 +43,7 @@ const DEMO_CARDS: FolderCardItem[] = [
     textColor: "#5C3D2E",
     subTextColor: "rgba(92, 61, 46, 0.65)",
     bgImage:
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
+      "/unsplash/1486312338219-ce68d2c6f44d.webp",
     characterImage: `${OBJECT}/Objects/Camera.png`,
   },
   {
@@ -56,7 +56,7 @@ const DEMO_CARDS: FolderCardItem[] = [
     textColor: "#1F4D38",
     subTextColor: "rgba(31, 77, 56, 0.65)",
     bgImage:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85",
+      "/unsplash/1497366216548-37526070297c.webp",
     characterImage: `${OBJECT}/Animals/Potted%20Plant.png`,
   },
 ];

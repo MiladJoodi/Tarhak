@@ -93,7 +93,7 @@ export const DEFAULT_CARDS: CardItem[] = [
     description:
       "فضاهایی هدفمند با هندسهٔ مینیمال، تایپوگرافی ملموس و ریزتعامل‌های هماهنگ بسازید.",
     image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+      "/unsplash/1518770660439-4636190af475.webp",
     accentColor: "text-orange-500",
     icon: <BuildingIcon />,
   },
@@ -104,7 +104,7 @@ export const DEFAULT_CARDS: CardItem[] = [
     description:
       "داده‌های پیچیده را با مدل‌های استنتاج کم‌تأخیر به رابط‌های تولیدی باکیفیت تبدیل کنید.",
     image:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=85",
+      "/unsplash/1519389950473-47ba0277781c.webp",
     accentColor: "text-indigo-500",
     icon: <CpuIcon />,
   },
@@ -115,7 +115,7 @@ export const DEFAULT_CARDS: CardItem[] = [
     description:
       "گردش‌کارهای حیاتی را با اجرای موازی الهام‌گرفته از کوانتوم و کش حالت بدون اصطکاک شتاب دهید.",
     image:
-      "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1600&q=85",
+      "/unsplash/1522075469751-3a6694fb2f61.webp",
     accentColor: "text-sky-500",
     icon: <ZapIcon />,
   },
@@ -126,7 +126,7 @@ export const DEFAULT_CARDS: CardItem[] = [
     description:
       "اینرسی جنبشی طبیعی که ویسکوزیتهٔ مایع و فیزیک بدون اصطکاک را در هر نما شبیه‌سازی می‌کند.",
     image:
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1600&q=85",
+      "/unsplash/1523275335684-37898b6baf30.webp",
     accentColor: "text-purple-500",
     icon: <WavesIcon />,
   },

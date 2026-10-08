@@ -73,21 +73,21 @@ export interface WheelCarouselProps {
 }
 
 const unsplash4K = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?q=95&w=2400&auto=format&fit=crop`;
+  `/unsplash/${id}.webp`;
 
 export const defaultCarouselItems: WheelCarouselItem[] = [
-  { id: 1, label: 'پناهگاه اتل', image: unsplash4K('1600585154340-be6161a56a0c'), category: 'معماری' },
-  { id: 2, label: 'حیاط کانسو', image: unsplash4K('1600596542815-ffad4c1539a9'), category: 'طراحی ذن' },
-  { id: 3, label: 'وسپر مونو', image: unsplash4K('1513694203232-719a280e022f'), category: 'بروتالیسم' },
-  { id: 4, label: 'آتریوم سورا', image: unsplash4K('1600607687939-ce8a6c25118c'), category: 'داخلی' },
+  { id: 1, label: 'پناهگاه اتل', image: unsplash4K('1438761681033-6461ffad8d80'), category: 'معماری' },
+  { id: 2, label: 'حیاط کانسو', image: unsplash4K('1441974231531-c6227db76b6e'), category: 'طراحی ذن' },
+  { id: 3, label: 'وسپر مونو', image: unsplash4K('1447752875215-b2761acb3c5d'), category: 'بروتالیسم' },
+  { id: 4, label: 'آتریوم سورا', image: unsplash4K('1460925895917-afdab827c52f'), category: 'داخلی' },
   { id: 5, label: 'خلأ الیزی', image: unsplash4K('1509316975850-ff9c5deb0cd9'), category: 'منظر' },
-  { id: 6, label: 'ویلای انقلابین', image: unsplash4K('1600566753376-12c8ab7fb75b'), category: 'ساحلی' },
-  { id: 7, label: 'گالری نوکس', image: unsplash4K('1600585154526-990dced4db0d'), category: 'فرهنگی' },
-  { id: 8, label: 'مقدس آورا', image: unsplash4K('1600210492486-724fe5c67fb0'), category: 'مینیمالیسم' },
-  { id: 9, label: 'تراس بروت', image: unsplash4K('1600607687644-c7171b42498f'), category: 'یکپارچه' },
-  { id: 10, label: 'خانه کالما', image: unsplash4K('1600566753190-17f0baa2a6c3'), category: 'مسکونی' },
-  { id: 11, label: 'روتوندا زنیث', image: unsplash4K('1600585152220-90363fe7e115'), category: 'اُکولوس' },
-  { id: 12, label: 'حوضه کیوتو', image: unsplash4K('1503899036084-c55cdd92da26'), category: 'ذن ژاپنی' },
+  { id: 6, label: 'ویلای انقلابین', image: unsplash4K('1463453091185-61582044d556'), category: 'ساحلی' },
+  { id: 7, label: 'گالری نوکس', image: unsplash4K('1469474968028-56623f02e42e'), category: 'فرهنگی' },
+  { id: 8, label: 'مقدس آورا', image: unsplash4K('1469854523086-cc02fe5d8800'), category: 'مینیمالیسم' },
+  { id: 9, label: 'تراس بروت', image: unsplash4K('1470071459604-3b5ec3a7fe05'), category: 'یکپارچه' },
+  { id: 10, label: 'خانه کالما', image: unsplash4K('1470240731273-7821a6eeb6bd'), category: 'مسکونی' },
+  { id: 11, label: 'روتوندا زنیث', image: unsplash4K('1470770841072-f978cf4d019e'), category: 'اُکولوس' },
+  { id: 12, label: 'حوضه کیوتو', image: unsplash4K('1472099645785-5658abf4ff4e'), category: 'ذن ژاپنی' },
 ];
 
 const THEME_PRESETS = {

@@ -9,7 +9,7 @@ const VIDEO_SOURCES = [
 ];
 
 const POSTER =
-  "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=600&q=80";
+  "/unsplash/1490750967868-88aa4486c946.webp";
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 

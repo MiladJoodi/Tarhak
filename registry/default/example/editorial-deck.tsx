@@ -17,7 +17,7 @@ export const DEFAULT_CARDS: EditorialDeckCard[] = [
     date: "منتشرشده اخیراً",
     title: "برآمدن رایانش محیطی",
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "/unsplash/1518770660439-4636190af475.webp",
     tint: "#C9DFF5",
   },
   {
@@ -25,7 +25,7 @@ export const DEFAULT_CARDS: EditorialDeckCard[] = [
     date: "منتشرشده ۴ روز پیش",
     title: "طراحی رابط‌های هوش مصنوعی که انسانی حس شوند",
     image:
-      "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80",
+      "/unsplash/1487958449943-2429e8be8625.webp",
     tint: "#C8EBD8",
   },
   {
@@ -33,7 +33,7 @@ export const DEFAULT_CARDS: EditorialDeckCard[] = [
     date: "منتشرشده اخیراً",
     title: "گردش‌کار خلاق با ابزارهای نرم",
     image:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      "/unsplash/1488590528505-98d2b5aba04b.webp",
     tint: "#F2D4E4",
   },
   {
@@ -41,7 +41,7 @@ export const DEFAULT_CARDS: EditorialDeckCard[] = [
     date: "منتشرشده اخیراً",
     title: "سیستم‌های طراحی مینیمال برای تیم‌های سریع",
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      "/unsplash/1460925895917-afdab827c52f.webp",
     tint: "#F7E0C8",
   },
   {
@@ -49,7 +49,7 @@ export const DEFAULT_CARDS: EditorialDeckCard[] = [
     date: "منتشرشده اخیراً",
     title: "جایی که هوش با ساخت آرام محصول تلاقی می‌کند",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "/unsplash/1488972685288-c3fd157d7c7a.webp",
     tint: "#DDD4F2",
   },
 ];

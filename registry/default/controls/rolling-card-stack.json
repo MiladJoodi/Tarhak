@@ -11,10 +11,10 @@
       "visualDuration": 0.35,
       "bounce": 0.2
     },
-    "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-    "imageUrl2": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=85",
-    "imageUrl3": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1600&q=85",
-    "imageUrl4": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1600&q=85"
+    "imageUrl": "/unsplash/1494790108377-be9c29b29330.webp",
+    "imageUrl2": "/unsplash/1497215728101-856f4ea42174.webp",
+    "imageUrl3": "/unsplash/1497366216548-37526070297c.webp",
+    "imageUrl4": "/unsplash/1498050108023-c5249f4df085.webp"
   },
   "disabled": [],
   "updatedAt": "2026-10-08T16:00:50.461Z",

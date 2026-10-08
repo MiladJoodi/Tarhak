@@ -33,28 +33,28 @@ const CARDS: Card[] = [
     title: "فرم‌های دستی، پرداخت‌های آرام",
     description:
       "سرامیک دست‌ساز که نگاه آهسته را پاداش می‌دهد — لعاب نرم، وزن صادق، و سطحی که ساخته به‌نظر می‌رسد نه تولید انبوه.",
-    image: `https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?${IMG}`,
+    image: `/unsplash/1534308143481-c55f00be8bd7.webp`,
   },
   {
     index: "۰۲",
     title: "نور از میان کتان و خاک",
     description:
       "کاتالوگ استودیو حول بافت و خویشتن‌داری؛ هر قاب جا می‌گذارد تا شیء نفس بکشد.",
-    image: `https://images.unsplash.com/photo-1589939705384-5185137a7f0f?${IMG}`,
+    image: `/unsplash/1534528741775-53994a69daeb.webp`,
   },
   {
     index: "۰۳",
     title: "اشیایی با حافظهٔ بلندتر",
     description:
       "قطعاتی برای ماندن فراتر از مُد — سنگ‌رسی مات، لعاب خاکستر گرم، و فرم‌هایی که در استفادهٔ روزمره جا می‌گیرند.",
-    image: `https://images.unsplash.com/photo-1541123603104-512919d6a96c?${IMG}`,
+    image: `/unsplash/1541123603104-512919d6a96c.webp`,
   },
   {
     index: "۰۴",
     title: "قفسه‌ای که به آن برمی‌گردی",
     description:
       "ظروف و سرویس چیده مثل نمایشگاه کوچک — ملموس، آرام، و آسان برای مرور.",
-    image: `https://images.unsplash.com/photo-1513519245088-0e12902e5a38?${IMG}`,
+    image: `/unsplash/1513519245088-0e12902e5a38.webp`,
   },
 ];
 
