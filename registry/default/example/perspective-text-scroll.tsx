@@ -136,7 +136,7 @@ export function PerspectiveTextScroll() {
       lang="fa"
       role="region"
       aria-label="اسکرول متن سه‌بعدی"
-      className="relative w-full bg-[#F7F4F2] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[#7B9E87]"
+      className="relative w-full bg-[#F7F4F2] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[#7B9E87] dark:bg-[hsl(225_7%_11%)] dark:text-[#9BB8A6]"
       style={{ height: "500vh" }}
     >
       <div

@@ -375,12 +375,7 @@ export function AccordionOS({
                 >
                   <div className="accordion-os-title-stack">
                     <motion.div
-                      className="accordion-os-icon-btn"
-                      animate={{
-                        backgroundColor: isOpen ? "rgba(2, 2, 2, 0.9)" : "rgba(255, 255, 255, 0.8)",
-                        color: isOpen ? "#ffffff" : "rgb(2, 2, 2)",
-                        borderColor: isOpen ? "rgba(0, 0, 0, 0.8)" : "rgba(2, 2, 2, 0.2)",
-                      }}
+                      className={`accordion-os-icon-btn${isOpen ? " accordion-os-icon-btn-open" : ""}`}
                       whileHover={{ scale: 1.15, rotate: isOpen ? -45 : 90 }}
                       whileTap={{ scale: 0.9 }}
                       transition={bouncySpring}
@@ -641,6 +636,13 @@ export function AccordionOS({
           color: rgb(2, 2, 2);
           background: rgba(255, 255, 255, 0.7);
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+          transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .accordion-os-icon-btn-open {
+          background: rgba(2, 2, 2, 0.9);
+          color: #ffffff;
+          border-color: rgba(0, 0, 0, 0.8);
         }
 
         .accordion-os-svg-icon {
@@ -787,6 +789,75 @@ export function AccordionOS({
           object-position: center;
           border-radius: 36px;
           display: block;
+        }
+
+        /* Match app dark variant: under .dark, but not inside a .light island. */
+        .accordion-os-card:is(.dark *):not(:is(.light *)) {
+          background-color: #1c1d22;
+        }
+
+        .accordion-os-pill:is(.dark *):not(:is(.light *)) {
+          background-color: rgba(36, 37, 43, 0.78);
+          border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .accordion-os-pill:is(.dark *):not(:is(.light *)):hover {
+          border-color: rgba(255, 255, 255, 0.16);
+          background-color: rgba(48, 49, 56, 0.92);
+        }
+
+        .accordion-os-pill:is(.dark *):not(:is(.light *)):focus-visible {
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+        }
+
+        .accordion-os-pill-open:is(.dark *):not(:is(.light *)) {
+          background-color: rgba(42, 43, 50, 0.94);
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .accordion-os-icon-btn:is(.dark *):not(:is(.light *)) {
+          color: #f5f5f5;
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.28);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        }
+
+        .accordion-os-icon-btn-open:is(.dark *):not(:is(.light *)) {
+          background: rgba(255, 255, 255, 0.94);
+          color: #111111;
+          border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .accordion-os-title-text:is(.dark *):not(:is(.light *)) {
+          color: #f4f4f5;
+        }
+
+        .accordion-os-pill-badge:is(.dark *):not(:is(.light *)) {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .accordion-os-pill-badge-active:is(.dark *):not(:is(.light *)) {
+          color: rgba(255, 255, 255, 0.78);
+        }
+
+        .accordion-os-claim-text:is(.dark *):not(:is(.light *)) {
+          color: #a1a1aa;
+        }
+
+        .accordion-os-nav-stack:is(.dark *):not(:is(.light *)) {
+          background: rgba(28, 29, 34, 0.72);
+          border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .accordion-os-nav-btn:is(.dark *):not(:is(.light *)) {
+          background-color: rgba(255, 255, 255, 0.08);
+          color: #e4e4e7;
+          border-color: rgba(255, 255, 255, 0.1);
+          box-shadow: none;
+        }
+
+        .accordion-os-counter:is(.dark *):not(:is(.light *)) {
+          color: #d4d4d8;
         }
 
         @container (max-width: 640px) {

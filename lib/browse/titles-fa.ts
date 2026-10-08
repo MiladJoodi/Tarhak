@@ -1,4 +1,4 @@
-/** Persian labels for browse/docs nav — English title stays primary. */
+/** Persian labels for browse/docs nav — primary over English titles. */
 export const COMPONENT_TITLES_FA: Record<string, string> = {
   "3d-book": "کتاب سه‌بعدی",
   "accessible-action": "عملیات دسترس‌پذیر",

@@ -19,8 +19,8 @@ import {
 import { useGatedCopy } from "@/hooks/use-gated-copy";
 import { cn } from "@/lib/utils";
 
-/** Paper 114-0 / 11I-0 — bun-first package manager + $ command */
-const COMMAND_TABS = ["bun", "npm", "yarn", "pnpm"] as const;
+/** Paper 114-0 / 11I-0 — npm-first package manager + $ command */
+const COMMAND_TABS = ["npm", "bun", "yarn", "pnpm"] as const;
 
 export function CodeBlockCommand({
   npm,
@@ -46,7 +46,7 @@ export function CodeBlockCommand({
   const commands: Record<PackageManager, string> = { npm, yarn, pnpm, bun };
   const active = COMMAND_TABS.includes(value as (typeof COMMAND_TABS)[number])
     ? value
-    : "bun";
+    : "npm";
   const command = commands[active];
   const gatedCopy = useGatedCopy({
     componentSlug,

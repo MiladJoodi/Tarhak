@@ -8,10 +8,10 @@
     ]
   },
   "disabled": [],
-  "updatedAt": "2026-09-21T04:10:09.361Z",
+  "updatedAt": "2026-10-08T16:00:50.463Z",
   "previewBackground": {
     "light": "#e9e9e9",
-    "dark": "#e9e9e9"
+    "dark": "hsl(225 7% 11%)"
   },
   "interactionHints": {
     "duration": 3,

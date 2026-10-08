@@ -92,9 +92,15 @@
   align-items: baseline;
 }
 
-.fa-num:has(> span) > span:not(:last-child),
-[data-fa-num]:has(> span) > span:not(:last-child) {
-  margin-inline-end: -0.28em;
+/* Mild digit→digit tighten. Separators (`:`, etc.) keep breathing room. */
+.fa-num:has(> span) > span:not(:last-child):not([data-fa-sep]),
+[data-fa-num]:has(> span) > span:not(:last-child):not([data-fa-sep]) {
+  margin-inline-end: -0.04em;
+}
+
+.fa-num:has(> span) > span[data-fa-sep],
+[data-fa-num]:has(> span) > span[data-fa-sep] {
+  margin-inline: 0.08em;
 }
 
 /*
@@ -198,7 +204,7 @@
 }
 
 /*
- * useLayouts ships dark only. The palette is the baseline on `:root` so the
+ * Tarhak ships dark only. The palette is the baseline on `:root` so the
  * page is never light even if the `.dark` class is missing; `.dark` repeats the
  * selector because Tailwind's `dark:` variant below still keys off the class,
  * and `.light` islands (admin, preview canvases) override both.
@@ -663,6 +669,20 @@ html.dark .shiki span {
       oklch(0.42 0.12 35 / 0.28),
       transparent 55%
     );
+}
+
+.landing-hero-stage {
+  background: #0c0d12;
+}
+
+.landing-cta-glass {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(18, 20, 28, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 8px 24px -10px rgba(0, 0, 0, 0.45);
 }
 
 @media (prefers-reduced-motion: reduce) {

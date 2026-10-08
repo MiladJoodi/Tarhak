@@ -59,8 +59,8 @@ export const TactileButton = React.forwardRef<
         indicator: "w-2.5 h-2.5",
         text: "text-sm sm:text-base leading-tight",
         pressedY: -8,
-        pressedX: 2,
-        rotate: -7.5,
+        pressedX: -2,
+        rotate: 7.5,
       },
       default: {
         container: "min-h-[52px] sm:min-h-[60px] min-w-[150px] sm:min-w-[176px]",
@@ -69,8 +69,8 @@ export const TactileButton = React.forwardRef<
         indicator: "w-2.5 h-2.5 sm:w-[12px] sm:h-[12px]",
         text: "text-base sm:text-[19px] md:text-[20px] leading-snug sm:leading-[31px]",
         pressedY: -12,
-        pressedX: 3,
-        rotate: -8.5,
+        pressedX: -3,
+        rotate: 8.5,
       },
       lg: {
         container: "min-h-[60px] sm:min-h-[72px] min-w-[180px] sm:min-w-[210px]",
@@ -79,8 +79,8 @@ export const TactileButton = React.forwardRef<
         indicator: "w-3 h-3 sm:w-[14px] sm:h-[14px]",
         text: "text-lg sm:text-[22px] md:text-[24px] leading-snug sm:leading-[36px]",
         pressedY: -15,
-        pressedX: 4,
-        rotate: -8.8,
+        pressedX: -4,
+        rotate: 8.8,
       },
     }[size];
 
@@ -113,6 +113,8 @@ export const TactileButton = React.forwardRef<
         <motion.button
           ref={ref}
           type="button"
+          dir="rtl"
+          lang="fa"
           onMouseDown={() => setIsPressed(true)}
           onMouseUp={() => setIsPressed(false)}
           onMouseLeave={() => {
@@ -134,15 +136,15 @@ export const TactileButton = React.forwardRef<
           )}
           initial={false}
           animate={{
-            // Tilt physics matching physical rocker switch depression
+            // Tilt physics matching physical rocker switch depression (mirrored for RTL)
             rotate: isPressed ? sizeConfig.rotate : 0,
             y: isPressed ? sizeConfig.pressedY : isHovered ? -2 : 0,
             x: isPressed ? sizeConfig.pressedX : 0,
             boxShadow: isPressed
-              ? "rgba(0, 0, 0, 0.22) -2px -6px 1px 0px inset, rgba(255, 255, 255, 0.9) 0.5px 1.5px 2px 0px inset, rgba(0, 0, 0, 0.15) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.12) 9px 10px 13px 0px, rgba(0, 0, 0, 0.04) 35px 38px 21px 0px, rgba(255, 255, 255, 0.6) 0px 1px 0px 0px inset"
+              ? "rgba(0, 0, 0, 0.22) 2px -6px 1px 0px inset, rgba(255, 255, 255, 0.9) -0.5px 1.5px 2px 0px inset, rgba(0, 0, 0, 0.15) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.12) -9px 10px 13px 0px, rgba(0, 0, 0, 0.04) -35px 38px 21px 0px, rgba(255, 255, 255, 0.6) 0px 1px 0px 0px inset"
               : isHovered
-              ? "rgba(0, 0, 0, 0.20) -2px -7px 1px 0px inset, rgba(255, 255, 255, 0.95) 0.5px 2px 2px 0px inset, rgba(0, 0, 0, 0.15) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.12) 2px 3px 8px 0px, rgba(0, 0, 0, 0.10) 9px 12px 15px 0px, rgba(0, 0, 0, 0.06) 20px 24px 20px 0px, rgba(0, 0, 0, 0.02) 35px 38px 22px 0px, rgba(255, 255, 255, 0.7) 0px 1px 0px 0px inset"
-              : "rgba(0, 0, 0, 0.20) -2px -6px 1px 0px inset, rgba(255, 255, 255, 0.9) 0.5px 1.5px 1px 0px inset, rgba(0, 0, 0, 0.15) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.10) 2px 2px 7px 0px, rgba(0, 0, 0, 0.09) 9px 10px 13px 0px, rgba(0, 0, 0, 0.05) 20px 22px 18px 0px, rgba(0, 0, 0, 0.01) 35px 38px 21px 0px, rgba(0, 0, 0, 0) 55px 60px 23px 0px, rgba(255, 255, 255, 0.5) 0px 1px 0px 0px inset",
+              ? "rgba(0, 0, 0, 0.20) 2px -7px 1px 0px inset, rgba(255, 255, 255, 0.95) -0.5px 2px 2px 0px inset, rgba(0, 0, 0, 0.15) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.12) -2px 3px 8px 0px, rgba(0, 0, 0, 0.10) -9px 12px 15px 0px, rgba(0, 0, 0, 0.06) -20px 24px 20px 0px, rgba(0, 0, 0, 0.02) -35px 38px 22px 0px, rgba(255, 255, 255, 0.7) 0px 1px 0px 0px inset"
+              : "rgba(0, 0, 0, 0.20) 2px -6px 1px 0px inset, rgba(255, 255, 255, 0.9) -0.5px 1.5px 1px 0px inset, rgba(0, 0, 0, 0.15) 0px -1px 1px 0px inset, rgba(0, 0, 0, 0.10) -2px 2px 7px 0px, rgba(0, 0, 0, 0.09) -9px 10px 13px 0px, rgba(0, 0, 0, 0.05) -20px 22px 18px 0px, rgba(0, 0, 0, 0.01) -35px 38px 21px 0px, rgba(0, 0, 0, 0) -55px 60px 23px 0px, rgba(255, 255, 255, 0.5) 0px 1px 0px 0px inset",
           }}
           transition={springTransition}
           {...props}
@@ -152,6 +154,16 @@ export const TactileButton = React.forwardRef<
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 top-0 h-[45%] rounded-t-[14px] bg-gradient-to-b from-white/70 via-white/20 to-transparent"
           />
+
+          {/* Button Text — first in DOM so it sits on the RTL start (right) */}
+          <span
+            className={cn(
+              "relative z-10 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-medium tracking-normal text-[#292929] whitespace-nowrap",
+              sizeConfig.text
+            )}
+          >
+            {children}
+          </span>
 
           {/* Liquid Glass Bead LED Indicator */}
           {showIndicator && (
@@ -185,20 +197,10 @@ export const TactileButton = React.forwardRef<
               {/* Droplet Specular Reflection */}
               <span
                 aria-hidden="true"
-                className="absolute top-[1px] left-[1.5px] h-[2px] w-[2px] sm:h-[3px] sm:w-[3px] rounded-full bg-white/95"
+                className="absolute top-[1px] start-[1.5px] h-[2px] w-[2px] sm:h-[3px] sm:w-[3px] rounded-full bg-white/95"
               />
             </motion.span>
           )}
-
-          {/* Button Text */}
-          <span
-            className={cn(
-              "relative z-10 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-medium tracking-normal text-[#292929] whitespace-nowrap",
-              sizeConfig.text
-            )}
-          >
-            {children}
-          </span>
         </motion.button>
       </div>
     );

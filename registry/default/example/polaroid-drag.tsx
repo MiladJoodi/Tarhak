@@ -267,7 +267,7 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
 
 export default function PolaroidDrag() {
   return (
-    <PolaroidGallery className="bg-[#f6f4f6]">
+    <PolaroidGallery className="bg-[#f6f4f6] dark:bg-[hsl(225_7%_11%)]">
       <PolaroidArena>
         <PolaroidCard
           id="card-1"

@@ -41,11 +41,11 @@ export default function Footer() {
   }, [flatten, pathname]);
 
   return (
-    <div className="mt-12 flex flex-row justify-between border-t border-[#E2E2E2] pt-12">
+    <div className="mt-12 flex flex-row justify-between border-t border-white/12 pt-12">
       {previous ? (
         <Link
           href={previous.url}
-          className="group flex flex-row items-center gap-1.5 font-medium text-[#4B565E] transition-colors duration-150 hover:text-[#071A31]"
+          className="group flex flex-row items-center gap-1.5 font-medium text-white/55 transition-colors duration-150 hover:text-white"
         >
           <HugeiconsIcon
             icon={ArrowRight01Icon}
@@ -59,7 +59,7 @@ export default function Footer() {
       {next ? (
         <Link
           href={next.url}
-          className="group flex flex-row items-center gap-1.5 text-end font-medium text-[#4B565E] transition-colors duration-150 hover:text-[#071A31]"
+          className="group flex flex-row items-center gap-1.5 text-end font-medium text-white/55 transition-colors duration-150 hover:text-white"
         >
           <span>{next.name}</span>
           <HugeiconsIcon

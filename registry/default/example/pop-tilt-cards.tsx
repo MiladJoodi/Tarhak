@@ -49,7 +49,7 @@ export default function PopTiltCards() {
     <section
       dir="rtl"
       lang="fa"
-      className="flex h-full w-full min-w-0 flex-col items-center justify-center overflow-x-hidden bg-[#F4F6F8] px-4 py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:px-6"
+      className="flex h-full w-full min-w-0 flex-col items-center justify-center overflow-x-hidden bg-[#F4F6F8] px-4 py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)] md:px-6"
     >
       <div
         className="flex w-full min-w-0 justify-center [container-type:inline-size]"

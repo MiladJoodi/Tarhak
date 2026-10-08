@@ -434,7 +434,7 @@ export default function GooeyNavbarExample() {
     <div
       dir="rtl"
       lang="fa"
-      className="flex h-full w-full items-center justify-center bg-white px-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="flex h-full w-full items-center justify-center bg-white px-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)]"
     >
       <GooeyNavbar />
     </div>

@@ -1,4 +1,4 @@
-/** Path data exported from the useLayouts 2.0 Figma file, re-authored to take
+/** Path data exported from the Tarhak Figma file, re-authored to take
  *  `currentColor` so the same glyph can render in active and idle states. */
 
 type IconProps = React.SVGProps<SVGSVGElement>;

@@ -46,7 +46,6 @@ export interface ConfidentialFolderProps
 const SLEEVE = "oklch(0.26 0.01 260)";
 const PAPER = "oklch(0.962 0.014 95)";
 const RULE = "oklch(0.28 0.02 95 / 0.14)";
-const STAGE = "oklch(0.18 0.012 260)";
 const BASE_W = 320;
 const BASE_H = 400;
 const LETTER_W = 282 / BASE_W;
@@ -377,10 +376,10 @@ export const ConfidentialFolder = forwardRef<
         lang="fa"
         className={cn(
           "relative flex flex-col items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-synthesis-none tracking-normal antialiased",
-          stage && "h-full min-h-[560px] w-full px-8 py-16",
+          stage &&
+            "h-full min-h-[560px] w-full bg-[oklch(0.94_0.008_95)] px-8 py-16 dark:bg-[oklch(0.18_0.012_260)]",
           className,
         )}
-        style={stage ? { background: STAGE } : undefined}
         {...props}
       >
         <div

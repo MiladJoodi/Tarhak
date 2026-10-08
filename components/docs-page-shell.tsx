@@ -18,9 +18,9 @@ export function DocsPageShell({
     <div
       id="nd-docs-layout"
       className={cn(
-        "relative mx-auto w-full px-4 py-8 sm:px-8 sm:py-12",
+        "relative mx-auto w-full px-4 pt-20 pb-8 sm:px-8 sm:pt-24 sm:pb-12",
         hasToc &&
-          "xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,42rem)_minmax(0,1fr)] xl:gap-x-10",
+          "xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,42rem)_minmax(0,1fr)] xl:items-start xl:gap-x-10",
       )}
     >
       <main

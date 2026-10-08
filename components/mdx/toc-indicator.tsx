@@ -260,8 +260,8 @@ export function TocIndicator({
             let strokeWidth = 0;
 
             if (isUpcoming) {
-              fillColor = "#F5F3EE";
-              strokeColor = "#4B565E";
+              fillColor = "rgba(12,13,18,0.55)";
+              strokeColor = "rgba(255,255,255,0.35)";
               strokeWidth = 1;
             }
             if (isCovered) {
@@ -279,7 +279,7 @@ export function TocIndicator({
                   cy={pos.y}
                   r={6}
                   fill="none"
-                  stroke="var(--accent)"
+                  stroke="rgba(200,212,255,0.55)"
                   strokeWidth={1}
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{
@@ -294,8 +294,8 @@ export function TocIndicator({
                   cx={pos.x}
                   cy={pos.y}
                   r={3.5}
-                  fill="#071A31"
-                  stroke="#4B565E"
+                  fill="#e8eeff"
+                  stroke="rgba(255,255,255,0.4)"
                   strokeWidth={1}
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{

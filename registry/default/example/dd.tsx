@@ -560,16 +560,7 @@ export default function Dd() {
       <div
         dir="rtl"
         lang="fa"
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#f8f8f6",
-          padding: "24px",
-          fontFamily: "var(--font-estedad), Tahoma, Arial, sans-serif",
-          letterSpacing: "0",
-        }}
+        className="flex min-h-screen items-center justify-center bg-[#f8f8f6] p-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)]"
       >
         <motion.div
           onHoverStart={() => setIsHovered(true)}
@@ -582,20 +573,10 @@ export default function Dd() {
             damping: 26,
             mass: 1,
           } as Transition}
+          className="flex w-[min(780px,100%)] items-stretch gap-14 rounded-[10px] bg-white p-12 text-[rgb(17,17,18)] shadow-[0_0_0_1px_rgba(0,0,0,0.055),0_4px_16px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06)] will-change-transform dark:bg-[hsl(225_7%_14%)] dark:text-zinc-100 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.2),0_16px_48px_rgba(0,0,0,0.35)]"
           style={{
-            display: "flex",
-            alignItems: "stretch",
-            gap: 56,
-            background: "#fff",
-            borderRadius: 10,
-            padding: 48,
             boxSizing: "border-box",
-            color: "rgb(17,17,18)",
-            width: "min(780px, 100%)",
             minHeight: CONTAINER_HEIGHT,
-            boxShadow:
-              "0 0 0 1px rgba(0,0,0,0.055), 0 4px 16px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.06)",
-            willChange: "transform",
           }}
         >
           {/* Left: progress bar + thumbnail strip */}

@@ -21,6 +21,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@uselayouts": "https://uselayouts.com/r/{name}.json"
+    "@tarhak": "https://tarhak.ir/r/{name}.json"
   }
 }

@@ -44,7 +44,7 @@ export const SLOT_SHAPES = [
 ] as const;
 
 export const HERO_COPY = {
-  title: "useLayouts stays free because people like you keep the lights on",
+  title: "Tarhak stays free because people like you keep the lights on",
   body:
     "This library needs you. Be the backbone that keeps this library standing strong. Help us keep it free for everyone",
 } as const;

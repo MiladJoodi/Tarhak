@@ -153,7 +153,7 @@ export function EditorialDeck({
     <section
       dir="rtl"
       lang="fa"
-      className={`flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center bg-[#F7F4F0] px-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal ${className}`}
+      className={`flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center bg-[#F7F4F0] px-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)] ${className}`}
     >
       {showIntro ? (
         <div className="mb-8 text-center">

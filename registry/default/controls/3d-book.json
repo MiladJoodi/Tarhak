@@ -1,10 +1,10 @@
 {
   "dialConfig": {},
   "disabled": [],
-  "updatedAt": "2026-09-16T16:48:38.337Z",
+  "updatedAt": "2026-10-08T16:00:50.468Z",
   "previewBackground": {
     "light": "#ffffff",
-    "dark": "#f2f2f2"
+    "dark": "hsl(225 7% 11%)"
   },
   "interactionHints": {
     "duration": 3,

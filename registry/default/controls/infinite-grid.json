@@ -17,8 +17,11 @@
     "imageUrl4": "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=85&w=1200&auto=format&fit=crop"
   },
   "disabled": [],
-  "updatedAt": "2026-09-18T18:37:01.638Z",
-  "previewBackground": "#fcfcfc",
+  "updatedAt": "2026-10-08T16:00:50.458Z",
+  "previewBackground": {
+    "light": "#fcfcfc",
+    "dark": "hsl(225 7% 11%)"
+  },
   "interactionHints": {
     "duration": 3,
     "scale": 70,

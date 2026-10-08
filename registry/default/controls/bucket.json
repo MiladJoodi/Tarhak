@@ -2,6 +2,10 @@
   "dialConfig": {},
   "disabled": [],
   "updatedAt": "2026-09-18T18:29:48.286Z",
+  "previewBackground": {
+    "light": "#f5f5f7",
+    "dark": "hsl(225 7% 11%)"
+  },
   "posterUrl": "/api/browse-media/components/bucket/poster.avif",
   "videoUrl": "/api/browse-media/components/bucket/video.mp4",
   "tags": [

@@ -33,6 +33,15 @@ function useActiveItem(itemIds: string[]) {
         return;
       }
 
+      // Short final sections never reach the marker — pin last item near page end.
+      const doc = document.documentElement;
+      const distanceFromBottom =
+        doc.scrollHeight - (window.scrollY + window.innerHeight);
+      if (distanceFromBottom < 120) {
+        setActiveId(itemIds[itemIds.length - 1]!);
+        return;
+      }
+
       const marker = window.innerHeight * 0.25;
       let current = itemIds[0];
       for (const id of itemIds) {

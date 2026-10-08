@@ -337,7 +337,7 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
         dir="rtl"
         lang="fa"
         className={cn(
-          'infinite-grid-root relative h-full min-h-dvh w-full overflow-hidden bg-white font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal',
+          'infinite-grid-root relative h-full min-h-dvh w-full overflow-hidden bg-white font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)]',
           className
         )}
       >
@@ -368,7 +368,7 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
-          className="relative h-full w-full cursor-grab overflow-hidden select-none bg-white active:cursor-grabbing"
+          className="relative h-full w-full cursor-grab overflow-hidden select-none bg-white active:cursor-grabbing dark:bg-[hsl(225_7%_11%)]"
           style={{
             touchAction: 'none',
             userSelect: 'none',

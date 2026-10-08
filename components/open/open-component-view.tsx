@@ -25,13 +25,13 @@ export function OpenComponentView({
   data: OpenComponentData;
   docsContent?: React.ReactNode;
 }) {
-  const { panel, setPanel, stage } = useOpenPanel();
+  const { panel, setPanel, stage, previewTheme } = useOpenPanel();
   const [manager, setManager] = usePackageManager();
   const backgrounds = React.useMemo(
     () => parsePreviewBackgrounds(data.previewBackground),
     [data.previewBackground],
   );
-  const previewBackground = resolvePreviewBackground(backgrounds, "dark");
+  const previewBackground = resolvePreviewBackground(backgrounds, previewTheme);
   const hintTone = hintToneForBackground(previewBackground);
   const codeOpen = panel === "code";
   const { highlight, loading: highlightLoading } = useOpenHighlight(
@@ -58,6 +58,7 @@ export function OpenComponentView({
           hintTop={data.hintTop}
           hint={stage ? null : data.previewHint}
           hintTone={hintTone}
+          theme={previewTheme}
         />
       </main>
 

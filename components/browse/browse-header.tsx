@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- static SVG marks, no optimisation needed. */
-
 import * as React from "react";
 import Link from "next/link";
 
@@ -13,6 +11,7 @@ import {
 } from "@/components/ui/tooltip";
 import { formatStarCount, GITHUB_URL } from "@/lib/github";
 import { BrandLogo } from "@/components/brand-logo";
+import { BrandStar } from "@/components/brand-star";
 
 export function BrowseHeader({
   query,
@@ -41,17 +40,21 @@ export function BrowseHeader({
   }, []);
 
   return (
-    <header className="flex w-full shrink-0 items-center justify-between px-[30px] py-2.5">
+    <header
+      dir="rtl"
+      lang="fa"
+      className="flex w-full shrink-0 items-center justify-between px-[30px] py-2.5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+    >
       <Link
         href="/"
+        aria-label="صفحهٔ اصلی طرحک"
         className="flex items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
       >
         <BrandLogo invert />
       </Link>
 
       <div className="flex items-center gap-2.5">
-        {/* Figma 82:3700 — px 12 / py 8 / radius 12 / bg #030202; hidden on mobile */}
-        <div className="hidden w-[180px] items-center justify-between rounded-[12px] bg-[#030202] px-3 py-2 shadow-[0px_0.5px_0px_0px_rgba(255,255,255,0.15)] transition-[box-shadow] duration-150 ease-out focus-within:shadow-[0px_0.5px_0px_0px_rgba(255,255,255,0.28)] md:flex sm:w-[243px]">
+        <div className="hidden w-[180px] items-center justify-between rounded-[12px] border border-white/10 bg-[#030202] px-3 py-2 transition-[border-color] duration-150 ease-out focus-within:border-white/20 md:flex sm:w-[243px]">
           <div className="flex min-w-0 flex-1 items-center gap-2">
             <SearchIcon className="size-4 shrink-0 text-[#acacb4]" />
             <input
@@ -67,19 +70,22 @@ export function BrowseHeader({
                 }
               }}
               type="search"
-              placeholder="Search"
-              aria-label="Search components"
-              className="min-w-0 flex-1 bg-transparent text-sm tracking-[-0.42px] text-[#acacb4] outline-none placeholder:text-[#acacb4] [&::-webkit-search-cancel-button]:hidden"
+              placeholder="جستجو"
+              aria-label="جستجوی کامپوننت‌ها"
+              dir="rtl"
+              className="min-w-0 flex-1 bg-transparent text-sm text-[#acacb4] outline-none placeholder:text-[#acacb4] [&::-webkit-search-cancel-button]:hidden"
             />
           </div>
           {focused || query ? null : (
-            <kbd className="relative flex shrink-0 items-center justify-center rounded-[6px] bg-[#212121] px-3 py-0.5 font-sans text-xs tracking-[-0.36px] text-[#adadb7] shadow-[inset_0px_0.5px_0px_0px_rgba(255,255,255,0.12)]">
+            <kbd
+              dir="ltr"
+              className="relative flex shrink-0 items-center justify-center rounded-[6px] bg-[#212121] px-3 py-0.5 font-sans text-xs text-[#adadb7]"
+            >
               /
             </kbd>
           )}
         </div>
 
-        {/* Figma 1:23 — mark plus count, gap 8 / px 10 / py 8. */}
         <Tooltip>
           <TooltipTrigger
             render={
@@ -89,31 +95,21 @@ export function BrowseHeader({
                 rel="noreferrer"
                 aria-label={
                   starCount
-                    ? `useLayouts on GitHub, ${starCount} stars`
-                    : "useLayouts on GitHub"
+                    ? `Tarhak در گیت‌هاب، ${starCount} ستاره`
+                    : "Tarhak در گیت‌هاب"
                 }
-                className="relative flex items-center gap-2 overflow-hidden rounded-xl bg-secondary px-2.5 py-2 shadow-[0px_2px_2px_-1px_rgba(0,0,0,0.16),0px_4px_4px_-2px_rgba(0,0,0,0.24),0px_0px_0px_1px_rgba(0,0,0,0.1)] transition-colors duration-150 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_28%)]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/5 px-3 py-1.5 text-white transition-[background-color,border-color] duration-150 hover:border-white/20 hover:bg-white/10"
               />
             }
           >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-to-b from-transparent to-black/6 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.05)]"
-            />
-            <img
-              src="/brand/icon-github.svg"
-              alt=""
-              width={20}
-              height={20}
-              className="relative size-5"
-            />
+            <BrandStar className="text-[#C9A227]" />
             {starCount ? (
-              <span className="relative text-base leading-none text-white tabular-nums">
+              <span dir="ltr" className="text-[13px] leading-none font-medium tabular-nums">
                 {starCount}
               </span>
             ) : null}
           </TooltipTrigger>
-          <TooltipContent side="bottom">Star us on GitHub 🥹</TooltipContent>
+          <TooltipContent side="bottom">ستاره در گیت‌هاب</TooltipContent>
         </Tooltip>
       </div>
     </header>

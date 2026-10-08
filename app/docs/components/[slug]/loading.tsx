@@ -3,18 +3,10 @@ export default function OpenComponentLoading() {
     <div
       className="relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden bg-[hsl(225_7%_11%)]"
       aria-busy="true"
-      aria-label="Loading component"
+      aria-label="در حال بارگذاری"
     >
-      <div className="absolute inset-x-[18px] top-[18px] z-10 flex items-start justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <div className="size-11 animate-pulse rounded-xl bg-white/10" />
-          <div className="size-11 animate-pulse rounded-xl bg-white/10" />
-        </div>
-        <div className="h-10 w-44 animate-pulse rounded-full bg-white/8" />
-        <div className="size-10 animate-pulse rounded-xl bg-white/8" />
-      </div>
-
-      <div className="flex flex-1 items-center justify-center px-6">
+      {/* No header chrome here — OpenExperience keeps the real toolbar mounted. */}
+      <div className="flex flex-1 items-center justify-center px-6 pt-20">
         <div className="h-[min(52vh,420px)] w-full max-w-3xl animate-pulse rounded-[28px] bg-white/6" />
       </div>
 

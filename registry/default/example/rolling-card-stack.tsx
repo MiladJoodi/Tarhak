@@ -219,8 +219,8 @@ export const RollingCardStack: React.FC<RollingCardStackProps> = ({
       dir="rtl"
       lang="fa"
       className={cn(
-        "min-h-screen w-full bg-[#E5E5E0] text-neutral-900 flex flex-col items-center justify-center p-4 md:p-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal select-none overflow-hidden relative",
-        "outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40",
+        "relative flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-[#E5E5E0] p-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-neutral-900 dark:bg-[hsl(225_7%_11%)] dark:text-neutral-100 md:p-12",
+        "outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40 dark:focus-visible:ring-white/40",
         className
       )}
       role="region"

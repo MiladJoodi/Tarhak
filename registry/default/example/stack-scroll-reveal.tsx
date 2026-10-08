@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import {
   motion,
   useReducedMotion,
@@ -9,6 +9,14 @@ import {
   type MotionValue,
 } from "motion/react";
 import Lenis from "lenis";
+
+export type StackScrollRevealProps = {
+  className?: string;
+  /** Nested overflow parent. Omit on a full-page landing (window + Lenis). */
+  container?: RefObject<HTMLElement | null>;
+  /** Window Lenis. Off when `container` is set (docs preview). */
+  enableLenis?: boolean;
+};
 
 type Card = {
   index: string;
@@ -150,17 +158,23 @@ function StackCard({
   );
 }
 
-export default function StackScrollReveal() {
+export default function StackScrollReveal({
+  className,
+  container,
+  enableLenis = true,
+}: StackScrollRevealProps = {}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [peelY, setPeelY] = useState(PEEL_Y_DESKTOP);
   const reduceMotion = Boolean(useReducedMotion());
+  const nested = Boolean(container);
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
+    ...(container ? { container } : {}),
   });
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || !enableLenis || container) return;
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -178,7 +192,7 @@ export default function StackScrollReveal() {
       cancelAnimationFrame(frame);
       lenis.destroy();
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, enableLenis, container]);
 
   useEffect(() => {
     const update = () => {
@@ -193,12 +207,12 @@ export default function StackScrollReveal() {
     <div
       dir="rtl"
       lang="fa"
-      className="w-full min-w-0 bg-[oklch(0.97_0.008_85)] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[oklch(0.28_0.03_75)] antialiased"
+      className={`w-full min-w-0 bg-[oklch(0.97_0.008_85)] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[oklch(0.28_0.03_75)] antialiased dark:bg-[hsl(225_7%_11%)] dark:text-[oklch(0.9_0.01_85)] ${className ?? ""}`}
     >
-      <div className="h-[400px]" aria-hidden />
+      <div className={nested ? "h-24" : "h-[400px]"} aria-hidden />
       <section className="px-4 sm:px-5">
         <div ref={trackRef} className="relative h-[570vh]">
-          <div className="sticky top-0 flex h-[100dvh] items-center justify-center [perspective:1200px]">
+          <div className="sticky top-0 flex h-screen min-h-screen items-center justify-center [perspective:1200px]">
             <div
               className="relative mx-auto w-full max-w-[1000px] [transform-style:preserve-3d]"
               style={{

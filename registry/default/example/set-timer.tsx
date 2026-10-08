@@ -50,6 +50,10 @@ function toFaDigits(value: string | number) {
   return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
 }
 
+function isFaDigitChar(ch: string) {
+  return FA_DIGITS.includes(ch) || (ch >= "0" && ch <= "9");
+}
+
 function FaDigits({
   value,
   className,
@@ -67,11 +71,26 @@ function FaDigits({
       {...props}
       aria-label={ariaLabel}
     >
-      {[...text].map((ch, i) => (
-        <span key={`${i}-${ch}`} aria-hidden="true">
-          {ch}
-        </span>
-      ))}
+      {[...text].map((ch, i) => {
+        const sep = !isFaDigitChar(ch);
+        const isLast = i === text.length - 1;
+        return (
+          <span
+            key={`${i}-${ch}`}
+            aria-hidden="true"
+            {...(sep ? { "data-fa-sep": "" } : {})}
+            style={
+              sep
+                ? { marginInline: "0.08em" }
+                : isLast
+                  ? undefined
+                  : { marginInlineEnd: "-0.04em" }
+            }
+          >
+            {ch}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -458,7 +477,7 @@ export const SetTimer = () => {
     <div
       dir="rtl"
       lang="fa"
-      className="flex h-[500px] w-full items-center justify-center overflow-hidden bg-[#e9e9e9] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="flex h-[500px] w-full items-center justify-center overflow-hidden bg-[#e9e9e9] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)]"
     >
       <motion.div
         ref={surfaceRef}

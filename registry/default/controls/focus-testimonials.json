@@ -19,8 +19,11 @@
     ]
   },
   "disabled": [],
-  "updatedAt": "2026-09-18T18:36:30.883Z",
-  "previewBackground": "transparent",
+  "updatedAt": "2026-10-08T16:00:50.457Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
   "interactionHints": {
     "duration": 3,
     "scale": 70,

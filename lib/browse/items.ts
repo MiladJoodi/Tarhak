@@ -9,7 +9,7 @@ export type BrowseItem = {
   /** Registry name, also the docs slug. */
   slug: string;
   title: string;
-  /** Optional Persian label — secondary to English `title`. */
+  /** Optional Persian label — primary in nav over English `title`. */
   titleFa?: string;
   description: string;
   category: string;

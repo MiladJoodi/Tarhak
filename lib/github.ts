@@ -1,5 +1,6 @@
-export const GITHUB_REPO = "iurvish/uselayouts";
-export const GITHUB_URL = `https://github.com/${GITHUB_REPO}`;
+import { GITHUB_REPO, GITHUB_URL } from "@/lib/brand";
+
+export { GITHUB_REPO, GITHUB_URL };
 
 export function formatStarCount(count: number) {
   if (count < 1000) return String(count);

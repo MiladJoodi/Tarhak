@@ -21,10 +21,10 @@
     ]
   },
   "disabled": [],
-  "updatedAt": "2026-09-21T18:01:43.717Z",
+  "updatedAt": "2026-10-08T16:00:50.455Z",
   "previewBackground": {
     "light": "#faf8f6",
-    "dark": "#faf8f6"
+    "dark": "hsl(225 7% 11%)"
   },
   "showHint": true,
   "hintKind": "hover",

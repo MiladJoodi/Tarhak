@@ -1,16 +1,5 @@
 import { cn } from "@/lib/utils";
 
-const DOTS = [
-  [4.5, 4.5],
-  [15.3379, 4.5],
-  [9.91992, 9.91895],
-  [20.7578, 9.91895],
-  [4.5, 15.3379],
-  [15.3379, 15.3379],
-  [9.91992, 20.7578],
-  [20.7578, 20.7578],
-] as const;
-
 export function BrandLogo({
   invert = false,
   className,
@@ -18,51 +7,26 @@ export function BrandLogo({
   invert?: boolean;
   className?: string;
 }) {
-  const bg = invert ? "#fff" : "#14141A";
-  const fg = invert ? "#14141A" : "#fff";
-
   return (
     <span className={cn("inline-flex items-center gap-2", className)}>
-      <svg
-        width="30"
-        height="30"
-        viewBox="0 0 30 30"
-        className="size-[30px] shrink-0"
+      {/* oxlint-disable-next-line next/no-img-element */}
+      <img
+        src="/tarhak/favicon.png"
+        alt=""
+        width={30}
+        height={30}
+        className="size-[30px] shrink-0 rounded-[6px]"
         aria-hidden
+      />
+      <span
+        lang="fa"
+        dir="rtl"
+        className={cn(
+          "font-[family-name:var(--font-estedad)] text-[18px] font-medium leading-none tracking-normal",
+          invert ? "text-white" : "text-[#14141A]",
+        )}
       >
-        <rect width="30" height="30" rx="6" fill={bg} />
-        {DOTS.map(([x, y]) => (
-          <rect
-            key={`${x}-${y}`}
-            x={x}
-            y={y}
-            width="4.74182"
-            height="4.74182"
-            rx="0.8"
-            fill={fg}
-          />
-        ))}
-      </svg>
-      <span className="inline-flex min-w-0 items-baseline gap-1.5 leading-none">
-        <span
-          lang="fa"
-          dir="rtl"
-          className={cn(
-            "font-[family-name:var(--font-estedad)] text-[18px] font-medium tracking-normal",
-            invert ? "text-white" : "text-[#14141A]",
-          )}
-        >
-          طرحک
-        </span>
-        <span
-          dir="ltr"
-          className={cn(
-            "text-[11px] font-medium tracking-[0.02em]",
-            invert ? "text-white/45" : "text-[#14141A]/50",
-          )}
-        >
-          Tarhak
-        </span>
+        طرحک
       </span>
     </span>
   );

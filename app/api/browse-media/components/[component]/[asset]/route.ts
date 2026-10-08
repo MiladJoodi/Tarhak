@@ -68,6 +68,9 @@ export async function GET(request: Request, { params }: Params) {
             "Content-Range": `bytes ${start}-${end}/${stat.size}`,
             "Accept-Ranges": "bytes",
             "Cache-Control": ONE_YEAR,
+            // Inline so download managers / browsers don't treat preview media as a file download.
+            "Content-Disposition": `inline; filename="${asset}"`,
+            "X-Content-Type-Options": "nosniff",
           },
         });
       }
@@ -82,6 +85,8 @@ export async function GET(request: Request, { params }: Params) {
       "Content-Length": String(stat.size),
       "Accept-Ranges": "bytes",
       "Cache-Control": ONE_YEAR,
+      "Content-Disposition": `inline; filename="${asset}"`,
+      "X-Content-Type-Options": "nosniff",
     },
   });
 }

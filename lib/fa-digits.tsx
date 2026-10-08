@@ -8,6 +8,10 @@ const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
 /** Class paired with globals.css `.fa-num` digit tightening. */
 export const faNumClass = "fa-num";
 
+function isFaDigitChar(ch: string) {
+  return FA_DIGITS.includes(ch) || (ch >= "0" && ch <= "9");
+}
+
 /** Convert ASCII digits to Persian digits. Leaves other characters untouched. */
 export function toFaDigits(value: string | number) {
   return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
@@ -46,11 +50,26 @@ export function FaDigits<T extends ElementType = "span">({
       {...props}
       aria-label={ariaLabel}
     >
-      {[...text].map((ch, i) => (
-        <span key={`${i}-${ch}`} aria-hidden="true">
-          {ch}
-        </span>
-      ))}
+      {[...text].map((ch, i) => {
+        const sep = !isFaDigitChar(ch);
+        const isLast = i === text.length - 1;
+        return (
+          <span
+            key={`${i}-${ch}`}
+            aria-hidden="true"
+            {...(sep ? { "data-fa-sep": "" } : {})}
+            style={
+              sep
+                ? { marginInline: "0.08em" }
+                : isLast
+                  ? undefined
+                  : { marginInlineEnd: "-0.04em" }
+            }
+          >
+            {ch}
+          </span>
+        );
+      })}
     </Comp>
   );
 }

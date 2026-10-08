@@ -36,7 +36,7 @@ export default function CreateMenu() {
     <div
       dir="rtl"
       lang="fa"
-      className="relative h-10 w-full font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="relative flex min-h-10 w-full justify-start overflow-visible font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
     >
       <motion.div
         ref={rootRef}
@@ -48,8 +48,8 @@ export default function CreateMenu() {
         }}
         className={
           view === "button"
-            ? "absolute z-20 w-fit overflow-hidden rounded-full bg-primary text-primary-foreground shadow-sm"
-            : "absolute z-20 w-fit overflow-hidden rounded-[12px] bg-popover text-popover-foreground shadow-sm ring-1 ring-border ring-inset"
+            ? "relative z-20 w-fit overflow-hidden rounded-full bg-primary text-primary-foreground shadow-sm"
+            : "relative z-20 w-fit overflow-hidden rounded-[12px] bg-popover text-popover-foreground shadow-sm ring-1 ring-inset ring-border"
         }
       >
         <motion.div
@@ -75,10 +75,10 @@ function NewButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       type="button"
-      className="z-10 flex w-fit cursor-pointer items-center justify-center gap-1.5 px-4 py-2 ps-3.5"
+      className="z-10 flex w-fit cursor-pointer items-center justify-center gap-1.5 px-4 py-2 pe-4 ps-3.5 text-start"
       onClick={onClick}
     >
-      <HugeiconsIcon icon={PlusSignCircleIcon} className="size-4" />
+      <HugeiconsIcon icon={PlusSignCircleIcon} className="size-4 shrink-0" />
       شروع ساخت
     </button>
   );
@@ -100,9 +100,13 @@ function MenuItems() {
         <button
           key={item.label}
           type="button"
-          className="flex w-full cursor-pointer items-center gap-2 rounded-md bg-muted px-3 py-2 ps-2.5 text-sm text-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground"
+          className="flex w-full cursor-pointer items-center justify-start gap-2 rounded-md bg-muted px-3 py-2 pe-3 ps-2.5 text-start text-sm text-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground"
         >
-          <HugeiconsIcon icon={item.icon} strokeWidth={1.6} className="size-4" />
+          <HugeiconsIcon
+            icon={item.icon}
+            strokeWidth={1.6}
+            className="size-4 shrink-0"
+          />
           <span className="whitespace-nowrap">{item.label}</span>
         </button>
       ))}

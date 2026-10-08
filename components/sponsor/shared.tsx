@@ -5,7 +5,9 @@ import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/brand-logo";
 
-export const SPONSOR_HREF = "https://github.com/sponsors/iurvish";
+import { GITHUB_SPONSORS_URL, GITHUB_URL } from "@/lib/brand";
+
+export const SPONSOR_HREF = GITHUB_SPONSORS_URL;
 
 export const primaryBtnShadow = [
   "inset 0 1.5px 0 rgba(255,255,255,0.28)",
@@ -80,7 +82,7 @@ export function ProtoNav({
   ];
   return (
     <header className="relative z-20 flex h-[70px] items-center justify-between px-4 sm:px-8 lg:px-[47px]">
-      <Link href="/" aria-label="uselayouts home" className="shrink-0">
+      <Link href="/" aria-label="Tarhak home" className="shrink-0">
         <BrandLogo />
       </Link>
       <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
@@ -109,7 +111,7 @@ export function ProtoNav({
         </Link>
       ) : (
         <a
-          href="https://github.com/iurvish/uselayouts"
+          href={GITHUB_URL}
           target="_blank"
           rel="noreferrer"
           className="hidden h-10 items-center rounded-xl px-3.5 text-[15px] font-medium text-[#071A31] transition-[transform,filter] duration-150 ease-out active:scale-[0.96] sm:inline-flex"

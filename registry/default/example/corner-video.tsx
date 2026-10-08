@@ -307,7 +307,7 @@ export default function CornerVideo() {
     <section
       dir="rtl"
       lang="fa"
-      className="relative h-full min-h-[28rem] w-full bg-[hsl(240_6%_7%)] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="relative h-full min-h-[28rem] w-full bg-[#f4f4f5] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(240_6%_7%)]"
     >
       <CornerPlayer />
     </section>

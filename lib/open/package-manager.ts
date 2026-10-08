@@ -2,8 +2,8 @@ export const PACKAGE_MANAGERS = ["npm", "bun", "yarn", "pnpm"] as const;
 
 export type PackageManager = (typeof PACKAGE_MANAGERS)[number];
 
-export const PACKAGE_MANAGER_STORAGE_KEY = "uselayouts.package-manager";
-export const REGISTRY_NAMESPACE = "@uselayouts";
+export const PACKAGE_MANAGER_STORAGE_KEY = "tarhak.package-manager.v2";
+export const REGISTRY_NAMESPACE = "@tarhak";
 
 export function registryItem(slug: string) {
   return `${REGISTRY_NAMESPACE}/${slug}`;

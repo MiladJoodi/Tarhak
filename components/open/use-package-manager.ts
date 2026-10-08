@@ -9,7 +9,7 @@ import {
 } from "@/lib/open/package-manager";
 
 export function usePackageManager() {
-  const [manager, setManagerState] = React.useState<PackageManager>("bun");
+  const [manager, setManagerState] = React.useState<PackageManager>("npm");
 
   React.useEffect(() => {
     try {

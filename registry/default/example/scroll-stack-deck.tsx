@@ -283,7 +283,7 @@ export function ScrollStackDeck({
     <div
       dir="rtl"
       lang="fa"
-      className={`min-h-screen w-full bg-[#F4F6F8] font-sans text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white ${className}`}
+      className={`min-h-screen w-full bg-[#F4F6F8] font-sans text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white dark:bg-[hsl(225_7%_11%)] dark:text-neutral-100 dark:selection:bg-white dark:selection:text-neutral-900 ${className}`}
     >
       {showIntro ? (
         <section className="flex w-full flex-col items-center justify-center px-4 py-16 text-center">

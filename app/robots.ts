@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://uselayouts.com/sitemap.xml",
+    sitemap: "https://tarhak.ir/sitemap.xml",
   };
 }

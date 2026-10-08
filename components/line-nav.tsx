@@ -53,7 +53,7 @@ export function LineNav({
 }: LineNavProps) {
   return (
     <nav
-      aria-label="Components"
+      aria-label="کامپوننت‌ها"
       className={cn("flex flex-col gap-2 py-5.25", className)}
       style={
         {
@@ -107,13 +107,14 @@ const LineNavItem = memo(function LineNavItem({
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
   onHover?: (anchor: HTMLAnchorElement | null) => void
 }) {
-  const label = titleFa ? `${title} — ${titleFa}` : title
+  const primary = titleFa ?? title
+  const label = titleFa ? `${titleFa} — ${title}` : title
 
   return (
     <>
       <MotionLink
         aria-current={active ? "page" : undefined}
-        aria-label={isNew ? `${label}, new` : label}
+        aria-label={isNew ? `${label}، جدید` : label}
         className="group relative flex min-h-8 items-center justify-end gap-3 outline-none after:absolute after:inset-y-0 after:start-0 after:end-0 after:-my-1.5 focus-visible:outline-none"
         href={href}
         scroll={false}
@@ -128,16 +129,17 @@ const LineNavItem = memo(function LineNavItem({
       >
         <span className="inline-flex min-w-0 flex-col items-end gap-0.5 text-end">
           <span className="inline-flex items-center gap-1.5 text-sm whitespace-nowrap text-white/40 transition-[color] ease-out group-hover:text-white group-aria-[current=page]:text-white">
-            <span dir="ltr">{title}</span>
+            <span dir={titleFa ? "rtl" : "ltr"} lang={titleFa ? "fa" : undefined}>
+              {primary}
+            </span>
             {isNew ? <NewDot /> : null}
           </span>
           {titleFa ? (
             <span
-              dir="rtl"
-              lang="fa"
+              dir="ltr"
               className="text-xs leading-snug tracking-normal text-white/45 transition-[color] ease-out group-hover:text-white/70 group-aria-[current=page]:text-white/70"
             >
-              {titleFa}
+              {title}
             </span>
           ) : null}
         </span>

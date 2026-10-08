@@ -23,10 +23,14 @@
     ]
   },
   "disabled": [],
-  "updatedAt": "2026-08-23T07:16:51.063Z",
+  "updatedAt": "2026-10-08T16:02:53.219Z",
   "interactionHints": {
     "duration": 3,
     "scale": 70,
     "items": []
+  },
+  "previewBackground": {
+    "light": "#f8f8f6",
+    "dark": "hsl(225 7% 11%)"
   }
 }

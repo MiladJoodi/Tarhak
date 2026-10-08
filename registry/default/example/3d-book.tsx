@@ -20,9 +20,8 @@ export default function Component3dBook() {
     // Calculate how far cursor is from center (-1 to 1)
     const distanceFromCenter = (cursorX - bookCenterX) / (rect.width / 2);
 
-    // Map cursor position to progress
-    // Left side (negative) = open (1), Right side (positive) = closed (0)
-    const targetProgress = lerp(1, 0, (distanceFromCenter + 1) / 2);
+    // RTL book: right side = open (1), left side = closed (0)
+    const targetProgress = lerp(0, 1, (distanceFromCenter + 1) / 2);
 
     // Clamp between 0 and 1
     setProgress(Math.max(0, Math.min(1, targetProgress)));
@@ -49,19 +48,19 @@ export default function Component3dBook() {
   const totalPages = 15;
   const pages = [];
 
-  // All pages same size, different rotation angles
+  // All pages same size, different rotation angles (hinge on the right)
   for (let i = 1; i <= totalPages; i++) {
-    const rotationAngle = (i + 1) * 10; // -20, -30, -40... -160
+    const rotationAngle = (i + 1) * 10; // 20, 30, 40... 160
 
     pages.push(
       <div
         key={i}
-        className="absolute h-48 md:h-72 w-32 md:w-52 rounded-lg md:rounded-2xl border border-border bg-background light"
+        className="absolute h-48 w-32 rounded-lg border border-border bg-background light md:h-72 md:w-52 md:rounded-2xl"
         style={
           {
             transformStyle: "preserve-3d",
-            transformOrigin: "left",
-            transform: `rotateY(calc(var(--book-progress) * ${-rotationAngle}deg))`,
+            transformOrigin: "right center",
+            transform: `rotateY(calc(var(--book-progress) * ${rotationAngle}deg))`,
             zIndex: 50 + i,
             backfaceVisibility: "visible",
             "--book-progress": progress,
@@ -79,7 +78,7 @@ export default function Component3dBook() {
     >
       <div
         ref={bookRef}
-        className="h-48 w-32 touch-none will-change-transform translate-x-16 md:h-72 md:w-52 md:translate-x-24"
+        className="h-48 w-32 -translate-x-16 touch-none will-change-transform md:h-72 md:w-52 md:-translate-x-24"
         onPointerMove={handlePointerMove}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -94,10 +93,10 @@ export default function Component3dBook() {
       >
         {/* Back Cover (underneath all pages) */}
         <div
-          className="absolute h-48 md:h-72 w-32 md:w-52 rounded-lg md:rounded-2xl border-2 border-border"
+          className="absolute h-48 w-32 rounded-lg border-2 border-border md:h-72 md:w-52 md:rounded-2xl"
           style={{
             transformStyle: "preserve-3d",
-            transformOrigin: "left",
+            transformOrigin: "right center",
             background:
               "radial-gradient(hsl(var(--muted)) 0 1px, hsl(var(--background)) 1px 100%) 0 0 / 4px 4px",
             boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
@@ -108,16 +107,16 @@ export default function Component3dBook() {
         {/* Pages - all same size, different rotations */}
         {pages}
 
-        {/* Front Cover */}
+        {/* Front Cover — spine on the right, opens RTL */}
         <div
-          className="absolute h-48 md:h-72 w-32 md:w-52 bg-muted overflow-hidden"
+          className="absolute h-48 w-32 overflow-hidden bg-muted md:h-72 md:w-52"
           style={
             {
               transformStyle: "preserve-3d",
-              transformOrigin: "left center",
-              transform: `rotateY(calc(var(--book-progress) * -165deg))`,
+              transformOrigin: "right center",
+              transform: `rotateY(calc(var(--book-progress) * 165deg))`,
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              borderRadius: "0 8px 8px 0",
+              borderRadius: "8px 0 0 8px",
               zIndex: 200,
               "--book-progress": progress,
             } as React.CSSProperties
@@ -125,31 +124,31 @@ export default function Component3dBook() {
         >
           {/* Cover shadow overlay */}
           <div
-            className="absolute inset-0 pointer-events-none z-30"
+            className="pointer-events-none absolute inset-0 z-30"
             style={{
-              borderRadius: "0 8px 8px 0",
+              borderRadius: "8px 0 0 8px",
               boxShadow:
-                "0 0 0 0.85px rgba(0, 0, 0, 0.1) inset, 2px 0 1px 0 rgba(0, 0, 0, 0.1) inset, -1.5px 0 1px 0 rgba(0, 0, 0, 0.1) inset, 0 2px 2px 0 rgba(255, 255, 255, 0.1) inset, 0 8px 16px 0 rgba(0, 0, 0, 0.05)",
+                "0 0 0 0.85px rgba(0, 0, 0, 0.1) inset, -2px 0 1px 0 rgba(0, 0, 0, 0.1) inset, 1.5px 0 1px 0 rgba(0, 0, 0, 0.1) inset, 0 2px 2px 0 rgba(255, 255, 255, 0.1) inset, 0 8px 16px 0 rgba(0, 0, 0, 0.05)",
             }}
           />
 
           {/* Red top section */}
           <div
-            className="absolute inset-x-0 top-0 z-10 h-[40%] p-1.5 ps-2 md:p-3 md:ps-4"
+            className="absolute inset-x-0 top-0 z-10 h-[40%] p-1.5 pe-2 md:p-3 md:pe-4"
             style={{
               backgroundColor: "rgb(187, 1, 58)",
             }}
           />
 
-          {/* Spine edge */}
-          <div className="absolute inset-y-0 start-0 z-30 flex w-2 flex-row justify-end md:w-3.5">
-            <div className="h-full w-0.5 bg-background/25" />
+          {/* Spine edge (physical right) */}
+          <div className="absolute inset-y-0 end-0 z-30 flex w-2 flex-row justify-start md:w-3.5">
             <div className="h-full w-0.5 bg-foreground/15" />
+            <div className="h-full w-0.5 bg-background/25" />
           </div>
 
           {/* Title */}
           <div
-            className="pointer-events-none absolute end-1.5 bottom-1.5 start-3 z-20 select-none text-sm font-medium text-muted-foreground/30 md:start-6 md:text-2xl"
+            className="pointer-events-none absolute start-1.5 end-3 bottom-1.5 z-20 select-none text-sm font-medium text-muted-foreground/30 md:end-6 md:text-2xl"
             style={{
               textShadow: "0 0 2px hsl(var(--background))",
               backfaceVisibility: "hidden",

@@ -4,8 +4,13 @@ import CreateMenu from "@/registry/default/example/create-menu";
 
 export default function CreateMenuPreview() {
   return (
-    <div className="flex aspect-[16/10] w-full max-w-[860px] overflow-hidden rounded-2xl border border-border bg-muted/40">
-      <div className="flex w-[240px] shrink-0 flex-col gap-3 border-r border-border bg-background p-3">
+    <div
+      dir="rtl"
+      lang="fa"
+      className="flex aspect-[16/10] w-full max-w-[860px] overflow-visible rounded-2xl border border-border bg-muted/40"
+    >
+      {/* App chrome sidebar — start side in RTL = visual right */}
+      <div className="flex w-[240px] shrink-0 flex-col gap-3 border-e border-border bg-background p-3">
         <div className="mb-1 flex items-center gap-2 px-1">
           <div className="size-7 rounded-lg bg-muted" />
           <div className="h-3 w-24 rounded bg-muted" />

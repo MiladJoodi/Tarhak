@@ -39,13 +39,13 @@ function LetterFront() {
         A note
       </p>
       <div className="mt-4 space-y-1">
-        <p>from: Urvish</p>
+        <p>from: Milad</p>
         <p>to: you</p>
         <p>re: keeping this free</p>
       </div>
       <div className="mt-4 h-px" style={{ background: RULE }} />
       <p className="mt-4 max-w-[36ch] text-pretty">
-        I build uselayouts after work, in the hours I have left. Your help
+        I build Tarhak after work, in the hours I have left. Your help
         buys me more of those hours.
       </p>
       <p className="mt-4 max-w-[36ch] text-pretty">
@@ -62,7 +62,7 @@ function LetterBack() {
     <div className="flex h-full flex-col px-6 py-6">
       <div className="border-b pb-3" style={{ borderColor: RULE }}>
         <p className="font-mono text-[10px] tracking-[0.16em] text-[oklch(0.32_0.03_95)] uppercase">
-          From Urvish
+          From Milad
         </p>
         <p className="mt-1 font-sans text-[15px] leading-tight tracking-[-0.02em] text-[oklch(0.22_0.03_95)]">
           Keep this free
@@ -70,7 +70,7 @@ function LetterBack() {
       </div>
       <div className="my-auto space-y-4">
         <p className="font-sans text-[15px] leading-[1.45] tracking-[-0.015em] text-[oklch(0.22_0.03_95)] text-pretty">
-          I build uselayouts after work, in the hours I have left.
+          I build Tarhak after work, in the hours I have left.
         </p>
         <p className="font-sans text-[15px] leading-[1.45] tracking-[-0.015em] text-[oklch(0.22_0.03_95)] text-pretty">
           Your help buys me more of those hours. I put them into new
@@ -86,7 +86,7 @@ function LetterBack() {
         style={{ borderColor: RULE }}
       >
         <p className="font-sans text-[15px] tracking-[-0.02em] text-[oklch(0.22_0.03_95)]">
-          - Urvish
+          - Milad
         </p>
       </div>
     </div>

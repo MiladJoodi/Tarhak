@@ -1,14 +1,15 @@
 {
-  "name": "uselayouts",
+  "name": "tarhak",
   "version": "0.1.0",
   "private": true,
-  "description": "Free premium animated React components and micro-interactions built with Framer Motion and Tailwind CSS.",
-  "author": "Urvish Mali (@0xUrvish)",
+  "description": "کامپوننت‌های متحرک ری‌اکت و میکروتعامل‌ها — ساخته‌شده با Motion و Tailwind CSS.",
+  "author": "Milad Joodi (@MiladJoodi)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iurvish/uselayouts.git"
+    "url": "git+https://github.com/MiladJoodi/Tarhak.git"
   },
+  "homepage": "https://tarhak.ir",
   "keywords": [
     "react",
     "framer-motion",

@@ -870,21 +870,16 @@ const Bucket = () => {
                       duration: 0.5,
                       ease: [0.455, 0.03, 0.515, 0.955],
                     }}
-                    className="bg-card border border-border z-10 rounded-full p-2 w-[240px] shadow-sm absolute pointer-events-auto flex items-center gap-2 origin-bottom"
+                    className="absolute z-10 flex w-[240px] origin-bottom pointer-events-auto items-center gap-2 rounded-full border border-black/8 bg-white p-2 shadow-sm"
                   >
-                    {/* <div className="size-8 rounded-full bg-emerald-500 shrink-0" />
-                    <div className="flex flex-col gap-1.5 w-full">
-                      <div className="h-2 w-3/4 bg-muted rounded-full" />
-                      <div className="h-2 w-1/2 bg-muted rounded-full" />
-                    </div> */}
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted-foreground/10 text-muted-foreground">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-neutral-900/6 text-neutral-600">
                       <HugeiconsIcon icon={chip.icon} className="size-5" />
                     </div>
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-sm font-medium text-foreground leading-none">
+                      <span className="text-sm font-medium leading-none text-neutral-900">
                         {chip.title}
                       </span>
-                      <span className="text-xs text-muted-foreground ">
+                      <span className="text-xs text-neutral-500">
                         {chip.description}
                       </span>
                     </div>
@@ -910,7 +905,7 @@ const Bucket = () => {
           <g filter="url(#filter0_i_51_65)">
             <path
               d="M512.766 79.1595L147.766 79.1624C136.453 79.1625 130.796 79.1626 127.281 82.6773C123.766 86.192 123.766 91.8488 123.766 103.162V327.159C123.766 338.473 123.766 344.13 127.281 347.645C130.796 351.159 136.453 351.159 147.766 351.159H512.766C524.08 351.159 529.737 351.159 533.252 347.645C536.766 344.13 536.766 338.473 536.766 327.159V103.159C536.766 91.8457 536.766 86.1888 533.252 82.6741C529.737 79.1594 524.08 79.1594 512.766 79.1595Z"
-              className="fill-card"
+              className="fill-white"
             />
           </g>
 

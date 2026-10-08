@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/brand-logo";
 
 const SIDEBAR_WIDTH = 262;
-const PINNED_KEY = "uselayouts:open-sidebar-pinned";
+const PINNED_KEY = "tarhak:open-sidebar-pinned";
 const SCROLL_EDGE_EPS = 1;
 
 function readPinned() {

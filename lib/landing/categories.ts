@@ -30,9 +30,9 @@ export type LandingCategoryDef = {
 export const LANDING_CATEGORY_DEFS: LandingCategoryDef[] = [
   {
     id: "layouts",
-    title: "Layouts",
+    title: "چیدمان‌ها",
     browseCategory: "Layout",
-    countLabel: "12+",
+    countLabel: "۱۲+",
     panel: "#879F6C",
     badgeGradient:
       "linear-gradient(in oklab 167.62deg, oklab(100% 0 0 / 20%) 16.5%, oklab(67.1% -0.048 0.060 / 0%) 93.5%)",
@@ -41,9 +41,9 @@ export const LANDING_CATEGORY_DEFS: LandingCategoryDef[] = [
   },
   {
     id: "navigation",
-    title: "Navigation",
+    title: "ناوبری",
     browseCategory: "Navigation",
-    countLabel: "14+",
+    countLabel: "۱۴+",
     panel: "#2495D1",
     badgeGradient:
       "linear-gradient(in oklab 167.62deg, oklab(100% 0 0 / 20%) 16.5%, oklab(63.7% -0.069 -0.111 / 20%) 93.5%)",
@@ -52,9 +52,9 @@ export const LANDING_CATEGORY_DEFS: LandingCategoryDef[] = [
   },
   {
     id: "interactions",
-    title: "Interactions",
+    title: "تعاملات",
     browseCategory: "Button",
-    countLabel: "18+",
+    countLabel: "۱۸+",
     panel: "#BC6147",
     badgeGradient:
       "linear-gradient(in oklab 167.62deg, oklab(100% 0 0 / 20%) 16.5%, oklab(59.5% 0.099 0.074 / 20%) 93.5%)",
@@ -63,9 +63,9 @@ export const LANDING_CATEGORY_DEFS: LandingCategoryDef[] = [
   },
   {
     id: "user-interface",
-    title: "User Interface",
+    title: "رابط کاربری",
     browseCategory: "Display",
-    countLabel: "20+",
+    countLabel: "۲۰+",
     panel: "#B6547A",
     badgeGradient:
       "linear-gradient(in oklab 167.62deg, oklab(100% 0 0 / 20%) 16.5%, oklab(57.9% 0.133 -0.005 / 20%) 93.5%)",

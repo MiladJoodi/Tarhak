@@ -92,7 +92,7 @@ export function BrowseCard({
         className="browse-card-hit relative rounded-[10px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ring"
         onClick={() => {
           try {
-            window.sessionStorage.setItem("uselayouts:open-sidebar-pinned", "0");
+            window.sessionStorage.setItem("tarhak:open-sidebar-pinned", "0");
           } catch {
             // ignore
           }

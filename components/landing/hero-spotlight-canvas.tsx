@@ -6,29 +6,27 @@ import { cn } from "@/lib/utils";
 import type { BrowseItem } from "@/lib/browse/items";
 import { usePosterAspects } from "@/lib/browse/use-poster-aspects";
 
-const HOLD_MS = 5000;
+const HOLD_MS = 4200;
 /** Dense grid so neighbors always fill top/left when a card is centered. */
 const COLS = 5;
 const ROWS = 5;
 const CARD_W = 300;
 const CARD_H = 268;
 const FRAME_PAD = 6;
-const TITLE_H = 24;
-const INNER_GAP = 6;
 const MEDIA_W = CARD_W - FRAME_PAD * 2;
-const DEFAULT_ASPECT = MEDIA_W / (CARD_H - FRAME_PAD * 2 - TITLE_H - INNER_GAP);
+const DEFAULT_ASPECT = MEDIA_W / (CARD_H - FRAME_PAD * 2);
 /** Wide enough that CARD_SCALE_ACTIVE still leaves a clear gutter. */
 const GAP = 44;
 const PAD = 40;
 
 /** Hold zoomed in so the spotlight reads larger; out pulls back to pan. */
-const SCALE_HOLD = 1.26;
-const SCALE_OUT = 0.9;
+const SCALE_HOLD = 1.32;
+const SCALE_OUT = 0.88;
 /** Mobile: closer hold so the selected card reads larger, still shows neighbors. */
-const SCALE_HOLD_MOBILE = 0.84;
-const SCALE_OUT_MOBILE = 0.62;
-const CARD_SCALE_ACTIVE = 1.05;
-const CARD_SCALE_ACTIVE_MOBILE = 1.14;
+const SCALE_HOLD_MOBILE = 0.9;
+const SCALE_OUT_MOBILE = 0.64;
+const CARD_SCALE_ACTIVE = 1.08;
+const CARD_SCALE_ACTIVE_MOBILE = 1.16;
 const MOBILE_MQ = "(max-width: 767px)";
 
 function holdScale(mobile: boolean) {
@@ -54,7 +52,8 @@ const spotlightShadow = [
   "0 233px 65px rgba(0,0,0,0)",
 ].join(", ");
 
-const glassBg = "rgba(255, 255, 255, 0.20)";
+const glassBg = "rgba(255, 255, 255, 0.22)";
+const glassBgActive = "rgba(255, 255, 255, 0.28)";
 
 /** Figma Mask group SVG — soft radial, center α 0.5 → edge 0 (desktop). */
 const FIELD_MASK = "url(/landing/hero-canvas-mask.svg)";
@@ -74,7 +73,7 @@ type CardBox = { left: number; top: number; width: number; height: number };
 
 function cardHeightForAspect(aspect: number) {
   const ratio = aspect > 0 ? aspect : DEFAULT_ASPECT;
-  return FRAME_PAD * 2 + TITLE_H + INNER_GAP + MEDIA_W / ratio;
+  return FRAME_PAD * 2 + MEDIA_W / ratio;
 }
 
 /** Column masonry: same width, height follows the poster/video. */
@@ -222,7 +221,7 @@ function HeroCard({
   return (
     <motion.figure
       className={cn(
-        "absolute flex flex-col gap-1.5 overflow-hidden rounded-[12px] p-1.5",
+        "absolute flex overflow-hidden rounded-[12px] p-1.5",
         active && "z-20",
       )}
       style={{
@@ -230,13 +229,13 @@ function HeroCard({
         top,
         width: CARD_W,
         height,
-        background: glassBg,
+        background: active ? glassBgActive : glassBg,
         border: active
-          ? "1px solid rgba(255,255,255,0.55)"
-          : "1px solid rgba(255,255,255,0.14)",
-        boxShadow: active ? spotlightShadow : "none",
-        backdropFilter: active ? "blur(28px) saturate(1.7)" : "blur(10px) saturate(1.2)",
-        WebkitBackdropFilter: active ? "blur(28px) saturate(1.7)" : "blur(10px) saturate(1.2)",
+          ? "1px solid rgba(255,255,255,0.62)"
+          : "1px solid rgba(255,255,255,0.16)",
+        boxShadow: active ? spotlightShadow : "0 12px 28px rgba(0,0,0,0.12)",
+        backdropFilter: active ? "blur(32px) saturate(1.8)" : "blur(12px) saturate(1.25)",
+        WebkitBackdropFilter: active ? "blur(32px) saturate(1.8)" : "blur(12px) saturate(1.25)",
       }}
       animate={
         reducedMotion
@@ -274,12 +273,9 @@ function HeroCard({
         }}
       />
 
-      <div className="relative z-[1] shrink-0 truncate px-1.5 py-0.5 font-[family-name:var(--font-geist-mono)] text-[13px] text-white sm:text-[14px]">
-        {item.title}
-      </div>
       {/* Figma media radius 10 inside card 12; radius on media too — video ignores parent clip otherwise */}
       <div
-        className="relative z-[1] w-full overflow-clip rounded-[10px] bg-white/90 [transform:translateZ(0)]"
+        className="relative z-[1] w-full flex-1 overflow-clip rounded-[10px] bg-white/90 [transform:translateZ(0)]"
         style={{ aspectRatio: aspect }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- CDN posters; sized by aspect box. */}
@@ -511,7 +507,7 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   return (
     <div
       ref={viewportRef}
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-[56%] min-h-[260px] overflow-hidden max-md:[mask-image:var(--hero-field-mask-mobile)] max-md:[-webkit-mask-image:var(--hero-field-mask-mobile)] md:inset-y-0 md:right-0 md:left-auto md:h-auto md:min-h-0 md:w-[58%]"
+      className="pointer-events-none absolute inset-x-0 bottom-[7%] h-[52%] min-h-[220px] overflow-hidden max-md:[mask-image:var(--hero-field-mask-mobile)] max-md:[-webkit-mask-image:var(--hero-field-mask-mobile)] md:inset-y-0 md:left-0 md:right-auto md:h-auto md:min-h-0 md:w-[64%]"
       style={
         {
           "--hero-field-mask-mobile": FIELD_MASK_MOBILE,

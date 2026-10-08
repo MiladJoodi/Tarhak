@@ -248,14 +248,14 @@ export const StackedOutlineText = ({
       lang="fa"
       aria-label={`تایپوگرافی خط‌چین لایه‌ای ${displayText}`}
       className={cn(
-        "relative flex h-full min-h-[520px] w-full items-center justify-center overflow-hidden bg-black px-4 py-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-white",
+        "relative flex h-full min-h-[520px] w-full items-center justify-center overflow-hidden bg-[#f4f4f5] px-4 py-12 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-neutral-900 dark:bg-black dark:text-white",
         className,
       )}
     >
       <motion.div
         ref={draggableRef}
         aria-label={`کشیدن تایپ ${displayText}`}
-        className="touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+        className="touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-4 focus-visible:ring-offset-[#f4f4f5] dark:focus-visible:ring-white dark:focus-visible:ring-offset-black"
         drag
         dragConstraints={containerRef}
         dragElastic={0.04}

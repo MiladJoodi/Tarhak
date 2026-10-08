@@ -13,12 +13,14 @@ export function OpenPreview({
   hintTop,
   hint,
   hintTone = "dark",
+  theme = "dark",
 }: {
   name: string;
   className?: string;
   hintTop?: number;
   hint?: ResolvedPreviewHint | null;
   hintTone?: "dark" | "light";
+  theme?: "dark" | "light";
 }) {
   const Component = Index[name]?.component as React.ComponentType<{ size?: string }> | undefined;
   // Tall sticky demos that scroll <main> must size to content, not the viewport.
@@ -50,7 +52,8 @@ export function OpenPreview({
     <div
       className={cn(
         // no min-h-full: that overrides grid min-height:auto and clips tall sticky demos
-        "component-showcase dark grid w-full min-w-0 text-foreground",
+        "component-showcase grid w-full min-w-0 text-foreground",
+        theme === "dark" ? "dark" : "light",
         fill ? "h-full" : "h-max",
         nestedPageScroll && "min-h-0",
         className,

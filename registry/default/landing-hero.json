@@ -1,14 +1,16 @@
 {
   "slugs": [
-    "theme-toggle",
-    "get-in-touch",
-    "confidential-folder",
-    "accessible-action",
-    "3d-book",
-    "polaroid-stack",
-    "shake-testimonial-card",
-    "save-button",
-    "bucket",
-    "photo-albums"
+    "create-menu",
+    "tactile-button",
+    "set-timer",
+    "expandable-gallery",
+    "animated-collection",
+    "holographic-referral-card",
+    "gooey-navbar",
+    "feature-carousel",
+    "rolling-card-stack",
+    "fluid-expanding-grid",
+    "stack-scroll-reveal",
+    "magnified-bento"
   ]
 }

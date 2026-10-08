@@ -19,7 +19,7 @@ import { source } from "@/lib/source";
 
 export type OpenNavItem = {
   title: string;
-  /** Persian label shown smaller under English. */
+  /** Persian label — primary in nav; English `title` stays secondary. */
   titleFa?: string;
   href: string;
   slug: string;
@@ -69,7 +69,7 @@ export async function getOpenNavItems(): Promise<OpenNavItem[]> {
       ? items.map((item) => {
           const page = getComponentDocsPage(item.name);
           const browse = browseItems.find((entry) => entry.slug === item.name);
-          // Prefer catalog English titles so nav stays bilingual (EN primary).
+          // Catalog English titles + Persian primary labels for bilingual nav.
           return {
             slug: item.name,
             title: browse?.title ?? item.title ?? page?.data.title ?? item.name,
@@ -89,7 +89,9 @@ export async function getOpenNavItems(): Promise<OpenNavItem[]> {
             tags: item.tags,
           };
         });
-  return mapped.sort((a, b) => a.title.localeCompare(b.title));
+  return mapped.sort((a, b) =>
+    (a.titleFa ?? a.title).localeCompare(b.titleFa ?? b.title, "fa"),
+  );
 }
 
 /** Shell data for the open page — no Shiki. Highlight loads when Code opens. */

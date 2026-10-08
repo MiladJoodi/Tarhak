@@ -24,7 +24,7 @@ export default async function AdminLayout({
             href="/admin"
             className="text-sm font-semibold tracking-tight text-foreground"
           >
-            uselayouts
+            tarhak
             <span className="ml-1.5 font-normal text-muted-foreground">
               admin
             </span>

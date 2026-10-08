@@ -265,7 +265,7 @@ export default function FocusTestimonials() {
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative z-10 flex w-full max-w-[1400px] flex-col rounded-3xl border border-black/[0.06] bg-white p-6 text-slate-900 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] transition-all sm:p-10 md:p-14"
+        className="relative z-10 flex w-full max-w-[1400px] flex-col rounded-3xl border border-black/[0.06] bg-white p-6 text-slate-900 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] transition-all dark:border-white/10 dark:bg-[hsl(225_7%_14%)] dark:text-slate-100 dark:shadow-[0_1px_2px_rgba(0,0,0,0.2),0_8px_24px_rgba(0,0,0,0.25)] sm:p-10 md:p-14"
       >
         <AnimatePresence>
           {activeItem && (

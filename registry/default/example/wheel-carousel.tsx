@@ -728,34 +728,15 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
 WheelCarousel.displayName = 'WheelCarousel';
 
 export const WheelCarouselDemo: React.FC = () => {
-  const customBg = '#fff6ec';
   const customText = 'rgba(180, 90, 20, 0.45)';
   const customSelected = '#b4541e';
   const customMarker = '#b4541e';
-
-  useEffect(() => {
-    const body = document.body;
-    const html = document.documentElement;
-    const prevBodyBg = body.style.backgroundColor;
-    const prevHtmlBg = html.style.backgroundColor;
-
-    body.style.transition = 'background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-    html.style.transition = 'background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-    body.style.backgroundColor = customBg;
-    html.style.backgroundColor = customBg;
-
-    return () => {
-      body.style.backgroundColor = prevBodyBg;
-      html.style.backgroundColor = prevHtmlBg;
-    };
-  }, []);
 
   return (
     <div
       dir="rtl"
       lang="fa"
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
-      style={{ backgroundColor: customBg }}
+      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-[#fff6ec] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal [--wheel-bg:#fff6ec] dark:bg-[hsl(225_7%_11%)] dark:[--wheel-bg:hsl(225_7%_11%)]"
     >
       <div
         className="pointer-events-none absolute top-[12%] left-[10%] h-[450px] w-[450px] animate-pulse rounded-full opacity-60 blur-[70px]"
@@ -796,7 +777,7 @@ export const WheelCarouselDemo: React.FC = () => {
           momentum={true}
           edgeFade={true}
           edgeFadeSize={30}
-          background={customBg}
+          background="var(--wheel-bg)"
           textColor={customText}
           selectedColor={customSelected}
           markerColor={customMarker}

@@ -404,7 +404,7 @@ export function ProfileCard({ card }: { card: CardProfile }) {
 
 export default function OverlappingSliderExample() {
   return (
-    <div className="flex h-full w-full flex-col justify-center bg-white">
+    <div className="flex h-full w-full flex-col justify-center bg-white dark:bg-[hsl(225_7%_11%)]">
       <OverlappingSlider
         items={DEFAULT_PROFILES}
         renderItem={(card) => <ProfileCard card={card} />}

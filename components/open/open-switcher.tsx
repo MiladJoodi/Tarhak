@@ -53,7 +53,7 @@ export function OpenSwitcher({
 
   const filtered = React.useMemo(() => {
     return rankSearchItems(items, query, (item) => ({
-      name: `${item.title} ${item.titleFa ?? ""} ${item.slug}`,
+      name: `${item.titleFa ?? ""} ${item.title} ${item.slug}`,
       tags: item.tags,
     }));
   }, [items, query]);
@@ -170,9 +170,11 @@ export function OpenSwitcher({
     close();
     if (item.href === pathname || item.href === current.href) return;
     setPending(item);
-    setDocumentTitle(item.title);
+    setDocumentTitle(item.titleFa ?? item.title);
     router.push(item.href, { scroll: false });
   }
+
+  const triggerPrimary = displayed.titleFa ?? displayed.title;
 
   return (
     <div ref={rootRef} className={cn("relative flex justify-center", open && "z-[999999999]")}>
@@ -199,16 +201,16 @@ export function OpenSwitcher({
         }}
       >
         <span className="relative flex min-w-0 flex-col items-center leading-tight">
-          <span className="truncate" dir="ltr">
-            {displayed.title}
+          <span
+            className="truncate"
+            dir={displayed.titleFa ? "rtl" : "ltr"}
+            lang={displayed.titleFa ? "fa" : undefined}
+          >
+            {triggerPrimary}
           </span>
           {displayed.titleFa ? (
-            <span
-              dir="rtl"
-              lang="fa"
-              className="truncate text-xs text-white/55"
-            >
-              {displayed.titleFa}
+            <span dir="ltr" className="truncate text-xs text-white/55">
+              {displayed.title}
             </span>
           ) : null}
         </span>
@@ -229,16 +231,16 @@ export function OpenSwitcher({
             transition={instant ? { duration: 0 } : { duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
           >
             {/* Figma 82:3700 search — same padding/radius/height; no `/` kbd; hidden on mobile */}
-            <div className="hidden border-b border-border p-3 md:block">
+            <div className="hidden border-b border-border p-3 md:block" dir="rtl" lang="fa">
               <div className="relative flex items-center gap-2 overflow-hidden rounded-[12px] bg-[#030202] px-3 py-2 shadow-[0px_0.5px_0px_0px_rgba(255,255,255,0.15)]">
                 <Search className="size-4 shrink-0 text-[#acacb4]" aria-hidden strokeWidth={1.75} />
                 <input
                   ref={inputRef}
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search"
-                  aria-label="Search components"
-                  className="min-w-0 flex-1 bg-transparent text-sm tracking-[-0.42px] text-[#acacb4] outline-none placeholder:text-[#acacb4]"
+                  placeholder="جستجو"
+                  aria-label="جستجوی کامپوننت‌ها"
+                  className="min-w-0 flex-1 bg-transparent text-sm tracking-normal text-[#acacb4] outline-none placeholder:text-[#acacb4]"
                 />
               </div>
             </div>
@@ -247,17 +249,20 @@ export function OpenSwitcher({
                 so content dissolves at the edges instead of hard-cutting */}
             <div
               ref={listRef}
+              dir="rtl"
+              lang="fa"
               className={cn(
                 "scroll-fade m-0 flex max-h-[280px] flex-col gap-0.5 overflow-y-auto overscroll-contain p-0",
                 scrollbarMinimal,
               )}
             >
               {filtered.length === 0 ? (
-                <p className="px-3 py-4 text-center text-xs text-muted-foreground">No matches.</p>
+                <p className="px-3 py-4 text-center text-xs text-muted-foreground">موردی پیدا نشد.</p>
               ) : (
                 filtered.map((item) => {
                   const active = item.href === displayed.href;
                   const poster = browsePoster(item.slug);
+                  const primary = item.titleFa ?? item.title;
                   return (
                     <button
                       key={item.slug}
@@ -265,7 +270,7 @@ export function OpenSwitcher({
                       role="option"
                       aria-selected={active}
                       className={cn(
-                        "relative z-10 mx-0 flex cursor-pointer items-center gap-2.5 rounded-none px-3 py-2.5 text-left text-sm text-foreground outline-none",
+                        "relative z-10 mx-0 flex cursor-pointer items-center gap-2.5 rounded-none px-3 py-2.5 text-start text-sm text-foreground outline-none",
                         "transition-[background-color] duration-150",
                         "focus-visible:outline-none focus-visible:ring-0",
                         active
@@ -301,16 +306,16 @@ export function OpenSwitcher({
                         </span>
                       ) : null}
                       <span className="flex min-w-0 flex-col items-start leading-tight">
-                        <span className="truncate" dir="ltr">
-                          {item.title}
+                        <span
+                          className="truncate"
+                          dir={item.titleFa ? "rtl" : "ltr"}
+                          lang={item.titleFa ? "fa" : undefined}
+                        >
+                          {primary}
                         </span>
                         {item.titleFa ? (
-                          <span
-                            dir="rtl"
-                            lang="fa"
-                            className="truncate text-xs text-white/50"
-                          >
-                            {item.titleFa}
+                          <span dir="ltr" className="truncate text-xs text-white/50">
+                            {item.title}
                           </span>
                         ) : null}
                       </span>

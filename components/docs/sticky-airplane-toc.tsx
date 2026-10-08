@@ -23,16 +23,17 @@ export function StickyAirplaneToc({
   if (!toc.length) return null;
 
   return (
-    <aside className={cn("hidden min-w-0 xl:block", className)}>
-      <div className="sticky max-w-72" style={{ top }}>
-        <DocsTableOfContents
-          toc={toc}
-          className="px-0 pt-0 [&_a]:text-[#4B565E]/75 [&_a[data-active=true]]:text-[#071A31] [&_a:hover]:text-[#071A31] [&_p]:bg-[#F5F3EE] [&_p]:text-[#4B565E]/75"
-          indicatorClassName="text-[#4B565E]"
-          indicatorActivePathColor="#071A31"
-          indicatorAirplaneFill="#071A31"
-        />
-      </div>
+    <aside
+      className={cn("hidden min-w-0 max-w-72 self-start xl:sticky xl:block", className)}
+      style={{ top }}
+    >
+      <DocsTableOfContents
+        toc={toc}
+        className="px-0 pt-0 [&_a]:text-white/45 [&_a[data-active=true]]:text-white [&_a:hover]:text-white [&_p]:bg-transparent [&_p]:text-white/45"
+        indicatorClassName="text-white/35"
+        indicatorActivePathColor="#c8d4ff"
+        indicatorAirplaneFill="#e8eeff"
+      />
     </aside>
   );
 }
