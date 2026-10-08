@@ -118,32 +118,72 @@ function isInterior(index: number) {
   return col > 0 && col < COLS - 1 && row > 0 && row < ROWS - 1;
 }
 
-/** Tile/dupe source items to fill the dense grid (keys unique for React). */
+/**
+ * Fill the dense grid from a short source list. Spread copies so the same
+ * slug is not adjacent in column-major order (avoids back-to-back tags).
+ */
 function buildDeck(items: BrowseItem[]): DeckCard[] {
   if (items.length === 0) return [];
-  return Array.from({ length: TOTAL }, (_, i) => {
-    const item = items[i % items.length]!;
-    return { ...item, key: `${item.slug}-${i}` };
-  });
+  const pool = [...items];
+  const deck: DeckCard[] = [];
+  let cursor = 0;
+
+  for (let i = 0; i < TOTAL; i++) {
+    const prev = deck[i - 1]?.slug;
+    const above = i >= COLS ? deck[i - COLS]?.slug : undefined;
+    let pick: BrowseItem | undefined;
+
+    for (let attempt = 0; attempt < pool.length; attempt++) {
+      const candidate = pool[(cursor + attempt) % pool.length]!;
+      if (candidate.slug === prev || candidate.slug === above) continue;
+      pick = candidate;
+      cursor = (cursor + attempt + 1) % pool.length;
+      break;
+    }
+
+    if (!pick) {
+      pick = pool[cursor % pool.length]!;
+      cursor = (cursor + 1) % pool.length;
+    }
+
+    deck.push({ ...pick, key: `${pick.slug}-${i}` });
+  }
+
+  return deck;
 }
 
-/** Prefer a distant interior card so the frame stays filled on all sides. */
-function nextSpotlightIndex(current: number, count: number) {
+/** Prefer a distant interior card with a different component slug. */
+function nextSpotlightIndex(
+  current: number,
+  cards: DeckCard[],
+  recentSlugs: readonly string[],
+) {
+  const count = cards.length;
   if (count <= 1) return 0;
+  const currentSlug = cards[current]?.slug;
   const curCol = current % COLS;
   const curRow = Math.floor(current / COLS);
   const ranked = Array.from({ length: count }, (_, i) => i)
     .filter((i) => i !== current && isInterior(i))
     .map((i) => {
-      const dist = Math.abs((i % COLS) - curCol) + Math.abs(Math.floor(i / COLS) - curRow);
-      return { i, dist };
+      const dist =
+        Math.abs((i % COLS) - curCol) + Math.abs(Math.floor(i / COLS) - curRow);
+      const slug = cards[i]!.slug;
+      const sameAsCurrent = slug === currentSlug ? 1 : 0;
+      const recentPenalty = recentSlugs.includes(slug) ? 2 : 0;
+      return { i, dist, score: dist - sameAsCurrent * 10 - recentPenalty * 4 };
     })
-    .sort((a, b) => b.dist - a.dist);
+    .sort((a, b) => b.score - a.score || b.dist - a.dist);
 
-  const pool = ranked.length ? ranked : Array.from({ length: count }, (_, i) => ({ i, dist: 1 })).filter((r) => r.i !== current);
-  const far = pool.filter((r) => r.dist >= 2);
-  const pick = far.length ? far : pool;
-  return pick[Math.floor(Math.random() * Math.min(4, pick.length))]!.i;
+  const pool = ranked.length
+    ? ranked
+    : Array.from({ length: count }, (_, i) => ({ i, dist: 1, score: 1 })).filter(
+        (r) => r.i !== current,
+      );
+  const fresh = pool.filter((r) => cards[r.i]?.slug !== currentSlug);
+  const pick = fresh.length ? fresh : pool;
+  const top = pick.slice(0, Math.min(5, pick.length));
+  return top[Math.floor(Math.random() * top.length)]!.i;
 }
 
 function firstInteriorIndex() {
@@ -426,16 +466,27 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
 
     let cancelled = false;
     let timer = 0;
+    const recentSlugs: string[] = [];
 
     const wait = (ms: number) =>
       new Promise<void>((resolve) => {
         timer = window.setTimeout(resolve, ms);
       });
 
+    const remember = (index: number) => {
+      const slug = cards[index]?.slug;
+      if (!slug) return;
+      recentSlugs.push(slug);
+      if (recentSlugs.length > 4) recentSlugs.shift();
+    };
+
+    remember(spotlightRef.current);
+
     const cycle = async () => {
       const { w, h } = viewRef.current;
       const current = spotlightRef.current;
-      const next = nextSpotlightIndex(current, cards.length);
+      const next = nextSpotlightIndex(current, cards, recentSlugs);
+      remember(next);
       const out = outRef.current;
       const hold = holdRef.current;
 
@@ -469,23 +520,29 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [ready, cards.length, reducedMotion]);
+  }, [ready, cards, reducedMotion]);
 
   React.useEffect(() => {
     if (!ready || !reducedMotion || cards.length <= 1) return;
+    const recentSlugs: string[] = [];
     const id = window.setInterval(() => {
       // `nextSpotlightIndex` picks at random and the camera has to follow the
       // same pick, so neither can live inside a `setSpotlight` updater: React
       // is free to re-run an updater, which would choose one card for the
       // spotlight and a different one for the camera.
-      const next = nextSpotlightIndex(spotlightRef.current, cards.length);
+      const next = nextSpotlightIndex(spotlightRef.current, cards, recentSlugs);
+      const slug = cards[next]?.slug;
+      if (slug) {
+        recentSlugs.push(slug);
+        if (recentSlugs.length > 4) recentSlugs.shift();
+      }
       const { w, h } = viewRef.current;
       setSpotlight(next);
       setTransition({ duration: 0, ease: [0, 0, 1, 1] });
       setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, holdRef.current));
     }, HOLD_MS);
     return () => window.clearInterval(id);
-  }, [ready, cards.length, reducedMotion]);
+  }, [ready, cards, reducedMotion]);
 
   if (cards.length === 0) return null;
 

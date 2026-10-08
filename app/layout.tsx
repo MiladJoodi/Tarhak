@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import NextTopLoader from "nextjs-toploader";
 import {
@@ -116,6 +117,7 @@ export default function RootLayout({
         <RootProvider search={{ enabled: false }} theme={{ enabled: false }}>
           {children}
         </RootProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -144,16 +144,20 @@ export function OverlappingSlider<T = CardProfile>({
   const [activeIndex, setActiveIndex] = useState(0);
   const [layoutWidth, setLayoutWidth] = useState(cardWidth);
   const shellRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
   const activeIndexRef = useRef(0);
   const stepRef = useRef(sliderStep(cardWidth, overlapFactor, cardGap));
+  const totalRef = useRef(total);
+  totalRef.current = total;
+  const onActiveChangeRef = useRef(onActiveChange);
+  onActiveChangeRef.current = onActiveChange;
   const dragRef = useRef({
     down: false,
-    axis: null as null | "x" | "y",
+    dragging: false,
     pointerId: -1,
     startX: 0,
-    startY: 0,
     origin: 0,
     lastX: 0,
     lastT: 0,
@@ -166,16 +170,19 @@ export function OverlappingSlider<T = CardProfile>({
   stepRef.current = step;
 
   const apply = (x: number, animate: boolean) => {
-    offsetRef.current = x;
+    const currentStep = stepRef.current;
+    const max = 0;
+    const min = -Math.max(0, totalRef.current - 1) * currentStep;
+    const clamped = Math.min(max + 28, Math.max(min - 28, x));
+    offsetRef.current = clamped;
     const track = trackRef.current;
     if (!track) return;
-    const currentStep = stepRef.current;
     const transition = animate
       ? "transform 380ms cubic-bezier(0.22, 1, 0.36, 1)"
       : "none";
     track.style.transition = transition;
-    track.style.setProperty("--ox", `${x}px`);
-    const activeExact = -x / currentStep;
+    track.style.setProperty("--ox", `${clamped}px`);
+    const activeExact = -clamped / currentStep;
     for (let i = 0; i < track.children.length; i++) {
       const card = track.children[i] as HTMLElement;
       const diff = i - activeExact;
@@ -192,11 +199,11 @@ export function OverlappingSlider<T = CardProfile>({
   };
 
   const goTo = (index: number) => {
-    const next = Math.max(0, Math.min(index, total - 1));
+    const next = Math.max(0, Math.min(index, totalRef.current - 1));
     activeIndexRef.current = next;
     setActiveIndex(next);
     apply(-next * stepRef.current, true);
-    onActiveChange?.(next);
+    onActiveChangeRef.current?.(next);
   };
 
   useLayoutEffect(() => {
@@ -219,112 +226,147 @@ export function OverlappingSlider<T = CardProfile>({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- drag writes transforms on the track; this only re-paints when card metrics change
   }, [layoutWidth, layoutHeight, overlapFactor, cardGap, maxRotation, total]);
 
-  const endDrag = (target: HTMLElement, pointerId: number, snap: boolean) => {
-    const drag = dragRef.current;
-    if (!drag.down && drag.axis == null) return;
-    const wasHorizontal = drag.axis === "x";
-    drag.down = false;
-    drag.axis = null;
-    target.style.touchAction = "";
-    if (drag.pointerId === pointerId) {
+  // Own the gesture on the track (`touch-action: none`) so parent overflow-auto
+  // cannot steal horizontal swipes on iOS/Android.
+  useLayoutEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    const paint = (x: number, animate: boolean) => {
+      const currentStep = stepRef.current;
+      const max = 0;
+      const min = -Math.max(0, totalRef.current - 1) * currentStep;
+      const clamped = Math.min(max + 28, Math.max(min - 28, x));
+      offsetRef.current = clamped;
+      const track = trackRef.current;
+      if (!track) return;
+      const transition = animate
+        ? "transform 380ms cubic-bezier(0.22, 1, 0.36, 1)"
+        : "none";
+      track.style.transition = transition;
+      track.style.setProperty("--ox", `${clamped}px`);
+      const activeExact = -clamped / currentStep;
+      for (let i = 0; i < track.children.length; i++) {
+        const card = track.children[i] as HTMLElement;
+        const diff = i - activeExact;
+        const leave = cardLeave(diff);
+        const rotate = maxRotation
+          ? Math.min(Math.max(diff * 1.6, -maxRotation), maxRotation)
+          : 0;
+        card.style.transition = transition;
+        card.style.zIndex = String(i);
+        card.style.setProperty("--y", `${leave.y}px`);
+        card.style.setProperty("--r", `${rotate}deg`);
+        card.style.setProperty("--s", String(leave.scale));
+      }
+    };
+
+    const snapTo = (index: number) => {
+      const next = Math.max(0, Math.min(index, totalRef.current - 1));
+      activeIndexRef.current = next;
+      setActiveIndex(next);
+      paint(-next * stepRef.current, true);
+      onActiveChangeRef.current?.(next);
+    };
+
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+      const drag = dragRef.current;
+      drag.down = true;
+      drag.dragging = true;
+      drag.pointerId = e.pointerId;
+      drag.startX = e.clientX;
+      drag.origin = offsetRef.current;
+      drag.lastX = e.clientX;
+      drag.lastT = performance.now();
+      drag.velocity = 0;
+      drag.moved = 0;
+      el.setPointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      const drag = dragRef.current;
+      if (!drag.down || drag.pointerId !== e.pointerId) return;
+      const dx = e.clientX - drag.startX;
+      const now = performance.now();
+      const dt = Math.max(1, now - drag.lastT);
+      drag.velocity = ((e.clientX - drag.lastX) / dt) * 1000;
+      drag.lastX = e.clientX;
+      drag.lastT = now;
+      drag.moved = Math.max(drag.moved, Math.abs(dx));
+      if (drag.moved < 2) return;
+      e.preventDefault();
+      paint(drag.origin + dx, false);
+      const predicted = Math.max(
+        0,
+        Math.min(
+          Math.round(-offsetRef.current / stepRef.current),
+          totalRef.current - 1,
+        ),
+      );
+      if (predicted !== activeIndexRef.current) {
+        activeIndexRef.current = predicted;
+        setActiveIndex(predicted);
+        onActiveChangeRef.current?.(predicted);
+      }
+    };
+
+    const end = (e: PointerEvent, snap: boolean) => {
+      const drag = dragRef.current;
+      if (!drag.down || (drag.pointerId !== -1 && drag.pointerId !== e.pointerId))
+        return;
+      const wasDragging = drag.dragging && drag.moved >= 2;
+      drag.down = false;
+      drag.dragging = false;
+      drag.pointerId = -1;
       try {
-        target.releasePointerCapture(pointerId);
+        el.releasePointerCapture(e.pointerId);
       } catch {
         /* already released */
       }
-      drag.pointerId = -1;
-    }
-    if (snap && wasHorizontal) {
-      goTo(
-        snapSliderIndex(
-          offsetRef.current,
-          stepRef.current,
-          drag.velocity,
-          total,
-        ),
-      );
-    }
-  };
-
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0) return;
-    const drag = dragRef.current;
-    drag.down = true;
-    drag.axis = null;
-    drag.pointerId = e.pointerId;
-    drag.startX = e.clientX;
-    drag.startY = e.clientY;
-    drag.origin = offsetRef.current;
-    drag.lastX = e.clientX;
-    drag.lastT = performance.now();
-    drag.velocity = 0;
-    drag.moved = 0;
-  };
-
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const drag = dragRef.current;
-    if (!drag.down || drag.pointerId !== e.pointerId) return;
-
-    const dx = e.clientX - drag.startX;
-    const dy = e.clientY - drag.startY;
-
-    // Wait for intent — vertical page scroll must not drive the track.
-    if (drag.axis == null) {
-      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
-      drag.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-      if (drag.axis === "y") {
-        drag.down = false;
-        return;
+      if (!wasDragging) return;
+      if (snap) {
+        snapTo(
+          snapSliderIndex(
+            offsetRef.current,
+            stepRef.current,
+            drag.velocity,
+            totalRef.current,
+          ),
+        );
+      } else {
+        paint(-activeIndexRef.current * stepRef.current, true);
       }
-      const target = e.currentTarget;
-      target.style.touchAction = "none";
-      target.setPointerCapture(e.pointerId);
-    }
+    };
 
-    if (drag.axis !== "x") return;
+    const onPointerUp = (e: PointerEvent) => end(e, true);
+    const onPointerCancel = (e: PointerEvent) => end(e, false);
 
-    const now = performance.now();
-    const dt = Math.max(1, now - drag.lastT);
-    drag.velocity = ((e.clientX - drag.lastX) / dt) * 1000;
-    drag.lastX = e.clientX;
-    drag.lastT = now;
-    drag.moved = Math.max(drag.moved, Math.abs(dx));
-    const x = drag.origin + dx;
-    apply(x, false);
-    const predicted = Math.max(
-      0,
-      Math.min(Math.round(-x / stepRef.current), total - 1),
-    );
-    if (predicted !== activeIndexRef.current) {
-      activeIndexRef.current = predicted;
-      setActiveIndex(predicted);
-      onActiveChange?.(predicted);
-    }
-  };
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove, { passive: false });
+    el.addEventListener("pointerup", onPointerUp);
+    el.addEventListener("pointercancel", onPointerCancel);
 
-  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    endDrag(e.currentTarget, e.pointerId, true);
-  };
-
-  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
-    endDrag(e.currentTarget, e.pointerId, false);
-    apply(-activeIndexRef.current * stepRef.current, true);
-  };
+    return () => {
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", onPointerUp);
+      el.removeEventListener("pointercancel", onPointerCancel);
+    };
+  }, [maxRotation]);
 
   return (
     <div
       ref={shellRef}
-      dir="rtl"
       lang="fa"
       className={`relative flex w-full select-none flex-col font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal ${className}`}
     >
+      {/* Track LTR for translateX; touch-action none so mobile swipe isn't stolen. */}
       <div
-        className="flex w-full cursor-grab touch-pan-y items-center overflow-hidden py-8 active:cursor-grabbing sm:py-10"
-        style={{ minHeight: layoutHeight + 64 }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerCancel}
+        ref={viewportRef}
+        dir="ltr"
+        className="flex w-full cursor-grab touch-none items-center overflow-hidden py-8 active:cursor-grabbing sm:py-10"
+        style={{ minHeight: layoutHeight + 64, touchAction: "none" }}
       >
         <div
           ref={trackRef}
@@ -338,6 +380,7 @@ export function OverlappingSlider<T = CardProfile>({
                   ? String((resolvedItems[index] as { id?: string }).id ?? index)
                   : index
               }
+              dir="rtl"
               className="shrink-0"
               style={{
                 width: layoutWidth,
@@ -365,20 +408,23 @@ export function OverlappingSlider<T = CardProfile>({
       </div>
 
       {(showDots || showArrows) && (
-        <div className="mt-1 flex w-full items-center px-8 sm:px-12">
+        <div
+          dir="rtl"
+          className="mt-1 flex w-full items-center px-5 sm:px-12"
+        >
           {showArrows && (
             <div className="flex items-center gap-2">
               <ArrowButton
                 label="قبلی"
                 disabled={activeIndex === 0}
-                onClick={() => goTo(activeIndex - 1)}
+                onClick={() => goTo(activeIndexRef.current - 1)}
               >
                 <ChevronRight className="size-4" strokeWidth={2.25} />
               </ArrowButton>
               <ArrowButton
                 label="بعدی"
                 disabled={activeIndex === total - 1}
-                onClick={() => goTo(activeIndex + 1)}
+                onClick={() => goTo(activeIndexRef.current + 1)}
               >
                 <ChevronLeft className="size-4" strokeWidth={2.25} />
               </ArrowButton>
@@ -424,7 +470,7 @@ function ArrowButton({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="flex size-9 items-center justify-center rounded-full bg-neutral-900 text-white transition enabled:hover:bg-neutral-800 enabled:active:scale-[0.96] disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-400"
+      className="relative z-10 flex size-9 items-center justify-center rounded-full bg-neutral-900 text-white transition enabled:hover:bg-neutral-800 enabled:active:scale-[0.96] disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500 dark:bg-white dark:text-neutral-900 dark:enabled:hover:bg-white/90 dark:disabled:bg-white/15 dark:disabled:text-white/35"
     >
       {children}
     </button>
