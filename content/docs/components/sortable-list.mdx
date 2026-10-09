@@ -1,0 +1,30 @@
+---
+title: Sortable List
+description: "لیست قابل مرتب‌سازی با Drag & Drop — دستهٔ درگ، فنر، شمارهٔ اولویت زنده."
+---
+
+## نحوه استفاده
+
+```tsx
+import SortableList, {
+  SoftSortableList,
+  type SortableItem,
+} from "@/components/sortable-list";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[360px] w-full items-center justify-center">
+      <SortableList />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- **SoftSortableList**: کنترل آماده با `items` / `onReorder`.
+- درگ فقط از دسته (`useDragControls`) — متن اشتباهی انتخاب نمی‌شود.
+- بلند شدن آیتم هنگام درگ + سایه.
+- شمارهٔ اولویت با `layout` به‌روز می‌شود.
+- RTL، Estedad، توکن‌های `bg-card` / `border-border`.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

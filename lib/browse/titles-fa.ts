@@ -49,6 +49,8 @@ export const COMPONENT_TITLES_FA: Record<string, string> = {
   "animated-switches": "سوئیچ‌های انیمیشنی",
   "animated-checkboxes": "چک‌باکس‌های انیمیشنی",
   "animated-select": "سلکت انیمیشنی",
+  "sortable-list": "لیست مرتب‌سازی",
+  "expandable-card": "کارت گسترش‌پذیر",
   "multi-step-form": "فرم چندمرحله‌ای",
   "overlapping-slider": "اسلایدر هم‌پوشان",
   "otp-cascade": "کد تأیید آبشاری",

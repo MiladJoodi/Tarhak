@@ -1,0 +1,30 @@
+---
+title: Expandable Card
+description: "کارت کوچک → نمای بزرگ با layout مشترک؛ بک‌دراپ، جزئیات و بستن با Escape."
+---
+
+## نحوه استفاده
+
+```tsx
+import ExpandableCard, {
+  SoftExpandableCard,
+  type ExpandableCardItem,
+} from "@/components/expandable-card";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[420px] w-full items-center justify-center">
+      <ExpandableCard />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- **SoftExpandableCard**: گرید کارت‌های فشرده با مورف به دیالوگ جزئیات.
+- `layoutId` مشترک برای پوسته، تصویر و عنوان.
+- بک‌دراپ تیره؛ بستن با کلیک بیرون، دکمهٔ ضربدر و `Escape`.
+- متادیتای مکان / تاریخ / امتیاز / مهمان با عدد فارسی.
+- RTL، Estedad، توکن‌های `bg-card` / `border-border`.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

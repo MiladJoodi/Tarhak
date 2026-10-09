@@ -68,6 +68,8 @@ const SEEDS: Seed[] = [
   { slug: "animated-switches", title: "Animated Switches", description: "Soft, icon, and liquid switches — iOS green, equal size, spring thumbs.", category: "Input" },
   { slug: "animated-checkboxes", title: "Animated Checkboxes", description: "Soft, circle, and bounce checkboxes with a drawn tick.", category: "Input" },
   { slug: "animated-select", title: "Animated Select", description: "Spring list, sliding highlight, and a drawn green tick.", category: "Input" },
+  { slug: "sortable-list", title: "Sortable List", description: "Drag the handle to reorder items with spring layout.", category: "List" },
+  { slug: "expandable-card", title: "Expandable Card", description: "Tap a compact card; it morphs into a large detail view.", category: "Display" },
   { slug: "save-button", title: "Status Button", description: "Idle, loading, done.", category: "Button" },
   { slug: "vertical-tabs", title: "Vertical Tabs", description: "Switching along the edge.", category: "Navigation" },
   { slug: "stacked-list", title: "Stacked List", description: "A stack that unfolds.", category: "List" },

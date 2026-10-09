@@ -920,6 +920,42 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "sortable-list": {
+    name: "sortable-list",
+    description: "لیست قابل مرتب‌سازی با Drag & Drop — دستهٔ درگ، فنر، شمارهٔ اولویت.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/sortable-list.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/sortable-list-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "sortable-list"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "expandable-card": {
+    name: "expandable-card",
+    description: "کارت کوچک → نمای بزرگ با layout مشترک و جزئیات فنری.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/expandable-card.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/expandable-card-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "expandable-card"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "multi-step-form": {
     name: "multi-step-form",
     description: "فرم چندمرحله‌ای پویا و متحرک با اعتبارسنجی.",

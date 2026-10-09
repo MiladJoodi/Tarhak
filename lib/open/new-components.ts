@@ -53,6 +53,8 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "animated-switches",
   "animated-checkboxes",
   "animated-select",
+  "sortable-list",
+  "expandable-card",
 ]);
 
 export function isNewComponent(slug: string) {
