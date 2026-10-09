@@ -2,9 +2,12 @@ import { cn } from "@/lib/utils";
 
 export function BrandLogo({
   invert = false,
+  wordmark = true,
   className,
 }: {
   invert?: boolean;
+  /** When false, only the mark is shown (e.g. header next to a hero wordmark). */
+  wordmark?: boolean;
   className?: string;
 }) {
   return (
@@ -18,16 +21,18 @@ export function BrandLogo({
         className="size-[30px] shrink-0 rounded-[6px]"
         aria-hidden
       />
-      <span
-        lang="fa"
-        dir="rtl"
-        className={cn(
-          "font-[family-name:var(--font-estedad)] text-[18px] font-medium leading-none tracking-normal",
-          invert ? "text-white" : "text-[#14141A]",
-        )}
-      >
-        طرحک
-      </span>
+      {wordmark ? (
+        <span
+          lang="fa"
+          dir="rtl"
+          className={cn(
+            "font-[family-name:var(--font-estedad)] text-[18px] font-medium leading-none tracking-normal",
+            invert ? "text-white" : "text-[#14141A]",
+          )}
+        >
+          طرحک
+        </span>
+      ) : null}
     </span>
   );
 }

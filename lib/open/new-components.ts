@@ -54,6 +54,7 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "animated-checkboxes",
   "animated-select",
   "sortable-list",
+  "animated-data-table",
   "expandable-card",
 ]);
 

@@ -6,8 +6,7 @@ import { cn } from "@/lib/utils";
 import type { BrowseItem } from "@/lib/browse/items";
 import { usePosterAspects } from "@/lib/browse/use-poster-aspects";
 
-const HOLD_MS = 4200;
-/** Dense grid so neighbors always fill top/left when a card is centered. */
+const HOLD_MS = 5200;
 const COLS = 5;
 const ROWS = 5;
 const CARD_W = 300;
@@ -15,19 +14,25 @@ const CARD_H = 268;
 const FRAME_PAD = 6;
 const MEDIA_W = CARD_W - FRAME_PAD * 2;
 const DEFAULT_ASPECT = MEDIA_W / (CARD_H - FRAME_PAD * 2);
-/** Wide enough that CARD_SCALE_ACTIVE still leaves a clear gutter. */
-const GAP = 44;
-const PAD = 40;
+const GAP = 40;
+const PAD = 36;
 
-/** Hold zoomed in so the spotlight reads larger; out pulls back to pan. */
-const SCALE_HOLD = 1.32;
-const SCALE_OUT = 0.88;
-/** Mobile: closer hold so the selected card reads larger, still shows neighbors. */
-const SCALE_HOLD_MOBILE = 0.9;
+const SCALE_HOLD = 1.22;
+const SCALE_OUT = 0.86;
+const SCALE_HOLD_MOBILE = 0.84;
 const SCALE_OUT_MOBILE = 0.64;
-const CARD_SCALE_ACTIVE = 1.08;
-const CARD_SCALE_ACTIVE_MOBILE = 1.16;
+const CARD_SCALE_ACTIVE = 1.04;
+const CARD_SCALE_ACTIVE_MOBILE = 1.08;
 const MOBILE_MQ = "(max-width: 767px)";
+
+/** Pull back → glide → settle — longer, softer than the default hero. */
+const OUT_MS = 340;
+const MOVE_MS = 560;
+const IN_MS = 420;
+
+const easeOutExpo = [0.16, 1, 0.3, 1] as [number, number, number, number];
+const easeInCubic = [0.55, 0.06, 0.68, 0.19] as [number, number, number, number];
+const easeInOut = [0.45, 0.05, 0.25, 1] as [number, number, number, number];
 
 function holdScale(mobile: boolean) {
   return mobile ? SCALE_HOLD_MOBILE : SCALE_HOLD;
@@ -39,36 +44,27 @@ function activeCardScale(mobile: boolean) {
   return mobile ? CARD_SCALE_ACTIVE_MOBILE : CARD_SCALE_ACTIVE;
 }
 
-const OUT_MS = 220;
-const MOVE_MS = 380;
-const IN_MS = 280;
-
-/** Figma glass card elevation (near layers first). */
 const spotlightShadow = [
-  "0 9px 20px rgba(0,0,0,0.10)",
-  "0 37px 37px rgba(0,0,0,0.09)",
-  "0 84px 50px rgba(0,0,0,0.05)",
-  "0 149px 60px rgba(0,0,0,0.01)",
-  "0 233px 65px rgba(0,0,0,0)",
+  "0 12px 28px rgba(0,0,0,0.18)",
+  "0 40px 56px rgba(0,0,0,0.14)",
+  "0 90px 72px rgba(0,0,0,0.08)",
+  "0 0 0 1px rgba(255,255,255,0.12)",
 ].join(", ");
 
-const glassBg = "rgba(255, 255, 255, 0.22)";
-const glassBgActive = "rgba(255, 255, 255, 0.28)";
+const glassBg = "rgba(255, 255, 255, 0.16)";
+const glassBgActive = "rgba(255, 255, 255, 0.3)";
 
-/** Figma Mask group SVG — soft radial, center α 0.5 → edge 0 (desktop). */
 const FIELD_MASK = "url(/landing/hero-canvas-mask.svg)";
-/** Soft left/right dissolve so cards melt into the hero edges. */
 const FIELD_MASK_SIDES =
-  "linear-gradient(90deg, transparent 0%, black 11%, black 89%, transparent 100%)";
-/** Mobile: soft top dissolve into hero-bg (lavender/blue), not a hard clip. */
+  "linear-gradient(90deg, transparent 0%, black 9%, black 91%, transparent 100%)";
 const FIELD_MASK_MOBILE =
   "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.35) 10%, black 28%, black 100%)";
-/** Soft color wash matching hero mid-tones — mobile canvas seam only. */
 const MOBILE_SEAM_WASH =
   "linear-gradient(180deg, rgba(146,148,190,0.72) 0%, rgba(120,130,175,0.35) 45%, transparent 100%)";
 
 const canvasW = PAD * 2 + COLS * CARD_W + (COLS - 1) * GAP;
 const TOTAL = COLS * ROWS;
+const DECK_SOURCE_COUNT = 12;
 
 type Camera = { x: number; y: number; scale: number };
 type DeckCard = BrowseItem & { key: string };
@@ -79,7 +75,6 @@ function cardHeightForAspect(aspect: number) {
   return FRAME_PAD * 2 + MEDIA_W / ratio;
 }
 
-/** Column masonry: same width, height follows the poster/video. */
 function layoutDeck(count: number, aspectOf: (index: number) => number) {
   const colY = Array.from({ length: COLS }, () => PAD);
   const rects: CardBox[] = [];
@@ -104,7 +99,6 @@ function rectAt(rects: CardBox[], index: number): CardBox {
   return rects[index] ?? { left: PAD, top: PAD, width: CARD_W, height: CARD_H };
 }
 
-/** transform-origin 0 0: screen = canvas * scale + translate. */
 function cameraFor(rect: CardBox, viewW: number, viewH: number, scale: number): Camera {
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
@@ -121,10 +115,21 @@ function isInterior(index: number) {
   return col > 0 && col < COLS - 1 && row > 0 && row < ROWS - 1;
 }
 
-/**
- * Fill the dense grid from a short source list. Spread copies so the same
- * slug is not adjacent in column-major order (avoids back-to-back tags).
- */
+function manhattan(a: number, b: number) {
+  return (
+    Math.abs((a % COLS) - (b % COLS)) +
+    Math.abs(Math.floor(a / COLS) - Math.floor(b / COLS))
+  );
+}
+
+function fieldDepth(index: number, spotlight: number) {
+  const d = manhattan(index, spotlight);
+  if (d <= 1) return { opacity: 0.95, scale: 1, blur: 0 };
+  if (d === 2) return { opacity: 0.78, scale: 0.99, blur: 0 };
+  if (d === 3) return { opacity: 0.58, scale: 0.98, blur: 0.3 };
+  return { opacity: 0.4, scale: 0.97, blur: 0.5 };
+}
+
 function buildDeck(items: BrowseItem[]): DeckCard[] {
   if (items.length === 0) return [];
   const pool = [...items];
@@ -155,7 +160,6 @@ function buildDeck(items: BrowseItem[]): DeckCard[] {
   return deck;
 }
 
-/** Prefer a distant interior card with a different component slug. */
 function nextSpotlightIndex(
   current: number,
   cards: DeckCard[],
@@ -194,7 +198,6 @@ function firstInteriorIndex() {
   return 0;
 }
 
-/** Depends only on the grid constants, so it is computed once, not per render. */
 const START_INDEX = firstInteriorIndex();
 
 function deferUntilIdle(cb: () => void) {
@@ -226,7 +229,7 @@ function deferUntilIdle(cb: () => void) {
   };
 }
 
-function HeroCard({
+function StageCard({
   item,
   active,
   allowVideo,
@@ -235,6 +238,7 @@ function HeroCard({
   top,
   height,
   aspect,
+  depth,
   activeScale = CARD_SCALE_ACTIVE,
   onAspect,
 }: {
@@ -246,14 +250,12 @@ function HeroCard({
   top: number;
   height: number;
   aspect: number;
+  depth: { opacity: number; scale: number; blur: number };
   activeScale?: number;
   onAspect?: (slug: string, ratio: number) => void;
 }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const mountVideo = allowVideo && active && Boolean(item.video);
-  // Keep poster covering the media until the video has a decoded frame.
-  // Otherwise <video> paints black for a frame on every spotlight remount
-  // (same architecture as uselayouts.com — they just load fast from CDN).
   const [videoReady, setVideoReady] = React.useState(false);
 
   React.useEffect(() => {
@@ -285,7 +287,7 @@ function HeroCard({
   return (
     <motion.figure
       className={cn(
-        "absolute flex overflow-hidden rounded-[12px] p-1.5",
+        "absolute flex overflow-hidden rounded-[14px] p-1.5",
         active && "z-20",
       )}
       style={{
@@ -295,51 +297,58 @@ function HeroCard({
         height,
         background: active ? glassBgActive : glassBg,
         border: active
-          ? "1px solid rgba(255,255,255,0.62)"
-          : "1px solid rgba(255,255,255,0.16)",
-        boxShadow: active ? spotlightShadow : "0 12px 28px rgba(0,0,0,0.12)",
-        backdropFilter: active ? "blur(32px) saturate(1.8)" : "blur(12px) saturate(1.25)",
-        WebkitBackdropFilter: active ? "blur(32px) saturate(1.8)" : "blur(12px) saturate(1.25)",
+          ? "1px solid rgba(255,255,255,0.55)"
+          : "1px solid rgba(255,255,255,0.14)",
+        boxShadow: active ? spotlightShadow : "0 10px 24px rgba(0,0,0,0.1)",
+        backdropFilter: active ? "blur(28px) saturate(1.6)" : "blur(10px) saturate(1.2)",
+        WebkitBackdropFilter: active
+          ? "blur(28px) saturate(1.6)"
+          : "blur(10px) saturate(1.2)",
+        filter: active || reducedMotion || depth.blur <= 0
+          ? undefined
+          : `blur(${depth.blur}px)`,
       }}
       animate={
         reducedMotion
           ? { opacity: 1, scale: 1 }
           : {
-              // Field cards stay at 1 — Figma mask (α≤0.5) softens them; spotlight is unmasked.
-              opacity: 1,
-              scale: active ? activeScale : 1,
+              opacity: active ? 1 : depth.opacity,
+              scale: active ? activeScale : depth.scale,
             }
       }
       transition={
         reducedMotion
           ? { duration: 0 }
-          : { type: "spring", stiffness: 420, damping: 28, mass: 0.85 }
+          : {
+              type: "spring",
+              stiffness: active ? 380 : 260,
+              damping: active ? 26 : 32,
+              mass: 0.9,
+            }
       }
     >
-      {/* Glass refraction: top specular + edge rim (Figma bento) */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[12px]"
+        className="pointer-events-none absolute inset-0 rounded-[14px]"
         style={{
           boxShadow: active
-            ? "inset 0 1.5px 0 rgba(255,255,255,0.78), inset 0 -1px 0 rgba(255,255,255,0.1), inset 1.5px 0 0 rgba(255,255,255,0.22), inset -1px 0 0 rgba(255,255,255,0.1)"
-            : "inset 0 1px 0 rgba(255,255,255,0.22)",
+            ? "inset 0 1.5px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(255,255,255,0.08)"
+            : "inset 0 1px 0 rgba(255,255,255,0.18)",
         }}
       />
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[42%] rounded-t-[12px]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[42%] rounded-t-[14px]"
         style={{
           background: active
-            ? "linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.12) 42%, transparent 100%)"
-            : "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 70%)",
+            ? "linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.08) 42%, transparent 100%)"
+            : "linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 70%)",
           mixBlendMode: "soft-light",
         }}
       />
 
-      {/* Figma media radius 10 inside card 12; radius on media too — video ignores parent clip otherwise */}
       <div
-        className="relative z-[1] w-full flex-1 overflow-clip rounded-[10px] bg-[#14151c] [transform:translateZ(0)]"
+        className="relative z-[1] w-full flex-1 overflow-clip rounded-[11px] bg-[#14151c] [transform:translateZ(0)]"
         style={{ aspectRatio: aspect }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- local posters; sized by aspect box. */}
@@ -348,7 +357,7 @@ function HeroCard({
           alt=""
           loading="eager"
           decoding="async"
-          className="absolute inset-0 size-full rounded-[10px] object-cover"
+          className="absolute inset-0 size-full rounded-[11px] object-cover"
           draggable={false}
         />
         {mountVideo ? (
@@ -360,7 +369,7 @@ function HeroCard({
             playsInline
             preload="auto"
             className={cn(
-              "absolute inset-0 size-full rounded-[10px] object-cover transition-opacity duration-200 ease-out",
+              "absolute inset-0 size-full rounded-[11px] object-cover transition-opacity duration-300 ease-out",
               videoReady ? "opacity-100" : "opacity-0",
             )}
             draggable={false}
@@ -376,24 +385,19 @@ function HeroCard({
   );
 }
 
-/** The deck tiles this many source items across the grid. */
-const DECK_SOURCE_COUNT = 12;
-
-export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
+export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
   const deckItems = React.useMemo(
     () => items.slice(0, DECK_SOURCE_COUNT),
     [items],
   );
   const cards = React.useMemo(() => buildDeck(deckItems), [deckItems]);
-  // Shared with the browse grid and canvas: one implementation of poster
-  // measurement, measured over the source items rather than the tiled deck.
   const { aspects, setAspect } = usePosterAspects(deckItems);
   const reducedMotion = useReducedMotion() ?? false;
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const [spotlight, setSpotlight] = React.useState(START_INDEX);
   const [videosReady, setVideosReady] = React.useState(false);
-  /** First layout pass done — avoid animating from 800×900 guess into real size. */
   const [ready, setReady] = React.useState(false);
+  const [holding, setHolding] = React.useState(true);
   const [view, setView] = React.useState({ w: 800, h: 900 });
   const layout = React.useMemo(
     () =>
@@ -405,11 +409,16 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   );
   const layoutRef = React.useRef(layout);
   const [camera, setCamera] = React.useState<Camera>(() =>
-    cameraFor(rectAt(layoutDeck(TOTAL, () => DEFAULT_ASPECT).rects, START_INDEX), 800, 900, SCALE_HOLD),
+    cameraFor(
+      rectAt(layoutDeck(TOTAL, () => DEFAULT_ASPECT).rects, START_INDEX),
+      800,
+      900,
+      SCALE_HOLD,
+    ),
   );
   const [transition, setTransition] = React.useState({
     duration: 0,
-    ease: [0.32, 0.72, 0, 1] as [number, number, number, number],
+    ease: easeOutExpo,
   });
   const spotlightRef = React.useRef(START_INDEX);
   const viewRef = React.useRef(view);
@@ -418,8 +427,6 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   const outRef = React.useRef(SCALE_OUT);
   const [isMobile, setIsMobile] = React.useState(false);
 
-  // Written in an effect, not during render: a render React discards must not
-  // leave a ref that the animation timers then read.
   React.useEffect(() => {
     layoutRef.current = layout;
   }, [layout]);
@@ -438,8 +445,6 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
 
   React.useEffect(() => deferUntilIdle(() => setVideosReady(true)), []);
 
-  // Warm the video cache like a CDN hit on uselayouts.com — first spotlight
-  // swaps then already have bytes buffered, so the poster→video handoff is invisible.
   React.useEffect(() => {
     if (!videosReady) return;
     const warmers: HTMLVideoElement[] = [];
@@ -486,12 +491,16 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
       if (w < 1 || h < 1) return;
       syncBreakpoint();
       setView({ w, h });
-      // Resize / first paint: snap camera, never ease into place.
       setTransition({ duration: 0, ease: [0, 0, 1, 1] });
-      const scale = first || scaleRef.current === SCALE_HOLD || scaleRef.current === SCALE_HOLD_MOBILE
-        ? holdRef.current
-        : scaleRef.current;
-      setCamera(cameraFor(rectAt(layoutRef.current.rects, spotlightRef.current), w, h, scale));
+      const scale =
+        first ||
+        scaleRef.current === SCALE_HOLD ||
+        scaleRef.current === SCALE_HOLD_MOBILE
+          ? holdRef.current
+          : scaleRef.current;
+      setCamera(
+        cameraFor(rectAt(layoutRef.current.rects, spotlightRef.current), w, h, scale),
+      );
       if (first) setReady(true);
     };
 
@@ -538,28 +547,29 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
       const out = outRef.current;
       const hold = holdRef.current;
 
-      setTransition({ duration: OUT_MS / 1000, ease: [0.4, 0, 1, 1] });
+      setHolding(false);
+      setTransition({ duration: OUT_MS / 1000, ease: easeInCubic });
       setCamera(cameraFor(rectAt(layoutRef.current.rects, current), w, h, out));
       await wait(OUT_MS);
       if (cancelled) return;
 
-      setTransition({ duration: MOVE_MS / 1000, ease: [0.45, 0, 0.55, 1] });
+      setTransition({ duration: MOVE_MS / 1000, ease: easeInOut });
       setSpotlight(next);
       setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, out));
       await wait(MOVE_MS);
       if (cancelled) return;
 
-      setTransition({ duration: IN_MS / 1000, ease: [0.32, 0.72, 0, 1] });
+      setTransition({ duration: IN_MS / 1000, ease: easeOutExpo });
       setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, hold));
       await wait(IN_MS);
       if (cancelled) return;
 
+      setHolding(true);
       timer = window.setTimeout(() => {
         void cycle();
       }, HOLD_MS);
     };
 
-    // Hold the initial zoomed selection, then start the cycle.
     timer = window.setTimeout(() => {
       void cycle();
     }, HOLD_MS);
@@ -574,10 +584,6 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
     if (!ready || !reducedMotion || cards.length <= 1) return;
     const recentSlugs: string[] = [];
     const id = window.setInterval(() => {
-      // `nextSpotlightIndex` picks at random and the camera has to follow the
-      // same pick, so neither can live inside a `setSpotlight` updater: React
-      // is free to re-run an updater, which would choose one card for the
-      // spotlight and a different one for the camera.
       const next = nextSpotlightIndex(spotlightRef.current, cards, recentSlugs);
       const slug = cards[next]?.slug;
       if (slug) {
@@ -587,7 +593,9 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
       const { w, h } = viewRef.current;
       setSpotlight(next);
       setTransition({ duration: 0, ease: [0, 0, 1, 1] });
-      setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, holdRef.current));
+      setCamera(
+        cameraFor(rectAt(layoutRef.current.rects, next), w, h, holdRef.current),
+      );
     }, HOLD_MS);
     return () => window.clearInterval(id);
   }, [ready, cards, reducedMotion]);
@@ -596,6 +604,7 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
 
   const active = cards[spotlight];
   const activeRect = rectAt(layout.rects, spotlight);
+  const breath = !reducedMotion && holding && ready;
   const cameraMotion = {
     x: camera.x,
     y: camera.y,
@@ -612,7 +621,7 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   return (
     <div
       ref={viewportRef}
-      className="pointer-events-none absolute inset-x-0 bottom-[7%] h-[52%] min-h-[220px] overflow-hidden max-md:[mask-image:var(--hero-field-mask-mobile),var(--hero-field-mask-sides)] max-md:[-webkit-mask-image:var(--hero-field-mask-mobile),var(--hero-field-mask-sides)] md:inset-y-0 md:left-0 md:right-auto md:h-auto md:min-h-0 md:w-[64%] md:[mask-image:var(--hero-field-mask-sides)] md:[-webkit-mask-image:var(--hero-field-mask-sides)]"
+      className="pointer-events-none absolute inset-x-0 bottom-[5%] h-[54%] min-h-[220px] overflow-hidden max-md:[mask-image:var(--hero-field-mask-mobile),var(--hero-field-mask-sides)] max-md:[-webkit-mask-image:var(--hero-field-mask-mobile),var(--hero-field-mask-sides)] md:inset-y-0 md:left-0 md:right-auto md:h-auto md:min-h-0 md:w-[66%] md:[mask-image:var(--hero-field-mask-sides)] md:[-webkit-mask-image:var(--hero-field-mask-sides)]"
       style={
         {
           "--hero-field-mask-mobile": FIELD_MASK_MOBILE,
@@ -627,79 +636,93 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
       }
       aria-hidden
     >
-      {/* Soft top wash — hero lavender/blue into cards (mobile only; not white) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 md:hidden"
         style={{ backgroundImage: MOBILE_SEAM_WASH }}
       />
-      {/* Soft field — md+: Figma mask SVG (mobile dissolve is on the viewport) */}
-      <div
-        className="absolute inset-0 md:[mask-image:var(--hero-field-mask)] md:[-webkit-mask-image:var(--hero-field-mask)]"
-        style={
-          {
-            "--hero-field-mask": FIELD_MASK,
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskSize: "100% 100%",
-            maskSize: "100% 100%",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-          } as React.CSSProperties
+
+      <motion.div
+        className="absolute inset-0"
+        animate={
+          breath
+            ? { x: [0, 6, -4, 0], y: [0, -5, 3, 0] }
+            : { x: 0, y: 0 }
+        }
+        transition={
+          breath
+            ? { duration: 5.2, ease: "easeInOut", repeat: Infinity }
+            : { duration: 0.45, ease: easeOutExpo }
         }
       >
-        <motion.div
-          className="absolute top-0 left-0 transform-gpu will-change-transform"
-          style={stageStyle}
-          animate={cameraMotion}
-          transition={cameraTransition}
+        <div
+          className="absolute inset-0 md:[mask-image:var(--hero-field-mask)] md:[-webkit-mask-image:var(--hero-field-mask)]"
+          style={
+            {
+              "--hero-field-mask": FIELD_MASK,
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskSize: "100% 100%",
+              maskSize: "100% 100%",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+            } as React.CSSProperties
+          }
         >
-          {cards.map((item, index) => {
-            if (index === spotlight) return null;
-            const rect = rectAt(layout.rects, index);
-            return (
-              <HeroCard
-                key={item.key}
-                item={item}
-                active={false}
-                allowVideo={false}
-                reducedMotion={reducedMotion}
-                left={rect.left}
-                top={rect.top}
-                height={rect.height}
-                aspect={aspects[item.slug] ?? DEFAULT_ASPECT}
-                onAspect={setAspect}
-              />
-            );
-          })}
-        </motion.div>
-      </div>
+          <motion.div
+            className="absolute top-0 left-0 transform-gpu will-change-transform"
+            style={stageStyle}
+            animate={cameraMotion}
+            transition={cameraTransition}
+          >
+            {cards.map((item, index) => {
+              if (index === spotlight) return null;
+              const rect = rectAt(layout.rects, index);
+              return (
+                <StageCard
+                  key={item.key}
+                  item={item}
+                  active={false}
+                  allowVideo={false}
+                  reducedMotion={reducedMotion}
+                  left={rect.left}
+                  top={rect.top}
+                  height={rect.height}
+                  aspect={aspects[item.slug] ?? DEFAULT_ASPECT}
+                  depth={fieldDepth(index, spotlight)}
+                  onAspect={setAspect}
+                />
+              );
+            })}
+          </motion.div>
+        </div>
 
-      {/* Clear spotlight — Figma 1:598 sits outside the mask so hero-bg never washes it. */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-0 left-0 transform-gpu will-change-transform"
-          style={stageStyle}
-          animate={cameraMotion}
-          transition={cameraTransition}
-        >
-          {active ? (
-            <HeroCard
-              key={`spotlight-${active.key}`}
-              item={active}
-              active
-              allowVideo={videosReady}
-              reducedMotion={reducedMotion}
-              left={activeRect.left}
-              top={activeRect.top}
-              height={activeRect.height}
-              aspect={aspects[active.slug] ?? DEFAULT_ASPECT}
-              onAspect={setAspect}
-              activeScale={activeCardScale(isMobile)}
-            />
-          ) : null}
-        </motion.div>
-      </div>
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute top-0 left-0 transform-gpu will-change-transform"
+            style={stageStyle}
+            animate={cameraMotion}
+            transition={cameraTransition}
+          >
+            {active ? (
+              <StageCard
+                key={`spotlight-${active.key}`}
+                item={active}
+                active
+                allowVideo={videosReady}
+                reducedMotion={reducedMotion}
+                left={activeRect.left}
+                top={activeRect.top}
+                height={activeRect.height}
+                aspect={aspects[active.slug] ?? DEFAULT_ASPECT}
+                depth={{ opacity: 1, scale: 1, blur: 0 }}
+                onAspect={setAspect}
+                activeScale={activeCardScale(isMobile)}
+              />
+            ) : null}
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ComponentType } from "react";
+import { useState } from "react";
 import {
   MotionConfig,
   Reorder,
@@ -8,7 +8,7 @@ import {
   useReducedMotion,
   motion,
 } from "motion/react";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import {
   DragDropVerticalIcon,
   Mail01Icon,
@@ -35,7 +35,7 @@ export type SortableItem = {
   id: string;
   title: string;
   description: string;
-  icon: ComponentType<Record<string, unknown>>;
+  icon: IconSvgElement;
 };
 
 type SortableRowProps = {

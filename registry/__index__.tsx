@@ -938,6 +938,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animated-data-table": {
+    name: "animated-data-table",
+    description: "جدول داده با فیلتر، مرتب‌سازی ستون و جابه‌جایی ردیف با انیمیشن روان.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-data-table.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-data-table-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-data-table"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "expandable-card": {
     name: "expandable-card",
     description: "کارت کوچک → نمای بزرگ با layout مشترک و جزئیات فنری.",

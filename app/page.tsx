@@ -1,11 +1,12 @@
-import LandingPage from "@/components/landing/landing-page";
-import { getGithubStarCount } from "@/lib/github";
-import { getLandingHeroItems } from "@/lib/landing/hero-components";
+import type { Metadata } from "next";
 
-export default async function Page() {
-  const [heroItems, githubStars] = await Promise.all([
-    getLandingHeroItems(),
-    getGithubStarCount(),
-  ]);
-  return <LandingPage heroItems={heroItems} githubStars={githubStars} />;
+import ComingSoon from "@/components/landing/coming-soon";
+
+export const metadata: Metadata = {
+  title: "طرحک — به‌زودی",
+  description: "طرحک به‌زودی معرفی می‌شود.",
+};
+
+export default function Page() {
+  return <ComingSoon />;
 }

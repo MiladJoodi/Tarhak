@@ -2,88 +2,146 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { type BrowseItem } from "@/lib/browse/items";
-import { HeroSpotlightCanvas } from "@/components/landing/hero-spotlight-canvas";
+
+import { HeroStageCanvas } from "@/components/landing/hero-stage-canvas";
 import { LandingNav } from "@/components/landing/landing-nav";
+import type { BrowseItem } from "@/lib/browse/items";
 import { cn } from "@/lib/utils";
 
-const easeOut = [0.16, 1, 0.3, 1] as const;
+const ease = [0.16, 1, 0.3, 1] as const;
+const CLI = "npx farsiui@latest add @tarhak/animated-tabs";
 
-function ExploreButton({
-  className,
-  href = "/browse",
-}: {
-  className?: string;
-  href?: string;
-}) {
-  const reduce = useReducedMotion() ?? false;
-
+function CopyChip({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
   return (
-    <motion.div
-      className={cn("relative mx-auto w-fit md:mx-0", className)}
-      initial={reduce ? false : { opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={
-        reduce ? { duration: 0 } : { duration: 0.7, ease: easeOut, delay: 0.38 }
-      }
+    <button
+      type="button"
+      dir="ltr"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1600);
+        } catch {
+          /* ignore */
+        }
+      }}
+      className="group relative flex w-full max-w-full items-center gap-2 overflow-hidden rounded-2xl bg-black/45 px-3.5 py-3 text-start ring-1 ring-white/12 backdrop-blur-md transition-[background-color,box-shadow] duration-200 hover:bg-black/55 hover:ring-white/18 active:scale-[0.99] sm:px-4"
+      aria-label="کپی دستور نصب"
     >
-      <Link
-        href={href}
-        className={cn(
-          "landing-cta-glass group relative inline-flex h-[3.15rem] min-w-[13.5rem] items-center justify-center gap-2.5 overflow-hidden rounded-full px-8",
-          "text-[15px] font-medium leading-none tracking-normal text-white",
-          "transition-[transform,box-shadow] duration-300 ease-out",
-          "hover:shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_12px_32px_-12px_rgba(0,0,0,0.55)]",
-          "active:scale-[0.98]",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/55 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
-        )}
+      <span
+        aria-hidden
+        className="size-2 shrink-0 rounded-full bg-white/35"
+      />
+      <code className="min-w-0 flex-1 truncate font-[family-name:var(--font-geist-mono),ui-monospace,monospace] text-[12px] leading-none text-white/75 sm:text-[13px]">
+        {text}
+      </code>
+      <span
+        aria-hidden
+        className="inline-flex size-4 shrink-0 text-white/55 transition-colors group-hover:text-white/80"
       >
-        <span
-          aria-hidden
-          className="landing-cta-sheen pointer-events-none absolute inset-0"
-        />
-        <span className="relative">مشاهده کامپوننت‌ها</span>
-        <span
-          aria-hidden
-          className="relative inline-flex size-4 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-x-1"
-        >
+        {copied ? (
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
-              d="M10 3.5L5.5 8 10 12.5"
+              d="M3.5 8.5 6.5 11.5 12.5 4.5"
               stroke="currentColor"
               strokeWidth="1.7"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
-        </span>
-      </Link>
-    </motion.div>
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect
+              x="5.5"
+              y="5.5"
+              width="7"
+              height="7"
+              rx="1.5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+            />
+            <path
+              d="M10.5 5.5V4A1.5 1.5 0 0 0 9 2.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+          </svg>
+        )}
+      </span>
+    </button>
   );
 }
 
 function HeroCopy({ reduce }: { reduce: boolean }) {
   return (
     <div className="flex w-full flex-col items-center md:items-start">
-      <motion.div
-        className="flex w-full flex-col items-center gap-3.5 md:items-start md:gap-4"
-        initial={reduce ? false : { opacity: 0, y: 22 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={reduce ? { duration: 0 } : { duration: 0.8, ease: easeOut }}
+      <motion.h1
+        initial={reduce ? false : { opacity: 0, y: 18, filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={reduce ? { duration: 0 } : { duration: 0.75, ease }}
+        className="text-[clamp(2.8rem,12vw,4.75rem)] font-black leading-[0.92] text-white md:text-[clamp(2.6rem,5.5vw,4.25rem)]"
       >
-        <h1 className="landing-hero-title whitespace-nowrap text-center text-[clamp(1.2rem,3.4vw,2.35rem)] font-semibold leading-none tracking-normal text-white md:text-start">
-          از طراحی آماده تا محصول واقعی
-        </h1>
-        <p className="whitespace-nowrap text-center text-[13px] leading-none text-white/60 sm:text-[15px] md:text-start">
-          با یک دستور شروع کن، با سبک خودت ادامه بده
-        </p>
-      </motion.div>
+        طرحک
+      </motion.h1>
 
-      <div className="mt-8 md:mt-10">
-        <ExploreButton />
-      </div>
+      <motion.p
+        initial={reduce ? false : { opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={
+          reduce ? { duration: 0 } : { duration: 0.65, ease, delay: 0.16 }
+        }
+        className="mt-4 max-w-[20rem] text-center text-[14px] leading-7 text-white/55 sm:max-w-[24rem] sm:text-[15px] sm:leading-8 md:text-start"
+      >
+        کامپوننت‌هایی که قبل از کپی، حس محصول را نشان می‌دهند
+        <br />
+        نه اسکرین‌شات تخت
+      </motion.p>
+
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={
+          reduce ? { duration: 0 } : { duration: 0.65, ease, delay: 0.26 }
+        }
+        className="mt-7 flex w-full max-w-sm flex-col items-center gap-3 sm:max-w-md md:items-start"
+      >
+        <Link
+          href="/browse"
+          className={cn(
+            "landing-cta-glass group relative inline-flex h-[3.15rem] min-w-[13.5rem] items-center justify-center gap-2.5 overflow-hidden rounded-full px-8",
+            "text-[15px] font-medium leading-none tracking-normal text-white",
+            "transition-[transform,box-shadow] duration-300 ease-out",
+            "hover:shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_12px_32px_-12px_rgba(0,0,0,0.55)]",
+            "active:scale-[0.98]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/55 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+          )}
+        >
+          <span
+            aria-hidden
+            className="landing-cta-sheen pointer-events-none absolute inset-0"
+          />
+          <span className="relative">ورود به مخزن</span>
+          <span
+            aria-hidden
+            className="relative inline-flex size-4 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-x-1"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M10 3.5L5.5 8 10 12.5"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </Link>
+        <CopyChip text={CLI} />
+      </motion.div>
     </div>
   );
 }
@@ -132,9 +190,9 @@ function HeroSection({ heroItems }: { heroItems: BrowseItem[] }) {
           className="landing-hero-grain pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-overlay"
         />
 
-        <HeroSpotlightCanvas items={heroItems} />
+        <HeroStageCanvas items={heroItems} />
 
-        <div className="relative z-10 ml-auto flex h-full w-full items-start justify-center px-6 pt-[5.75rem] sm:px-10 sm:pt-[6.75rem] md:w-[min(100%,38%)] md:items-center md:justify-start md:px-10 md:pt-0 lg:w-[min(100%,36%)] lg:px-14 xl:px-16">
+        <div className="relative z-10 ml-auto flex h-full w-full items-start justify-center px-6 pt-[5.75rem] sm:px-10 sm:pt-[6.75rem] md:w-[min(100%,40%)] md:items-center md:justify-start md:px-10 md:pt-0 lg:w-[min(100%,38%)] lg:px-14 xl:px-16">
           <HeroCopy reduce={reduce} />
         </div>
       </div>
@@ -173,7 +231,7 @@ export default function LandingPage({
       className="fixed inset-0 overflow-hidden bg-[#0c0d12] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-white"
     >
       <HeroSection heroItems={heroItems} />
-      <LandingNav githubStars={githubStars} tone="dark" overlay />
+      <LandingNav githubStars={githubStars} tone="dark" overlay logoOnly />
     </main>
   );
 }

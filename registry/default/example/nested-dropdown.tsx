@@ -4,12 +4,11 @@ import {
   useEffect,
   useRef,
   useState,
-  type ComponentType,
   type Dispatch,
   type SetStateAction,
 } from "react";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import clsx from "clsx";
 import {
   ArrowLeft01Icon,
@@ -31,19 +30,17 @@ import {
   PaintBoardIcon,
 } from "@hugeicons/core-free-icons";
 
-type IconType = ComponentType<Record<string, unknown>>;
-
 type MenuLeaf = {
   id: string;
   label: string;
-  icon: IconType;
+  icon: IconSvgElement;
   danger?: boolean;
 };
 
 type MenuBranch = {
   id: string;
   label: string;
-  icon: IconType;
+  icon: IconSvgElement;
   children: MenuLeaf[];
 };
 
@@ -299,7 +296,7 @@ export default function NestedDropdown() {
                     <MenuRow
                       key={`${panelKey}-${item.id}`}
                       index={index}
-                      item={item}
+                      item={item as MenuLeaf | MenuBranch}
                       setIsOpen={setIsOpen}
                       onOpenBranch={openSub}
                     />

@@ -1,0 +1,30 @@
+---
+title: Animated Data Table
+description: "جدول داده با فیلتر، مرتب‌سازی ستون و جابه‌جایی ردیف — همه با انیمیشن روان."
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedDataTable, {
+  SoftDataTable,
+  type DataTableRow,
+} from "@/components/animated-data-table";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[420px] w-full items-center justify-center">
+      <AnimatedDataTable />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- جستجوی زنده با حذف/ورود نرم ردیف‌ها.
+- مرتب‌سازی با کلیک روی عنوان ستون (صعودی → نزولی → خاموش).
+- جابه‌جایی ردیف با درگ از دسته (وقتی فیلتر/سورت خاموش است).
+- ستون عملیات با منوی `⋯` (ویرایش، غیرفعال، مسدود، حذف) به سبک dropdownهای پروژه.
+- وضعیت‌ها، اعداد فارسی، RTL و توکن‌های تم.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

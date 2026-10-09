@@ -150,6 +150,7 @@ export function LuckWheelForm() {
     duration: number;
     times?: number[];
     ease:
+      | "easeOut"
       | [number, number, number, number]
       | Array<[number, number, number, number] | "easeOut">;
   }>({ duration: 0, ease: "easeOut" });
@@ -635,7 +636,7 @@ export default function LuckWheel() {
     <div
       dir="rtl"
       lang="fa"
-      className="flex h-full w-full items-center justify-center bg-[#020617] px-3 py-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:px-4"
+      className="flex h-full w-full items-center justify-center px-3 py-6 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:px-4"
     >
       <LuckWheelForm />
     </div>

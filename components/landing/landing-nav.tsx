@@ -51,12 +51,15 @@ export function LandingNav({
   githubStars,
   tone = "light",
   overlay = false,
+  logoOnly = false,
 }: {
   githubStars?: number | null;
   /** Landing hero uses a dark bar; docs/contact stay light. */
   tone?: "light" | "dark";
   /** Sit on top of a full-bleed stage with no separate header fill. */
   overlay?: boolean;
+  /** Show mark only — skip the «طرحک» wordmark in the header. */
+  logoOnly?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const dark = tone === "dark";
@@ -74,7 +77,7 @@ export function LandingNav({
     >
       <div className="flex min-w-0 items-center gap-7 lg:gap-9">
         <Link href="/" aria-label="صفحهٔ اصلی طرحک" className="shrink-0">
-          <BrandLogo invert={dark} />
+          <BrandLogo invert={dark} wordmark={!logoOnly} />
         </Link>
 
         <nav className="hidden items-center gap-5 lg:flex lg:gap-6">

@@ -1,19 +1,13 @@
 "use client";
 
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type ComponentType,
-} from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
   MotionConfig,
   useReducedMotion,
 } from "motion/react";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import {
   ArrowDown01Icon,
   GlobalIcon,
@@ -48,7 +42,7 @@ export type SelectOption = {
   value: string;
   label: string;
   description?: string;
-  icon?: ComponentType<Record<string, unknown>>;
+  icon?: IconSvgElement;
 };
 
 type SoftSelectProps = {

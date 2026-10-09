@@ -50,6 +50,7 @@ export const COMPONENT_TITLES_FA: Record<string, string> = {
   "animated-checkboxes": "چک‌باکس‌های انیمیشنی",
   "animated-select": "سلکت انیمیشنی",
   "sortable-list": "لیست مرتب‌سازی",
+  "animated-data-table": "جدول داده انیمیشنی",
   "expandable-card": "کارت گسترش‌پذیر",
   "multi-step-form": "فرم چندمرحله‌ای",
   "overlapping-slider": "اسلایدر هم‌پوشان",
