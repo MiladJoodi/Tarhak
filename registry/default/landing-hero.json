@@ -1,16 +1,16 @@
 {
   "slugs": [
-    "create-menu",
-    "tactile-button",
-    "set-timer",
-    "expandable-gallery",
-    "animated-collection",
-    "holographic-referral-card",
+    "prize-coins",
+    "luck-wheel",
+    "stamp-approve",
     "photo-albums",
-    "feature-carousel",
-    "rolling-card-stack",
-    "fluid-expanding-grid",
-    "stack-scroll-reveal",
-    "magnified-bento"
+    "analog-stick",
+    "otp-cascade",
+    "upload-dropzone",
+    "filter-interaction",
+    "expandable-gallery",
+    "horizontal-menu",
+    "card-folder",
+    "dial-volume"
   ]
 }

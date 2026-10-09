@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import type { BrowseItem } from "@/lib/browse/items";
 import { usePosterAspects } from "@/lib/browse/use-poster-aspects";
 
-const HOLD_MS = 5200;
+const HOLD_MS = 2800;
 const COLS = 5;
 const ROWS = 5;
 const CARD_W = 300;
@@ -25,10 +25,10 @@ const CARD_SCALE_ACTIVE = 1.04;
 const CARD_SCALE_ACTIVE_MOBILE = 1.08;
 const MOBILE_MQ = "(max-width: 767px)";
 
-/** Pull back → glide → settle — longer, softer than the default hero. */
-const OUT_MS = 340;
-const MOVE_MS = 560;
-const IN_MS = 420;
+/** Pull back → glide → settle */
+const OUT_MS = 260;
+const MOVE_MS = 420;
+const IN_MS = 320;
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as [number, number, number, number];
 const easeInCubic = [0.55, 0.06, 0.68, 0.19] as [number, number, number, number];
