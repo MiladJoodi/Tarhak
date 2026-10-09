@@ -48,6 +48,8 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "animated-tabs",
   "nested-dropdown",
   "tooltip",
+  "upload-dropzone",
+  "typed-code",
 ]);
 
 export function isNewComponent(slug: string) {

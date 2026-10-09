@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 100,
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "آپلود با درگ",
+  "hintDescription": "فایل را بکش و رها کن؛ پیش‌نمایش مورف می‌شود و نوار پیشرفت پر می‌شود.",
+  "posterUrl": "/api/browse-media/components/upload-dropzone/poster.avif",
+  "videoUrl": "/api/browse-media/components/upload-dropzone/video.mp4",
+  "tags": [
+    "upload",
+    "dropzone",
+    "progress",
+    "file",
+    "motion"
+  ]
+}

@@ -830,6 +830,42 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "upload-dropzone": {
+    name: "upload-dropzone",
+    description: "درگ فایل → مورف پیش‌نمایش + نوار پیشرفت فیزیکی؛ آپلود محصول و مدارک.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/upload-dropzone.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/upload-dropzone-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "upload-dropzone"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "typed-code": {
+    name: "typed-code",
+    description: "دکمهٔ نمایش کد → کارت VS Code Dark+؛ تایپ نرم کاراکتر‌به‌کاراکتر.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/typed-code.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/typed-code-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "typed-code"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "multi-step-form": {
     name: "multi-step-form",
     description: "فرم چندمرحله‌ای پویا و متحرک با اعتبارسنجی.",

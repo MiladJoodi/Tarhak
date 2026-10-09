@@ -1,0 +1,28 @@
+---
+title: Upload Dropzone
+description: "درگ فایل → مورف پیش‌نمایش + نوار پیشرفت فیزیکی؛ مناسب آپلود محصول و مدارک."
+---
+
+## نحوه استفاده
+
+```tsx
+import UploadDropzone from "@/components/upload-dropzone";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[360px] w-full items-center justify-center px-4">
+      <UploadDropzone />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- درگ‌اندر: ناحیه باد می‌کند، آیکون بلند می‌شود و حلقهٔ دعوت می‌تپد.
+- رها کردن: آیکون با `layoutId` به بندانگشتی مورف می‌شود؛ تصویر با فنر فرود می‌آید.
+- نوار پیشرفت فیزیکی با `useSpring`، سگمنت‌های مکانیکی و درخشش متحرک.
+- وضعیت‌ها: idle → dragging → preview → uploading → done.
+- کپی فارسی، ارقام فارسی، Estedad و توکن‌های `bg-card` / `border-border`.
+- `prefers-reduced-motion` زمان‌ها را کوتاه می‌کند.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

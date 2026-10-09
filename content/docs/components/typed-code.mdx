@@ -1,0 +1,27 @@
+---
+title: Typed Code
+description: "دکمهٔ نمایش کد → کارت سیاه؛ کد با ریتم نرم کاراکتر‌به‌کاراکتر تایپ می‌شود."
+---
+
+## نحوه استفاده
+
+```tsx
+import TypedCode from "@/components/typed-code";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[360px] w-full items-center justify-center">
+      <TypedCode />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- دکمهٔ «نمایش کد» با `layoutId` به کارت تیره مورف می‌شود.
+- تایپ نرم با مکث روی خط جدید و نشانه‌ها؛ نشانگر چشمک‌زن ملایم.
+- رنگ‌ها مطابق تم پیش‌فرض VS Code (Dark+): کلیدواژه، کنترل، رشته، تگ، اتریبیوت، تابع.
+- «دوباره بنویس» و بستن بعد از اتمام.
+- `SAMPLE_CODE` را در فایل عوض کن تا محتوای خودت تایپ شود.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

@@ -822,6 +822,42 @@
       ]
     },
     {
+      "name": "upload-dropzone",
+      "type": "registry:component",
+      "title": "Upload Dropzone",
+      "description": "درگ فایل → مورف پیش‌نمایش + نوار پیشرفت فیزیکی؛ آپلود محصول و مدارک.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/upload-dropzone.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typed-code",
+      "type": "registry:component",
+      "title": "Typed Code",
+      "description": "دکمهٔ نمایش کد → کارت VS Code Dark+؛ تایپ نرم کاراکتر‌به‌کاراکتر.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/typed-code.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "multi-step-form",
       "type": "registry:component",
       "title": "Multi Step Form",

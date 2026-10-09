@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 120,
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "نمایش کد",
+  "hintDescription": "بزن تا کارت سیاه باز شود و کد نرم تایپ شود.",
+  "posterUrl": "/api/browse-media/components/typed-code/poster.avif",
+  "videoUrl": "/api/browse-media/components/typed-code/video.mp4",
+  "tags": [
+    "code",
+    "typewriter",
+    "reveal",
+    "motion"
+  ]
+}
