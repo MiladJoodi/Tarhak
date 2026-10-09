@@ -306,6 +306,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "date-field": {
+    name: "date-field",
+    description: "فیلد انتخاب تاریخ شمسی که با کلیک به تقویم مورف می‌شود؛ ماه و سال جداگانه عوض می‌شوند.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/date-field.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/date-field-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "date-field"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "day-picker": {
     name: "day-picker",
     description: "چیپ تکرار که به روزانه / هفتگی / ماهانه / سالانه باز می‌شود، بعد به روزهای هفته.",
@@ -956,6 +974,42 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animated-sidebars": {
+    name: "animated-sidebars",
+    description: "سایدبار ریل جمع‌شونده با زیرمنوی درختی و تم فیلتر تعاملی.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-sidebars.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-sidebars-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-sidebars"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "horizontal-menu": {
+    name: "horizontal-menu",
+    description: "منوی افقی با زیرمنوی هاور و پنل کناری تودرتو.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/horizontal-menu.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/horizontal-menu-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "horizontal-menu"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "expandable-card": {
     name: "expandable-card",
     description: "کارت کوچک → نمای بزرگ با layout مشترک و جزئیات فنری.",
@@ -1093,7 +1147,7 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/default/example/polaroid-drag.tsx")
+      const mod = await import("@/registry/default/demo/polaroid-drag-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "polaroid-drag"
       return { default: mod.default || mod[exportName] }
     }),

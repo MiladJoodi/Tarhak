@@ -451,20 +451,14 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
                     )}
                   />
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-foreground">
-                          {item.name}
-                        </p>
-                        <p className="mt-0.5 text-xs text-zinc-500">
-                          {item.variant}
-                        </p>
-                      </div>
-                      <p className="shrink-0 text-sm font-medium tabular-nums text-foreground">
-                        {formatPrice(item.price * item.quantity)}
-                      </p>
-                    </div>
-                    <div className="mt-2.5 flex items-center justify-between gap-2">
+                    <p className="text-sm font-medium leading-snug text-foreground">
+                      {item.name}
+                    </p>
+                    <p className="mt-0.5 text-xs text-zinc-500">{item.variant}</p>
+                    <p className="mt-1.5 text-sm font-semibold whitespace-nowrap tabular-nums text-foreground">
+                      {formatPrice(item.price * item.quantity)}
+                    </p>
+                    <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5">
                       <div
                         className="inline-flex items-center rounded-lg border border-border"
                         role="group"
@@ -508,25 +502,7 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
             <FieldLabel htmlFor="cart-coupon-code" className="text-foreground">
               اعمال کد تخفیف
             </FieldLabel>
-            <div className="flex gap-2">
-              <Input
-                id="cart-coupon-code"
-                value={couponInput}
-                onChange={(event) => {
-                  setCouponInput(event.target.value);
-                  setCouponError(null);
-                }}
-                placeholder="کد را وارد کنید…"
-                dir="ltr"
-                className="min-w-0 flex-1 text-start"
-                aria-describedby={
-                  couponError
-                    ? "cart-coupon-error"
-                    : appliedCoupon
-                      ? "cart-coupon-success"
-                      : undefined
-                }
-              />
+            <div className="flex min-w-0 gap-2">
               <Button
                 type="button"
                 variant="outline"
@@ -535,6 +511,29 @@ export const CartDemo = ({ revealOpen }: DrawerFieldContentProps = {}) => {
               >
                 اعمال
               </Button>
+              <Input
+                id="cart-coupon-code"
+                value={couponInput}
+                onChange={(event) => {
+                  setCouponInput(event.target.value);
+                  setCouponError(null);
+                }}
+                placeholder="کد را وارد کنید"
+                // Empty: RTL + start align so Persian placeholder sits on the right.
+                // Typed Latin codes (SAVE10): switch to LTR.
+                dir={couponInput.trim() ? "ltr" : "rtl"}
+                className={cn(
+                  "min-w-0 flex-1",
+                  couponInput.trim() ? "text-left" : "text-right",
+                )}
+                aria-describedby={
+                  couponError
+                    ? "cart-coupon-error"
+                    : appliedCoupon
+                      ? "cart-coupon-success"
+                      : undefined
+                }
+              />
             </div>
             {couponError ? (
               <p id="cart-coupon-error" className="text-xs text-destructive">

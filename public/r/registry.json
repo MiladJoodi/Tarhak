@@ -298,6 +298,25 @@
       ]
     },
     {
+      "name": "date-field",
+      "type": "registry:component",
+      "title": "Date Field",
+      "description": "فیلد انتخاب تاریخ شمسی که با کلیک به تقویم مورف می‌شود؛ ماه و سال جداگانه عوض می‌شوند.",
+      "dependencies": [
+        "motion",
+        "date-fns-jalali",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/date-field.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "day-picker",
       "type": "registry:component",
       "title": "Day Picker",
@@ -947,6 +966,44 @@
         }
       ]
     },
+    {
+      "name": "animated-sidebars",
+      "type": "registry:component",
+      "title": "Animated Sidebars",
+      "description": "سایدبار ریل جمع‌شونده با زیرمنوی درختی و تم فیلتر تعاملی.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-sidebars.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+
+    {
+      "name": "horizontal-menu",
+      "type": "registry:component",
+      "title": "Horizontal Menu",
+      "description": "منوی افقی با زیرمنوی هاور و پنل کناری تودرتو.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/horizontal-menu.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+
     {
       "name": "expandable-card",
       "type": "registry:component",

@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "تاریخ را بزن",
+  "hintDescription": "فیلد را باز کن، ماه را عوض کن و یک روز را انتخاب کن.",
+  "hintTop": 120,
+  "posterUrl": "/api/browse-media/components/date-field/poster.avif",
+  "videoUrl": "/api/browse-media/components/date-field/video.mp4",
+  "tags": [
+    "input",
+    "calendar",
+    "date",
+    "jalali",
+    "form"
+  ]
+}

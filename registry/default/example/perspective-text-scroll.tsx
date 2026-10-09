@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const DEFAULT_TEXT =
-  "سیستم طراحی فقط پوشه‌ای از کامپوننت نیست. ریتمی مشترک است: فاصله‌هایی که نفس می‌کشند، تایپی که در هر مقیاس خوانا می‌ماند، و حرکتی که عمدی است نه تزئینی. وقتی این انتخاب‌ها روی هم جمع می‌شوند، هر صفحه حس می‌کند به همان محصول فکر‌شده تعلق دارد.";
+  "طراحی خوب وقتی حس می‌شود که فاصله‌ها نفس بکشند، تایپ خوانا بماند، و حرکت عمدی باشد — نه تزئینی.";
 
 const KEYFRAMES = [
   { p: 0.0, rotX: 42, transY: 520, transZ: -30, opacity: 0.0 },
@@ -63,9 +63,6 @@ export function PerspectiveTextScroll() {
     targetProgress: 0,
     rafId: 0,
   });
-
-  const backgroundColor = "#F7F4F2";
-  const textColor = "#7B9E87";
 
   const applyTransform = (p: number) => {
     if (!textRef.current) return;
@@ -136,7 +133,7 @@ export function PerspectiveTextScroll() {
       lang="fa"
       role="region"
       aria-label="اسکرول متن سه‌بعدی"
-      className="relative w-full bg-[#F7F4F2] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[#7B9E87] dark:bg-[hsl(225_7%_11%)] dark:text-[#9BB8A6]"
+      className="relative w-full bg-[#F7F4F2] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal text-[#5F7F6B] dark:bg-[hsl(225_7%_11%)] dark:text-[#C5D9CC]"
       style={{ height: "500vh" }}
     >
       <div
@@ -145,11 +142,10 @@ export function PerspectiveTextScroll() {
       >
         <div
           ref={textRef}
-          className="relative w-full max-w-3xl px-6 text-center text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl"
+          className="relative w-full max-w-lg px-6 text-center text-[1.125rem] font-medium leading-[1.85] sm:max-w-xl sm:text-[1.25rem] sm:leading-[1.9]"
           style={{
             transformStyle: "preserve-3d",
             backfaceVisibility: "hidden",
-            color: textColor,
             willChange: "transform, opacity",
             WebkitFontSmoothing: "antialiased",
             MozOsxFontSmoothing: "grayscale",
@@ -160,10 +156,8 @@ export function PerspectiveTextScroll() {
           {DEFAULT_TEXT}
 
           <div
-            className="pointer-events-none absolute bottom-0 start-0 h-[40%] w-full select-none"
-            style={{
-              background: `linear-gradient(to bottom, transparent, ${backgroundColor})`,
-            }}
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] select-none bg-linear-to-b from-transparent to-[#F7F4F2] dark:to-[hsl(225_7%_11%)]"
           />
         </div>
       </div>

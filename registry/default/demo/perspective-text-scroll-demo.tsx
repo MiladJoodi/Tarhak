@@ -4,7 +4,7 @@ import PerspectiveTextScroll from "@/registry/default/example/perspective-text-s
 
 export default function PerspectiveTextScrollDemo() {
   return (
-    <div className="w-full min-w-0 bg-[#F7F4F2]">
+    <div className="w-full min-w-0 bg-[#F7F4F2] dark:bg-[hsl(225_7%_11%)]">
       <PerspectiveTextScroll />
     </div>
   );

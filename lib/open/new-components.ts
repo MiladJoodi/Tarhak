@@ -1,4 +1,4 @@
-/** Components uploaded in the latest friend commit on feat/revive. */
+/** Components marked with the green “new” dot in browse + docs nav. */
 export const NEW_COMPONENT_SLUGS = new Set([
   "accessible-action",
   "accordionos",
@@ -55,7 +55,10 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "animated-select",
   "sortable-list",
   "animated-data-table",
+  "animated-sidebars",
+  "horizontal-menu",
   "expandable-card",
+  "date-field",
 ]);
 
 export function isNewComponent(slug: string) {

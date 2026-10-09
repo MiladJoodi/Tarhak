@@ -1,0 +1,28 @@
+---
+title: Horizontal Menu
+description: "منوی افقی با زیرمنوی هاور؛ زیرگزینه‌ها دوباره هاور می‌شوند و پنل کناری باز می‌شود."
+---
+
+## نحوه استفاده
+
+```tsx
+import HorizontalMenu, {
+  SoftHorizontalMenu,
+} from "@/components/horizontal-menu";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[320px] w-full items-start justify-center pt-8">
+      <SoftHorizontalMenu />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- نوار افقی با چند آیتم کنار هم.
+- هاور روی والد → پنل زیرین.
+- هاور روی زیرگزینهٔ شاخه‌دار → پنل کناری (تودرتو، قابل تکرار).
+- تم مثل `filter-interaction`: Estedad، `bg-card`، `hover:bg-accent`.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

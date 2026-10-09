@@ -11,7 +11,6 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
-// Change Here
 const TABS = [
   {
     id: "popular",
@@ -31,9 +30,16 @@ const TABS = [
   },
 ] as const;
 
+const spring = {
+  type: "spring" as const,
+  damping: 22,
+  stiffness: 260,
+  mass: 1,
+};
+
 export default function DiscoverButton() {
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]["id"]>(
-    TABS[0].id
+    TABS[0].id,
   );
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
@@ -41,137 +47,112 @@ export default function DiscoverButton() {
     <div
       dir="rtl"
       lang="fa"
-      className="flex h-full flex-col items-center gap-3 p-2 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:flex-row"
+      className="flex h-full w-full min-w-0 items-center justify-center px-3 py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal md:p-6"
     >
-      {/* Search Button / Input */}
-      <motion.div
-        layout
-        transition={{
-          type: "spring",
-          damping: 20,
-          stiffness: 230,
-          mass: 1.2,
-        }}
-        onClick={() => !isSearchExpanded && setIsSearchExpanded(true)}
-        className={`relative flex h-[60px] cursor-pointer items-center overflow-hidden rounded-[3rem] bg-white px-[1.125rem] py-2 shadow-lg ${
-          isSearchExpanded ? "flex-1" : ""
-        }`}
-      >
-        <div className="shrink-0">
+      <div className="flex h-14 w-full max-w-[22rem] items-center gap-2 sm:h-[60px] sm:max-w-md sm:gap-3">
+        {/* Search — fixed height; expands only in width */}
+        <motion.button
+          type="button"
+          aria-label={isSearchExpanded ? undefined : "باز کردن جستجو"}
+          aria-expanded={isSearchExpanded}
+          transition={spring}
+          animate={{
+            flexGrow: isSearchExpanded ? 1 : 0,
+            flexBasis: isSearchExpanded ? "0%" : "56px",
+            width: isSearchExpanded ? "auto" : 56,
+          }}
+          onClick={() => {
+            if (!isSearchExpanded) setIsSearchExpanded(true);
+          }}
+          className="relative flex h-14 shrink-0 cursor-pointer items-center overflow-hidden rounded-full bg-white px-4 shadow-lg sm:h-[60px] sm:px-[1.125rem]"
+          style={{ minWidth: 56, maxWidth: "100%" }}
+        >
           <HugeiconsIcon
             icon={Search01Icon}
-            className="h-6 w-6 text-gray-800"
+            className="size-5 shrink-0 text-gray-800 sm:size-6"
           />
-        </div>
 
-        <motion.div
-          initial={false}
-          animate={{
-            width: isSearchExpanded ? "auto" : "0px",
-            opacity: isSearchExpanded ? 1 : 0,
-            filter: isSearchExpanded ? "blur(0px)" : "blur(4px)",
-            marginInlineStart: isSearchExpanded ? "12px" : "0px",
-          }}
-          transition={{
-            type: "spring",
-            damping: 20,
-            stiffness: 230,
-            mass: 1.2,
-          }}
-          className="-mb-0.5 flex items-center overflow-hidden"
-        >
-          <input
-            type="text"
-            placeholder="جستجو"
-            aria-label="جستجو"
-            className="w-full border-0 bg-transparent text-lg outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </motion.div>
-      </motion.div>
+          <motion.div
+            initial={false}
+            animate={{
+              width: isSearchExpanded ? "100%" : 0,
+              opacity: isSearchExpanded ? 1 : 0,
+              marginInlineStart: isSearchExpanded ? 10 : 0,
+            }}
+            transition={spring}
+            className="flex min-w-0 items-center overflow-hidden"
+          >
+            {isSearchExpanded ? (
+              <input
+                type="search"
+                placeholder="جستجو"
+                aria-label="جستجو"
+                autoFocus
+                className="w-full min-w-0 border-0 bg-transparent text-base outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") setIsSearchExpanded(false);
+                }}
+              />
+            ) : null}
+          </motion.div>
+        </motion.button>
 
-      {/* Tab Container / Close Button */}
-      <motion.div
-        layout
-        transition={{
-          type: "spring",
-          damping: 20,
-          stiffness: 230,
-          mass: 1.2,
-        }}
-        className={`relative flex items-center overflow-hidden rounded-[20px] bg-white shadow-lg md:rounded-[3rem] ${isSearchExpanded ? `h-[60px]` : `h-[120px]`} md:h-[60px]`}
-      >
-        {/* Wrapper to control clipping */}
+        {/* Tabs / close — always one horizontal pill */}
         <motion.div
-          initial={false}
+          transition={spring}
           animate={{
-            width: isSearchExpanded ? "60px" : "auto",
+            width: isSearchExpanded ? 56 : "auto",
+            minWidth: isSearchExpanded ? 56 : undefined,
           }}
-          transition={{
-            type: "spring",
-            damping: 20,
-            stiffness: 230,
-            mass: 1.2,
-          }}
-          className="relative flex h-full items-center overflow-hidden"
+          className="relative flex h-14 shrink-0 items-center overflow-hidden rounded-full bg-white shadow-lg sm:h-[60px]"
         >
-          {/* Tabs Group - stays in place, gets clipped */}
           <motion.div
             initial={false}
             animate={{
               opacity: isSearchExpanded ? 0 : 1,
               filter: isSearchExpanded ? "blur(4px)" : "blur(0px)",
-              width: "auto",
             }}
-            transition={{
-              duration: 0.2,
-            }}
-            className="flex items-center whitespace-nowrap"
+            transition={{ duration: 0.18 }}
+            className="flex h-full items-center gap-0.5 px-1 sm:gap-1 sm:px-1.5"
+            style={{ pointerEvents: isSearchExpanded ? "none" : "auto" }}
           >
-            <div className="flex flex-col items-center gap-2 px-2 md:flex-row md:px-[6px]">
-              {TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`relative flex w-full items-center gap-2 rounded-2xl px-7 py-3 transition-colors md:rounded-[3rem] md:px-6 ${
-                    activeTab === tab.id ? tab.color : "text-gray-700"
-                  }`}
-                >
-                  {activeTab === tab.id && (
-                    <motion.span
-                      layoutId="bubble"
-                      className={`absolute inset-0 z-0 ${tab.bg} rounded-[12px] md:rounded-[9999]`}
-                      transition={{
-                        type: "spring",
-                        bounce: 0.19,
-                        duration: 0.4,
-                      }}
-                    />
-                  )}
-                  <HugeiconsIcon
-                    icon={tab.icon}
-                    className={`relative z-10 h-5 w-5 ${
-                      activeTab === tab.id ? tab.fill : ""
-                    }`}
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative flex h-11 items-center gap-1.5 rounded-full px-3 transition-colors sm:h-12 sm:gap-2 sm:px-5 ${
+                  activeTab === tab.id ? tab.color : "text-gray-700"
+                }`}
+              >
+                {activeTab === tab.id ? (
+                  <motion.span
+                    layoutId="discover-bubble"
+                    className={`absolute inset-0 z-0 ${tab.bg} rounded-full`}
+                    transition={{ type: "spring", bounce: 0.19, duration: 0.4 }}
                   />
-                  <span className="relative z-10 font-semibold">
-                    {tab.label}
-                  </span>
-                </button>
-              ))}
-            </div>
+                ) : null}
+                <HugeiconsIcon
+                  icon={tab.icon}
+                  className={`relative z-10 size-4 sm:size-5 ${
+                    activeTab === tab.id ? tab.fill : ""
+                  }`}
+                />
+                <span className="relative z-10 text-sm font-semibold whitespace-nowrap sm:text-base">
+                  {tab.label}
+                </span>
+              </button>
+            ))}
           </motion.div>
 
-          {/* Close Button - positioned absolutely on top */}
           <motion.div
             initial={false}
             animate={{
               opacity: isSearchExpanded ? 1 : 0,
               filter: isSearchExpanded ? "blur(0px)" : "blur(4px)",
             }}
-            transition={{
-              duration: 0.2,
-            }}
+            transition={{ duration: 0.18 }}
             className="absolute inset-0 flex items-center justify-center"
             style={{ pointerEvents: isSearchExpanded ? "auto" : "none" }}
           >
@@ -179,16 +160,16 @@ export default function DiscoverButton() {
               type="button"
               aria-label="بستن جستجو"
               onClick={() => setIsSearchExpanded(false)}
-              className="shrink-0 cursor-pointer"
+              className="flex size-full cursor-pointer items-center justify-center"
             >
               <HugeiconsIcon
                 icon={MultiplicationSignIcon}
-                className="h-6 w-6 text-gray-800"
+                className="size-5 text-gray-800 sm:size-6"
               />
             </button>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 }

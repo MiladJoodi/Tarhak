@@ -728,25 +728,27 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
 WheelCarousel.displayName = 'WheelCarousel';
 
 export const WheelCarouselDemo: React.FC = () => {
-  const customText = 'rgba(180, 90, 20, 0.45)';
-  const customSelected = '#b4541e';
-  const customMarker = '#b4541e';
-
   return (
     <div
       dir="rtl"
       lang="fa"
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-[#fff6ec] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal [--wheel-bg:#fff6ec] dark:bg-[hsl(225_7%_11%)] dark:[--wheel-bg:hsl(225_7%_11%)]"
+      className={cn(
+        "relative flex h-full w-full flex-col items-center justify-center overflow-hidden",
+        "bg-[#fff6ec] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
+        "[--wheel-bg:#fff6ec] [--wheel-text:rgba(180,90,20,0.45)] [--wheel-sel:#b4541e] [--wheel-marker:#b4541e]",
+        "dark:bg-[hsl(225_7%_11%)] dark:[--wheel-bg:hsl(225_7%_11%)]",
+        "dark:[--wheel-text:rgba(245,220,190,0.42)] dark:[--wheel-sel:#f3d2ae] dark:[--wheel-marker:#f3d2ae]",
+      )}
     >
       <div
-        className="pointer-events-none absolute top-[12%] left-[10%] h-[450px] w-[450px] animate-pulse rounded-full opacity-60 blur-[70px]"
+        className="pointer-events-none absolute top-[12%] left-[10%] h-[450px] w-[450px] animate-pulse rounded-full opacity-60 blur-[70px] dark:opacity-40"
         style={{
           background:
             'radial-gradient(circle, rgba(232, 121, 46, 0.18) 0%, transparent 70%)',
         }}
       />
       <div
-        className="pointer-events-none absolute right-[15%] bottom-[10%] h-[500px] w-[500px] rounded-full opacity-60 blur-[80px]"
+        className="pointer-events-none absolute right-[15%] bottom-[10%] h-[500px] w-[500px] rounded-full opacity-60 blur-[80px] dark:opacity-35"
         style={{
           background:
             'radial-gradient(circle, rgba(180, 84, 30, 0.14) 0%, transparent 70%)',
@@ -778,9 +780,9 @@ export const WheelCarouselDemo: React.FC = () => {
           edgeFade={true}
           edgeFadeSize={30}
           background="var(--wheel-bg)"
-          textColor={customText}
-          selectedColor={customSelected}
-          markerColor={customMarker}
+          textColor="var(--wheel-text)"
+          selectedColor="var(--wheel-sel)"
+          markerColor="var(--wheel-marker)"
           style={{ width: '100%', height: '100%', maxWidth: '920px' }}
         />
       </div>

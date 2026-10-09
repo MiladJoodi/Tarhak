@@ -176,7 +176,7 @@ function AnimatedCard({
         className="group block cursor-pointer text-inherit no-underline outline-none"
         aria-label={`باز کردن ${project.title}`}
       >
-        <article className="relative box-border w-full pt-14">
+        <article className="relative box-border w-full pt-12 sm:pt-14">
           <div
             style={{ backgroundColor: project.color }}
             className="absolute start-0 top-0 flex h-12 w-44 items-center rounded-t-2xl px-4 text-base font-semibold text-black shadow-[inset_0_-1px_0_rgba(0,0,0,0.04)] sm:h-14 sm:w-60 sm:px-6"

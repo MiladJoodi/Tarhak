@@ -283,22 +283,22 @@
 
 /*
  * Preview interaction hint — desktop keeps per-component --preview-hint-top.
- * On narrow / short viewports, cap offset and compact the stack so the hint
- * stays under the open chrome and does not sit on the centered demo.
+ * On narrow / short viewports, keep the stack under the mobile h-14 chrome
+ * (never < 4.5rem) and cap so it does not sit on the centered demo.
  */
 .preview-hint-offset {
   top: var(--preview-hint-top, 80px);
 }
 
-@media (max-width: 767px) {
+@media (max-height: 720px) {
   .preview-hint-offset {
-    top: min(4.25rem, var(--preview-hint-top, 80px));
+    top: min(4.5rem, var(--preview-hint-top, 80px));
   }
 }
 
-@media (max-height: 720px) {
+@media (max-width: 767px) {
   .preview-hint-offset {
-    top: min(3.75rem, var(--preview-hint-top, 80px));
+    top: clamp(4.5rem, var(--preview-hint-top, 80px), 5.5rem);
   }
 }
 

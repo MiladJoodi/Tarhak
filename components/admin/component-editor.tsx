@@ -657,7 +657,7 @@ export function ComponentEditor({
             <Separator />
             <div
               className={cn(
-                "component-showcase flex min-h-[min(52vh,480px)] items-center justify-center overflow-hidden text-foreground",
+                "component-showcase flex min-h-[min(52vh,480px)] items-center justify-center overflow-auto text-foreground",
                 previewTheme === "dark" ? "dark" : "light",
                 !activePreviewBackground && "bg-muted",
               )}

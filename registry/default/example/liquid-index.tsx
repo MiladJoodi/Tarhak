@@ -45,7 +45,7 @@ const ITEMS: Item[] = [
   {
     title: "اتاق تاریک",
     description: "سینی، نور ایمن، و چاپی که فقط در دقیقهٔ آخر ظاهر می‌شود.",
-    image: `/unsplash/1508615039623-a25605d2b022.webp`,
+    image: `/unsplash/1492691527719-9d1e07e534b4.webp`,
     icon: Camera,
     seed: 732,
     colors: [

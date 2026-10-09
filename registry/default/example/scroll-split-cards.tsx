@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, type RefObject } from "react";
+import React, { useEffect, useState, useRef, type RefObject } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export type SplitCard = {
@@ -20,7 +20,7 @@ export type ScrollSplitCardsProps = {
 };
 
 export const DEFAULT_IMAGE =
-  "/unsplash/1524504388940-b1c1722653e1.webp";
+  "/unsplash/1524504388940-b1c1722653e1-lg.webp";
 
 export const DEFAULT_CARDS: SplitCard[] = [
   {
@@ -50,9 +50,24 @@ export const DEFAULT_CARDS: SplitCard[] = [
 ];
 
 const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+const MOBILE_MQ = "(max-width: 767px)";
 
 function toFaDigits(value: string | number) {
   return String(value).replace(/\d/g, (digit) => FA_DIGITS[Number(digit)] ?? digit);
+}
+
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia(MOBILE_MQ).matches : false,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_MQ);
+    const sync = () => setMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  return mobile;
 }
 
 export function clamp01(n: number) {
@@ -76,12 +91,29 @@ export function panelShiftX(progress: number, index: number, peak = 48) {
   return dir * lerp(0, peak, out) * (1 - settle * 0.5) || 0;
 }
 
+/** Mobile: top/bottom bands peel apart vertically before the flip. */
+export function panelShiftY(progress: number, index: number, peak = 28) {
+  const dir = index === 0 ? -1 : index === 2 ? 1 : 0;
+  const out = remap(progress, 0, 0.35);
+  const settle = remap(progress, 0.35, 0.75);
+  return dir * lerp(0, peak, out) * (1 - settle * 0.45) || 0;
+}
+
 export function panelRotateY(progress: number) {
   return lerp(0, 180, remap(progress, 0.4, 0.8));
 }
 
+/** Mobile: flip over the X axis — reads like pages peeling upward. */
+export function panelRotateX(progress: number) {
+  return lerp(0, -180, remap(progress, 0.35, 0.78));
+}
+
 export function panelScale(progress: number) {
   return lerp(1, 0.92, remap(progress, 0, 0.4));
+}
+
+export function panelScaleMobile(progress: number) {
+  return lerp(1, 0.96, remap(progress, 0, 0.35));
 }
 
 export function panelRadius(progress: number, index: number) {
@@ -91,7 +123,75 @@ export function panelRadius(progress: number, index: number) {
   return `${inner}px`;
 }
 
-function Panel({
+/** Stacked bands: outer corners stay round; seams soften as they peel. */
+export function panelRadiusMobile(progress: number, index: number) {
+  const seam = lerp(0, 14, remap(progress, 0, 0.25));
+  if (index === 0) return `18px 18px ${seam}px ${seam}px`;
+  if (index === 2) return `${seam}px ${seam}px 18px 18px`;
+  return `${seam}px`;
+}
+
+function CardFace({
+  card,
+  index,
+  compact,
+}: {
+  card: SplitCard;
+  index: number;
+  compact?: boolean;
+}) {
+  return (
+    <div
+      dir="rtl"
+      lang="fa"
+      className={`flex h-full flex-col justify-between overflow-hidden font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] antialiased ${
+        compact ? "p-3.5 sm:p-4" : "p-5 sm:p-6"
+      }`}
+      style={{
+        backgroundColor: card.bgColor,
+        color: card.textColor,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
+      }}
+    >
+      <div
+        className={`flex items-center justify-between gap-2 font-medium tabular-nums opacity-55 ${
+          compact ? "text-[10px]" : "text-[10px]"
+        }`}
+      >
+        <span>{toFaDigits(String(index + 1).padStart(2, "0"))}</span>
+        {card.kicker ? (
+          <span className="min-w-0 truncate">{card.kicker}</span>
+        ) : null}
+      </div>
+      <div className="text-start">
+        <div
+          className={`mb-2.5 h-px opacity-50 ${compact ? "w-5" : "mb-4 w-7"}`}
+          style={{ backgroundColor: "currentColor" }}
+        />
+        <h3
+          className={
+            compact
+              ? "text-[15px] font-semibold leading-snug text-balance"
+              : "text-[22px] font-semibold leading-[1.25] text-balance sm:text-[26px]"
+          }
+        >
+          {card.title}
+        </h3>
+        <p
+          className={
+            compact
+              ? "mt-1.5 line-clamp-2 text-[11px] leading-relaxed text-pretty opacity-80"
+              : "mt-2.5 text-[13px] leading-relaxed text-pretty opacity-80 sm:text-sm"
+          }
+        >
+          {card.description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function PanelDesktop({
   card,
   index,
   progress,
@@ -122,40 +222,72 @@ function Panel({
           style={{
             left: `${-100 * index}%`,
             backgroundImage: `url(${imageSrc})`,
-            backgroundSize: "100% 100%",
+            backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           }}
         />
       </motion.div>
 
       <motion.div
-        dir="rtl"
-        lang="fa"
-        className="absolute inset-0 flex flex-col justify-between overflow-hidden p-5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] antialiased [backface-visibility:hidden] sm:p-6"
+        className="absolute inset-0 overflow-hidden [backface-visibility:hidden]"
         style={{
-          backgroundColor: card.bgColor,
-          color: card.textColor,
           borderRadius: radius,
           transform: "rotateY(180deg)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
         }}
       >
-        <div className="flex items-center justify-between gap-3 text-[10px] font-medium tabular-nums opacity-55">
-          <span>{toFaDigits(String(index + 1).padStart(2, "0"))}</span>
-          {card.kicker ? <span className="truncate">{card.kicker}</span> : null}
-        </div>
-        <div className="text-start">
-          <div
-            className="mb-4 h-px w-7 opacity-50"
-            style={{ backgroundColor: "currentColor" }}
-          />
-          <h3 className="text-[22px] font-semibold leading-[1.25] text-balance sm:text-[26px]">
-            {card.title}
-          </h3>
-          <p className="mt-2.5 text-[13px] leading-relaxed text-pretty opacity-80 sm:text-sm">
-            {card.description}
-          </p>
-        </div>
+        <CardFace card={card} index={index} />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function PanelMobile({
+  card,
+  index,
+  progress,
+  imageSrc,
+}: {
+  card: SplitCard;
+  index: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  imageSrc: string;
+}) {
+  const y = useTransform(progress, (p) => panelShiftY(p, index));
+  const rotateX = useTransform(progress, panelRotateX);
+  const radius = useTransform(progress, (p) => panelRadiusMobile(p, index));
+
+  return (
+    <motion.div
+      className={`relative min-h-0 w-full flex-[1_1_0] [transform-style:preserve-3d] ${
+        index > 0 ? "-mt-px" : ""
+      }`}
+      style={{ y, rotateX, zIndex: 3 - index }}
+    >
+      <motion.div
+        className="absolute inset-0 overflow-hidden [backface-visibility:hidden]"
+        style={{ borderRadius: radius }}
+      >
+        <div
+          className="absolute inset-x-0 h-[300%] w-full"
+          style={{
+            top: `${-100 * index}%`,
+            backgroundImage: `url(${imageSrc})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute inset-0 overflow-hidden [backface-visibility:hidden]"
+        style={{
+          borderRadius: radius,
+          transform: "rotateX(180deg)",
+        }}
+      >
+        <CardFace card={card} index={index} compact />
       </motion.div>
     </motion.div>
   );
@@ -168,14 +300,20 @@ export function ScrollSplitCards({
   containerRef,
 }: ScrollSplitCardsProps) {
   const cards = items.slice(0, 3);
+  const mobile = useIsMobile();
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
     ...(containerRef ? { container: containerRef } : {}),
     offset: ["start start", "end end"],
   });
-  const scale = useTransform(scrollYProgress, panelScale);
-  const lift = useTransform(scrollYProgress, (p) => lerp(0, -72, remap(p, 0.85, 1)));
+  const scale = useTransform(
+    scrollYProgress,
+    mobile ? panelScaleMobile : panelScale,
+  );
+  const lift = useTransform(scrollYProgress, (p) =>
+    lerp(0, mobile ? -36 : -72, remap(p, 0.85, 1)),
+  );
 
   return (
     <div
@@ -183,23 +321,44 @@ export function ScrollSplitCards({
       lang="fa"
       className={`relative h-[400vh] w-full bg-neutral-950 ${className}`}
     >
-      {/* Image strip stays LTR so the photo seams stay correct. */}
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden [perspective:1400px]">
-        <motion.div
-          dir="ltr"
-          className="flex h-[min(420px,56vh)] w-full max-w-4xl px-4 [transform-style:preserve-3d]"
-          style={{ scale, y: lift }}
-        >
-          {cards.map((card, index) => (
-            <Panel
-              key={card.title}
-              card={card}
-              index={index}
-              progress={scrollYProgress}
-              imageSrc={imageSrc}
-            />
-          ))}
-        </motion.div>
+      <div
+        className={`sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden ${
+          mobile ? "[perspective:900px]" : "[perspective:1400px]"
+        }`}
+      >
+        {mobile ? (
+          <motion.div
+            dir="ltr"
+            className="flex h-[min(560px,72vh)] w-full max-w-md flex-col px-4 [transform-style:preserve-3d]"
+            style={{ scale, y: lift }}
+          >
+            {cards.map((card, index) => (
+              <PanelMobile
+                key={card.title}
+                card={card}
+                index={index}
+                progress={scrollYProgress}
+                imageSrc={imageSrc}
+              />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            dir="ltr"
+            className="flex h-[min(420px,56vh)] w-full max-w-4xl px-4 [transform-style:preserve-3d]"
+            style={{ scale, y: lift }}
+          >
+            {cards.map((card, index) => (
+              <PanelDesktop
+                key={card.title}
+                card={card}
+                index={index}
+                progress={scrollYProgress}
+                imageSrc={imageSrc}
+              />
+            ))}
+          </motion.div>
+        )}
       </div>
     </div>
   );

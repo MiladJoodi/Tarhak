@@ -39,7 +39,9 @@ export function OpenPanelProvider({ children }: { children: React.ReactNode }) {
   const [previewTheme, setPreviewThemeState] = React.useState<PreviewTheme>("dark");
   const [pathForPanel, setPathForPanel] = React.useState(pathname);
 
-  React.useEffect(() => {
+  // useLayoutEffect: apply stored theme before paint so light demos do not flash
+  // a dark-tone hint (white connector line) under the mobile header.
+  React.useLayoutEffect(() => {
     setPreviewThemeState(readStoredTheme());
   }, []);
 

@@ -1,0 +1,35 @@
+---
+title: Date Field
+description: فیلد انتخاب تاریخ شمسی که با کلیک به تقویم مورف می‌شود؛ ماه و سال جداگانه عوض می‌شوند.
+---
+
+## نحوه استفاده
+
+```tsx
+import { useState } from "react";
+import DateField from "@/components/date-field";
+
+export default function Example() {
+  const [date, setDate] = useState<Date | null>(null);
+
+  return (
+    <DateField
+      value={date}
+      onChange={setDate}
+      placeholder="تاریخ را انتخاب کنید"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- فیلد بسته با آیکون تقویم و متن «تاریخ را انتخاب کنید» یا تاریخ انتخاب‌شده.
+- مورف فنری از فیلد به پنل تقویم با `layoutId` مشترک.
+- تقویم جلالی با هفته از شنبه و ارقام فارسی.
+- فلش‌های ماه راست‌چین: راست = ماه قبل، چپ = ماه بعد.
+- چیپ ماه و سال: روی عنوان بزنید تا شبکهٔ ماه‌ها یا فهرست سال‌ها باز شود.
+- سلول روز انتخاب‌شده با قرص اصلی متحرک؛ امروز با حاشیهٔ ملایم.
+- میانبر «امروز» و بستن با کلیک بیرون یا Escape.
+- فونت Estedad مثل `filter-interaction` و `nested-dropdown`.
+- به `motion` و `date-fns-jalali` نیاز دارد.

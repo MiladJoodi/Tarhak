@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 80,
+  "showHint": false,
+  "hintKind": "custom",
+  "hintHeading": "",
+  "hintDescription": "",
+  "posterUrl": "/api/browse-media/components/animated-sidebars/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-sidebars/video.mp4",
+  "tags": [
+    "sidebar",
+    "navigation",
+    "submenu",
+    "rail",
+    "motion"
+  ]
+}

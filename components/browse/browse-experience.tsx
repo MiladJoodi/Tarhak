@@ -24,7 +24,7 @@ export function BrowseExperience({
 
   const filtered = React.useMemo(() => {
     return rankSearchItems(items, query, (item) => ({
-      name: `${item.title} ${item.slug}`,
+      name: `${item.titleFa ?? ""} ${item.title} ${item.slug}`,
       tags: item.tags,
       extra: `${item.description} ${item.category}`,
     }));
@@ -32,13 +32,22 @@ export function BrowseExperience({
 
   const isEmpty = filtered.length === 0;
   const isCanvas = viewMode === "canvas";
+  const hasQuery = query.trim().length > 0;
 
   return (
     <div
       data-quality={quality}
       className="dark flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-sans text-foreground"
+      dir="rtl"
+      lang="fa"
     >
-      <BrowseHeader query={query} onQueryChange={setQuery} stars={stars} />
+      <BrowseHeader
+        query={query}
+        onQueryChange={setQuery}
+        stars={stars}
+        resultCount={filtered.length}
+        totalCount={items.length}
+      />
 
       <div className="flex min-h-0 flex-1 overflow-hidden px-3 pt-0.5 pb-2.5">
         <div className="relative min-h-0 w-full min-w-0 flex-1">
@@ -49,18 +58,22 @@ export function BrowseExperience({
               isCanvas ? "overflow-hidden" : "overflow-auto",
             )}
           >
-            {isEmpty ? (
-              <div className="flex min-h-[60vh] flex-col items-center justify-center gap-2 px-8 text-center">
-                <p className="text-sm text-muted-foreground">
-                  No components match “{query}”.
+            {isEmpty && hasQuery ? (
+              <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 px-8 text-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]">
+                <p className="text-[15px] text-white/55">
+                  چیزی برای «{query.trim()}» پیدا نشد.
                 </p>
                 <button
                   type="button"
                   onClick={() => setQuery("")}
-                  className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                  className="rounded-full bg-white/10 px-4 py-2 text-[13px] font-medium text-white/85 transition-colors hover:bg-white/15"
                 >
-                  Clear search
+                  پاک کردن جستجو
                 </button>
+              </div>
+            ) : isEmpty ? (
+              <div className="flex min-h-[60vh] flex-col items-center justify-center gap-2 px-8 text-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]">
+                <p className="text-[15px] text-white/45">هنوز کامپوننتی نیست.</p>
               </div>
             ) : isCanvas ? (
               <InfiniteCanvas items={filtered} paused={paused} />

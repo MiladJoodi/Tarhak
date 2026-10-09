@@ -128,11 +128,14 @@ const LineNavItem = memo(function LineNavItem({
         onBlur={() => onHover?.(null)}
       >
         <span className="inline-flex min-w-0 flex-col items-end gap-0.5 text-end">
-          <span className="inline-flex items-center gap-1.5 text-sm whitespace-nowrap text-white/40 transition-[color] ease-out group-hover:text-white group-aria-[current=page]:text-white">
-            <span dir={titleFa ? "rtl" : "ltr"} lang={titleFa ? "fa" : undefined}>
-              {primary}
-            </span>
+          <span
+            dir={titleFa ? "rtl" : "ltr"}
+            lang={titleFa ? "fa" : undefined}
+            className="inline-flex items-center gap-1.5 text-sm whitespace-nowrap text-white/40 transition-[color] ease-out group-hover:text-white group-aria-[current=page]:text-white"
+          >
+            {/* RTL: first child on the right — green dot beside the start of the title */}
             {isNew ? <NewDot /> : null}
+            <span>{primary}</span>
           </span>
           {titleFa ? (
             <span

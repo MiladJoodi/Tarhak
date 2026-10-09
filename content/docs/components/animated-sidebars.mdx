@@ -1,0 +1,27 @@
+---
+title: Animated Sidebars
+description: "سایدبار ریل جمع‌شونده با زیرمنوی درختی و تم فیلتر تعاملی."
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedSidebars, {
+  SoftSidebarRail,
+} from "@/components/animated-sidebars";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[640px] w-full items-start justify-center">
+      <SoftSidebarRail />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- **SoftSidebarRail**: نوار آیکون ↔ باز با لیبل؛ زیرمنوی والد با خط درختی زیر همان آیتم.
+- در حالت جمع‌شده، زیرمنو کنار ریل به‌صورت پرنده باز می‌شود.
+- تم و تایپ مثل `filter-interaction`: Estedad، `bg-card` / `border-border` / `hover:bg-accent`.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

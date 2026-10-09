@@ -407,7 +407,8 @@ function OpenExperienceShell({
         exit: { width: 0, opacity: 0.6 },
       };
 
-  const showDesktopPinned = pinned && !isMobile && !stage;
+  // `isMobile === false` (not !isMobile): unknown viewport must not paint desktop chrome.
+  const showDesktopPinned = pinned && isMobile === false && !stage;
   const showToggle = !stage && !showDesktopPinned;
 
   return (
@@ -421,11 +422,11 @@ function OpenExperienceShell({
               peek && "z-40",
             )}
             onMouseEnter={() => {
-              if (isMobile || suppressPeekRef.current) return;
+              if (isMobile !== false || suppressPeekRef.current) return;
               setPeek(true);
             }}
             onMouseLeave={() => {
-              if (isMobile) return;
+              if (isMobile !== false) return;
               suppressPeekRef.current = false;
               if (suppressPeekTimerRef.current != null) {
                 window.clearTimeout(suppressPeekTimerRef.current);
@@ -451,7 +452,7 @@ function OpenExperienceShell({
               <SidebarToggleIcon />
             </button>
             <AnimatePresence>
-              {peek && !isMobile ? (
+              {peek && isMobile === false ? (
                 <motion.div
                   ref={peekPanelRef}
                   className="pointer-events-auto absolute top-11 right-0 z-40 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
@@ -554,7 +555,7 @@ function OpenExperienceShell({
       </div>
 
       {/* Mobile: partial-width right sheet */}
-      <Sheet open={isMobile && mobileOpen} onOpenChange={setMobileOpen}>
+      <Sheet open={isMobile === true && mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent
           side="right"
           showCloseButton={false}

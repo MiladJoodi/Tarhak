@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback, useState } from "react";
+
 import { cn } from "@/lib/utils";
 
 export type DirectionIcon = {
@@ -8,8 +10,42 @@ export type DirectionIcon = {
   viewBox: string;
 };
 
+type Zone = 1 | 2 | 3 | 4;
+
+const pressStyles: Record<Zone, string[]> = {
+  1: [
+    "[&[data-pressed='1']_.button-wrapper]:[transform:translate(0,-5px)_rotateX(8deg)]",
+    "[&[data-pressed='1']_.button-wrapper]:[transform-style:preserve-3d]",
+    "[&[data-pressed='1']_.button-wrapper]:![box-shadow:0_7px_14px_rgba(0,0,0,0.5),0_14px_8px_-5px_rgba(0,0,0,0.3),0_24px_8px_rgba(0,0,0,0.4),0_-6px_10px_rgba(255,255,255,0.5),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)]",
+    "[&[data-pressed='1']_.icon-top]:fill-[#eaa75d]",
+    "[&[data-pressed='1']_.icon-top]:[filter:brightness(0.9)_drop-shadow(0_0_2px_#f1b475)_drop-shadow(0_0_1px_#fff)]",
+  ],
+  2: [
+    "[&[data-pressed='2']_.button-wrapper]:[transform:translate(5px,0)_rotateY(8deg)]",
+    "[&[data-pressed='2']_.button-wrapper]:[transform-style:preserve-3d]",
+    "[&[data-pressed='2']_.button-wrapper]:![box-shadow:2px_9px_14px_rgba(0,0,0,0.4),2px_19px_8px_-2px_rgba(0,0,0,0.2),2px_30px_8px_rgba(0,0,0,0.3),-6px_-14px_10px_rgba(255,255,255,0.5),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)]",
+    "[&[data-pressed='2']_.icon-right]:fill-[#e3a560]",
+    "[&[data-pressed='2']_.icon-right]:[filter:brightness(0.9)_drop-shadow(0_0_2px_#e3a15b)_drop-shadow(0_0_1px_#fff)]",
+  ],
+  3: [
+    "[&[data-pressed='3']_.button-wrapper]:[transform:translate(-5px,0)_rotateY(-8deg)]",
+    "[&[data-pressed='3']_.button-wrapper]:[transform-style:preserve-3d]",
+    "[&[data-pressed='3']_.button-wrapper]:![box-shadow:-2px_9px_14px_rgba(0,0,0,0.4),-2px_19px_8px_-2px_rgba(0,0,0,0.2),-2px_30px_8px_rgba(0,0,0,0.3),6px_-14px_10px_rgba(255,255,255,0.5),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)]",
+    "[&[data-pressed='3']_.icon-left]:fill-[#e3a560]",
+    "[&[data-pressed='3']_.icon-left]:[filter:brightness(0.9)_drop-shadow(0_0_2px_#e3a15b)_drop-shadow(0_0_1px_#fff)]",
+  ],
+  4: [
+    "[&[data-pressed='4']_.button-wrapper]:[transform:translate(0,5px)_rotateX(-8deg)]",
+    "[&[data-pressed='4']_.button-wrapper]:[transform-style:preserve-3d]",
+    "[&[data-pressed='4']_.button-wrapper]:![box-shadow:0_5px_14px_rgba(0,0,0,0.6),0_19px_8px_-2px_rgba(0,0,0,0.3),0_34px_8px_rgba(0,0,0,0.4),0_-14px_10px_rgba(255,255,255,0.65),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)]",
+    "[&[data-pressed='4']_.icon-bottom]:fill-[#e3a560]",
+    "[&[data-pressed='4']_.icon-bottom]:[filter:brightness(0.9)_drop-shadow(0_0_2px_#e3a15b)_drop-shadow(0_0_1px_#fff)]",
+  ],
+};
+
 const rowClassName = cn(
   "row relative flex h-[320px] w-full items-center justify-center overflow-hidden bg-transparent",
+  // Desktop hover (fine pointer)
   "[@media(hover:hover)_and_(pointer:fine)]:[&:has(.t1:hover)_.button-wrapper]:[transform:translate(0,-5px)_rotateX(8deg)]",
   "[@media(hover:hover)_and_(pointer:fine)]:[&:has(.t1:hover)_.button-wrapper]:[transform-style:preserve-3d]",
   "[@media(hover:hover)_and_(pointer:fine)]:[&:has(.t1:hover)_.button-wrapper]:![box-shadow:0_7px_14px_rgba(0,0,0,0.5),0_14px_8px_-5px_rgba(0,0,0,0.3),0_24px_8px_rgba(0,0,0,0.4),0_-6px_10px_rgba(255,255,255,0.5),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)]",
@@ -30,30 +66,36 @@ const rowClassName = cn(
   "[@media(hover:hover)_and_(pointer:fine)]:[&:has(.t4:hover)_.button-wrapper]:![box-shadow:0_5px_14px_rgba(0,0,0,0.6),0_19px_8px_-2px_rgba(0,0,0,0.3),0_34px_8px_rgba(0,0,0,0.4),0_-14px_10px_rgba(255,255,255,0.65),inset_0_3px_3px_rgba(255,255,255,0.6),inset_0_-3px_3px_rgba(89,91,92,0.6)]",
   "[@media(hover:hover)_and_(pointer:fine)]:[&:has(.t4:hover)_.icon-bottom]:fill-[#e3a560]",
   "[@media(hover:hover)_and_(pointer:fine)]:[&:has(.t4:hover)_.icon-bottom]:[filter:brightness(0.9)_drop-shadow(0_0_2px_#e3a15b)_drop-shadow(0_0_1px_#fff)]",
+  // Touch / pointer press (mobile + mouse down)
+  ...pressStyles[1],
+  ...pressStyles[2],
+  ...pressStyles[3],
+  ...pressStyles[4],
   "motion-reduce:[&_.button-wrapper]:transition-none",
   "motion-reduce:[&:has(.t1:hover)_.button-wrapper]:![transform:none]",
   "motion-reduce:[&:has(.t2:hover)_.button-wrapper]:![transform:none]",
   "motion-reduce:[&:has(.t3:hover)_.button-wrapper]:![transform:none]",
-  "motion-reduce:[&:has(.t4:hover)_.button-wrapper]:![transform:none]"
+  "motion-reduce:[&:has(.t4:hover)_.button-wrapper]:![transform:none]",
+  "motion-reduce:[&[data-pressed]_.button-wrapper]:![transform:none]",
 );
 
 const dotClassName = cn(
   "absolute size-[8px] -translate-x-1/2 -translate-y-1/2 rounded-[50%]",
   "bg-[#e7ecef]",
-  "shadow-[0_2px_2px_rgba(0,0,0,0.3),inset_0_-2px_2px_rgba(0,0,0,0.2)]"
+  "shadow-[0_2px_2px_rgba(0,0,0,0.3),inset_0_-2px_2px_rgba(0,0,0,0.2)]",
 );
 
 const iconClassName = cn(
   "icon absolute w-[30px] -translate-x-1/2 -translate-y-1/2",
   "fill-[#b4b9bd]",
-  "[filter:drop-shadow(1px_1px_1px_#f4f4f4)]"
+  "[filter:drop-shadow(1px_1px_1px_#f4f4f4)]",
 );
 
-const touchZoneClassNames = [
-  "t t1 size-[150px]",
-  "t t2 size-[150px]",
-  "t t3 size-[150px]",
-  "t t4 size-[150px]",
+const touchZones: { zone: Zone; className: string; label: string }[] = [
+  { zone: 1, className: "t t1 size-[150px]", label: "بالا" },
+  { zone: 2, className: "t t2 size-[150px]", label: "راست" },
+  { zone: 3, className: "t t3 size-[150px]", label: "چپ" },
+  { zone: 4, className: "t t4 size-[150px]", label: "پایین" },
 ];
 
 const dotClassNames = [
@@ -87,23 +129,45 @@ const directionIcons: DirectionIcon[] = [
 ];
 
 export const AnalogStick = () => {
+  const [pressed, setPressed] = useState<Zone | null>(null);
+
+  const release = useCallback(() => setPressed(null), []);
+
   return (
     <section
       lang="fa"
       aria-label="دموی دکمهٔ جهتی فشاری"
+      data-pressed={pressed ?? undefined}
       className={cn(
         rowClassName,
-        "font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+        "font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
       )}
     >
-      {/* Physical D-pad: keep LTR so left/right hover zones are not mirrored. */}
+      {/* Physical D-pad: keep LTR so left/right zones are not mirrored. */}
       <div
-        aria-hidden="true"
         dir="ltr"
-        className="touch absolute z-10 flex size-[300px] rotate-45 flex-wrap"
+        className="touch absolute z-10 flex size-[300px] rotate-45 flex-wrap touch-none"
       >
-        {touchZoneClassNames.map((className) => (
-          <div className={className} key={className} />
+        {touchZones.map(({ zone, className, label }) => (
+          <button
+            key={zone}
+            type="button"
+            aria-label={label}
+            className={cn(
+              className,
+              "cursor-pointer appearance-none border-0 bg-transparent p-0",
+            )}
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId);
+              setPressed(zone);
+            }}
+            onPointerUp={release}
+            onPointerCancel={release}
+            onPointerLeave={(event) => {
+              if (event.buttons === 0) release();
+            }}
+            onLostPointerCapture={release}
+          />
         ))}
       </div>
 

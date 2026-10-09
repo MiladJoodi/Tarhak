@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion, type Transition } from "motion/react";
+import clsx from "clsx";
 
 interface FolderCardItem {
   id?: string | number;
@@ -29,8 +31,7 @@ const DEMO_CARDS: FolderCardItem[] = [
     borderColor: "#D4C4F5",
     textColor: "#3B2F63",
     subTextColor: "rgba(59, 47, 99, 0.65)",
-    bgImage:
-      "/unsplash/1473580044384-7ba9967e16a0.webp",
+    bgImage: "/unsplash/1473580044384-7ba9967e16a0.webp",
     characterImage: `${OBJECT}/Activities/Artist%20Palette.png`,
   },
   {
@@ -42,8 +43,7 @@ const DEMO_CARDS: FolderCardItem[] = [
     borderColor: "#FFD4B8",
     textColor: "#5C3D2E",
     subTextColor: "rgba(92, 61, 46, 0.65)",
-    bgImage:
-      "/unsplash/1486312338219-ce68d2c6f44d.webp",
+    bgImage: "/unsplash/1486312338219-ce68d2c6f44d.webp",
     characterImage: `${OBJECT}/Objects/Camera.png`,
   },
   {
@@ -55,8 +55,7 @@ const DEMO_CARDS: FolderCardItem[] = [
     borderColor: "#B8EBCE",
     textColor: "#1F4D38",
     subTextColor: "rgba(31, 77, 56, 0.65)",
-    bgImage:
-      "/unsplash/1497366216548-37526070297c.webp",
+    bgImage: "/unsplash/1497366216548-37526070297c.webp",
     characterImage: `${OBJECT}/Animals/Potted%20Plant.png`,
   },
 ];
@@ -70,25 +69,63 @@ const gpuSpringTransition: Transition = {
   restSpeed: 0.0005,
 };
 
-function FolderPeek({ card }: { card: FolderCardItem }) {
+function canHover() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover)").matches
+  );
+}
+
+function FolderPeek({
+  card,
+  open,
+  onOpenChange,
+}: {
+  card: FolderCardItem;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   const textColor = card.textColor ?? "#09090b";
   const subTextColor = card.subTextColor ?? "rgba(9, 9, 11, 0.65)";
   const Component = card.href ? motion.a : motion.div;
+  const variant = open ? "hover" : "initial";
 
   return (
-    <div className="relative isolate h-[400px] w-[300px] shrink-0">
+    <div className="relative isolate h-[320px] w-[240px] shrink-0 sm:h-[360px] sm:w-[270px] md:h-[400px] md:w-[300px]">
       <Component
         {...(card.href
           ? { href: card.href, target: "_blank", rel: "noopener noreferrer" }
           : {})}
-        className="group relative block h-[400px] w-[300px] cursor-pointer select-none overflow-hidden rounded-[32px] shadow-lg transform-gpu [backface-visibility:hidden] [contain:paint] [perspective:1000px]"
+        role={card.href ? undefined : "button"}
+        tabIndex={card.href ? undefined : 0}
+        aria-expanded={card.href ? undefined : open}
+        onClick={() => {
+          if (card.href || canHover()) return;
+          onOpenChange(!open);
+        }}
+        onKeyDown={(event) => {
+          if (card.href) return;
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onOpenChange(!open);
+          }
+        }}
+        onHoverStart={() => {
+          if (canHover()) onOpenChange(true);
+        }}
+        onHoverEnd={() => {
+          if (canHover()) onOpenChange(false);
+        }}
+        className={clsx(
+          "group relative block size-full cursor-pointer select-none overflow-hidden rounded-[24px] shadow-lg sm:rounded-[28px] md:rounded-[32px]",
+          "transform-gpu [backface-visibility:hidden] [contain:paint] [perspective:1000px]",
+        )}
         style={{
-          border: `10px solid ${card.borderColor}`,
+          border: `8px solid ${card.borderColor}`,
           boxSizing: "border-box",
         }}
         initial="initial"
-        whileHover="hover"
-        animate="initial"
+        animate={variant}
       >
         <motion.div
           className="absolute inset-0 z-0 overflow-hidden transform-gpu will-change-[transform]"
@@ -110,10 +147,10 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
         </motion.div>
 
         <motion.div
-          className="pointer-events-none absolute left-1/2 top-[130px] z-10 flex w-[230px] -translate-x-1/2 justify-center transform-gpu will-change-[transform]"
+          className="pointer-events-none absolute left-1/2 top-[100px] z-10 flex w-[180px] -translate-x-1/2 justify-center transform-gpu will-change-[transform] sm:top-[115px] sm:w-[210px] md:top-[130px] md:w-[230px]"
           variants={{
             initial: { y: 0, scale: 0.96 },
-            hover: { y: -72, scale: 1.08 },
+            hover: { y: -56, scale: 1.08 },
           }}
           transition={gpuSpringTransition}
         >
@@ -131,16 +168,16 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
               alt=""
               decoding="async"
               loading="eager"
-              className="pointer-events-none h-44 w-auto max-w-[180px] transform-gpu select-none object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.2)]"
+              className="pointer-events-none h-32 w-auto max-w-[140px] transform-gpu select-none object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.2)] sm:h-40 sm:max-w-[160px] md:h-44 md:max-w-[180px]"
             />
           </motion.div>
         </motion.div>
 
         <motion.div
-          className="pointer-events-none absolute inset-x-0 top-[80px] z-20 h-[380px] transform-gpu will-change-[transform]"
+          className="pointer-events-none absolute inset-x-0 top-[64px] z-20 h-[300px] transform-gpu will-change-[transform] sm:top-[72px] sm:h-[340px] md:top-[80px] md:h-[380px]"
           variants={{
             initial: { y: 0 },
-            hover: { y: 100 },
+            hover: { y: 80 },
           }}
           transition={gpuSpringTransition}
         >
@@ -157,14 +194,14 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
           </svg>
 
           <div
-            className="absolute start-6 top-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-[3.5rem] font-bold tabular-nums leading-none tracking-tighter select-none"
+            className="absolute start-5 top-3 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-[2.75rem] font-bold tabular-nums leading-none tracking-tighter select-none sm:start-6 sm:top-4 sm:text-[3.25rem] md:text-[3.5rem]"
             style={{ color: textColor }}
           >
             {card.number}
           </div>
 
           <motion.div
-            className="absolute end-6 top-[46px] flex h-6 w-6 transform-gpu items-center justify-center will-change-[transform]"
+            className="absolute end-5 top-9 flex size-5 transform-gpu items-center justify-center will-change-[transform] sm:end-6 sm:top-[46px] sm:size-6"
             variants={{
               initial: { x: 0, scale: 1 },
               hover: { x: -4, scale: 1.15 },
@@ -178,7 +215,7 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
               strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="pointer-events-none h-5 w-5"
+              className="pointer-events-none size-4 sm:size-5"
             >
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 5 5 12 12 19" />
@@ -187,17 +224,17 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
         </motion.div>
 
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex flex-col gap-2 p-5 pb-[22px]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex flex-col gap-1.5 p-4 pb-4 sm:gap-2 sm:p-5 sm:pb-[22px]"
           style={{ color: textColor }}
         >
           <h3
-            className="select-none font-sans text-base font-semibold leading-7 tracking-normal"
+            className="select-none font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-sm font-semibold leading-6 tracking-normal sm:text-base sm:leading-7"
             style={{ color: textColor }}
           >
             {card.title}
           </h3>
           <p
-            className="select-none font-sans text-sm font-normal leading-relaxed opacity-80"
+            className="select-none font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-xs font-normal leading-relaxed opacity-80 sm:text-sm"
             style={{ color: subTextColor }}
           >
             {card.description}
@@ -209,15 +246,24 @@ function FolderPeek({ card }: { card: FolderCardItem }) {
 }
 
 export default function CardFolder() {
+  const [openId, setOpenId] = useState<string | number | null>(null);
+
   return (
     <section
       dir="rtl"
       lang="fa"
-      className="flex h-full w-full items-center justify-center px-6 py-8 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="flex w-full items-center justify-center px-1 py-2 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal sm:px-2 sm:py-4"
     >
-      <div className="flex flex-wrap items-center justify-center gap-8">
+      <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6 md:gap-8">
         {DEMO_CARDS.map((card) => (
-          <FolderPeek key={card.id} card={card} />
+          <FolderPeek
+            key={card.id}
+            card={card}
+            open={openId === card.id}
+            onOpenChange={(next) =>
+              setOpenId(next ? (card.id ?? null) : null)
+            }
+          />
         ))}
       </div>
     </section>

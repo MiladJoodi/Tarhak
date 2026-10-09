@@ -31,19 +31,35 @@ export function OpenPreview({
     name === "scroll-stack-deck" ||
     name === "stack-scroll-reveal" ||
     name === "scroll-split-cards";
+  // Full-bleed pan canvases: pin to the preview box. items-center + % height collapses them.
+  const fillBleed = name === "infinite-grid";
+  // Expanding popovers (date field, filter morph) must not be clipped by the stage.
+  const allowOverflow =
+    name === "date-field" ||
+    name === "filter-interaction" ||
+    name === "nested-dropdown";
 
   const inner = Component ? (
-    <div
-      className={cn(
-        // items-center (not safe_center): Tailwind never emitted items-[safe_center],
-        // so align-items stayed normal/stretch and short demos pinned to the top.
-        "flex w-full min-w-0 items-center justify-center",
-        fill && "h-full",
-        nestedPageScroll && "min-h-0",
-      )}
-    >
-      <Component size="lg" />
-    </div>
+    fillBleed ? (
+      <div className="relative h-full min-h-0 w-full">
+        <Component size="lg" className="absolute inset-0 size-full" />
+      </div>
+    ) : (
+      <div
+        className={cn(
+          // items-center (not safe_center): Tailwind never emitted items-[safe_center],
+          // so align-items stayed normal/stretch and short demos pinned to the top.
+          "flex w-full min-w-0 items-center justify-center",
+          // min-h-0: let h-full demos with overflow-auto become the scrollport
+          // instead of inflating <main> and clipping under the overlay header.
+          fill && "h-full min-h-0",
+          nestedPageScroll && "min-h-0",
+          allowOverflow && "overflow-visible",
+        )}
+      >
+        <Component size="lg" />
+      </div>
+    )
   ) : (
     <p className="text-sm text-muted-foreground">This component has no live preview yet.</p>
   );
@@ -54,7 +70,7 @@ export function OpenPreview({
         // no min-h-full: that overrides grid min-height:auto and clips tall sticky demos
         "component-showcase grid w-full min-w-0 text-foreground",
         theme === "dark" ? "dark" : "light",
-        fill ? "h-full" : "h-max",
+        fill ? "h-full min-h-0" : "h-max",
         nestedPageScroll && "min-h-0",
         className,
       )}

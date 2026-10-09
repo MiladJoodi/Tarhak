@@ -31,49 +31,49 @@ export interface LiquidGlassInfiniteGridProps extends React.HTMLAttributes<HTMLD
 export const DEFAULT_GRID_ITEMS: GridItem[] = [
   {
     id: 'a-01',
-    title: 'A-01 هدفون استودیو',
+    title: 'هدفون استودیو',
     subtitle: '۵۴۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1506905925346-21bda4d32df4.webp',
   },
   {
     id: 'w-02',
-    title: 'W-02 کرنوگراف اتوماتیک',
+    title: 'کرنوگراف',
     subtitle: '۲٬۱۰۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1523275335684-37898b6baf30.webp',
   },
   {
     id: 'c-03',
-    title: 'C-03 دوربین مونوکروم',
+    title: 'دوربین مونو',
     subtitle: '۳٬۴۵۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1526170375885-4d8ecf77b99f.webp',
   },
   {
     id: 's-04',
-    title: 'S-04 اسپیکر شفاف',
+    title: 'اسپیکر شفاف',
     subtitle: '۶۸۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1507003211169-0a1dd7228f2d.webp',
   },
   {
     id: 'k-05',
-    title: 'K-05 کیبورد ماشین‌کاری‌شده',
+    title: 'کیبورد فلزی',
     subtitle: '۳۲۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1507473885765-e6ed057f782c.webp',
   },
   {
     id: 'm-06',
-    title: 'M-06 موس ارگونومیک',
+    title: 'موس ارگو',
     subtitle: '۱۶۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1507525428034-b723cf961d3e.webp',
   },
   {
     id: 'e-07',
-    title: 'E-07 عینک تیتانیوم',
+    title: 'عینک تیتانیوم',
     subtitle: '۴۱۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1507591064344-4c6ce005b128.webp',
   },
   {
     id: 'l-08',
-    title: 'L-08 چراغ معماری',
+    title: 'چراغ معماری',
     subtitle: '۷۵۰٬۰۰۰ تومان',
     imageUrl: '/unsplash/1507473885765-e6ed057f782c.webp',
   },
@@ -90,7 +90,7 @@ export const LiquidGlassCard = forwardRef<HTMLDivElement, LiquidGlassCardProps>(
     return (
       <div
         ref={ref}
-        className={cn('group flex flex-col items-center gap-[18px] w-full select-none', className)}
+        className={cn('group flex w-full select-none flex-col items-stretch gap-2', className)}
         {...props}
       >
         {item.customContent ? (
@@ -98,7 +98,7 @@ export const LiquidGlassCard = forwardRef<HTMLDivElement, LiquidGlassCardProps>(
         ) : (
           <>
             <div
-              className="relative w-full aspect-square overflow-hidden flex items-center justify-center"
+              className="relative flex w-full aspect-square items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/6"
               style={{ aspectRatio }}
             >
               {item.imageUrl && (
@@ -110,22 +110,28 @@ export const LiquidGlassCard = forwardRef<HTMLDivElement, LiquidGlassCardProps>(
                   draggable={false}
                   referrerPolicy="no-referrer"
                   className={cn(
-                    'w-full h-full object-contain object-center select-none pointer-events-none transition-transform duration-200 ease-out group-hover:scale-105',
+                    'pointer-events-none size-full select-none object-cover object-center transition-transform duration-200 ease-out group-hover:scale-105',
                     imageClassName
                   )}
                 />
               )}
             </div>
 
-            <div className="flex w-full flex-col items-center text-center pointer-events-none">
-              <p className="text-[13px] font-medium leading-[1.2em] tracking-normal text-neutral-950">
+            <div className="pointer-events-none flex w-full flex-col items-stretch pb-3 text-start">
+              <p
+                className="w-full truncate text-[13px] font-medium leading-[1.2em] tracking-normal text-neutral-950"
+                title={item.title}
+              >
                 {item.title}
               </p>
-              {item.subtitle && (
-                <p className="mt-0.5 text-[13px] font-normal leading-[1.2em] tracking-normal text-neutral-400" dir="ltr">
+              {item.subtitle ? (
+                <p
+                  className="mt-0.5 w-full truncate text-[12px] font-normal leading-[1.2em] tracking-normal text-neutral-400"
+                  title={item.subtitle}
+                >
                   {item.subtitle}
                 </p>
-              )}
+              ) : null}
             </div>
           </>
         )}
@@ -337,7 +343,7 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
         dir="rtl"
         lang="fa"
         className={cn(
-          'infinite-grid-root relative h-full min-h-dvh w-full overflow-hidden bg-white font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)]',
+          'infinite-grid-root relative h-full w-full overflow-hidden bg-white font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal dark:bg-[hsl(225_7%_11%)]',
           className
         )}
       >
@@ -413,8 +419,10 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
                       display: 'grid',
                       width: 'max-content',
                       gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                      alignItems: 'center',
-                      gap: `${gapVw}vw`,
+                      alignItems: 'start',
+                      // Wider row gap so each caption reads with its image, not the row below.
+                      columnGap: `${gapVw}vw`,
+                      rowGap: `calc(${gapVw}vw + 1.25rem)`,
                       padding: '1.25vw',
                     }}
                   >

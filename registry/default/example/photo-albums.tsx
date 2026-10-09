@@ -126,11 +126,11 @@ const COLLECTIONS: Collection[] = [
       },
       {
         id: "p4-3",
-        src: "/unsplash/1508615039623-a25605d2b022.webp",
+        src: "/unsplash/1513519245088-0e12902e5a38.webp",
       },
       {
         id: "p4-4",
-        src: "/unsplash/1518640467707-6811f4a6ab73.webp",
+        src: "/unsplash/1492691527719-9d1e07e534b4.webp",
       },
       {
         id: "p4-5",
@@ -198,11 +198,11 @@ function ExpandedAlbum({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex shrink-0 flex-col gap-5 pb-5">
+      <div className="flex shrink-0 items-center gap-3 pb-5">
         <button
           type="button"
           onClick={onBack}
-          className="flex size-12 cursor-pointer items-center justify-center rounded-full bg-muted text-foreground transition-transform duration-150 ease-out active:scale-[0.96]"
+          className="flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-muted text-foreground transition-transform duration-150 ease-out active:scale-[0.96]"
         >
           <ChevronRight size={24} strokeWidth={2.5} />
           <span className="sr-only">بازگشت</span>
@@ -210,7 +210,7 @@ function ExpandedAlbum({
 
         <motion.h2
           layoutId={`title-${collection.id}`}
-          className="text-3xl leading-tight font-medium text-balance text-foreground"
+          className="min-w-0 flex-1 text-3xl leading-tight font-medium text-balance text-foreground"
           transition={transition}
         >
           {collection.title}

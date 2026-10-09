@@ -2,9 +2,12 @@ import assert from "node:assert/strict";
 
 import {
   panelRadius,
+  panelRadiusMobile,
+  panelRotateX,
   panelRotateY,
   panelScale,
   panelShiftX,
+  panelShiftY,
   remap,
 } from "./scroll-split-cards";
 
@@ -33,5 +36,12 @@ assert.equal(panelRadius(0, 0), "16px 0px 0px 16px");
 assert.equal(panelRadius(0, 1), "0px");
 assert.equal(panelRadius(0, 2), "0px 16px 16px 0px");
 assert.equal(panelRadius(0.2, 1), "16px");
+
+assert.equal(panelShiftY(0.35, 0), -28);
+assert.equal(panelShiftY(0.35, 2), 28);
+assert.equal(panelRotateX(0.35), 0);
+assert.equal(panelRotateX(0.78), -180);
+assert.equal(panelRadiusMobile(0, 0), "18px 18px 0px 0px");
+assert.equal(panelRadiusMobile(0, 2), "0px 0px 18px 18px");
 
 console.log("scroll-split-cards.selfcheck ok");
