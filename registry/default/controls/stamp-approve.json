@@ -1,0 +1,28 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "#09090b"
+  },
+  "interactionHints": {
+    "duration": 3,
+    "scale": 70,
+    "items": []
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "روی مهر تأیید بزن",
+  "hintDescription": "مهر بالا می‌رود، روی سند می‌خورد و اثر دایره‌ای «تأیید شد» دقیقاً زیر صفحهٔ مهر می‌نشیند. بعد از چند ثانیه ریست می‌شود.",
+  "hintTop": 140,
+  "hintHideOnScroll": false,
+  "posterUrl": "/api/browse-media/components/stamp-approve/poster.avif",
+  "videoUrl": "/api/browse-media/components/stamp-approve/video.mp4",
+  "tags": [
+    "button",
+    "stamp",
+    "approve",
+    "document"
+  ]
+}

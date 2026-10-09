@@ -57,6 +57,9 @@ const glassBgActive = "rgba(255, 255, 255, 0.28)";
 
 /** Figma Mask group SVG — soft radial, center α 0.5 → edge 0 (desktop). */
 const FIELD_MASK = "url(/landing/hero-canvas-mask.svg)";
+/** Soft left/right dissolve so cards melt into the hero edges. */
+const FIELD_MASK_SIDES =
+  "linear-gradient(90deg, transparent 0%, black 11%, black 89%, transparent 100%)";
 /** Mobile: soft top dissolve into hero-bg (lavender/blue), not a hard clip. */
 const FIELD_MASK_MOBILE =
   "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.35) 10%, black 28%, black 100%)";
@@ -248,15 +251,36 @@ function HeroCard({
 }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const mountVideo = allowVideo && active && Boolean(item.video);
+  // Keep poster covering the media until the video has a decoded frame.
+  // Otherwise <video> paints black for a frame on every spotlight remount
+  // (same architecture as uselayouts.com — they just load fast from CDN).
+  const [videoReady, setVideoReady] = React.useState(false);
+
+  React.useEffect(() => {
+    setVideoReady(false);
+  }, [item.video, mountVideo]);
 
   React.useEffect(() => {
     const node = videoRef.current;
     if (!node || !mountVideo) return;
+
+    const markReady = () => {
+      if (node.readyState >= 2) setVideoReady(true);
+    };
+
+    markReady();
+    node.addEventListener("loadeddata", markReady);
+    node.addEventListener("canplay", markReady);
+    node.addEventListener("playing", markReady);
     void node.play().catch(() => {});
+
     return () => {
+      node.removeEventListener("loadeddata", markReady);
+      node.removeEventListener("canplay", markReady);
+      node.removeEventListener("playing", markReady);
       node.pause();
     };
-  }, [mountVideo]);
+  }, [mountVideo, item.video]);
 
   return (
     <motion.figure
@@ -315,10 +339,10 @@ function HeroCard({
 
       {/* Figma media radius 10 inside card 12; radius on media too — video ignores parent clip otherwise */}
       <div
-        className="relative z-[1] w-full flex-1 overflow-clip rounded-[10px] bg-white/90 [transform:translateZ(0)]"
+        className="relative z-[1] w-full flex-1 overflow-clip rounded-[10px] bg-[#14151c] [transform:translateZ(0)]"
         style={{ aspectRatio: aspect }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element -- CDN posters; sized by aspect box. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- local posters; sized by aspect box. */}
         <img
           src={item.poster}
           alt=""
@@ -331,12 +355,14 @@ function HeroCard({
           <video
             ref={videoRef}
             src={item.video}
-            poster={item.poster}
             muted
             loop
             playsInline
-            preload="metadata"
-            className="absolute inset-0 size-full rounded-[10px] object-cover"
+            preload="auto"
+            className={cn(
+              "absolute inset-0 size-full rounded-[10px] object-cover transition-opacity duration-200 ease-out",
+              videoReady ? "opacity-100" : "opacity-0",
+            )}
             draggable={false}
             onLoadedMetadata={() => {
               const node = videoRef.current;
@@ -411,6 +437,28 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   }, [camera.scale]);
 
   React.useEffect(() => deferUntilIdle(() => setVideosReady(true)), []);
+
+  // Warm the video cache like a CDN hit on uselayouts.com — first spotlight
+  // swaps then already have bytes buffered, so the poster→video handoff is invisible.
+  React.useEffect(() => {
+    if (!videosReady) return;
+    const warmers: HTMLVideoElement[] = [];
+    for (const item of deckItems) {
+      if (!item.video) continue;
+      const node = document.createElement("video");
+      node.muted = true;
+      node.playsInline = true;
+      node.preload = "auto";
+      node.src = item.video;
+      warmers.push(node);
+    }
+    return () => {
+      for (const node of warmers) {
+        node.removeAttribute("src");
+        node.load();
+      }
+    };
+  }, [videosReady, deckItems]);
 
   React.useEffect(() => {
     if (!ready) return;
@@ -564,14 +612,17 @@ export function HeroSpotlightCanvas({ items }: { items: BrowseItem[] }) {
   return (
     <div
       ref={viewportRef}
-      className="pointer-events-none absolute inset-x-0 bottom-[7%] h-[52%] min-h-[220px] overflow-hidden max-md:[mask-image:var(--hero-field-mask-mobile)] max-md:[-webkit-mask-image:var(--hero-field-mask-mobile)] md:inset-y-0 md:left-0 md:right-auto md:h-auto md:min-h-0 md:w-[64%]"
+      className="pointer-events-none absolute inset-x-0 bottom-[7%] h-[52%] min-h-[220px] overflow-hidden max-md:[mask-image:var(--hero-field-mask-mobile),var(--hero-field-mask-sides)] max-md:[-webkit-mask-image:var(--hero-field-mask-mobile),var(--hero-field-mask-sides)] md:inset-y-0 md:left-0 md:right-auto md:h-auto md:min-h-0 md:w-[64%] md:[mask-image:var(--hero-field-mask-sides)] md:[-webkit-mask-image:var(--hero-field-mask-sides)]"
       style={
         {
           "--hero-field-mask-mobile": FIELD_MASK_MOBILE,
+          "--hero-field-mask-sides": FIELD_MASK_SIDES,
           WebkitMaskRepeat: "no-repeat",
           maskRepeat: "no-repeat",
           WebkitMaskSize: "100% 100%",
           maskSize: "100% 100%",
+          WebkitMaskComposite: "source-in",
+          maskComposite: "intersect",
         } as React.CSSProperties
       }
       aria-hidden

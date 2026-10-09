@@ -59,9 +59,9 @@ function SidebarToggleIcon() {
     <img
       src="/open/sidebar.svg"
       alt=""
-      width={22}
-      height={22}
-      className="size-[22px] transition-[filter] duration-150"
+      width={18}
+      height={18}
+      className="size-[18px] opacity-90"
       draggable={false}
     />
   );
@@ -434,21 +434,16 @@ function OpenExperienceShell({
           >
             <button
               type="button"
-              className={cn(
-                openIconBtn,
-                "pointer-events-auto cursor-pointer p-2.5 transition-[box-shadow,border-color,background-color,transform,color] duration-150",
-                "[@media(hover:hover)_and_(pointer:fine)]:hover:[&_img]:brightness-0",
-                "[@media(hover:hover)_and_(pointer:fine)]:hover:[&_img]:invert",
-              )}
+              className={cn(openIconBtn, "pointer-events-auto cursor-pointer")}
               data-active={peek || mobileOpen ? "true" : undefined}
               aria-label={
                 isMobile
                   ? mobileOpen
-                    ? "Close sidebar"
-                    : "Open sidebar"
+                    ? "بستن سایدبار"
+                    : "باز کردن سایدبار"
                   : peek
-                    ? "Pin sidebar open"
-                    : "Open sidebar"
+                    ? "سنجاق کردن سایدبار"
+                    : "باز کردن سایدبار"
               }
               aria-expanded={isMobile ? mobileOpen : peek}
               aria-pressed={false}

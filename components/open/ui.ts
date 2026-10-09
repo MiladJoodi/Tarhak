@@ -24,19 +24,17 @@ export const openChromeShadow = cn(
 );
 
 export const openIconBtn = cn(
-  "relative inline-flex size-[42px] shrink-0 items-center justify-center overflow-hidden rounded-xl border-0 p-2.5 text-foreground",
-  "bg-[hsl(240_6%_22%)]",
-  "shadow-[0_2px_2px_-1px_hsla(0,0%,0%,0.16),0_4px_4px_-2px_hsla(0,0%,0%,0.24),0_0_0_1px_hsla(0,0%,0%,0.1)]",
-  "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit]",
-  "before:bg-[linear-gradient(180deg,transparent_0%,hsla(0,0%,0%,0.06)_100%)]",
-  "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
-  "after:shadow-[inset_0_1px_0_0_hsla(0,0%,100%,0.05)]",
+  "relative inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/12 p-0 text-white",
+  "bg-[hsla(240,8%,8%,0.55)]",
+  "shadow-[inset_0_1px_0_0_hsla(0,0%,100%,0.08),0_8px_24px_-12px_hsla(0,0%,0%,0.45)]",
+  "backdrop-blur-xl backdrop-saturate-150",
   "[&>*]:relative [&>*]:z-[1]",
   openPressMotion,
-  "outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
+  "outline-none transition-[background-color,color,transform] duration-150",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35",
   "disabled:cursor-not-allowed disabled:opacity-40",
-  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_22%)]",
-  "data-[active=true]:bg-[hsl(240_6%_22%)] data-[active=true]:text-foreground",
+  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsla(240,8%,12%,0.65)]",
+  "data-[active=true]:bg-[hsla(240,8%,14%,0.72)]",
 );
 
 export const openCopyBtn = cn(

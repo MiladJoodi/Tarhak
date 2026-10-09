@@ -38,6 +38,15 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "gooey-navbar",
   "dynamic-grid-gallery",
   "scroll-split-cards",
+  "stamp-approve",
+  "ticket-tear",
+  "dial-volume",
+  "otp-cascade",
+  "event-countdown",
+  "luck-wheel",
+  "prize-coins",
+  "animated-tabs",
+  "nested-dropdown",
 ]);
 
 export function isNewComponent(slug: string) {

@@ -1,0 +1,29 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f6fa",
+    "dark": "#09090b"
+  },
+  "interactionHints": {
+    "duration": 3,
+    "scale": 70,
+    "items": []
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "منوی تو‌در‌تو",
+  "hintDescription": "باز کن، روی فضای کار یا ترجیحات بزن؛ زیرمنو با انیمیشن می‌آید.",
+  "hintTop": 120,
+  "hintHideOnScroll": false,
+  "posterUrl": "/api/browse-media/components/nested-dropdown/poster.avif",
+  "videoUrl": "/api/browse-media/components/nested-dropdown/video.mp4",
+  "tags": [
+    "dropdown",
+    "menu",
+    "nested",
+    "nav",
+    "icons"
+  ]
+}

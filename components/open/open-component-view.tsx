@@ -75,7 +75,7 @@ export function OpenComponentView({
       <OpenDrawer
         open={codeOpen}
         onClose={() => setPanel(null)}
-        title="Get this Component"
+        title="دریافت این کامپوننت"
         wide
       >
         {highlightLoading ? (

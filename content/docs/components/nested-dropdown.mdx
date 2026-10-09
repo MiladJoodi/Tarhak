@@ -1,0 +1,29 @@
+---
+title: Nested Dropdown
+description: "منوی کشویی انیمیشنی تو‌در‌تو با آیکون — مثل smooth-dropdown، با زیرمنوهای لغزنده."
+---
+
+## نحوه استفاده
+
+```tsx
+import NestedDropdown from "@/components/nested-dropdown";
+
+export default function Example() {
+  return (
+    <div className="flex h-[400px] w-full items-start justify-center pt-16">
+      <NestedDropdown />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- دکمهٔ گرد به منو تبدیل می‌شود (همان الگوی `smooth-dropdown`).
+- آیتم‌های شاخه‌دار به زیرمنو می‌روند؛ پنل با بلور و جابه‌جایی عوض می‌شود.
+- دکمهٔ برگشت در بالای هر زیرمنو.
+- آیکون‌های Hugeicons برای هر ردیف.
+- نشانگر هاور/فعال با فنر مشترک.
+- ارتفاع پوسته با اندازهٔ پنل فعلی هماهنگ می‌شود.
+- Escape: برگشت از زیرمنو یا بستن منو.
+- به `motion`، `@hugeicons/*` و `react-use-measure` نیاز دارد.

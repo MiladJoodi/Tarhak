@@ -90,6 +90,21 @@
       ]
     },
     {
+      "name": "animated-tabs",
+      "type": "registry:component",
+      "title": "Animated Tabs",
+      "description": "حرکت نرم نشانگر بین تب‌ها و انتقال انیمیشنی محتوای هر تب.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "bento-card",
       "type": "registry:component",
       "title": "Bento Card",
@@ -321,6 +336,21 @@
       ]
     },
     {
+      "name": "dial-volume",
+      "type": "registry:component",
+      "title": "Dial Volume",
+      "description": "ولوم فلزی را بچرخان؛ حلقهٔ چراغ‌های مربعی سطح صدا را نشان می‌دهد و درصد به‌روز می‌شود.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/dial-volume.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "discover-button",
       "type": "registry:component",
       "title": "Discover Button",
@@ -456,6 +486,21 @@
       "files": [
         {
           "path": "registry/default/example/empty-testimonial.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "event-countdown",
+      "type": "registry:component",
+      "title": "Event Countdown",
+      "description": "نشان می‌دهد چقدر تا شروع رویداد مانده — روز، ساعت، دقیقه و ثانیه.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/event-countdown.tsx",
           "type": "registry:component"
         }
       ]
@@ -683,6 +728,21 @@
       ]
     },
     {
+      "name": "luck-wheel",
+      "type": "registry:component",
+      "title": "Luck Wheel",
+      "description": "چرخ شانس کازینویی؛ سرعت را انتخاب کن، بچرخان، با شتاب و ترمز نرم روی جایزه می‌ایستد.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/luck-wheel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "magnified-bento",
       "type": "registry:component",
       "title": "Magnified Bento",
@@ -719,6 +779,24 @@
       "files": [
         {
           "path": "registry/default/example/morphing-input.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "nested-dropdown",
+      "type": "registry:component",
+      "title": "Nested Dropdown",
+      "description": "منوی کشویی انیمیشنی تو‌در‌تو با آیکون — دکمه به منو تبدیل می‌شود و زیرمنوها با حرکت نرم باز می‌شوند.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "react-use-measure"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/nested-dropdown.tsx",
           "type": "registry:component"
         }
       ]
@@ -768,6 +846,21 @@
       "files": [
         {
           "path": "registry/default/example/overlapping-slider.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "otp-cascade",
+      "type": "registry:component",
+      "title": "OTP Cascade",
+      "description": "شش خانهٔ کد تأیید؛ رقم‌ها یکی‌یکی پر می‌شوند و با کد درست یا غلط بازخورد سبز یا قرمز می‌گیری.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/otp-cascade.tsx",
           "type": "registry:component"
         }
       ]
@@ -893,6 +986,21 @@
       "files": [
         {
           "path": "registry/default/example/pricing-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "prize-coins",
+      "type": "registry:component",
+      "title": "Prize Coins",
+      "description": "جعبه طلایی جایزه را باز کن؛ سکه‌ها پرواز می‌کنند و در شمارندهٔ گوشه جمع می‌شوند.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/prize-coins.tsx",
           "type": "registry:component"
         }
       ]
@@ -1145,6 +1253,21 @@
       ]
     },
     {
+      "name": "stamp-approve",
+      "type": "registry:component",
+      "title": "Stamp Approve",
+      "description": "روی مهر تأیید بزن؛ مهر باد می‌گیرد، روی سند می‌خورد و اثر دایره‌ای «تأیید شد» دقیقاً همان‌جا می‌ماند.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/stamp-approve.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "theme-toggle",
       "type": "registry:component",
       "title": "Theme Toggle",
@@ -1156,6 +1279,21 @@
         }
       ],
       "dependencies": []
+    },
+    {
+      "name": "ticket-tear",
+      "type": "registry:component",
+      "title": "Ticket Tear",
+      "description": "نیمهٔ پایین بلیط را از پرفراژ به پایین بکش؛ جدا می‌شود و می‌افتد. با دکمه هم می‌توانی جدا کنی.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/ticket-tear.tsx",
+          "type": "registry:component"
+        }
+      ]
     },
     {
       "name": "tactile-button",

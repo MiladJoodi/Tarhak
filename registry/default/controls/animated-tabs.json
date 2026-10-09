@@ -1,0 +1,29 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f6fa",
+    "dark": "#09090b"
+  },
+  "interactionHints": {
+    "duration": 3,
+    "scale": 70,
+    "items": []
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "تب‌ها را عوض کن",
+  "hintDescription": "نشانگر نرم بین تب‌ها می‌لغزد و محتوای هر تب با انیمیشن عوض می‌شود.",
+  "hintTop": 140,
+  "hintHideOnScroll": false,
+  "posterUrl": "/api/browse-media/components/animated-tabs/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-tabs/video.mp4",
+  "tags": [
+    "navigation",
+    "tabs",
+    "indicator",
+    "content",
+    "motion"
+  ]
+}

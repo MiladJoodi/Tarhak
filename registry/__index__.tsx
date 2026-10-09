@@ -96,6 +96,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animated-tabs": {
+    name: "animated-tabs",
+    description: "حرکت نرم نشانگر بین تب‌ها و انتقال انیمیشنی محتوای هر تب.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-tabs.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-tabs-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-tabs"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "bento-card": {
     name: "bento-card",
     description: "یک کاشی شیشه‌ای با تب‌هایی که پیش‌نمای داشبورد را داخل همان کارت عوض می‌کنند.",
@@ -324,6 +342,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "dial-volume": {
+    name: "dial-volume",
+    description: "ولوم فلزی را بچرخان؛ حلقهٔ چراغ‌های مربعی سطح صدا را نشان می‌دهد و درصد به‌روز می‌شود.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/dial-volume.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/dial-volume-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "dial-volume"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "discover-button": {
     name: "discover-button",
     description: "کنترل گرد جستجو که کنار تراشه‌های محبوب و علاقه‌مندی‌ها به فیلد کشیده می‌شود.",
@@ -457,6 +493,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/empty-testimonial-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "empty-testimonial"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "event-countdown": {
+    name: "event-countdown",
+    description: "نشان می‌دهد چقدر تا شروع رویداد مانده — روز، ساعت، دقیقه و ثانیه.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/event-countdown.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/event-countdown-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "event-countdown"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
@@ -686,6 +740,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "luck-wheel": {
+    name: "luck-wheel",
+    description: "چرخ شانس کازینویی؛ سرعت را انتخاب کن، بچرخان، با شتاب و ترمز نرم روی جایزه می‌ایستد.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/luck-wheel.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/luck-wheel-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "luck-wheel"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "magnified-bento": {
     name: "magnified-bento",
     description: "کارت بنتو با لنز ذره‌بین قابل‌کشیدن روی چیپ‌های در حال اسکرول.",
@@ -722,6 +794,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "nested-dropdown": {
+    name: "nested-dropdown",
+    description: "منوی کشویی انیمیشنی تو‌در‌تو با آیکون — دکمه به منو تبدیل می‌شود و زیرمنوها با حرکت نرم باز می‌شوند.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/nested-dropdown.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/nested-dropdown-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "nested-dropdown"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "multi-step-form": {
     name: "multi-step-form",
     description: "فرم چندمرحله‌ای پویا و متحرک با اعتبارسنجی.",
@@ -753,6 +843,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/overlapping-slider-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "overlapping-slider"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "otp-cascade": {
+    name: "otp-cascade",
+    description: "شش خانهٔ کد تأیید؛ رقم‌ها یکی‌یکی پر می‌شوند و با کد درست یا غلط بازخورد سبز یا قرمز می‌گیری.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/otp-cascade.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/otp-cascade-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "otp-cascade"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
@@ -879,6 +987,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/example/pricing-card.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "pricing-card"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "prize-coins": {
+    name: "prize-coins",
+    description: "جعبه طلایی جایزه را باز کن؛ سکه‌ها پرواز می‌کنند و در شمارندهٔ گوشه جمع می‌شوند.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/prize-coins.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/prize-coins-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "prize-coins"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
@@ -1130,6 +1256,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "stamp-approve": {
+    name: "stamp-approve",
+    description: "روی مهر تأیید بزن؛ مهر باد می‌گیرد، روی سند می‌خورد و اثر دایره‌ای «تأیید شد» دقیقاً همان‌جا می‌ماند.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/stamp-approve.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/stamp-approve-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "stamp-approve"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "theme-toggle": {
     name: "theme-toggle",
     description: "سوئیچ فیزیکی با دستگیرهٔ نقطه‌دار. بزن و دکمه روی شیار فرو‌رفته حرکت می‌کند.",
@@ -1143,6 +1287,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/theme-toggle-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "theme-toggle"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "ticket-tear": {
+    name: "ticket-tear",
+    description: "نیمهٔ پایین بلیط را از پرفراژ به پایین بکش؛ جدا می‌شود و می‌افتد. با دکمه هم می‌توانی جدا کنی.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/ticket-tear.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/ticket-tear-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "ticket-tear"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,

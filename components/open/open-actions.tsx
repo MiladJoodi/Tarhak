@@ -1,11 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- Figma-exported marks. */
-
 import Link from "next/link";
-import { Pencil } from "lucide-react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons";
+import { Code2, Moon, Pencil, Sun } from "lucide-react";
 
 import { useOpenPanel, type PreviewTheme } from "@/components/open/open-panel-context";
 import { openPressMotion } from "@/components/open/ui";
@@ -13,14 +9,13 @@ import { cn } from "@/lib/utils";
 
 export type OpenPanel = "code" | null;
 
-const actionBtnClass = cn(
-  "inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-xl border-0 p-2.5 text-white",
-  "bg-[hsl(230_77%_55%)]",
-  "shadow-[inset_0_1px_0_0.2px_hsla(0,0%,100%,0.16),0_2px_2px_-1px_hsla(0,0%,0%,0.16),0_4px_4px_-2px_hsla(0,0%,0%,0.24),0_0_0_1px_hsla(0,0%,0%,0.12)]",
-  "outline-none ring-0 ring-offset-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
-  "transition-[transform,background-color,box-shadow] duration-150",
-  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(230_77%_58%)]",
-  "active:bg-[hsl(230_77%_55%)]",
+const toolBtn = cn(
+  "relative inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-[10px] border-0",
+  "text-white/88 outline-none transition-[background-color,color,transform] duration-150",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35",
+  "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-white/[0.12] [@media(hover:hover)_and_(pointer:fine)]:hover:text-white",
+  "active:bg-white/[0.08]",
+  "disabled:cursor-not-allowed disabled:opacity-40",
   openPressMotion,
 );
 
@@ -37,32 +32,18 @@ function PreviewThemeToggle({
       type="button"
       aria-label={next === "light" ? "تم روشن" : "تم تیره"}
       onClick={() => onChange(next)}
-      className={cn(
-        // Solid chrome so the control stays visible on light preview canvases.
-        "relative inline-flex size-11 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-0 text-white",
-        "bg-[hsl(240_6%_22%)]",
-        "shadow-[0_2px_2px_-1px_hsla(0,0%,0%,0.16),0_4px_4px_-2px_hsla(0,0%,0%,0.14),0_0_0_1px_hsla(0,0%,0%,0.1)]",
-        "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit]",
-        "before:bg-[linear-gradient(180deg,transparent_30%,hsla(0,0%,0%,0.07)_100%)]",
-        "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
-        "after:shadow-[inset_0_1px_0.5px_0_hsla(0,0%,100%,0.05)]",
-        "transition-[background-color,transform] duration-150",
-        "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_25%)]",
-        "active:bg-[hsl(240_6%_19%)]",
-        openPressMotion,
-      )}
+      className={toolBtn}
     >
-      <HugeiconsIcon
-        icon={theme === "dark" ? Sun03Icon : Moon02Icon}
-        size={20}
-        strokeWidth={1.8}
-        className="relative z-[1] size-5"
-      />
+      {theme === "dark" ? (
+        <Sun className="size-[17px]" strokeWidth={1.75} />
+      ) : (
+        <Moon className="size-[17px]" strokeWidth={1.75} />
+      )}
     </button>
   );
 }
 
-/** Figma 91:4635 — primary code button; hover only bumps lightness ~2–4. */
+/** Top-left preview tools — glass cluster, no accent fill. */
 export function OpenActions({
   panel,
   onChange,
@@ -76,23 +57,30 @@ export function OpenActions({
   const { previewTheme, setPreviewTheme } = useOpenPanel();
 
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className={cn(
+        "inline-flex items-center gap-0.5 rounded-2xl p-1",
+        "border border-white/12 bg-[hsla(240,8%,8%,0.55)] text-white",
+        "shadow-[inset_0_1px_0_0_hsla(0,0%,100%,0.08),0_8px_24px_-12px_hsla(0,0%,0%,0.45)]",
+        "backdrop-blur-xl backdrop-saturate-150",
+      )}
+    >
       <PreviewThemeToggle theme={previewTheme} onChange={setPreviewTheme} />
       {process.env.NODE_ENV === "development" ? (
-        <Link href={`/admin/${slug}`} className={actionBtnClass} aria-label="Edit">
-          <Pencil className="size-[22px]" />
+        <Link href={`/admin/${slug}`} className={toolBtn} aria-label="ویرایش">
+          <Pencil className="size-[16px]" strokeWidth={1.75} />
         </Link>
       ) : null}
       <button
         type="button"
-        className={actionBtnClass}
-        aria-label="Code"
+        className={cn(toolBtn, active && "bg-white/[0.16] text-white")}
+        aria-label={active ? "بستن کد" : "مشاهده کد"}
         aria-pressed={active}
         onClick={() => {
           onChange(active ? null : "code");
         }}
       >
-        <img src="/open/code.svg" alt="" width={22} height={22} className="size-[22px]" draggable={false} />
+        <Code2 className="size-[17px]" strokeWidth={1.75} />
       </button>
     </div>
   );

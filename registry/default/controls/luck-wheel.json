@@ -1,0 +1,29 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#020617",
+    "dark": "#020617"
+  },
+  "interactionHints": {
+    "duration": 3,
+    "scale": 70,
+    "items": []
+  },
+  "showHint": false,
+  "hintKind": "custom",
+  "hintHeading": "",
+  "hintDescription": "",
+  "hintTop": 140,
+  "hintHideOnScroll": false,
+  "posterUrl": "/api/browse-media/components/luck-wheel/poster.avif",
+  "videoUrl": "/api/browse-media/components/luck-wheel/video.mp4",
+  "tags": [
+    "display",
+    "wheel",
+    "spin",
+    "casino",
+    "game"
+  ]
+}

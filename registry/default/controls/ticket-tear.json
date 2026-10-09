@@ -1,0 +1,29 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "#09090b"
+  },
+  "interactionHints": {
+    "duration": 3,
+    "scale": 70,
+    "items": []
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "نیمهٔ پایین را بکش",
+  "hintDescription": "از پرفراژ به پایین بکش تا بلیط جدا شود و نیمهٔ ورود بیفتد. با دکمه هم می‌توانی جدا کنی. بعد از چند ثانیه ریست می‌شود.",
+  "hintTop": 140,
+  "hintHideOnScroll": false,
+  "posterUrl": "/api/browse-media/components/ticket-tear/poster.avif",
+  "videoUrl": "/api/browse-media/components/ticket-tear/video.mp4",
+  "tags": [
+    "button",
+    "ticket",
+    "tear",
+    "drag",
+    "document"
+  ]
+}

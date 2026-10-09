@@ -1,0 +1,29 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f6fa",
+    "dark": "#09090b"
+  },
+  "interactionHints": {
+    "duration": 3,
+    "scale": 70,
+    "items": []
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "زمان باقی‌مانده",
+  "hintDescription": "ببین چقدر تا شروع رویداد مانده؛ هر ثانیه عددها عوض می‌شوند.",
+  "hintTop": 140,
+  "hintHideOnScroll": false,
+  "posterUrl": "/api/browse-media/components/event-countdown/poster.avif",
+  "videoUrl": "/api/browse-media/components/event-countdown/video.mp4",
+  "tags": [
+    "display",
+    "countdown",
+    "timer",
+    "event",
+    "deadline"
+  ]
+}
