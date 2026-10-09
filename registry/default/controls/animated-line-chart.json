@@ -1,0 +1,25 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "روی خط بکش",
+  "hintDescription": "راهنمای عمودی و کارت جزئیات روی هر نقطه می‌آید؛ پایین «پخش دوباره» را بزن.",
+  "hintTop": 96,
+  "posterUrl": "/api/browse-media/components/animated-line-chart/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-line-chart/video.mp4",
+  "tags": [
+    "chart",
+    "line",
+    "area",
+    "tooltip",
+    "svg",
+    "motion",
+    "display"
+  ]
+}

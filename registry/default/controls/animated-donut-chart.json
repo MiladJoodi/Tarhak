@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "بخش‌ها را لمس کن",
+  "hintDescription": "روی قطاع یا ردیف فهرست برو؛ سهم وسط عوض می‌شود. پایین «پخش دوباره» را بزن.",
+  "hintTop": 100,
+  "posterUrl": "/api/browse-media/components/animated-donut-chart/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-donut-chart/video.mp4",
+  "tags": [
+    "chart",
+    "donut",
+    "pie",
+    "svg",
+    "motion",
+    "display"
+  ]
+}

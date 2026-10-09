@@ -1,0 +1,35 @@
+---
+title: Animated Donut Chart
+description: دونات سهم‌بندی با رسم پله‌ای، هاور و فهرست کنار — فقط SVG و Motion.
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedDonutChart from "@/components/animated-donut-chart";
+
+export default function Example() {
+  return <AnimatedDonutChart />;
+}
+```
+
+با دادهٔ خودتان:
+
+```tsx
+<AnimatedDonutChart
+  title="ترکیب فروش"
+  data={[
+    { id: "a", label: "آنلاین", value: 55, color: "#3451e5" },
+    { id: "b", label: "حضوری", value: 45, color: "#38bdf8" },
+  ]}
+/>
+```
+
+## قابلیت‌ها
+
+- حلقهٔ دونات با رسم پله‌ای هر قطاع از صفر.
+- وسط: درصد و برچسب؛ با هاور به همان بخش عوض می‌شود.
+- فهرست کنار با رنگ، نام و درصد؛ هاور هم‌زمان با دونات.
+- دکمهٔ «پخش دوباره» انیمیشن ورود را ریست می‌کند.
+- ارقام فارسی، RTL و فونت Estedad.
+- فقط `motion` و SVG — بدون لایبرری چارت.

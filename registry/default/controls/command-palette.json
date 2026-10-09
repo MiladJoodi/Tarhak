@@ -1,0 +1,25 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "Ctrl+K یا کلیک",
+  "hintDescription": "جست‌وجو کن، با ↑↓ حرکت کن و Enter را بزن. Esc می‌بندد.",
+  "hintTop": 88,
+  "posterUrl": "/api/browse-media/components/command-palette/poster.avif",
+  "videoUrl": "/api/browse-media/components/command-palette/video.mp4",
+  "tags": [
+    "command",
+    "palette",
+    "search",
+    "keyboard",
+    "navigation",
+    "overlay",
+    "motion"
+  ]
+}

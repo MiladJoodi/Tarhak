@@ -1,0 +1,41 @@
+---
+title: Command Palette
+description: جست‌وجو و اجرای سریع دستورات با کیبورد — پالت فرمان RTL با گروه‌ها و شورتکات.
+---
+
+## نحوه استفاده
+
+```tsx
+import CommandPalette from "@/components/command-palette";
+
+export default function Example() {
+  return <CommandPalette />;
+}
+```
+
+با دستورات خودتان:
+
+```tsx
+<CommandPalette
+  onRun={(item) => console.log(item.id)}
+  commands={[
+    {
+      id: "new",
+      label: "سند جدید",
+      group: "عملیات",
+      icon: Add01Icon,
+      shortcut: "N",
+    },
+  ]}
+/>
+```
+
+## قابلیت‌ها
+
+- باز/بسته با `Ctrl+K` / `⌘K` یا کلیک روی فیلد جست‌وجو.
+- فیلتر زنده روی عنوان، گروه و کلمات کلیدی.
+- ناوبری کیبورد: ↑↓، Enter، Esc، Home/End.
+- دستورات گروه‌بندی‌شده با آیکون و شورتکات.
+- بازخورد «اجرا شد» بعد از انتخاب.
+- RTL، Estedad و ارقام فارسی در شمارنده نتایج.
+- فقط `motion`، `clsx` و Hugeicons — بدون cmdk.

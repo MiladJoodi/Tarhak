@@ -1,0 +1,34 @@
+---
+title: Kanban Board
+description: برد مدیریت تسک با جابه‌جایی کارت‌ها بین ستون‌ها — درگ‌اند‌دراپ با Motion.
+---
+
+## نحوه استفاده
+
+```tsx
+import KanbanBoard from "@/components/kanban-board";
+
+export default function Example() {
+  return <KanbanBoard />;
+}
+```
+
+با داده و callback:
+
+```tsx
+<KanbanBoard
+  initialBoard={board}
+  onChange={(next) => console.log(next)}
+/>
+```
+
+## قابلیت‌ها
+
+- سه ستون: انجام نشده، در حال انجام، انجام‌شده.
+- روی موبایل: زوم دستی (دورتر / نزدیک‌تر) برای دیدن بقیه ستون‌ها.
+- درگ کارت بین ستون‌ها و تغییر ترتیب داخل ستون.
+- جای‌نگهدار خط‌چین آبی هنگام هاور روی مقصد.
+- کارت شناور با کمی چرخش هنگام کشیدن.
+- برچسب، اولویت و مسئول روی هر کارت.
+- اسکرول افقی روی موبایل؛ RTL و ارقام فارسی.
+- فقط `motion`، `clsx` و Hugeicons — بدون لایبرری DnD جدا.

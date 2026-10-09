@@ -71,6 +71,106 @@
       ]
     },
     {
+      "name": "animated-bar-chart",
+      "type": "registry:component",
+      "title": "Animated Bar Chart",
+      "description": "نمودار میله‌ای با رشد فنری، هاور و پخش دوباره — فقط SVG و Motion.",
+      "dependencies": [
+        "motion",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-bar-chart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "animated-line-chart",
+      "type": "registry:component",
+      "title": "Animated Line Chart",
+      "description": "نمودار خطی ناحیه‌دار با راهنمای هاور، کارت جزئیات و درصد تغییر — فقط SVG و Motion.",
+      "dependencies": [
+        "motion",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-line-chart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "animated-donut-chart",
+      "type": "registry:component",
+      "title": "Animated Donut Chart",
+      "description": "دونات سهم‌بندی با رسم پله‌ای، هاور و فهرست کنار — فقط SVG و Motion.",
+      "dependencies": [
+        "motion",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-donut-chart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "animated-spark-chart",
+      "type": "registry:component",
+      "title": "Animated Spark Chart",
+      "description": "کارت متریک فشرده با عدد، درصد تغییر و اسپارک‌لاین متحرک — فقط SVG و Motion.",
+      "dependencies": [
+        "motion",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-spark-chart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:component",
+      "title": "Command Palette",
+      "description": "جست‌وجو و اجرای سریع دستورات با کیبورد — پالت فرمان RTL با گروه‌ها و شورتکات.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/command-palette.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kanban-board",
+      "type": "registry:component",
+      "title": "Kanban Board",
+      "description": "برد مدیریت تسک با جابه‌جایی کارت‌ها بین ستون‌ها — درگ‌اند‌دراپ با Motion.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/kanban-board.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "animated-collection",
       "type": "registry:component",
       "title": "Animated Collection",
@@ -568,6 +668,23 @@
       ]
     },
     {
+      "name": "file-upload-progress",
+      "type": "registry:component",
+      "title": "File Upload Progress",
+      "description": "نمایش پیشرفت آپلود فایل‌ها با وضعیت موفقیت و خطا.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/file-upload-progress.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "filter-interaction",
       "type": "registry:component",
       "title": "Filter Interaction",
@@ -586,6 +703,7 @@
         }
       ]
     },
+
     {
       "name": "fluid-expanding-grid",
       "type": "registry:component",
@@ -823,6 +941,23 @@
       ]
     },
     {
+      "name": "toast-stack",
+      "type": "registry:component",
+      "title": "Toast Stack",
+      "description": "اعلان‌های موفقیت، خطا و هشدار با ورود و خروج انیمیشنی و پشتهٔ فنری.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/toast-stack.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "tooltip",
       "type": "registry:component",
       "title": "Tooltip",
@@ -836,6 +971,23 @@
       "files": [
         {
           "path": "registry/default/example/tooltip.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "undo-delete",
+      "type": "registry:component",
+      "title": "Undo Delete",
+      "description": "حذف آیتم از فهرست با نوار بازگردانی و شمارش معکوس.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/undo-delete.tsx",
           "type": "registry:component"
         }
       ]
@@ -858,6 +1010,7 @@
         }
       ]
     },
+
     {
       "name": "typed-code",
       "type": "registry:component",

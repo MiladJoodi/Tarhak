@@ -1,0 +1,36 @@
+---
+title: Animated Line Chart
+description: نمودار خطی ناحیه‌دار با رسم انیمیشنی، راهنمای هاور و کارت جزئیات — فقط SVG و Motion.
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedLineChart from "@/components/animated-line-chart";
+
+export default function Example() {
+  return <AnimatedLineChart />;
+}
+```
+
+با دادهٔ خودتان:
+
+```tsx
+<AnimatedLineChart
+  title="فروش ماهانه"
+  unit="میلیون تومان"
+  data={[
+    { id: "a", label: "فرو", value: 40 },
+    { id: "b", label: "ارد", value: 72 },
+  ]}
+/>
+```
+
+## قابلیت‌ها
+
+- خط نرم (Bezier) با انیمیشن `pathLength` و ناحیهٔ گرادیانی زیر آن.
+- هاور نزدیک‌ترین نقطه را می‌گیرد؛ خط راهنمای عمودی + حلقه روی نقطه.
+- کارت راهنما با مقدار، واحد و درصد تغییر نسبت به ماه قبل.
+- شبکهٔ افقی، برچسب محور، میانگین دوره و «پخش دوباره».
+- ارقام فارسی، RTL و فونت Estedad.
+- فقط `motion` و SVG — بدون لایبرری چارت.

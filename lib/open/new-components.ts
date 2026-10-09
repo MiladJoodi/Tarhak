@@ -59,6 +59,15 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "horizontal-menu",
   "expandable-card",
   "date-field",
+  "animated-bar-chart",
+  "animated-line-chart",
+  "animated-donut-chart",
+  "animated-spark-chart",
+  "toast-stack",
+  "undo-delete",
+  "file-upload-progress",
+  "command-palette",
+  "kanban-board",
 ]);
 
 export function isNewComponent(slug: string) {

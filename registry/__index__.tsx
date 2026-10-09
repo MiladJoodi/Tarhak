@@ -78,6 +78,114 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animated-bar-chart": {
+    name: "animated-bar-chart",
+    description: "نمودار میله‌ای با رشد فنری، هاور و پخش دوباره — فقط SVG و Motion.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-bar-chart.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-bar-chart-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-bar-chart"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "animated-line-chart": {
+    name: "animated-line-chart",
+    description: "نمودار خطی ناحیه‌دار با راهنمای هاور، کارت جزئیات و درصد تغییر — فقط SVG و Motion.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-line-chart.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-line-chart-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-line-chart"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "animated-donut-chart": {
+    name: "animated-donut-chart",
+    description: "دونات سهم‌بندی با رسم پله‌ای، هاور و فهرست کنار — فقط SVG و Motion.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-donut-chart.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-donut-chart-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-donut-chart"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "animated-spark-chart": {
+    name: "animated-spark-chart",
+    description: "کارت متریک فشرده با عدد، درصد تغییر و اسپارک‌لاین متحرک — فقط SVG و Motion.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-spark-chart.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-spark-chart-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-spark-chart"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "command-palette": {
+    name: "command-palette",
+    description: "جست‌وجو و اجرای سریع دستورات با کیبورد — پالت فرمان RTL با گروه‌ها و شورتکات.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/command-palette.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/command-palette-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "command-palette"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "kanban-board": {
+    name: "kanban-board",
+    description: "برد مدیریت تسک با جابه‌جایی کارت‌ها بین ستون‌ها — درگ‌اند‌دراپ با Motion.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/kanban-board.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/kanban-board-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "kanban-board"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "animated-collection": {
     name: "animated-collection",
     description: "مجموعه‌ای از آثار که بین نمای فهرست، کارت و پشتهٔ فشرده مورف می‌شود.",
@@ -570,6 +678,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "file-upload-progress": {
+    name: "file-upload-progress",
+    description: "نمایش پیشرفت آپلود فایل‌ها با وضعیت موفقیت و خطا.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/file-upload-progress.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/file-upload-progress-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "file-upload-progress"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "filter-interaction": {
     name: "filter-interaction",
     description: "فهرست فیلتر تعاملی با هاور، انتخاب و پنل تغییرشکل‌دهنده.",
@@ -830,6 +956,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "toast-stack": {
+    name: "toast-stack",
+    description: "اعلان‌های موفقیت، خطا و هشدار با ورود و خروج انیمیشنی و پشتهٔ فنری.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/toast-stack.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/toast-stack-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "toast-stack"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "tooltip": {
     name: "tooltip",
     description: "تولتیپ نرم روی دکمه‌های گرد — سطح card، شعاع ۱۶ و فنر کوتاه.",
@@ -843,6 +987,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/example/tooltip.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "tooltip"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "undo-delete": {
+    name: "undo-delete",
+    description: "حذف آیتم از فهرست با نوار بازگردانی و شمارش معکوس.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/undo-delete.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/undo-delete-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "undo-delete"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,

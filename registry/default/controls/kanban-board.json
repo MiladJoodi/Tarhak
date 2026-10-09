@@ -1,0 +1,25 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "روی موبایل دورتر کن",
+  "hintDescription": "با زوم ستون‌ها را ببین، بعد کارت را بکش. روی دسکتاپ زوم نیست.",
+  "hintTop": 72,
+  "posterUrl": "/api/browse-media/components/kanban-board/poster.avif",
+  "videoUrl": "/api/browse-media/components/kanban-board/video.mp4",
+  "tags": [
+    "kanban",
+    "drag",
+    "drop",
+    "board",
+    "task",
+    "motion",
+    "navigation"
+  ]
+}

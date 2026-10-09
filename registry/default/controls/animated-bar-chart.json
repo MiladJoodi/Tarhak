@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "میله‌ها را لمس کن",
+  "hintDescription": "روی هر میله برو؛ عدد عوض می‌شود. پایین «پخش دوباره» را بزن.",
+  "hintTop": 100,
+  "posterUrl": "/api/browse-media/components/animated-bar-chart/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-bar-chart/video.mp4",
+  "tags": [
+    "chart",
+    "bar",
+    "svg",
+    "motion",
+    "display"
+  ]
+}

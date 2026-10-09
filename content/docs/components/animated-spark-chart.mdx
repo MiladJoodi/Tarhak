@@ -1,0 +1,36 @@
+---
+title: Animated Spark Chart
+description: کارت متریک فشرده با عدد بزرگ، درصد تغییر و اسپارک‌لاین متحرک — فقط SVG و Motion.
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedSparkChart from "@/components/animated-spark-chart";
+
+export default function Example() {
+  return <AnimatedSparkChart />;
+}
+```
+
+با دادهٔ خودتان:
+
+```tsx
+<AnimatedSparkChart
+  label="سفارش‌ها"
+  value={386}
+  delta={-3.2}
+  unit="عدد"
+  series={[28, 32, 30, 41, 38, 45, 40, 36]}
+/>
+```
+
+## قابلیت‌ها
+
+- عدد اصلی فشرده (هزار / میلیون) با ارقام فارسی.
+- درصد تغییر سبز / قرمز نسبت به دوره قبل.
+- اسپارک‌لاین نرم با ناحیه گرادیانی و انیمیشن `pathLength`.
+- هاور نزدیک‌ترین نقطه را می‌گیرد و عدد کارت را عوض می‌کند.
+- دکمه «دوباره» برای پخش انیمیشن.
+- RTL، Estedad و آبی برند `#3451e5`.
+- فقط `motion` و SVG — بدون لایبرری چارت.

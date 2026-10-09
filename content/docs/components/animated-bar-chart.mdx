@@ -1,0 +1,35 @@
+---
+title: Animated Bar Chart
+description: نمودار میله‌ای شمسی‌محور با رشد فنری، هاور و پخش دوباره — فقط SVG و Motion.
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedBarChart from "@/components/animated-bar-chart";
+
+export default function Example() {
+  return <AnimatedBarChart />;
+}
+```
+
+با دادهٔ خودتان:
+
+```tsx
+<AnimatedBarChart
+  title="فروش هفتگی"
+  data={[
+    { id: "a", label: "ش", value: 40 },
+    { id: "b", label: "ی", value: 72 },
+  ]}
+/>
+```
+
+## قابلیت‌ها
+
+- میله‌ها از صفر با فنر و تأخیر پله‌ای بالا می‌آیند.
+- هاور/فوکوس یک میله را برجسته و عدد بالای آن را نشان می‌دهد.
+- مجموع هفته در گوشه؛ با هاور به مقدار همان روز عوض می‌شود.
+- دکمهٔ «پخش دوباره» انیمیشن ورود را ریست می‌کند.
+- ارقام فارسی، RTL و فونت Estedad.
+- فقط `motion` و SVG — بدون لایبرری چارت.

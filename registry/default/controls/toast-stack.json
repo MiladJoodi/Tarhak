@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "یک اعلان بزن",
+  "hintDescription": "موفقیت، خطا یا هشدار را بزن؛ ورود، پشته و خروج خودکار را ببین.",
+  "hintTop": 120,
+  "posterUrl": "/api/browse-media/components/toast-stack/poster.avif",
+  "videoUrl": "/api/browse-media/components/toast-stack/video.mp4",
+  "tags": [
+    "toast",
+    "notification",
+    "feedback",
+    "stack",
+    "motion"
+  ]
+}

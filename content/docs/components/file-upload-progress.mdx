@@ -1,0 +1,23 @@
+---
+title: File Upload Progress
+description: نمایش پیشرفت آپلود فایل‌ها با وضعیت موفقیت و خطا.
+---
+
+## نحوه استفاده
+
+```tsx
+import FileUploadProgress from "@/components/file-upload-progress";
+
+export default function Example() {
+  return <FileUploadProgress />;
+}
+```
+
+## قابلیت‌ها
+
+- فهرست چندفایلی با حلقه و نوار پیشرفت؛ درصد و حجم فارسی.
+- سه وضعیت: در حال آپلود، موفقیت، خطا با تلاش دوباره.
+- یکی از فایل‌ها عمداً خطا می‌دهد؛ بعد از تلاش دوباره کامل می‌شود.
+- بدون پالس و افکت‌های تکراری بعد از اتمام.
+- آیکون Hugeicons، RTL، فونت Estedad و کپی فارسی.
+- به `motion` و Hugeicons نیاز دارد.

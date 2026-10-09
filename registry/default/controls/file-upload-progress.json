@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "آپلود را شروع کن",
+  "hintDescription": "حلقه، نوار قطعه‌ای، موفقیت و خطای قابل‌تلاش‌دوباره را ببین.",
+  "hintTop": 120,
+  "posterUrl": "/api/browse-media/components/file-upload-progress/poster.avif",
+  "videoUrl": "/api/browse-media/components/file-upload-progress/video.mp4",
+  "tags": [
+    "upload",
+    "progress",
+    "file",
+    "feedback",
+    "error",
+    "motion"
+  ]
+}
