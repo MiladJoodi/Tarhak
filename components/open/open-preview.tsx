@@ -22,7 +22,9 @@ export function OpenPreview({
   hintTone?: "dark" | "light";
   theme?: "dark" | "light";
 }) {
-  const Component = Index[name]?.component as React.ComponentType<{ size?: string }> | undefined;
+  const Component = Index[name]?.component as
+    | React.ComponentType<{ size?: string; className?: string }>
+    | undefined;
   // Tall sticky demos that scroll <main> must size to content, not the viewport.
   const fill = name !== "perspective-text-scroll";
   // This demo is its own scrollport (`overflow-y-auto` or iframe). min-h-0 stops the
