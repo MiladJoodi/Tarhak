@@ -866,6 +866,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animated-switches": {
+    name: "animated-switches",
+    description: "سوئیچ‌های انیمیشنی نرم، آیکنی و مایع — سبز آیفون، انگشتک فنری یک‌اندازه.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-switches.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-switches-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-switches"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "multi-step-form": {
     name: "multi-step-form",
     description: "فرم چندمرحله‌ای پویا و متحرک با اعتبارسنجی.",

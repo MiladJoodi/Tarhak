@@ -75,18 +75,19 @@ export function DocsCodeBlock({
     </>
   );
 
-  /* Paper 12K-0 — Copy Code: #19191A, py 6 / px 12, radius 12, gap 10, inset shadows */
+  /* Paper 12K-0 — icon-only copy; aria-label carries the label */
   const floatingCopy = copyButton ? (
     <div className="pointer-events-none absolute inset-x-0 bottom-[17px] z-[2] flex justify-center">
       <button
         type="button"
         className={cn(
-          "pointer-events-auto relative inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl bg-[#19191a] px-3 py-1.5 text-base leading-[25px] text-white",
+          "pointer-events-auto relative inline-flex size-9 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#19191a] text-white",
           "shadow-[inset_0_0_0_0.5px_rgba(255,255,255,0.04),inset_0_-1px_0_0_rgba(255,255,255,0.1)]",
           openPressMotion,
         )}
         onClick={copy}
         aria-label={copied ? "کپی شد" : "کپی کد"}
+        title={copied ? "کپی شد" : "کپی کد"}
       >
         <img
           src={copied ? "/open/check.svg" : "/open/copy-white-18.svg"}
@@ -95,7 +96,6 @@ export function DocsCodeBlock({
           height={18}
           className="size-[18px] shrink-0"
         />
-        <span className="shrink-0">{copied ? "کپی شد" : "کپی کد"}</span>
       </button>
     </div>
   ) : null;

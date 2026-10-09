@@ -858,6 +858,24 @@
       ]
     },
     {
+      "name": "animated-switches",
+      "type": "registry:component",
+      "title": "Animated Switches",
+      "description": "سوئیچ‌های انیمیشنی نرم، آیکنی و مایع — سبز آیفون، انگشتک فنری یک‌اندازه.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-switches.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "multi-step-form",
       "type": "registry:component",
       "title": "Multi Step Form",

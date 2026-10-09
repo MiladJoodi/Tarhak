@@ -50,6 +50,7 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "tooltip",
   "upload-dropzone",
   "typed-code",
+  "animated-switches",
 ]);
 
 export function isNewComponent(slug: string) {

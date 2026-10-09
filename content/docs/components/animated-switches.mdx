@@ -1,0 +1,32 @@
+---
+title: Animated Switches
+description: "سوئیچ‌های انیمیشنی نرم، آیکنی و مایع — سبز آیفون، انگشتک فنری یک‌اندازه."
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedSwitches, {
+  SoftSwitch,
+  IconSwitch,
+  LiquidSwitch,
+} from "@/components/animated-switches";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[360px] w-full items-center justify-center">
+      <AnimatedSwitches />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- **SoftSwitch**: انگشتک اسلاید با فنر + تیک مورف.
+- **IconSwitch**: جابه‌جایی خورشید/ماه با بلور کوتاه.
+- **LiquidSwitch**: پر شدن مایع با `scaleX` بدون جهش.
+- هر سه سوئیچ یک اندازه؛ حالت روشن سبز آیفون (`#34C759`).
+- ردیف تنظیمات آماده با آیکون Hugeicons.
+- RTL، Estedad، توکن‌های `bg-card` / `border-border`.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

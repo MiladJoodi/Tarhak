@@ -46,6 +46,7 @@ export const COMPONENT_TITLES_FA: Record<string, string> = {
   "tooltip": "تولتیپ",
   "upload-dropzone": "دراپ‌زون آپلود",
   "typed-code": "کد تایپ‌شونده",
+  "animated-switches": "سوئیچ‌های انیمیشنی",
   "multi-step-form": "فرم چندمرحله‌ای",
   "overlapping-slider": "اسلایدر هم‌پوشان",
   "otp-cascade": "کد تأیید آبشاری",

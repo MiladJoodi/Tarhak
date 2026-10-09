@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 100,
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "سوئیچ‌ها",
+  "hintDescription": "هر سوئیچ را بزن؛ انگشتک با فنر جابه‌جا می‌شود.",
+  "posterUrl": "/api/browse-media/components/animated-switches/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-switches/video.mp4",
+  "tags": [
+    "switch",
+    "toggle",
+    "settings",
+    "motion"
+  ]
+}
