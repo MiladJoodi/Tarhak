@@ -1,9 +1,16 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ComponentType } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import useMeasure from "react-use-measure";
+import clsx from "clsx";
 import {
   ArrowLeft01Icon,
   ArrowRight01Icon,
@@ -81,66 +88,78 @@ const ROOT_ITEMS: MenuEntry[] = [
   { id: "logout", label: "خروج", icon: LogoutIcon, danger: true },
 ];
 
-const easeOutQuint: [number, number, number, number] = [0.23, 1, 0.32, 1];
-const OPEN_WIDTH = 260;
+const ROW_EASE: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
-const shellSpring = {
-  type: "spring" as const,
-  damping: 34,
-  stiffness: 380,
-  mass: 0.8,
-};
+function MenuRow(props: {
+  index: number;
+  item: MenuLeaf | MenuBranch;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onOpenBranch: (branch: MenuBranch) => void;
+}) {
+  const { index, item, setIsOpen, onOpenBranch } = props;
+  const branch = isBranch(item);
+  const leaf = item as MenuLeaf;
+  const danger = !branch && Boolean(leaf.danger);
+  const delay = (index + 8) * 0.025;
 
-const indicatorSpring = {
-  type: "spring" as const,
-  damping: 30,
-  stiffness: 520,
-  mass: 0.8,
-};
+  return (
+    <motion.div
+      role="menuitem"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        type: "spring",
+        bounce: 0.1,
+        duration: 0.25,
+        delay,
+        ease: ROW_EASE,
+      }}
+      onClick={() => {
+        if (branch) {
+          onOpenBranch(item);
+          return;
+        }
+        setTimeout(() => setIsOpen(false), 120);
+      }}
+      className={clsx(
+        "flex cursor-default items-center justify-between rounded-2xl px-4 py-3 text-foreground hover:bg-accent",
+        danger && "text-destructive hover:bg-destructive/10",
+      )}
+    >
+      <div className="flex min-w-0 items-center gap-x-3">
+        <span
+          className={clsx(
+            "shrink-0 text-muted-foreground",
+            danger && "text-destructive -scale-x-100",
+          )}
+        >
+          <HugeiconsIcon icon={item.icon} size={24} />
+        </span>
+        <span className="truncate">{item.label}</span>
+      </div>
 
-const panelSpring = {
-  type: "spring" as const,
-  stiffness: 320,
-  damping: 32,
-  mass: 0.85,
-};
+      {branch ? (
+        <span className="shrink-0 text-muted-foreground">
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+        </span>
+      ) : null}
+    </motion.div>
+  );
+}
 
 export default function NestedDropdown() {
-  const reduceMotion = useReducedMotion() ?? false;
-  const layoutId = useId().replace(/:/g, "");
   const containerRef = useRef<HTMLDivElement>(null);
-
   const [isOpen, setIsOpen] = useState(false);
   const [stack, setStack] = useState<MenuBranch[]>([]);
-  const [activeItem, setActiveItem] = useState("profile");
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [navDir, setNavDir] = useState<1 | -1>(1);
 
   const current = stack[stack.length - 1] ?? null;
   const items: MenuEntry[] = current ? current.children : ROOT_ITEMS;
   const panelKey = current?.id ?? "root";
 
-  const [contentRef, contentBounds] = useMeasure({ offsetSize: true });
-  const measuredHeight = Math.max(40, Math.ceil(contentBounds.height));
-  const [peakHeight, setPeakHeight] = useState(40);
-  const [wasOpen, setWasOpen] = useState(false);
-  const [peakPanel, setPeakPanel] = useState(panelKey);
-
-  if (isOpen !== wasOpen) {
-    setWasOpen(isOpen);
-    if (!isOpen) {
-      setPeakHeight(40);
-      setPeakPanel("root");
-      setStack([]);
-      setHoveredItem(null);
-    }
-  } else if (isOpen && panelKey !== peakPanel) {
-    // New nested level — allow shell to resize to the new panel.
-    setPeakPanel(panelKey);
-    setPeakHeight(measuredHeight);
-  } else if (isOpen && measuredHeight > peakHeight) {
-    setPeakHeight(measuredHeight);
-  }
+  useEffect(() => {
+    if (!isOpen) setStack([]);
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -158,276 +177,139 @@ export default function NestedDropdown() {
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (stack.length > 0) {
-          setNavDir(-1);
-          setStack((s) => s.slice(0, -1));
-          setHoveredItem(null);
-        } else {
-          setIsOpen(false);
-        }
+      if (event.key !== "Escape") return;
+      if (stack.length > 0) {
+        setNavDir(-1);
+        setStack((s) => s.slice(0, -1));
+      } else {
+        setIsOpen(false);
       }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [isOpen, stack.length]);
 
-  const openHeight = isOpen ? Math.max(measuredHeight, peakHeight) : 40;
-
   const openSub = (branch: MenuBranch) => {
     setNavDir(1);
-    setHoveredItem(null);
     setStack((s) => [...s, branch]);
   };
 
   const goBack = () => {
     setNavDir(-1);
-    setHoveredItem(null);
     setStack((s) => s.slice(0, -1));
   };
 
-  const pickLeaf = (item: MenuLeaf) => {
-    setActiveItem(item.id);
-    if (item.danger) setIsOpen(false);
-  };
-
   return (
-    <div
+    <section
       ref={containerRef}
       dir="rtl"
       lang="fa"
-      className="relative h-10 w-10 not-prose font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      aria-label="منوی تو‌در‌تو"
+      className="relative flex h-20 w-20 items-center justify-center fill-muted-foreground/70 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
     >
-      <motion.div
-        initial={false}
-        animate={{
-          width: isOpen ? OPEN_WIDTH : 40,
-          height: isOpen ? openHeight : 40,
-          borderRadius: isOpen ? 14 : 12,
-        }}
-        transition={
-          reduceMotion
-            ? { duration: 0.15 }
-            : {
-                width: shellSpring,
-                height: shellSpring,
-                borderRadius: { duration: 0.2 },
-              }
-        }
-        role="button"
-        tabIndex={isOpen ? -1 : 0}
-        aria-label={isOpen ? undefined : "باز کردن منو"}
-        aria-expanded={isOpen}
-        aria-haspopup="menu"
-        className="absolute top-0 end-0 origin-top-end cursor-pointer overflow-hidden border border-border bg-popover shadow-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        onClick={() => !isOpen && setIsOpen(true)}
-        onKeyDown={(event) => {
-          if (isOpen) return;
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setIsOpen(true);
-          }
-        }}
+      <MotionConfig
+        transition={{ type: "spring", duration: 0.85, bounce: 0.35 }}
       >
-        <motion.div
-          initial={false}
-          animate={{
-            opacity: isOpen ? 0 : 1,
-            scale: isOpen ? 0.8 : 1,
-          }}
-          transition={{ duration: 0.15 }}
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ pointerEvents: isOpen ? "none" : "auto" }}
-        >
-          <HugeiconsIcon
-            icon={MoreHorizontalCircle01Icon}
-            className="h-6 w-6 text-muted-foreground"
-          />
-        </motion.div>
-
-        <div ref={contentRef}>
-          <motion.div
-            layoutRoot
-            initial={false}
-            animate={{ opacity: isOpen ? 1 : 0 }}
-            transition={{
-              duration: 0.2,
-              delay: isOpen ? 0.08 : 0,
+        {!isOpen ? (
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label="باز کردن منو"
+            aria-expanded={false}
+            aria-haspopup="menu"
+            onClick={() => setIsOpen(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setIsOpen(true);
+              }
             }}
-            className="p-2"
-            style={{ pointerEvents: isOpen ? "auto" : "none" }}
+            className="relative flex h-20 w-20 cursor-pointer items-center justify-center"
+          >
+            <HugeiconsIcon
+              icon={MoreHorizontalCircle01Icon}
+              className="relative z-10 fill-none text-foreground"
+              size={36}
+            />
+            <motion.div
+              layoutId="nested-dropdown-shell"
+              className="absolute inset-0 z-[2] border-border bg-background"
+              style={{ borderRadius: 40, borderWidth: 1 }}
+            />
+          </div>
+        ) : (
+          <motion.section
+            layoutId="nested-dropdown-shell"
+            className="absolute top-0 end-0 z-20 w-80 overflow-hidden border border-border bg-card px-2.5 py-2.5 text-xl"
+            style={{ borderRadius: 20, borderWidth: 1 }}
             role="menu"
             aria-label={current ? current.label : "منوی حساب"}
+            aria-expanded
           >
             <AnimatePresence mode="popLayout" initial={false} custom={navDir}>
               <motion.div
                 key={panelKey}
                 custom={navDir}
-                initial={
-                  reduceMotion
-                    ? { opacity: 0 }
-                    : {
-                        opacity: 0,
-                        x: navDir * -36,
-                        filter: "blur(6px)",
-                      }
-                }
-                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                exit={
-                  reduceMotion
-                    ? { opacity: 0 }
-                    : {
-                        opacity: 0,
-                        x: navDir * 36,
-                        filter: "blur(6px)",
-                      }
-                }
-                transition={
-                  reduceMotion
-                    ? { duration: 0.12 }
-                    : {
-                        ...panelSpring,
-                        opacity: { duration: 0.22 },
-                        filter: { duration: 0.28 },
-                      }
-                }
+                initial={{ opacity: 0, x: navDir * -24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: navDir * 24 }}
+                transition={{
+                  type: "spring",
+                  bounce: 0.1,
+                  duration: 0.35,
+                }}
+                className="flex flex-col gap-1.5"
               >
                 {current ? (
                   <motion.button
                     type="button"
-                    initial={
-                      reduceMotion
-                        ? false
-                        : { opacity: 0, x: 10 }
-                    }
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.04, duration: 0.25, ease: easeOutQuint }}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      type: "spring",
+                      bounce: 0.1,
+                      duration: 0.25,
+                      delay: 0.05,
+                      ease: ROW_EASE,
+                    }}
                     onClick={goBack}
-                    className="mb-1 flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex w-full cursor-default items-center gap-x-3 rounded-2xl px-4 py-3 text-foreground hover:bg-accent"
                   >
-                    <HugeiconsIcon
-                      icon={ArrowRight01Icon}
-                      className="h-4 w-4 shrink-0 text-muted-foreground"
-                    />
+                    <span className="text-muted-foreground">
+                      <HugeiconsIcon icon={ArrowRight01Icon} size={24} />
+                    </span>
                     <span className="min-w-0 flex-1 truncate text-start">
                       {current.label}
                     </span>
                   </motion.button>
                 ) : null}
 
-                <ul
-                  className="m-0! flex list-none! flex-col gap-0.5 p-0!"
-                  onMouseLeave={() => setHoveredItem(null)}
-                >
-                  {items.map((item, index) => {
-                    if (item.id === "divider") {
-                      return (
-                        <motion.hr
-                          key={`${panelKey}-divider`}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: isOpen ? 1 : 0 }}
-                          transition={{
-                            delay: isOpen ? 0.1 + index * 0.015 : 0,
-                          }}
-                          className="pointer-events-none my-1.5! border-border"
-                        />
-                      );
-                    }
-
-                    const branch = isBranch(item);
-                    const leaf = item as MenuLeaf;
-                    const isActive = !branch && activeItem === item.id;
-                    const isDanger = !branch && Boolean(leaf.danger);
-                    const showIndicator = hoveredItem
-                      ? hoveredItem === item.id
-                      : isActive;
-
-                    const itemDelay = isOpen ? 0.05 + index * 0.025 : 0;
-
+                {items.map((item, index) => {
+                  if (item.id === "divider") {
                     return (
-                      <motion.li
-                        key={`${panelKey}-${item.id}`}
-                        role="menuitem"
-                        initial={
-                          reduceMotion
-                            ? { opacity: 0 }
-                            : { opacity: 0, x: -10 }
-                        }
-                        animate={{
-                          opacity: isOpen ? 1 : 0,
-                          x: isOpen ? 0 : -10,
-                        }}
-                        transition={{
-                          delay: itemDelay,
-                          duration: 0.22,
-                          ease: easeOutQuint,
-                        }}
-                        onClick={() => {
-                          if (branch) openSub(item);
-                          else pickLeaf(leaf);
-                        }}
-                        onMouseEnter={() => setHoveredItem(item.id)}
-                        className={`relative m-0! flex cursor-pointer items-center gap-3 rounded-lg py-2! pe-2! ps-3! text-sm leading-normal transition-colors duration-200 ease-out ${
-                          isDanger && showIndicator
-                            ? "text-red-600 dark:text-red-400"
-                            : isActive
-                              ? "text-foreground"
-                              : isDanger
-                                ? "text-muted-foreground hover:text-red-600 dark:hover:text-red-400"
-                                : "text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        {showIndicator ? (
-                          <motion.div
-                            layoutId={`${layoutId}-active`}
-                            className={`absolute inset-0 rounded-lg ${
-                              isDanger ? "bg-red-500/10" : "bg-muted"
-                            }`}
-                            transition={
-                              reduceMotion
-                                ? { duration: 0 }
-                                : indicatorSpring
-                            }
-                          />
-                        ) : null}
-                        {showIndicator ? (
-                          <motion.div
-                            layoutId={`${layoutId}-bar`}
-                            className={`absolute start-0 top-0 bottom-0 my-auto h-5 w-[3px] rounded-full ${
-                              isDanger ? "bg-red-500" : "bg-foreground"
-                            }`}
-                            transition={
-                              reduceMotion
-                                ? { duration: 0 }
-                                : indicatorSpring
-                            }
-                          />
-                        ) : null}
-
-                        <HugeiconsIcon
-                          icon={item.icon}
-                          className={`relative z-10 h-[18px] w-[18px] shrink-0${
-                            isDanger ? " -scale-x-100" : ""
-                          }`}
-                        />
-                        <span className="relative z-10 flex-1 font-medium tracking-normal">
-                          {item.label}
-                        </span>
-                        {branch ? (
-                          <HugeiconsIcon
-                            icon={ArrowLeft01Icon}
-                            className="relative z-10 h-4 w-4 shrink-0 opacity-55"
-                          />
-                        ) : null}
-                      </motion.li>
+                      <div
+                        key={`${panelKey}-divider`}
+                        className="mx-4 my-1.5 h-px bg-border"
+                        role="separator"
+                      />
                     );
-                  })}
-                </ul>
+                  }
+
+                  return (
+                    <MenuRow
+                      key={`${panelKey}-${item.id}`}
+                      index={index}
+                      item={item}
+                      setIsOpen={setIsOpen}
+                      onOpenBranch={openSub}
+                    />
+                  );
+                })}
               </motion.div>
             </AnimatePresence>
-          </motion.div>
-        </div>
-      </motion.div>
-    </div>
+          </motion.section>
+        )}
+      </MotionConfig>
+    </section>
   );
 }

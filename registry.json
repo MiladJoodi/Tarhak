@@ -93,9 +93,10 @@
       "name": "animated-tabs",
       "type": "registry:component",
       "title": "Animated Tabs",
-      "description": "حرکت نرم نشانگر بین تب‌ها و انتقال انیمیشنی محتوای هر تب.",
+      "description": "تب متحرک با زبان بصری فیلتر — Estedad، bg-card، border-border و نشانگر accent.",
       "dependencies": [
-        "motion"
+        "motion",
+        "clsx"
       ],
       "files": [
         {
@@ -373,11 +374,12 @@
       "name": "discrete-tabs",
       "type": "registry:component",
       "title": "Discrete Tabs",
-      "description": "تب‌های آیکنی آرام که با برچسب باز می‌شوند و هنگام فعال شدن درخشش کوتاهی دارند.",
+      "description": "تب‌های آیکنی فشرده با زبان بصری فیلتر — Estedad، bg-card و باز شدن برچسب روی فعال.",
       "dependencies": [
         "motion",
-        "clsx",
-        "tailwind-merge"
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
       ],
       "files": [
         {
@@ -787,16 +789,34 @@
       "name": "nested-dropdown",
       "type": "registry:component",
       "title": "Nested Dropdown",
-      "description": "منوی کشویی انیمیشنی تو‌در‌تو با آیکون — دکمه به منو تبدیل می‌شود و زیرمنوها با حرکت نرم باز می‌شوند.",
+      "description": "منوی تو‌در‌تو با زبان بصری فیلتر — دایره ۸۰، پنل card، ردیف text-xl؛ فقط بازشونده.",
       "dependencies": [
         "motion",
         "@hugeicons/core-free-icons",
         "@hugeicons/react",
-        "react-use-measure"
+        "clsx"
       ],
       "files": [
         {
           "path": "registry/default/example/nested-dropdown.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "title": "Tooltip",
+      "description": "تولتیپ نرم روی دکمه‌های گرد — سطح card، شعاع ۱۶ و فنر کوتاه.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/tooltip.tsx",
           "type": "registry:component"
         }
       ]

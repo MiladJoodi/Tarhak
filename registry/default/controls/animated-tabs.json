@@ -3,8 +3,8 @@
   "disabled": [],
   "updatedAt": "2026-04-09T00:00:00.000Z",
   "previewBackground": {
-    "light": "#f4f6fa",
-    "dark": "#09090b"
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
   },
   "interactionHints": {
     "duration": 3,
@@ -14,7 +14,7 @@
   "showHint": true,
   "hintKind": "custom",
   "hintHeading": "تب‌ها را عوض کن",
-  "hintDescription": "نشانگر نرم بین تب‌ها می‌لغزد و محتوای هر تب با انیمیشن عوض می‌شود.",
+  "hintDescription": "نشانگر روی تب فعال می‌لغزد؛ محتوا با فنر کوتاه عوض می‌شود.",
   "hintTop": 140,
   "hintHideOnScroll": false,
   "posterUrl": "/api/browse-media/components/animated-tabs/poster.avif",

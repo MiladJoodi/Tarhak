@@ -282,6 +282,27 @@
 }
 
 /*
+ * Preview interaction hint — desktop keeps per-component --preview-hint-top.
+ * On narrow / short viewports, cap offset and compact the stack so the hint
+ * stays under the open chrome and does not sit on the centered demo.
+ */
+.preview-hint-offset {
+  top: var(--preview-hint-top, 80px);
+}
+
+@media (max-width: 767px) {
+  .preview-hint-offset {
+    top: min(4.25rem, var(--preview-hint-top, 80px));
+  }
+}
+
+@media (max-height: 720px) {
+  .preview-hint-offset {
+    top: min(3.75rem, var(--preview-hint-top, 80px));
+  }
+}
+
+/*
  * Classic FarsiUI tokens for live component showcases only.
  * Product chrome (:root / .dark / .light above) stays unchanged.
  * Apply `.component-showcase` (+ `.dark` / `.light`) on preview wrappers.

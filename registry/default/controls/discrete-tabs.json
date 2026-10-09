@@ -1,7 +1,16 @@
 {
   "dialConfig": {},
   "disabled": [],
-  "updatedAt": "2026-09-16T16:44:24.771Z",
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 80,
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "تب فشرده",
+  "hintDescription": "روی هر تب بزن؛ برچسب با فنر باز می‌شود.",
   "posterUrl": "/api/browse-media/components/discrete-tabs/poster.avif",
   "videoUrl": "/api/browse-media/components/discrete-tabs/video.mp4",
   "tags": [

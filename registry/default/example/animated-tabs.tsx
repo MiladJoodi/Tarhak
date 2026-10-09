@@ -4,9 +4,11 @@ import {
   AnimatePresence,
   LayoutGroup,
   motion,
+  MotionConfig,
   useReducedMotion,
 } from "motion/react";
 import { useId, useRef, useState } from "react";
+import clsx from "clsx";
 
 type Tab = {
   id: string;
@@ -17,6 +19,7 @@ type Tab = {
   stats: { label: string; value: string }[];
 };
 
+// Change Here
 const TABS: Tab[] = [
   {
     id: "overview",
@@ -56,15 +59,13 @@ const TABS: Tab[] = [
   },
 ];
 
-/** Heavy glide — pill feels physical, not snappy. */
+const ROW_EASE: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 const pillSpring = {
   type: "spring" as const,
-  stiffness: 220,
-  damping: 24,
-  mass: 1.2,
+  bounce: 0.2,
+  duration: 0.55,
 };
-
-const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export function AnimatedTabsForm() {
   const reduceMotion = useReducedMotion() ?? false;
@@ -85,246 +86,155 @@ export function AnimatedTabsForm() {
   };
 
   return (
-    <section
-      aria-label="تب‌های متحرک"
-      className="w-full max-w-[440px]"
-      dir="rtl"
-      lang="fa"
+    <MotionConfig
+      transition={{ type: "spring", duration: 0.85, bounce: 0.35 }}
     >
-      <motion.div
-        layout
-        transition={reduceMotion ? { duration: 0 } : { layout: pillSpring }}
-        className="overflow-hidden rounded-[28px] bg-white shadow-[0_28px_56px_rgba(15,23,42,0.1)] ring-1 ring-slate-900/8 dark:bg-zinc-950 dark:shadow-[0_28px_56px_rgba(0,0,0,0.45)] dark:ring-white/10"
+      <section
+        aria-label="تب‌های متحرک"
+        className="w-full max-w-[440px] fill-muted-foreground/70 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+        dir="rtl"
+        lang="fa"
       >
-        <div className="border-b border-slate-900/6 px-4 pt-4 pb-3 dark:border-white/8 md:px-5 md:pt-5">
-          <p className="text-[12px] font-medium text-slate-500 dark:text-zinc-400">
-            فضای کار
-          </p>
-          <h2 className="mt-1 text-[20px] font-bold text-slate-900 md:text-[22px] dark:text-slate-50">
-            تب‌های متحرک
-          </h2>
+        <div
+          className="overflow-hidden border border-border bg-card"
+          style={{ borderRadius: 20, borderWidth: 1 }}
+        >
+          <div className="border-b border-border px-4 pt-4 pb-3 md:px-5 md:pt-5">
+            <p className="text-sm text-muted-foreground">فضای کار</p>
+            <h2 className="mt-1 text-xl font-semibold text-foreground">
+              تب‌های متحرک
+            </h2>
 
-          <LayoutGroup id={layoutGroup}>
-            <div
-              role="tablist"
-              aria-label="بخش‌ها"
-              className="relative mt-4 flex gap-1 rounded-full bg-slate-100/90 p-1 dark:bg-zinc-900"
-            >
-              {TABS.map((tab) => {
-                const selected = tab.id === activeId;
-                return (
-                  <motion.button
-                    key={tab.id}
-                    type="button"
-                    role="tab"
-                    id={`${layoutGroup}-tab-${tab.id}`}
-                    aria-selected={selected}
-                    aria-controls={`${layoutGroup}-panel-${tab.id}`}
-                    tabIndex={selected ? 0 : -1}
-                    onClick={() => select(tab.id)}
-                    whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-                    className="relative z-0 flex-1 cursor-pointer rounded-full px-3 py-2.5 text-[13px] font-semibold outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50 dark:focus-visible:ring-zinc-500/50"
-                  >
-                    {selected ? (
-                      <motion.span
-                        layoutId={pillId}
-                        className="absolute inset-0 -z-10 rounded-full bg-white shadow-[0_1px_0_rgba(15,23,42,0.04),0_10px_24px_rgba(15,23,42,0.1)] ring-1 ring-slate-900/6 dark:bg-zinc-800 dark:shadow-[0_10px_28px_rgba(0,0,0,0.45)] dark:ring-white/10"
-                        transition={
-                          reduceMotion ? { duration: 0 } : pillSpring
-                        }
-                        style={{ borderRadius: 9999 }}
-                      />
-                    ) : null}
-                    <motion.span
-                      className="relative block"
-                      animate={
-                        reduceMotion
-                          ? undefined
-                          : selected
-                            ? { opacity: 1, y: 0 }
-                            : { opacity: 0.72, y: 0 }
-                      }
-                      transition={{ duration: 0.28, ease: easeOut }}
+            <LayoutGroup id={layoutGroup}>
+              <div
+                role="tablist"
+                aria-label="بخش‌ها"
+                className="relative mt-4 flex gap-1 rounded-2xl border border-border bg-background p-1"
+              >
+                {TABS.map((tab) => {
+                  const selected = tab.id === activeId;
+                  return (
+                    <motion.button
+                      key={tab.id}
+                      type="button"
+                      role="tab"
+                      id={`${layoutGroup}-tab-${tab.id}`}
+                      aria-selected={selected}
+                      aria-controls={`${layoutGroup}-panel-${tab.id}`}
+                      tabIndex={selected ? 0 : -1}
+                      onClick={() => select(tab.id)}
+                      whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+                      className={clsx(
+                        "relative z-0 flex-1 cursor-pointer rounded-2xl px-3 py-2.5 text-base outline-none",
+                        "focus-visible:ring-2 focus-visible:ring-ring",
+                      )}
                     >
+                      {selected ? (
+                        <motion.span
+                          layoutId={pillId}
+                          className="absolute inset-0 -z-10 rounded-2xl bg-accent"
+                          transition={
+                            reduceMotion ? { duration: 0 } : pillSpring
+                          }
+                          style={{ borderRadius: 16 }}
+                        />
+                      ) : null}
                       <span
-                        className={
+                        className={clsx(
+                          "relative block",
                           selected
-                            ? "text-slate-900 dark:text-slate-50"
-                            : "text-slate-500 dark:text-zinc-400"
-                        }
+                            ? "text-foreground"
+                            : "text-muted-foreground",
+                        )}
                       >
                         {tab.label}
                       </span>
-                    </motion.span>
-                  </motion.button>
-                );
-              })}
-            </div>
-          </LayoutGroup>
-        </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </LayoutGroup>
+          </div>
 
-        <div className="relative min-h-[248px] overflow-hidden px-5 py-6 md:px-6 md:py-7">
-          <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-            <motion.div
-              key={active.id}
-              role="tabpanel"
-              id={`${layoutGroup}-panel-${active.id}`}
-              aria-labelledby={`${layoutGroup}-tab-${active.id}`}
-              custom={direction}
-              initial={
-                reduceMotion
-                  ? { opacity: 0 }
-                  : {
-                      opacity: 0,
-                      x: direction * -56,
-                      y: 12,
-                      filter: "blur(12px)",
-                      scale: 0.94,
-                    }
-              }
-              animate={{
-                opacity: 1,
-                x: 0,
-                y: 0,
-                filter: "blur(0px)",
-                scale: 1,
-              }}
-              exit={
-                reduceMotion
-                  ? { opacity: 0 }
-                  : {
-                      opacity: 0,
-                      x: direction * 48,
-                      y: -10,
-                      filter: "blur(10px)",
-                      scale: 0.96,
-                    }
-              }
-              transition={
-                reduceMotion
-                  ? { duration: 0.12 }
-                  : {
-                      type: "spring",
-                      stiffness: 280,
-                      damping: 30,
-                      mass: 0.9,
-                      opacity: { duration: 0.32, ease: easeOut },
-                      filter: { duration: 0.4, ease: easeOut },
-                    }
-              }
-              className="flex flex-col will-change-transform"
-            >
-              <motion.p
-                initial={reduceMotion ? false : { opacity: 0, y: 12, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={
-                  reduceMotion
-                    ? { duration: 0 }
-                    : { delay: 0.08, duration: 0.42, ease: easeOut }
-                }
-                className="text-[11px] font-bold tracking-[0.16em] text-slate-500 dark:text-zinc-400"
-              >
-                {active.eyebrow}
-              </motion.p>
-
-              <motion.h3
+          <div className="relative min-h-[248px] overflow-hidden px-5 py-6 md:px-6 md:py-7">
+            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+              <motion.div
+                key={active.id}
+                role="tabpanel"
+                id={`${layoutGroup}-panel-${active.id}`}
+                aria-labelledby={`${layoutGroup}-tab-${active.id}`}
+                custom={direction}
                 initial={
                   reduceMotion
-                    ? false
-                    : { opacity: 0, y: 20, filter: "blur(6px)" }
+                    ? { opacity: 0 }
+                    : { opacity: 0, x: direction * -24, y: 16 }
                 }
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                exit={
+                  reduceMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, x: direction * 24, y: -8 }
+                }
                 transition={
                   reduceMotion
-                    ? { duration: 0 }
-                    : { delay: 0.14, duration: 0.48, ease: easeOut }
+                    ? { duration: 0.12 }
+                    : {
+                        type: "spring",
+                        bounce: 0.1,
+                        duration: 0.35,
+                        ease: ROW_EASE,
+                      }
                 }
-                className="mt-2 text-[18px] font-bold text-slate-900 md:text-[20px] dark:text-slate-50"
+                className="flex flex-col"
               >
-                {active.title}
-              </motion.h3>
+                <p className="text-sm text-muted-foreground">{active.eyebrow}</p>
 
-              <motion.p
-                initial={
-                  reduceMotion
-                    ? false
-                    : { opacity: 0, y: 22, filter: "blur(6px)" }
-                }
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={
-                  reduceMotion
-                    ? { duration: 0 }
-                    : { delay: 0.2, duration: 0.5, ease: easeOut }
-                }
-                className="mt-2 text-[13.5px] leading-7 text-slate-500 dark:text-zinc-400"
-              >
-                {active.body}
-              </motion.p>
+                <h3 className="mt-2 text-xl font-semibold text-foreground">
+                  {active.title}
+                </h3>
 
-              <div className="mt-6 grid grid-cols-3 gap-2">
-                {active.stats.map((stat, i) => (
-                  <motion.div
-                    key={`${active.id}-${stat.label}`}
-                    initial={
-                      reduceMotion
-                        ? false
-                        : {
-                            opacity: 0,
-                            y: 28,
-                            scale: 0.86,
-                            filter: "blur(4px)",
-                          }
-                    }
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      filter: "blur(0px)",
-                    }}
-                    transition={
-                      reduceMotion
-                        ? { duration: 0 }
-                        : {
-                            delay: 0.26 + i * 0.09,
-                            type: "spring",
-                            stiffness: 280,
-                            damping: 20,
-                            mass: 0.75,
-                          }
-                    }
-                    className="rounded-2xl bg-slate-50 px-3 py-3 ring-1 ring-slate-900/5 dark:bg-zinc-900 dark:ring-white/8"
-                  >
-                    <p className="text-[11px] font-medium text-slate-500 dark:text-zinc-400">
-                      {stat.label}
-                    </p>
-                    <motion.p
+                <p className="mt-2 text-base leading-7 text-muted-foreground">
+                  {active.body}
+                </p>
+
+                <div className="mt-6 grid grid-cols-3 gap-2">
+                  {active.stats.map((stat, i) => (
+                    <motion.div
+                      key={`${active.id}-${stat.label}`}
                       initial={
                         reduceMotion
                           ? false
-                          : { opacity: 0, y: 8 }
+                          : { opacity: 0, y: 24 }
                       }
                       animate={{ opacity: 1, y: 0 }}
                       transition={
                         reduceMotion
                           ? { duration: 0 }
                           : {
-                              delay: 0.34 + i * 0.09,
-                              duration: 0.35,
-                              ease: easeOut,
+                              type: "spring",
+                              bounce: 0.1,
+                              duration: 0.25,
+                              delay: (i + 8) * 0.025,
+                              ease: ROW_EASE,
                             }
                       }
-                      className="mt-1 text-[16px] font-bold tabular-nums text-slate-900 dark:text-slate-50"
+                      className="rounded-2xl border border-border bg-background px-3 py-3"
                     >
-                      {stat.value}
-                    </motion.p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                      <p className="text-sm text-muted-foreground">
+                        {stat.label}
+                      </p>
+                      <p className="mt-1 text-xl font-semibold tabular-nums text-foreground">
+                        {stat.value}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </motion.div>
-    </section>
+      </section>
+    </MotionConfig>
   );
 }
 

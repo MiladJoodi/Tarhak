@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 80,
+  "showHint": true,
+  "hintKind": "hover",
+  "hintHeading": "تولتیپ",
+  "hintDescription": "روی هر دکمه نگه دار؛ برچسب با فنر ظاهر می‌شود.",
+  "posterUrl": "/api/browse-media/components/tooltip/poster.avif",
+  "videoUrl": "/api/browse-media/components/tooltip/video.mp4",
+  "tags": [
+    "tooltip",
+    "hover",
+    "icons",
+    "nav"
+  ]
+}

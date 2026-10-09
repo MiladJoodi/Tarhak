@@ -62,7 +62,10 @@ function watchTop(getTop: () => number, apply: (top: number) => void) {
 
 function HintConnector({ tone }: { tone: "dark" | "light" }) {
   return (
-    <div className="flex h-14 w-2 shrink-0 flex-col items-center" aria-hidden>
+    <div
+      className="flex h-14 w-2 shrink-0 flex-col items-center max-md:h-9 [@media(max-height:720px)]:h-8"
+      aria-hidden
+    >
       <div
         className={cn(
           "size-2 shrink-0 rounded-[2px] border",
@@ -140,19 +143,18 @@ function HintOverlay({
     >
       <div
         className={cn(
-          "flex flex-col items-center gap-8 px-4",
+          "preview-hint-offset flex flex-col items-center gap-8 px-4 max-md:gap-3 [@media(max-height:720px)]:gap-2.5",
           absolute ? "relative w-full" : "absolute inset-x-0",
         )}
-        style={{ top: "var(--preview-hint-top, 80px)" }}
       >
         <div
           dir="rtl"
           lang="fa"
-          className="flex max-w-full flex-col items-center gap-1 text-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]"
+          className="flex max-w-[min(100%,22rem)] flex-col items-center gap-1 px-1 text-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]"
         >
           <p
             className={cn(
-              "text-balance text-lg",
+              "text-balance text-lg max-md:text-base",
               tone === "light" ? "text-neutral-900" : "text-white",
             )}
           >
@@ -161,7 +163,8 @@ function HintOverlay({
           {description ? (
             <p
               className={cn(
-                "max-w-prose text-sm text-pretty",
+                /* Long copy collides with centered demos on phones / short viewports. */
+                "max-w-prose text-sm text-pretty max-md:hidden [@media(max-height:720px)]:hidden",
                 tone === "light" ? "text-neutral-500" : "text-muted-foreground",
               )}
             >

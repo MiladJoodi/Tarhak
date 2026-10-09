@@ -5,7 +5,7 @@
 import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronsUpDown, Search } from "lucide-react";
+import { ChevronDown, ChevronsUpDown, Search } from "lucide-react";
 
 import { scrollbarMinimal, forgetScroller, rememberScroller, centerChildInScroller } from "@/components/open/ui";
 import { browsePoster, SWITCHER_THUMB } from "@/lib/browse/media";
@@ -15,9 +15,8 @@ import { cn } from "@/lib/utils";
 
 const TITLE_SUFFIX = " - طرحک";
 
-/** Figma 91:4677 container shadow */
 const DROPDOWN_SHADOW =
-  "shadow-[0_6px_10px_-30px_rgba(0,0,0,0.04),0_4px_6px_-10px_rgba(0,0,0,0.25),0_2px_4px_-10px_rgba(0,0,0,0.25)]";
+  "shadow-[0_16px_40px_-12px_rgba(0,0,0,0.55),0_4px_12px_-4px_rgba(0,0,0,0.35),0_0_0_1px_hsla(0,0%,100%,0.06)]";
 
 function setDocumentTitle(title: string) {
   if (typeof document === "undefined") return;
@@ -27,9 +26,12 @@ function setDocumentTitle(title: string) {
 export function OpenSwitcher({
   current,
   items,
+  variant = "floating",
 }: {
   current: OpenNavItem;
   items: OpenNavItem[];
+  /** `bar` = single-line title + chevron for the mobile strip header. */
+  variant?: "floating" | "bar";
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -84,6 +86,8 @@ export function OpenSwitcher({
 
   React.useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      // Skip when this instance is CSS-hidden (mobile/desktop dual mount).
+      if (!rootRef.current || rootRef.current.getClientRects().length === 0) return;
       const target = event.target as HTMLElement | null;
       const typingInField = target && /^(INPUT|TEXTAREA)$/.test(target.tagName);
       if (event.key === "/" && !typingInField) {
@@ -175,23 +179,36 @@ export function OpenSwitcher({
   }
 
   const triggerPrimary = displayed.titleFa ?? displayed.title;
+  const bar = variant === "bar";
 
   return (
-    <div ref={rootRef} className={cn("relative flex justify-center", open && "z-[999999999]")}>
-      {/* Trigger: 16px title; L±2–3 hover/press, no scale */}
+    <div
+      ref={rootRef}
+      className={cn(
+        "relative flex min-w-0 justify-center",
+        bar && "w-full",
+        open && "z-[999999999]",
+      )}
+    >
       <button
         type="button"
         className={cn(
-          "relative inline-flex max-w-[min(42vw,320px)] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-[14px] border-0 px-3.5 py-2 text-base tracking-[-0.42px] text-white outline-none focus-visible:outline-none focus-visible:ring-0",
-          "bg-[hsl(240_6%_22%)]",
-          "transition-[background-color] duration-150",
-          "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_25%)]",
-          "active:bg-[hsl(240_6%_19%)]",
-          "shadow-[0_2px_2px_-1px_hsla(0,0%,0%,0.16),0_4px_4px_-2px_hsla(0,0%,0%,0.14),0_0_0_1px_hsla(0,0%,0%,0.1)]",
-          "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit]",
-          "before:bg-[linear-gradient(180deg,transparent_30%,hsla(0,0%,0%,0.07)_100%)]",
-          "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit]",
-          "after:shadow-[inset_0_1px_0.5px_0_hsla(0,0%,100%,0.05)]",
+          "group relative inline-flex cursor-pointer items-center overflow-hidden text-white outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/25",
+          bar
+            ? cn(
+                "h-9 max-w-full gap-1.5 rounded-xl border-0 bg-transparent px-2.5 text-[14px]",
+                "active:bg-white/[0.08]",
+              )
+            : cn(
+                "h-10 max-w-[min(46vw,240px)] gap-2 rounded-full border-0 pe-2.5 ps-3.5 text-[15px] tracking-[-0.2px]",
+                "bg-[hsl(240_6%_18%)]",
+                "transition-[background-color,box-shadow] duration-150",
+                "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_22%)]",
+                "active:bg-[hsl(240_6%_15%)]",
+                "shadow-[0_1px_0_0_hsla(0,0%,100%,0.06)_inset,0_2px_6px_-2px_hsla(0,0%,0%,0.35),0_0_0_1px_hsla(0,0%,0%,0.35)]",
+                open &&
+                  "bg-[hsl(240_6%_22%)] shadow-[0_1px_0_0_hsla(0,0%,100%,0.08)_inset,0_4px_12px_-4px_hsla(0,0%,0%,0.45),0_0_0_1px_hsla(0,0%,100%,0.08)]",
+              ),
         )}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -200,29 +217,71 @@ export function OpenSwitcher({
           setOpen((value) => !value);
         }}
       >
-        <span className="relative flex min-w-0 flex-col items-center leading-tight">
-          <span
-            className="truncate"
-            dir={displayed.titleFa ? "rtl" : "ltr"}
-            lang={displayed.titleFa ? "fa" : undefined}
-          >
-            {triggerPrimary}
-          </span>
-          {displayed.titleFa ? (
-            <span dir="ltr" className="truncate text-xs text-white/55">
-              {displayed.title}
+        {bar ? (
+          <>
+            <span
+              className="min-w-0 truncate font-medium leading-none"
+              dir={displayed.titleFa ? "rtl" : "ltr"}
+              lang={displayed.titleFa ? "fa" : undefined}
+              title={triggerPrimary}
+            >
+              {triggerPrimary}
             </span>
-          ) : null}
-        </span>
-        <ChevronsUpDown className="relative size-[18px] shrink-0" aria-hidden strokeWidth={1.75} />
+            <ChevronDown
+              className={cn(
+                "size-4 shrink-0 text-white/55 transition-transform duration-200",
+                open && "rotate-180 text-white/80",
+              )}
+              aria-hidden
+              strokeWidth={2}
+            />
+          </>
+        ) : (
+          <>
+            <span className="relative flex min-w-0 flex-1 flex-col items-start justify-center overflow-hidden leading-[1.15]">
+              <span
+                className="block w-full truncate text-start font-medium"
+                dir={displayed.titleFa ? "rtl" : "ltr"}
+                lang={displayed.titleFa ? "fa" : undefined}
+                title={triggerPrimary}
+              >
+                {triggerPrimary}
+              </span>
+              {displayed.titleFa ? (
+                <span
+                  dir="ltr"
+                  className="mt-0.5 block w-full truncate text-start text-[11px] font-normal text-white/45"
+                  title={displayed.title}
+                >
+                  {displayed.title}
+                </span>
+              ) : null}
+            </span>
+            <span
+              className={cn(
+                "relative flex size-6 shrink-0 items-center justify-center rounded-full bg-white/6 text-white/70 transition-[background-color,color,transform] duration-200",
+                "[@media(hover:hover)_and_(pointer:fine)]:group-hover:bg-white/10 [@media(hover:hover)_and_(pointer:fine)]:group-hover:text-white/90",
+                open && "bg-white/10 text-white",
+              )}
+            >
+              <ChevronsUpDown
+                className={cn(
+                  "size-3.5 transition-transform duration-200",
+                  open && "scale-90",
+                )}
+                aria-hidden
+                strokeWidth={2}
+              />
+            </span>
+          </>
+        )}
       </button>
       <AnimatePresence>
         {open ? (
-          /* Figma 91:4677 — rounded 14; modest px-2.5; container shadow */
           <motion.div
             role="listbox"
             className={cn(
-              "absolute top-[calc(100%+8px)] left-1/2 z-[999999999] flex w-[min(320px,80vw)] origin-top flex-col overflow-hidden rounded-[14px] border-0 bg-popover text-popover-foreground",
+              "absolute top-[calc(100%+10px)] left-1/2 z-[999999999] flex w-[min(300px,82vw)] origin-top flex-col overflow-hidden rounded-2xl border-0 bg-[hsl(240_6%_12%)] text-popover-foreground",
               DROPDOWN_SHADOW,
             )}
             initial={instant ? false : { opacity: 0, transform: "translateX(-50%) scale(0.96)" }}
@@ -230,34 +289,30 @@ export function OpenSwitcher({
             exit={{ opacity: 0, transform: "translateX(-50%) scale(0.96)" }}
             transition={instant ? { duration: 0 } : { duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
           >
-            {/* Figma 82:3700 search — same padding/radius/height; no `/` kbd; hidden on mobile */}
-            <div className="hidden border-b border-border p-3 md:block" dir="rtl" lang="fa">
-              <div className="relative flex items-center gap-2 overflow-hidden rounded-[12px] bg-[#030202] px-3 py-2 shadow-[0px_0.5px_0px_0px_rgba(255,255,255,0.15)]">
-                <Search className="size-4 shrink-0 text-[#acacb4]" aria-hidden strokeWidth={1.75} />
+            <div className="hidden border-b border-white/6 p-2.5 md:block" dir="rtl" lang="fa">
+              <div className="relative flex items-center gap-2 overflow-hidden rounded-xl bg-black/45 px-3 py-2 ring-1 ring-white/6">
+                <Search className="size-3.5 shrink-0 text-white/40" aria-hidden strokeWidth={1.75} />
                 <input
                   ref={inputRef}
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="جستجو"
                   aria-label="جستجوی کامپوننت‌ها"
-                  className="min-w-0 flex-1 bg-transparent text-sm tracking-normal text-[#acacb4] outline-none placeholder:text-[#acacb4]"
+                  className="min-w-0 flex-1 bg-transparent text-sm tracking-normal text-white/85 outline-none placeholder:text-white/35"
                 />
               </div>
             </div>
-            {/* Figma 95:4696 — list gap 2; px 12 py 10 inset via padding so hover bg is full-bleed */}
-            {/* scroll-fade lives on the scroller (bg/rounding stay on the wrapper)
-                so content dissolves at the edges instead of hard-cutting */}
             <div
               ref={listRef}
               dir="rtl"
               lang="fa"
               className={cn(
-                "scroll-fade m-0 flex max-h-[280px] flex-col gap-0.5 overflow-y-auto overscroll-contain p-0",
+                "scroll-fade m-0 flex max-h-[280px] flex-col gap-0.5 overflow-y-auto overscroll-contain p-1.5",
                 scrollbarMinimal,
               )}
             >
               {filtered.length === 0 ? (
-                <p className="px-3 py-4 text-center text-xs text-muted-foreground">موردی پیدا نشد.</p>
+                <p className="px-3 py-4 text-center text-xs text-white/40">موردی پیدا نشد.</p>
               ) : (
                 filtered.map((item) => {
                   const active = item.href === displayed.href;
@@ -270,20 +325,20 @@ export function OpenSwitcher({
                       role="option"
                       aria-selected={active}
                       className={cn(
-                        "relative z-10 mx-0 flex cursor-pointer items-center gap-2.5 rounded-none px-3 py-2.5 text-start text-sm text-foreground outline-none",
-                        "transition-[background-color] duration-150",
+                        "relative z-10 flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-xl px-2.5 py-2 text-start text-sm text-white/80 outline-none",
+                        "transition-[background-color,color] duration-150",
                         "focus-visible:outline-none focus-visible:ring-0",
                         active
                           ? cn(
-                              "bg-[hsl(240_7%_26%)] text-white",
-                              "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_7%_29%)]",
-                              "active:bg-[hsl(240_7%_23%)]",
-                              "focus-visible:bg-[hsl(240_7%_29%)]",
+                              "bg-white/10 text-white",
+                              "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-white/12",
+                              "active:bg-white/8",
+                              "focus-visible:bg-white/12",
                             )
                           : cn(
-                              "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[hsl(240_6%_23%)]",
-                              "active:bg-[hsl(240_6%_18%)]",
-                              "focus-visible:bg-[hsl(240_6%_23%)]",
+                              "[@media(hover:hover)_and_(pointer:fine)]:hover:bg-white/6 [@media(hover:hover)_and_(pointer:fine)]:hover:text-white",
+                              "active:bg-white/4",
+                              "focus-visible:bg-white/6",
                             ),
                       )}
                       onMouseEnter={() => router.prefetch(item.href)}
@@ -292,7 +347,7 @@ export function OpenSwitcher({
                     >
                       {poster ? (
                         <span
-                          className="relative shrink-0 overflow-hidden rounded-md border border-white/14 bg-muted"
+                          className="relative shrink-0 overflow-hidden rounded-md ring-1 ring-white/12 bg-muted"
                           style={{ width: SWITCHER_THUMB.w, height: SWITCHER_THUMB.h }}
                         >
                           <img
@@ -305,16 +360,21 @@ export function OpenSwitcher({
                           />
                         </span>
                       ) : null}
-                      <span className="flex min-w-0 flex-col items-start leading-tight">
+                      <span className="flex min-w-0 flex-1 flex-col items-start overflow-hidden leading-[1.15]">
                         <span
-                          className="truncate"
+                          className="block w-full truncate font-medium"
                           dir={item.titleFa ? "rtl" : "ltr"}
                           lang={item.titleFa ? "fa" : undefined}
+                          title={primary}
                         >
                           {primary}
                         </span>
                         {item.titleFa ? (
-                          <span dir="ltr" className="truncate text-xs text-white/50">
+                          <span
+                            dir="ltr"
+                            className="mt-0.5 block w-full truncate text-[11px] text-white/40"
+                            title={item.title}
+                          >
                             {item.title}
                           </span>
                         ) : null}

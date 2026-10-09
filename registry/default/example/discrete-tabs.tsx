@@ -1,206 +1,108 @@
 "use client";
 
-import { SetStateAction, useState, useEffect } from "react";
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
-
-const Calendar: React.FC<React.SVGProps<SVGSVGElement> & { size?: number }> = ({
-  className,
-  size = 20,
-  ...props
-}) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 20 20"
-      className={className}
-      {...props}
-    >
-      <g fill="currentColor">
-        <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10Zm.75 1.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12Zm.75 1.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10Zm.75 1.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
-        <path
-          fillRule="evenodd"
-          d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"
-          clipRule="evenodd"
-        />
-      </g>
-    </svg>
-  );
-};
-
-const Alert: React.FC<React.SVGProps<SVGSVGElement> & { size?: number }> = ({
-  className,
-  size = 20,
-  ...props
-}) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      className={className}
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M17.1 12.6v-1.8A5.4 5.4 0 0 0 13 5.6V3a1 1 0 0 0-2 0v2.4a5.4 5.4 0 0 0-4 5.5v1.8c0 2.4-1.9 3-1.9 4.2c0 .6 0 1.2.5 1.2h13c.5 0 .5-.6.5-1.2c0-1.2-1.9-1.8-1.9-4.2ZM8.8 19a3.5 3.5 0 0 0 6.4 0z"
-      />
-    </svg>
-  );
-};
-
-const Inbox: React.FC<React.SVGProps<SVGSVGElement> & { size?: number }> = ({
-  className,
-  size = 20,
-  ...props
-}) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      className={className}
-      {...props}
-    >
-      <g id="evaEmailFill0">
-        <g id="evaEmailFill1">
-          <path
-            id="evaEmailFill2"
-            fill="currentColor"
-            d="M19 4H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm0 2l-6.5 4.47a1 1 0 0 1-1 0L5 6Z"
-          />
-        </g>
-      </g>
-    </svg>
-  );
-};
+import { useState, type Dispatch, type SetStateAction } from "react";
+import { motion, MotionConfig } from "motion/react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Calendar03Icon,
+  Mail01Icon,
+  Notification03Icon,
+} from "@hugeicons/core-free-icons";
+import clsx from "clsx";
 
 // Change Here
 const TABS = [
-  { id: "Inbox", title: "صندوق", icon: Inbox },
-  { id: "Planner", title: "برنامه‌ریز", icon: Calendar },
-  { id: "Alerts", title: "هشدارها", icon: Alert },
-];
+  { id: "Inbox", title: "صندوق", icon: Mail01Icon },
+  { id: "Planner", title: "برنامه‌ریز", icon: Calendar03Icon },
+  { id: "Alerts", title: "هشدارها", icon: Notification03Icon },
+] as const;
+
+const ROW_EASE: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 export default function DiscreteTabs() {
-  const [activeButton, setActiveButton] = useState(TABS[0].id);
+  const [activeButton, setActiveButton] = useState<string>(TABS[0].id);
+
   return (
-    <div
+    <section
       dir="rtl"
       lang="fa"
-      className="flex items-center gap-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      aria-label="تب‌های فشرده"
+      className="flex items-center justify-center gap-3 fill-muted-foreground/70 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
     >
-      {TABS.map((tab) => (
-        <Button
-          key={tab.id}
-          id={tab.id}
-          title={tab.title}
-          ButtonIcon={tab.icon}
-          isActive={activeButton === tab.id}
-          setActiveButton={setActiveButton}
-        />
-      ))}
-    </div>
+      <MotionConfig
+        transition={{ type: "spring", duration: 0.85, bounce: 0.35 }}
+      >
+        {TABS.map((tab) => (
+          <TabButton
+            key={tab.id}
+            id={tab.id}
+            title={tab.title}
+            icon={tab.icon}
+            isActive={activeButton === tab.id}
+            setActiveButton={setActiveButton}
+          />
+        ))}
+      </MotionConfig>
+    </section>
   );
 }
 
-function Button({
+function TabButton({
   id,
   title,
-  ButtonIcon,
+  icon,
   isActive,
   setActiveButton,
 }: {
   id: string;
   title: string;
-  ButtonIcon: React.ComponentType<
-    React.SVGProps<SVGSVGElement> & { size?: number }
-  >;
+  icon: (typeof TABS)[number]["icon"];
   isActive: boolean;
-  setActiveButton: React.Dispatch<SetStateAction<string>>;
+  setActiveButton: Dispatch<SetStateAction<string>>;
 }) {
-  const [showShine, setShowShine] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    if (isActive && isLoaded) {
-      setShowShine(true);
-      const timer = setTimeout(() => setShowShine(false), 800);
-      return () => clearTimeout(timer);
-    }
-  }, [isActive, isLoaded]);
-
-  const activeColor = "text-primary";
-
   return (
-    <motion.div
-      layoutId={"button-id-" + id}
+    <motion.button
+      type="button"
+      layout
       transition={{
         layout: {
           type: "spring",
-          damping: 20,
-          stiffness: 230,
-          mass: 1.2,
-          ease: [0.215, 0.61, 0.355, 1],
+          bounce: 0.2,
+          duration: 0.55,
+          ease: ROW_EASE,
         },
       }}
-      onClick={() => {
-        setActiveButton(id);
-        setIsLoaded(true);
-      }}
-      className="flex h-fit w-fit"
-      style={{ willChange: "transform" }}
+      onClick={() => setActiveButton(id)}
+      aria-pressed={isActive}
+      aria-label={title}
+      className={clsx(
+        "flex h-14 cursor-pointer items-center gap-x-3 overflow-hidden border border-border outline-none",
+        "focus-visible:ring-2 focus-visible:ring-ring",
+        isActive
+          ? "bg-card px-5 text-foreground"
+          : "bg-background px-4 text-muted-foreground hover:bg-accent hover:text-foreground",
+      )}
+      style={{ borderRadius: isActive ? 20 : 40, borderWidth: 1 }}
     >
-      <motion.div
-        layout
-        transition={{
-          layout: {
+      <motion.span layout className="shrink-0">
+        <HugeiconsIcon icon={icon} size={24} />
+      </motion.span>
+
+      {isActive ? (
+        <motion.span
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
             type: "spring",
-            damping: 20,
-            stiffness: 230,
-            mass: 1.2,
-          },
-        }}
-        className={cn(
-          "flex cursor-pointer items-center gap-1.5 overflow-hidden bg-secondary p-3 shadow-md outline outline-2 outline-border transition-colors duration-75 ease-out",
-          isActive && activeColor,
-          isActive ? "px-4" : "px-3"
-        )}
-        style={{
-          borderRadius: "25px",
-        }}
-      >
-        <motion.div
-          layoutId={"icon-id" + id}
-          className="shrink-0"
-          style={{ willChange: "transform" }}
+            bounce: 0.1,
+            duration: 0.25,
+            ease: ROW_EASE,
+          }}
+          className="whitespace-nowrap text-xl"
         >
-          <ButtonIcon size={22} />
-        </motion.div>
-        {isActive && (
-          <motion.div
-            className="flex items-center"
-            initial={isLoaded ? { opacity: 0, filter: "blur(4px)" } : false}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{
-              duration: isLoaded ? 0.2 : 0,
-              ease: [0.86, 0, 0.07, 1],
-            }}
-          >
-            <motion.span
-              layoutId={"text-id-" + id}
-              className="relative inline-block whitespace-nowrap text-sm font-medium"
-              style={{ willChange: "transform" }}
-            >
-              {title}
-            </motion.span>
-          </motion.div>
-        )}
-      </motion.div>
-    </motion.div>
+          {title}
+        </motion.span>
+      ) : null}
+    </motion.button>
   );
 }

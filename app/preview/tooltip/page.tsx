@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
-import NestedDropdown from "@/registry/default/example/nested-dropdown";
+import Tooltip from "@/registry/default/example/tooltip";
 
 export const metadata: Metadata = {
-  title: "Nested Dropdown",
+  title: "Tooltip",
   robots: { index: false, follow: false },
 };
 
-export default function NestedDropdownPreviewPage() {
+export default function TooltipPreviewPage() {
   return (
     <main className="flex min-h-dvh items-center justify-center bg-background px-4">
-      <NestedDropdown />
+      <Tooltip />
     </main>
   );
 }

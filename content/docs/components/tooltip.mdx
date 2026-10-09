@@ -1,0 +1,28 @@
+---
+title: Tooltip
+description: "تولتیپ نرم روی دکمه‌های گرد — سطح card، شعاع ۱۶، متن فارسی و فنر کوتاه."
+---
+
+## نحوه استفاده
+
+```tsx
+import Tooltip, { SoftTooltip } from "@/components/tooltip";
+
+export default function Example() {
+  return (
+    <div className="flex h-[240px] w-full items-center justify-center">
+      <SoftTooltip label="کپی لینک">
+        <button type="button">کپی</button>
+      </SoftTooltip>
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- حباب `bg-card` با `border-border` و شعاع ۱۶ — هم‌سبک `filter-interaction`.
+- باز شدن با هاور و فوکوس؛ فلش کوچک هم‌رنگ سطح.
+- انیمیشن فنری کوتاه (scale + جابه‌جایی).
+- دموی پیش‌فرض: ردیف دکمه‌های گرد با آیکون Hugeicons.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

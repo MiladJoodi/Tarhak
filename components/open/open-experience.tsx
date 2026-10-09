@@ -7,6 +7,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
+import { Menu, X } from "lucide-react";
+
 import { LineNav } from "@/components/line-nav";
 import { OpenActions } from "@/components/open/open-actions";
 import { OpenPanelProvider, useOpenPanel } from "@/components/open/open-panel-context";
@@ -411,10 +413,11 @@ function OpenExperienceShell({
   return (
     <div className="dark flex h-dvh overflow-hidden bg-[hsl(240_6%_7%)] text-foreground">
       <div className="relative flex min-w-0 flex-1 flex-col overflow-hidden bg-[hsl(225_7%_11%)]">
+        {/* Desktop: floating sidebar peek control (mobile uses hamburger in the strip). */}
         {showToggle ? (
           <div
             className={cn(
-              "pointer-events-none absolute top-[18px] right-[18px] z-30",
+              "pointer-events-none absolute top-[18px] right-[18px] z-30 max-md:hidden",
               peek && "z-40",
             )}
             onMouseEnter={() => {
@@ -435,23 +438,11 @@ function OpenExperienceShell({
             <button
               type="button"
               className={cn(openIconBtn, "pointer-events-auto cursor-pointer")}
-              data-active={peek || mobileOpen ? "true" : undefined}
-              aria-label={
-                isMobile
-                  ? mobileOpen
-                    ? "بستن سایدبار"
-                    : "باز کردن سایدبار"
-                  : peek
-                    ? "سنجاق کردن سایدبار"
-                    : "باز کردن سایدبار"
-              }
-              aria-expanded={isMobile ? mobileOpen : peek}
+              data-active={peek ? "true" : undefined}
+              aria-label={peek ? "سنجاق کردن سایدبار" : "باز کردن سایدبار"}
+              aria-expanded={peek}
               aria-pressed={false}
               onClick={() => {
-                if (isMobile) {
-                  setMobileOpen(true);
-                  return;
-                }
                 updatePinned(true);
                 setPeek(false);
                 setHoverPreview(null);
@@ -459,62 +450,104 @@ function OpenExperienceShell({
             >
               <SidebarToggleIcon />
             </button>
-            {!isMobile ? (
-              <AnimatePresence>
-                {peek ? (
-                  <motion.div
-                    ref={peekPanelRef}
-                    className="pointer-events-auto absolute top-11 right-0 z-40 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
-                    style={{ width: SIDEBAR_WIDTH + 8 + PREVIEW_W }}
-                    initial={sidebarMotion.initial}
-                    animate={sidebarMotion.animate}
-                    exit={sidebarMotion.exit}
-                    transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+            <AnimatePresence>
+              {peek && !isMobile ? (
+                <motion.div
+                  ref={peekPanelRef}
+                  className="pointer-events-auto absolute top-11 right-0 z-40 before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']"
+                  style={{ width: SIDEBAR_WIDTH + 8 + PREVIEW_W }}
+                  initial={sidebarMotion.initial}
+                  animate={sidebarMotion.animate}
+                  exit={sidebarMotion.exit}
+                  transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                >
+                  <div
+                    className={cn(sidebarShell, "ms-auto max-h-[min(70dvh,560px)]")}
+                    style={{ width: SIDEBAR_WIDTH }}
                   >
-                    <div
-                      className={cn(sidebarShell, "ms-auto max-h-[min(70dvh,560px)]")}
-                      style={{ width: SIDEBAR_WIDTH }}
-                    >
-                      <SidebarList
-                        items={navItems}
-                        activeHref={current.href}
-                        tall
-                        surface="card"
-                        onItemHover={(item, anchor) => {
-                          if (!item || !anchor || !peekPanelRef.current) {
-                            setHoverPreview(null);
-                            return;
-                          }
-                          const panelBox = peekPanelRef.current.getBoundingClientRect();
-                          const rowBox = anchor.getBoundingClientRect();
-                          setHoverPreview({
-                            slug: item.slug,
-                            title: item.title,
-                            rowMid: rowBox.top + rowBox.height / 2 - panelBox.top,
-                            panelHeight: panelBox.height,
-                          });
-                        }}
-                      />
-                    </div>
-                    <SidebarHoverPreview target={hoverPreview} />
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            ) : null}
+                    <SidebarList
+                      items={navItems}
+                      activeHref={current.href}
+                      tall
+                      surface="card"
+                      onItemHover={(item, anchor) => {
+                        if (!item || !anchor || !peekPanelRef.current) {
+                          setHoverPreview(null);
+                          return;
+                        }
+                        const panelBox = peekPanelRef.current.getBoundingClientRect();
+                        const rowBox = anchor.getBoundingClientRect();
+                        setHoverPreview({
+                          slug: item.slug,
+                          title: item.title,
+                          rowMid: rowBox.top + rowBox.height / 2 - panelBox.top,
+                          panelHeight: panelBox.height,
+                        });
+                      }}
+                    />
+                  </div>
+                  <SidebarHoverPreview target={hoverPreview} />
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
         ) : null}
 
         {/* Above preview layers that escape stacking (e.g. magnified-bento lens z-40). Drawer portal is z-[110] so it covers this chrome. */}
         {stage ? null : (
-          <header className="pointer-events-none absolute inset-x-[18px] top-[18px] z-[100] grid grid-cols-[1fr_auto_1fr] items-start gap-4 *:pointer-events-auto">
-            <div className="justify-self-start">
-              <OpenActions panel={panel} onChange={setPanel} slug={current.slug} />
-            </div>
-            <div className="justify-self-center">
-              {showToggle ? <OpenSwitcher current={current} items={navItems} /> : null}
-            </div>
-            <div className={cn("justify-self-end", showToggle && "w-10")} />
-          </header>
+          <>
+            <header
+              dir="rtl"
+              lang="fa"
+              className={cn(
+                "pointer-events-none absolute inset-x-0 top-0 z-[100] flex h-14 items-center gap-1 px-2 *:pointer-events-auto md:hidden",
+                "border-b border-white/8 bg-[hsla(240,8%,7%,0.72)]",
+                "shadow-[inset_0_-1px_0_0_hsla(0,0%,100%,0.04)]",
+                "backdrop-blur-xl backdrop-saturate-150",
+              )}
+            >
+              <button
+                type="button"
+                className={cn(
+                  "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-[10px] border-0 text-white/88",
+                  "outline-none transition-[background-color,color,transform] duration-150",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35",
+                  "active:bg-white/[0.1]",
+                  openPressMotion,
+                )}
+                aria-label={mobileOpen ? "بستن منو" : "باز کردن منو"}
+                aria-expanded={mobileOpen}
+                onClick={() => setMobileOpen(true)}
+              >
+                {mobileOpen ? (
+                  <X className="size-[18px]" strokeWidth={1.85} />
+                ) : (
+                  <Menu className="size-[18px]" strokeWidth={1.85} />
+                )}
+              </button>
+
+              <div className="flex min-w-0 flex-1 items-center justify-center">
+                <OpenSwitcher current={current} items={navItems} variant="bar" />
+              </div>
+
+              <OpenActions
+                panel={panel}
+                onChange={setPanel}
+                slug={current.slug}
+                variant="bar"
+              />
+            </header>
+
+            <header className="pointer-events-none absolute inset-x-[18px] top-[18px] z-[100] hidden grid-cols-[1fr_auto_1fr] items-start gap-4 *:pointer-events-auto md:grid">
+              <div className="justify-self-start">
+                <OpenActions panel={panel} onChange={setPanel} slug={current.slug} />
+              </div>
+              <div className="justify-self-center">
+                {showToggle ? <OpenSwitcher current={current} items={navItems} /> : null}
+              </div>
+              <div className={cn("justify-self-end", showToggle && "w-10")} />
+            </header>
+          </>
         )}
 
         {children}

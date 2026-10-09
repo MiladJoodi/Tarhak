@@ -43,6 +43,7 @@ export const COMPONENT_TITLES_FA: Record<string, string> = {
   "magnified-bento": "بنتوی بزرگ‌نمایی‌شده",
   "morphing-input": "ورودی تغییرشکل‌دهنده",
   "nested-dropdown": "منوی کشویی تو‌در‌تو",
+  "tooltip": "تولتیپ",
   "multi-step-form": "فرم چندمرحله‌ای",
   "overlapping-slider": "اسلایدر هم‌پوشان",
   "otp-cascade": "کد تأیید آبشاری",

@@ -47,6 +47,7 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "prize-coins",
   "animated-tabs",
   "nested-dropdown",
+  "tooltip",
 ]);
 
 export function isNewComponent(slug: string) {

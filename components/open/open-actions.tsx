@@ -22,9 +22,11 @@ const toolBtn = cn(
 function PreviewThemeToggle({
   theme,
   onChange,
+  className,
 }: {
   theme: PreviewTheme;
   onChange: (theme: PreviewTheme) => void;
+  className?: string;
 }) {
   const next = theme === "dark" ? "light" : "dark";
   return (
@@ -32,43 +34,39 @@ function PreviewThemeToggle({
       type="button"
       aria-label={next === "light" ? "تم روشن" : "تم تیره"}
       onClick={() => onChange(next)}
-      className={toolBtn}
+      className={cn(toolBtn, className)}
     >
       {theme === "dark" ? (
-        <Sun className="size-[17px]" strokeWidth={1.75} />
+        <Sun className="size-4" strokeWidth={1.75} />
       ) : (
-        <Moon className="size-[17px]" strokeWidth={1.75} />
+        <Moon className="size-4" strokeWidth={1.75} />
       )}
     </button>
   );
 }
 
-/** Top-left preview tools — glass cluster, no accent fill. */
+/** Top tools — glass cluster (desktop) or flat strip icons (mobile bar). */
 export function OpenActions({
   panel,
   onChange,
   slug,
+  variant = "cluster",
 }: {
   panel: OpenPanel;
   onChange: (panel: OpenPanel) => void;
   slug: string;
+  variant?: "cluster" | "bar";
 }) {
   const active = panel === "code";
   const { previewTheme, setPreviewTheme } = useOpenPanel();
+  const bar = variant === "bar";
 
-  return (
-    <div
-      className={cn(
-        "inline-flex items-center gap-0.5 rounded-2xl p-1",
-        "border border-white/12 bg-[hsla(240,8%,8%,0.55)] text-white",
-        "shadow-[inset_0_1px_0_0_hsla(0,0%,100%,0.08),0_8px_24px_-12px_hsla(0,0%,0%,0.45)]",
-        "backdrop-blur-xl backdrop-saturate-150",
-      )}
-    >
+  const controls = (
+    <>
       <PreviewThemeToggle theme={previewTheme} onChange={setPreviewTheme} />
       {process.env.NODE_ENV === "development" ? (
         <Link href={`/admin/${slug}`} className={toolBtn} aria-label="ویرایش">
-          <Pencil className="size-[16px]" strokeWidth={1.75} />
+          <Pencil className="size-4" strokeWidth={1.75} />
         </Link>
       ) : null}
       <button
@@ -80,8 +78,25 @@ export function OpenActions({
           onChange(active ? null : "code");
         }}
       >
-        <Code2 className="size-[17px]" strokeWidth={1.75} />
+        <Code2 className="size-4" strokeWidth={1.75} />
       </button>
+    </>
+  );
+
+  if (bar) {
+    return <div className="flex shrink-0 items-center gap-0.5">{controls}</div>;
+  }
+
+  return (
+    <div
+      className={cn(
+        "inline-flex items-center gap-0.5 rounded-2xl p-1",
+        "border border-white/12 bg-[hsla(240,8%,8%,0.55)] text-white",
+        "shadow-[inset_0_1px_0_0_hsla(0,0%,100%,0.08),0_8px_24px_-12px_hsla(0,0%,0%,0.45)]",
+        "backdrop-blur-xl backdrop-saturate-150",
+      )}
+    >
+      {controls}
     </div>
   );
 }

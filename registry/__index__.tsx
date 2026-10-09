@@ -98,7 +98,7 @@ export const Index: Record<string, any> = {
   },
   "animated-tabs": {
     name: "animated-tabs",
-    description: "حرکت نرم نشانگر بین تب‌ها و انتقال انیمیشنی محتوای هر تب.",
+    description: "تب متحرک با زبان بصری فیلتر — Estedad، bg-card، border-border و نشانگر accent.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -380,7 +380,7 @@ export const Index: Record<string, any> = {
   },
   "discrete-tabs": {
     name: "discrete-tabs",
-    description: "تب‌های آیکنی آرام که با برچسب باز می‌شوند و هنگام فعال شدن درخشش کوتاهی دارند.",
+    description: "تب‌های آیکنی فشرده با زبان بصری فیلتر — Estedad، bg-card و باز شدن برچسب روی فعال.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -796,7 +796,7 @@ export const Index: Record<string, any> = {
   },
   "nested-dropdown": {
     name: "nested-dropdown",
-    description: "منوی کشویی انیمیشنی تو‌در‌تو با آیکون — دکمه به منو تبدیل می‌شود و زیرمنوها با حرکت نرم باز می‌شوند.",
+    description: "منوی تو‌در‌تو با زبان بصری فیلتر — دایره ۸۰، پنل card، ردیف text-xl؛ فقط بازشونده.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -807,6 +807,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/nested-dropdown-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "nested-dropdown"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "tooltip": {
+    name: "tooltip",
+    description: "تولتیپ نرم روی دکمه‌های گرد — سطح card، شعاع ۱۶ و فنر کوتاه.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/tooltip.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/example/tooltip.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "tooltip"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
