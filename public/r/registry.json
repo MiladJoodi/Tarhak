@@ -876,6 +876,42 @@
       ]
     },
     {
+      "name": "animated-checkboxes",
+      "type": "registry:component",
+      "title": "Animated Checkboxes",
+      "description": "چک‌باکس‌های انیمیشنی نرم، دایره‌ای و جهشی — سبز آیفون، تیک رسم‌شونده.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-checkboxes.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "animated-select",
+      "type": "registry:component",
+      "title": "Animated Select",
+      "description": "سلکت انیمیشنی — تریگر نرم، لیست فنری، هایلایت لغزان و تیک سبز.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animated-select.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "multi-step-form",
       "type": "registry:component",
       "title": "Multi Step Form",

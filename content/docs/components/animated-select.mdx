@@ -1,0 +1,36 @@
+---
+title: Animated Select
+description: "سلکت انیمیشنی — تریگر با تعویض نرم برچسب، لیست فنری، هایلایت لغزان و تیک سبز."
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedSelect, {
+  SoftSelect,
+  type SelectOption,
+} from "@/components/animated-select";
+
+const options: SelectOption[] = [
+  { value: "fa", label: "فارسی", description: "راست‌چین" },
+  { value: "en", label: "English" },
+];
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[360px] w-full items-center justify-center">
+      <AnimatedSelect />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- **SoftSelect**: کنترل آماده با `value` / `onValueChange` / `options`.
+- تعویض برچسب با بلور کوتاه؛ چرخش شورون.
+- پنل با فنر، استگر ردیف‌ها، `layoutId` برای هایلایت هاور/انتخاب.
+- تیک سبز آیفون روی گزینهٔ فعال.
+- بستن با کلیک بیرون و `Escape`.
+- RTL، Estedad، توکن‌های `bg-card` / `border-border`.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

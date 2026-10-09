@@ -884,6 +884,42 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animated-checkboxes": {
+    name: "animated-checkboxes",
+    description: "چک‌باکس‌های انیمیشنی نرم، دایره‌ای و جهشی — سبز آیفون، تیک رسم‌شونده.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-checkboxes.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-checkboxes-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-checkboxes"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "animated-select": {
+    name: "animated-select",
+    description: "سلکت انیمیشنی — تریگر نرم، لیست فنری، هایلایت لغزان و تیک سبز.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/animated-select.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animated-select-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animated-select"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "multi-step-form": {
     name: "multi-step-form",
     description: "فرم چندمرحله‌ای پویا و متحرک با اعتبارسنجی.",

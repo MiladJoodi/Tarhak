@@ -66,6 +66,8 @@ const SEEDS: Seed[] = [
   { slug: "upload-dropzone", title: "Upload Dropzone", description: "Drag a file; watch it morph and the bar fill.", category: "Input" },
   { slug: "typed-code", title: "Typed Code", description: "Tap show code; watch it type itself softly.", category: "Display" },
   { slug: "animated-switches", title: "Animated Switches", description: "Soft, icon, and liquid switches — iOS green, equal size, spring thumbs.", category: "Input" },
+  { slug: "animated-checkboxes", title: "Animated Checkboxes", description: "Soft, circle, and bounce checkboxes with a drawn tick.", category: "Input" },
+  { slug: "animated-select", title: "Animated Select", description: "Spring list, sliding highlight, and a drawn green tick.", category: "Input" },
   { slug: "save-button", title: "Status Button", description: "Idle, loading, done.", category: "Button" },
   { slug: "vertical-tabs", title: "Vertical Tabs", description: "Switching along the edge.", category: "Navigation" },
   { slug: "stacked-list", title: "Stacked List", description: "A stack that unfolds.", category: "List" },

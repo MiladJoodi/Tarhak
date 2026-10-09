@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 100,
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "چک‌باکس‌ها",
+  "hintDescription": "هر چک‌باکس را بزن؛ تیک با فنر کشیده می‌شود.",
+  "posterUrl": "/api/browse-media/components/animated-checkboxes/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-checkboxes/video.mp4",
+  "tags": [
+    "checkbox",
+    "check",
+    "form",
+    "motion"
+  ]
+}

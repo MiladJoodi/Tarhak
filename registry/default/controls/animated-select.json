@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-04-09T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "hintTop": 100,
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "سلکت",
+  "hintDescription": "باز کن؛ هایلایت می‌لغزد و تیک با فنر می‌آید.",
+  "posterUrl": "/api/browse-media/components/animated-select/poster.avif",
+  "videoUrl": "/api/browse-media/components/animated-select/video.mp4",
+  "tags": [
+    "select",
+    "dropdown",
+    "form",
+    "motion"
+  ]
+}

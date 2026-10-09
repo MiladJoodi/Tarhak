@@ -1,0 +1,31 @@
+---
+title: Animated Checkboxes
+description: "چک‌باکس نرم، حلقه‌ای و جرقه‌ای — تیک مطمئن، حلقهٔ پاپ، خط‌خوردن انیمیشنی."
+---
+
+## نحوه استفاده
+
+```tsx
+import AnimatedCheckboxes, {
+  SoftCheckbox,
+  CircleCheckbox,
+  BounceCheckbox,
+} from "@/components/animated-checkboxes";
+
+export default function Example() {
+  return (
+    <div className="flex min-h-[360px] w-full items-center justify-center">
+      <AnimatedCheckboxes />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- **SoftCheckbox**: پر شدن از مرکز + حلقهٔ پاپ + رسم تیک (هر بار remount).
+- **CircleCheckbox**: حلقهٔ پیشرفت، بعد پر شدن و تیک.
+- **BounceCheckbox**: اسکواش + جرقه‌های کوتاه، بعد تیک.
+- خط‌خوردن عنوان با `scaleX`؛ آیکون ردیف کم‌رنگ می‌شود.
+- سبز آیفون (`#34C759`)، RTL، Estedad.
+- به `motion`، `@hugeicons/*` و `clsx` نیاز دارد.

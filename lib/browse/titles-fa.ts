@@ -47,6 +47,8 @@ export const COMPONENT_TITLES_FA: Record<string, string> = {
   "upload-dropzone": "دراپ‌زون آپلود",
   "typed-code": "کد تایپ‌شونده",
   "animated-switches": "سوئیچ‌های انیمیشنی",
+  "animated-checkboxes": "چک‌باکس‌های انیمیشنی",
+  "animated-select": "سلکت انیمیشنی",
   "multi-step-form": "فرم چندمرحله‌ای",
   "overlapping-slider": "اسلایدر هم‌پوشان",
   "otp-cascade": "کد تأیید آبشاری",
