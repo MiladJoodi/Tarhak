@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import {
+  BRAND_NAME_FA,
   CONTACT_EMAIL,
   GITHUB_PROFILE_URL,
   LINKEDIN_URL,
@@ -11,12 +12,12 @@ import {
 
 export const metadata: Metadata = {
   title: "تماس",
-  description: "دربارهٔ طرحک، ابزارهای دیگر و ارتباط مستقیم.",
+  description: `دربارهٔ ${BRAND_NAME_FA}، ابزارهای دیگر و ارتباط مستقیم.`,
 };
 
 const tools = [
   {
-    name: "طرحک",
+    name: BRAND_NAME_FA,
     href: "/",
     blurb: "کامپوننت‌های متحرک ری‌اکت برای ساخت رابط‌های صیقل‌خورده.",
     src: "/tarhak/favicon.png",

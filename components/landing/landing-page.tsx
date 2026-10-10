@@ -8,6 +8,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { HeroStageCanvas } from "@/components/landing/hero-stage-canvas";
 import { LandingNav } from "@/components/landing/landing-nav";
 import type { BrowseItem } from "@/lib/browse/items";
+import { BRAND_NAME_FA } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -85,7 +86,7 @@ function HeroCopy({ reduce }: { reduce: boolean }) {
         transition={reduce ? { duration: 0 } : { duration: 0.75, ease }}
         className="text-[clamp(2.8rem,12vw,4.75rem)] font-black leading-[0.92] text-white md:text-[clamp(2.6rem,5.5vw,4.25rem)]"
       >
-        طرحک
+        {BRAND_NAME_FA}
       </motion.h1>
 
       <motion.p

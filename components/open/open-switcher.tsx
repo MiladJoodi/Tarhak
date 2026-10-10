@@ -10,10 +10,11 @@ import { ChevronDown, ChevronsUpDown, Search } from "lucide-react";
 import { scrollbarMinimal, forgetScroller, rememberScroller, centerChildInScroller } from "@/components/open/ui";
 import { browsePoster, SWITCHER_THUMB } from "@/lib/browse/media";
 import { rankSearchItems } from "@/lib/component-tags";
+import { BRAND_NAME_FA } from "@/lib/brand";
 import type { OpenNavItem } from "@/lib/open/component";
 import { cn } from "@/lib/utils";
 
-const TITLE_SUFFIX = " - طرحک";
+const TITLE_SUFFIX = ` - ${BRAND_NAME_FA}`;
 
 const DROPDOWN_SHADOW =
   "shadow-[0_16px_40px_-12px_rgba(0,0,0,0.55),0_4px_12px_-4px_rgba(0,0,0,0.35),0_0_0_1px_hsla(0,0%,100%,0.06)]";

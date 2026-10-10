@@ -19,7 +19,7 @@ import clsx from "clsx";
 const SAMPLE_CODE = `export function Hello() {
   return (
     <h1 className="text-xl">
-      سلام طرحک
+      سلام طرحَک
     </h1>
   );
 }`;

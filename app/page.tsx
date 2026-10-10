@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
 import ComingSoon from "@/components/landing/coming-soon";
+import { BRAND_NAME_FA } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "طرحک — به‌زودی",
-  description: "طرحک به‌زودی معرفی می‌شود.",
+  title: `${BRAND_NAME_FA} — به‌زودی`,
+  description: `${BRAND_NAME_FA} به‌زودی معرفی می‌شود.`,
 };
 
 export default function Page() {

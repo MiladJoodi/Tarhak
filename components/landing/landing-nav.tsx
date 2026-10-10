@@ -6,6 +6,7 @@ import { useState } from "react";
 import { formatStarCount, GITHUB_URL } from "@/lib/github";
 import { BrandLogo } from "@/components/brand-logo";
 import { BrandStar } from "@/components/brand-star";
+import { BRAND_NAME_FA } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 export const landingNavLinks = [
@@ -58,7 +59,7 @@ export function LandingNav({
   tone?: "light" | "dark";
   /** Sit on top of a full-bleed stage with no separate header fill. */
   overlay?: boolean;
-  /** Show mark only — skip the «طرحک» wordmark in the header. */
+  /** Show mark only — skip the Persian wordmark in the header. */
   logoOnly?: boolean;
 }) {
   const [open, setOpen] = useState(false);
@@ -76,7 +77,7 @@ export function LandingNav({
       )}
     >
       <div className="flex min-w-0 items-center gap-7 lg:gap-9">
-        <Link href="/" aria-label="صفحهٔ اصلی طرحک" className="shrink-0">
+        <Link href="/" aria-label={`صفحهٔ اصلی ${BRAND_NAME_FA}`} className="shrink-0">
           <BrandLogo invert={dark} wordmark={!logoOnly} />
         </Link>
 

@@ -30,6 +30,7 @@ import {
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { rankSearchItems } from "@/lib/component-tags";
+import { BRAND_NAME_FA } from "@/lib/brand";
 import type { OpenNavItem } from "@/lib/open/component";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/brand-logo";
@@ -85,7 +86,7 @@ function PinnedSidebarHeader({ onClose }: { onClose: () => void }) {
       <Link
         href="/browse"
         className="flex min-w-0 items-center outline-none focus-visible:ring-0"
-        aria-label="طرحک — مرور کامپوننت‌ها"
+        aria-label={`${BRAND_NAME_FA} — مرور کامپوننت‌ها`}
       >
         <BrandLogo invert />
       </Link>
@@ -290,7 +291,7 @@ function SidebarList({
                 if (scrollRef.current) {
                   rememberScroller("sidebar", scrollRef.current);
                 }
-                document.title = `${item.title} - طرحک`;
+                document.title = `${item.title} - ${BRAND_NAME_FA}`;
               }}
               onItemHover={
                 onItemHover
@@ -688,5 +689,5 @@ function OpenExperienceShell({
 
 function setDocumentTitle(title: string) {
   if (typeof document === "undefined") return;
-  document.title = `${title} - طرحک`;
+  document.title = `${title} - ${BRAND_NAME_FA}`;
 }

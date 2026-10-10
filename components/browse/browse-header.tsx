@@ -13,6 +13,7 @@ import {
 import { formatStarCount, GITHUB_URL } from "@/lib/github";
 import { BrandLogo } from "@/components/brand-logo";
 import { BrandStar } from "@/components/brand-star";
+import { BRAND_NAME_FA } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 /** High-traffic picks shown when the field is focused and empty. */
@@ -78,7 +79,7 @@ export function BrowseHeader({
     >
       <Link
         href="/"
-        aria-label="صفحهٔ اصلی طرحک"
+        aria-label={`صفحهٔ اصلی ${BRAND_NAME_FA}`}
         className="flex shrink-0 items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
       >
         <BrandLogo invert wordmark={false} className="sm:hidden" />

@@ -346,7 +346,7 @@ export function ScrollStackDeck({
 
       {showFooter ? (
         <footer className="flex h-[50vh] flex-col items-center justify-center gap-2 text-sm text-neutral-500">
-          <p>طرحک</p>
+          <p>طرحَک</p>
           <p className="text-xs text-neutral-400">
             سیستم نرم · ساخت محصول · موشن
           </p>

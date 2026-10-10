@@ -1,6 +1,6 @@
 /** Site identity — Tarhak (tarhak.ir) */
 export const BRAND_NAME = "Tarhak";
-export const BRAND_NAME_FA = "طرحک";
+export const BRAND_NAME_FA = "طرحَک";
 export const SITE_URL = "https://tarhak.ir";
 export const GITHUB_REPO = "MiladJoodi/Tarhak";
 export const GITHUB_URL = `https://github.com/${GITHUB_REPO}`;

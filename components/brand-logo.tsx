@@ -1,3 +1,4 @@
+import { BRAND_NAME_FA } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 export function BrandLogo({
@@ -30,7 +31,7 @@ export function BrandLogo({
             invert ? "text-white" : "text-[#14141A]",
           )}
         >
-          طرحک
+          {BRAND_NAME_FA}
         </span>
       ) : null}
     </span>

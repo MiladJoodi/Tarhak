@@ -1,13 +1,11 @@
 ---
 title: MCP
-description: اتصال پروژه‌های Cursor به MCP طرحک برای جست‌وجو و نصب کامپوننت‌ها.
+description: راه‌اندازی MCP طرحک در Cursor برای جست‌وجو و دستور نصب کامپوننت.
 ---
 
-MCP طرحک یک **سرویس ریموت** است. در هر پروژهٔ Cursor (حتی خارج از ریپوی طرحک) می‌توانید وصل شوید تا ایجنت کاتالوگ [tarhak.ir](https://tarhak.ir) را جست‌وجو کند، جزئیات کامپوننت را بخواند و دستور `farsiui` بدهد.
+## راه‌اندازی
 
-## اتصال سریع (هر پروژه)
-
-در ریشهٔ پروژهٔ خودتان فایل `.cursor/mcp.json` بسازید:
+در ریشهٔ پروژه `.cursor/mcp.json`:
 
 ```json
 {
@@ -19,49 +17,50 @@ MCP طرحک یک **سرویس ریموت** است. در هر پروژهٔ Curso
 }
 ```
 
-یا از **Cursor Settings → MCP → Add new MCP server** همان URL را اضافه کنید:
+یا در **Cursor Settings → MCP** همین URL را اضافه کنید:
 
 ```text
 https://tarhak.ir/api/mcp
 ```
 
-سپس Cursor را Reload کنید تا وضعیت سرور **tarhak** سبز شود.
+بعد Cursor را Reload کنید تا سرور `tarhak` Connected شود.
 
-نیازی به کلون ریپوی طرحک، `npm install` محلی، یا `tsx` نیست.
-
-## تست
-
-در چت **Agent** بپرسید:
-
-```text
-با MCP طرحک، کامپوننت kanban را پیدا کن و دستور نصب npm را بده.
-```
+## ابزارها
 
 | ابزار | کار |
 |--------|-----|
-| `tarhak_list_components` | لیست کامپوننت‌های منتشرشده |
-| `tarhak_search_components` | جست‌وجو (انگلیسی، فارسی، slug) |
-| `tarhak_get_component` | جزئیات، وابستگی‌ها، لینک docs/preview، اختیاری سورس |
-| `tarhak_install_command` | دستور `farsiui add @tarhak/...` |
+| `tarhak_list_components` | لیست کامپوننت‌ها |
+| `tarhak_search_components` | جست‌وجو |
+| `tarhak_get_component` | جزئیات و وابستگی‌ها |
+| `tarhak_install_command` | دستور نصب CLI |
 
-نمونهٔ خروجی:
+## نصب کامپوننت
+
+MCP فقط دستور می‌دهد؛ در پروژهٔ خودتان اجرا کنید:
 
 ```bash
-npx farsiui@latest add @tarhak/kanban-board
+npx farsiui@latest add @tarhak/<slug>
 ```
 
-دستور را در **همان پروژهٔ کاربر** اجرا کنید؛ MCP فقط دستور را پیشنهاد می‌دهد و نصب را خودش انجام نمی‌دهد.
+## لوکال (اختیاری)
 
-## منبع داده
+با `next dev`:
 
-کاتالوگ از رجیستری عمومی خوانده می‌شود:
+```json
+{
+  "mcpServers": {
+    "tarhak": {
+      "url": "http://localhost:3000/api/mcp"
+    }
+  }
+}
+```
 
-* `https://tarhak.ir/r/registry.json`
-* هر آیتم: `https://tarhak.ir/r/<slug>.json`
+Stdio از کلون ریپو:
 
-## Stdio (اختیاری)
-
-اگر به‌جای URL بخواهید سرور را روی ماشین خودتان با stdio اجرا کنید (مثلاً آفلاین یا دیباگ):
+```bash
+npm run mcp:install
+```
 
 ```json
 {
@@ -77,44 +76,10 @@ npx farsiui@latest add @tarhak/kanban-board
 }
 ```
 
-این حالت فقط وقتی معنی دارد که ریپوی طرحک را کلون کرده و یک‌بار `npm run mcp:install` زده باشید. کاتالوگ همچنان از `tarhak.ir` fetch می‌شود مگر اینکه `TARHAK_REGISTRY_BASE` را عوض کنید.
-
-برای توسعهٔ لوکال روی `next dev`:
-
-```json
-{
-  "mcpServers": {
-    "tarhak": {
-      "url": "http://localhost:3000/api/mcp"
-    }
-  }
-}
-```
-
-## متغیرهای محیطی (سرور)
-
-| متغیر | پیش‌فرض | کاربرد |
-|--------|---------|--------|
-| `TARHAK_SITE_URL` | `https://tarhak.ir` | پایهٔ لینک docs / preview |
-| `TARHAK_REGISTRY_BASE` | `{SITE}/r` | آدرس `registry.json` |
-| `TARHAK_CATALOG_TTL_MS` | `60000` | کش حافظهٔ کاتالوگ |
-
 ## عیب‌یابی
 
-**سرور Connected نمی‌شود**  
-URL را دقیقاً `https://tarhak.ir/api/mcp` بگذارید و Cursor را ری‌استارت کنید. پروکسی/فایروال نباید درخواست‌های HTTPS را قطع کند.
-
-**ابزارها صدا زده نمی‌شوند**  
-چت باید حالت Agent باشد. یک‌بار MCP را Reload کنید.
-
-**کامپوننت پیدا نمی‌شود**  
-slug را با `tarhak_search_components` چک کنید؛ فقط آیتم‌های منتشرشده در `/r` در دسترس‌اند.
-
-## این MCP برای کیست؟
-
-* **بله:** هر پروژهٔ Cursor که بخواهد کامپوننت طرحک را کشف و نصب کند.
-* **نه:** جایگزین CLI برای کاربر نهایی. نصب نهایی همان:
-
-```bash
-npx farsiui@latest add @tarhak/<slug>
-```
+| مشکل | کار |
+|------|-----|
+| Connected نمی‌شود | URL را چک کنید؛ Cursor را ری‌استارت کنید |
+| ابزار صدا زده نمی‌شود | چت Agent + Reload MCP |
+| کامپوننت نیست | `tarhak_search_components`؛ فقط آیتم‌های `/r` |
