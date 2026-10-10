@@ -163,7 +163,7 @@ export function createTarhakMcpServer() {
     {
       title: "Tarhak install CLI command",
       description:
-        "Return farsiui CLI commands to add @tarhak/<slug> into any React+Tailwind project (npm/pnpm/yarn/bun). Does not run install.",
+        "Return Tarhak CLI install commands (npx @tarhak/cli@latest add <slug>). The CLI auto-adds @tarhak to components.json registries, then runs farsiui. Does not run install.",
       inputSchema: {
         slug: z
           .string()
@@ -212,7 +212,10 @@ export function createTarhakMcpServer() {
           slug: clean,
           registry_item: `@tarhak/${clean}`,
           site: SITE_ORIGIN,
-          note: "Run this in the user's React project (not inside Tarhak repo).",
+          note:
+            "Run in the user's React+Tailwind project (needs components.json from farsiui init). tarhak CLI writes registries.@tarhak automatically — do not ask the user to edit components.json by hand.",
+          prerequisite:
+            "If components.json is missing: npx farsiui@latest init",
           ...("command" in commands ? commands : { commands }),
         });
       } catch (error) {

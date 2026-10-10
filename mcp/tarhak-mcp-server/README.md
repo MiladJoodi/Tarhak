@@ -41,4 +41,4 @@ Env:
 - `tarhak_list_components`
 - `tarhak_search_components`
 - `tarhak_get_component`
-- `tarhak_install_command`
+- `tarhak_install_command` → prefers `npx @tarhak/cli@latest add <slug>` (auto registry)

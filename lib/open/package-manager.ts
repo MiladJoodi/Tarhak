@@ -20,16 +20,24 @@ export function isPackageManager(value: string): value is PackageManager {
   return (PACKAGE_MANAGERS as readonly string[]).includes(value);
 }
 
+/** Bare slug for `tarhak add` (strips `@tarhak/`). */
+export function installSlug(item: string) {
+  return copyEventSlug(item);
+}
+
+const TARHAK_CLI = "@tarhak/cli@latest";
+
 export function cliInstallCommand(manager: PackageManager, item: string) {
+  const slug = installSlug(item);
   switch (manager) {
     case "bun":
-      return `bunx --bun farsiui@latest add ${item}`;
+      return `bunx --bun ${TARHAK_CLI} add ${slug}`;
     case "yarn":
-      return `yarn dlx farsiui@latest add ${item}`;
+      return `yarn dlx ${TARHAK_CLI} add ${slug}`;
     case "pnpm":
-      return `pnpm dlx farsiui@latest add ${item}`;
+      return `pnpm dlx ${TARHAK_CLI} add ${slug}`;
     default:
-      return `npx farsiui@latest add ${item}`;
+      return `npx ${TARHAK_CLI} add ${slug}`;
   }
 }
 

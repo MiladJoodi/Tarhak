@@ -1,5 +1,5 @@
 {
-  "name": "tarhak",
+  "name": "tarhak-web",
   "version": "0.1.0",
   "private": true,
   "description": "کامپوننت‌های متحرک ری‌اکت و میکروتعامل‌ها — ساخته‌شده با Motion و Tailwind CSS.",
@@ -30,6 +30,7 @@
     "mcp:install": "npm install --prefix mcp/tarhak-mcp-server",
     "mcp": "npm run start --prefix mcp/tarhak-mcp-server",
     "mcp:dev": "npm run dev --prefix mcp/tarhak-mcp-server",
+    "cli": "node packages/cli/bin/tarhak.js",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {

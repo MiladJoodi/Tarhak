@@ -237,11 +237,13 @@ export function installCommands(
     ? item
     : `${REGISTRY_NAMESPACE}/${item.replace(/^@tarhak\//, "")}`;
 
+  const slug = target.replace(/^@tarhak\//, "");
+  const cli = "@tarhak/cli@latest";
   const all = {
-    npm: `npx farsiui@latest add ${target}`,
-    pnpm: `pnpm dlx farsiui@latest add ${target}`,
-    yarn: `yarn dlx farsiui@latest add ${target}`,
-    bun: `bunx --bun farsiui@latest add ${target}`,
+    npm: `npx ${cli} add ${slug}`,
+    pnpm: `pnpm dlx ${cli} add ${slug}`,
+    yarn: `yarn dlx ${cli} add ${slug}`,
+    bun: `bunx --bun ${cli} add ${slug}`,
   } as const;
 
   if (manager && PACKAGE_MANAGERS.includes(manager)) {

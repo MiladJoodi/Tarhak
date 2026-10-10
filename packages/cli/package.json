@@ -1,0 +1,45 @@
+{
+  "name": "@tarhak/cli",
+  "version": "0.1.0",
+  "description": "CLI for Tarhak — add animated React components. Auto-configures the @tarhak registry, then runs farsiui.",
+  "type": "module",
+  "bin": {
+    "tarhak": "./bin/tarhak.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node ./bin/tarhak.js",
+    "test:help": "node ./bin/tarhak.js --help"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "tarhak",
+    "farsiui",
+    "react",
+    "components",
+    "cli",
+    "registry",
+    "tailwind",
+    "motion"
+  ],
+  "author": "Milad Joodi (@MiladJoodi)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiladJoodi/Tarhak.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://tarhak.ir/docs",
+  "bugs": {
+    "url": "https://github.com/MiladJoodi/Tarhak/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -36,41 +36,33 @@ description: کامپوننت‌های متحرک React، آماده استفا�
 
 ## نصب
 
-طرحَک از Registry مربوط به **FarsiUI** استفاده می‌کند.
-
-### افزودن Registry
-
-در فایل `components.json`:
-
-```json
-{
-  "registries": {
-    "@tarhak": "https://tarhak.ir/r/{name}.json"
-  }
-}
-```
-
-### نصب یک کامپوننت
+ساده‌ترین راه — CLI طرحَک (رجیستری را خودش در `components.json` می‌نویسد):
 
 ```bash
-npx farsiui@latest add @tarhak/discrete-tabs
+npx @tarhak/cli@latest add discrete-tabs
 ```
 
-با `pnpm`، `yarn` و `bun` هم می‌توانید نصب کنید:
+چند کامپوننت:
 
 ```bash
-pnpm dlx farsiui@latest add @tarhak/discrete-tabs
-yarn dlx farsiui@latest add @tarhak/discrete-tabs
-bunx --bun farsiui@latest add @tarhak/discrete-tabs
+npx @tarhak/cli@latest add delete-button status-button
 ```
 
-چند کامپوننت را هم می‌توانید هم‌زمان اضافه کنید:
+با `pnpm` / `yarn` / `bun`:
 
 ```bash
-npx farsiui@latest add @tarhak/delete-button @tarhak/status-button
+pnpm dlx @tarhak/cli@latest add discrete-tabs
+yarn dlx @tarhak/cli@latest add discrete-tabs
+bunx --bun @tarhak/cli@latest add discrete-tabs
 ```
 
-پروژه شما باید React و Tailwind داشته باشد. وابستگی‌های موردنیاز هر کامپوننت هنگام نصب اضافه می‌شوند.
+پروژه باید React و Tailwind داشته باشد و یک‌بار با FarsiUI آماده شده باشد (`npx farsiui@latest init`). لازم نیست `farsiui` را به‌عنوان dependency نگه دارید.
+
+اگر فقط رجیستری را می‌خواهید:
+
+```bash
+npx @tarhak/cli@latest init
+```
 
 ## MCP برای ایجنت
 
