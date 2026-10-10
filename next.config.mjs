@@ -12,6 +12,15 @@ const config = {
   turbopack: {
     root: __dirname,
   },
+  // Allow TS ESM sources that import with `.js` extensions (NodeNext style).
+  webpack: (webpackConfig) => {
+    webpackConfig.resolve.extensionAlias = {
+      ...webpackConfig.resolve.extensionAlias,
+      ".js": [".ts", ".tsx", ".js"],
+      ".mjs": [".mts", ".mjs"],
+    };
+    return webpackConfig;
+  },
   async redirects() {
     return [
       {

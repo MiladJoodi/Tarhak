@@ -8,7 +8,7 @@ import { getLandingHeroItems } from "@/lib/landing/hero-components";
 export const metadata: Metadata = {
   title: BRAND_NAME_FA,
   description:
-    "کامپوننت‌های متحرک React برای پروژه‌های واقعی",
+    "کامپوننت‌های انیمیشنی React برای پروژه‌های واقعی",
   robots: { index: false, follow: false },
 };
 

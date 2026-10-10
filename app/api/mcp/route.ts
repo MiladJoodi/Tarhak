@@ -1,4 +1,5 @@
-import { handleTarhakMcpRequest } from "../../../mcp/tarhak-mcp-server/src/http";
+// Import compiled JS — Next/Turbopack cannot resolve `./foo.js` → `./foo.ts` from MCP src.
+import { handleTarhakMcpRequest } from "../../../mcp/tarhak-mcp-server/dist/http.js";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

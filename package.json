@@ -21,11 +21,12 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:registry && next build",
+    "build": "npm run build:mcp && npm run build:registry && next build",
     "start": "next start",
     "lint": "eslint",
     "build:docs": "fumadocs-mdx",
     "build:registry": "tsx scripts/build-registry.mts",
+    "build:mcp": "npm run build --prefix mcp/tarhak-mcp-server",
     "mcp:install": "npm install --prefix mcp/tarhak-mcp-server",
     "mcp": "npm run start --prefix mcp/tarhak-mcp-server",
     "mcp:dev": "npm run dev --prefix mcp/tarhak-mcp-server",

@@ -33,7 +33,7 @@ function HeroCopy({ reduce }: { reduce: boolean }) {
         }
         className="mt-4 max-w-[22rem] text-center text-[14px] leading-7 text-white/55 sm:max-w-[28rem] sm:text-[15px] sm:leading-8 md:text-start"
       >
-        کامپوننت‌های متحرک React برای پروژه‌های واقعی
+        کامپوننت‌های انیمیشنی React برای پروژه‌های واقعی
       </motion.p>
 
       <motion.div

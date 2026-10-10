@@ -32,5 +32,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "mcp/**",
+    "mcp/tarhak-mcp-server/scripts/**"
+  ]
 }

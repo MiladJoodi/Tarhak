@@ -4,9 +4,7 @@ import * as React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import type { BrowseItem } from "@/lib/browse/items";
-import { usePosterAspects } from "@/lib/browse/use-poster-aspects";
-
-const HOLD_MS = 2800;
+const HOLD_MS = 3000;
 const COLS = 5;
 const ROWS = 5;
 const CARD_W = 300;
@@ -17,22 +15,22 @@ const DEFAULT_ASPECT = MEDIA_W / (CARD_H - FRAME_PAD * 2);
 const GAP = 40;
 const PAD = 36;
 
-const SCALE_HOLD = 1.22;
-const SCALE_OUT = 0.86;
-const SCALE_HOLD_MOBILE = 0.84;
-const SCALE_OUT_MOBILE = 0.64;
-const CARD_SCALE_ACTIVE = 1.04;
-const CARD_SCALE_ACTIVE_MOBILE = 1.08;
+const SCALE_HOLD = 1.14;
+const SCALE_OUT = 0.96;
+const SCALE_HOLD_MOBILE = 0.82;
+const SCALE_OUT_MOBILE = 0.72;
+const CARD_SCALE_ACTIVE = 1.03;
+const CARD_SCALE_ACTIVE_MOBILE = 1.05;
 const MOBILE_MQ = "(max-width: 767px)";
 
-/** Pull back → glide → settle */
-const OUT_MS = 260;
-const MOVE_MS = 420;
-const IN_MS = 320;
+/** Soft pull-back → glide → settle */
+const OUT_MS = 560;
+const MOVE_MS = 980;
+const IN_MS = 720;
 
-const easeOutExpo = [0.16, 1, 0.3, 1] as [number, number, number, number];
-const easeInCubic = [0.55, 0.06, 0.68, 0.19] as [number, number, number, number];
-const easeInOut = [0.45, 0.05, 0.25, 1] as [number, number, number, number];
+const easeOutSoft = [0.22, 1, 0.36, 1] as [number, number, number, number];
+const easeInSoft = [0.4, 0, 0.7, 0.2] as [number, number, number, number];
+const easeInOutSoft = [0.4, 0, 0.2, 1] as [number, number, number, number];
 
 function holdScale(mobile: boolean) {
   return mobile ? SCALE_HOLD_MOBILE : SCALE_HOLD;
@@ -215,6 +213,7 @@ function nextSpotlightIndex(
   const currentSlug = cards[current]?.slug;
   const curCol = current % COLS;
   const curRow = Math.floor(current / COLS);
+  // Prefer a short glide to a neighbor — long jumps feel abrupt.
   const ranked = Array.from({ length: count }, (_, i) => i)
     .filter((i) => i !== current && isInterior(i))
     .map((i) => {
@@ -223,9 +222,14 @@ function nextSpotlightIndex(
       const slug = cards[i]!.slug;
       const sameAsCurrent = slug === currentSlug ? 1 : 0;
       const recentPenalty = recentSlugs.includes(slug) ? 2 : 0;
-      return { i, dist, score: dist - sameAsCurrent * 10 - recentPenalty * 4 };
+      const nearBonus = dist <= 2 ? 3 : dist <= 3 ? 1 : 0;
+      return {
+        i,
+        dist,
+        score: nearBonus * 4 - dist - sameAsCurrent * 10 - recentPenalty * 4,
+      };
     })
-    .sort((a, b) => b.score - a.score || b.dist - a.dist);
+    .sort((a, b) => b.score - a.score || a.dist - b.dist);
 
   const pool = ranked.length
     ? ranked
@@ -234,33 +238,37 @@ function nextSpotlightIndex(
       );
   const fresh = pool.filter((r) => cards[r.i]?.slug !== currentSlug);
   const pick = fresh.length ? fresh : pool;
-  const top = pick.slice(0, Math.min(5, pick.length));
+  const top = pick.slice(0, Math.min(3, pick.length));
   return top[Math.floor(Math.random() * top.length)]!.i;
 }
 
-function deferUntilIdle(cb: () => void) {
+/** Start hero video soon — don't wait for a long idle window. */
+function deferVideoStart(cb: () => void) {
   if (typeof window === "undefined") return () => {};
   let idleId = 0;
   let timeoutId = 0;
   const run = () => cb();
 
-  const afterLoad = () => {
+  const schedule = () => {
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
       cancelIdleCallback?: (id: number) => void;
     };
     if (typeof w.requestIdleCallback === "function") {
-      idleId = w.requestIdleCallback(run, { timeout: 2500 });
+      idleId = w.requestIdleCallback(run, { timeout: 280 });
     } else {
-      timeoutId = window.setTimeout(run, 1400);
+      timeoutId = window.setTimeout(run, 120);
     }
   };
 
-  if (document.readyState === "complete") afterLoad();
-  else window.addEventListener("load", afterLoad, { once: true });
+  if (document.readyState === "complete") schedule();
+  else {
+    timeoutId = window.setTimeout(run, 180);
+    window.addEventListener("load", schedule, { once: true });
+  }
 
   return () => {
-    window.removeEventListener("load", afterLoad);
+    window.removeEventListener("load", schedule);
     const w = window as Window & { cancelIdleCallback?: (id: number) => void };
     if (idleId && typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(idleId);
     if (timeoutId) window.clearTimeout(timeoutId);
@@ -271,6 +279,7 @@ function StageCard({
   item,
   active,
   allowVideo,
+  warmVideo = false,
   reducedMotion,
   left,
   top,
@@ -278,11 +287,12 @@ function StageCard({
   aspect,
   depth,
   activeScale = CARD_SCALE_ACTIVE,
-  onAspect,
 }: {
   item: BrowseItem;
   active: boolean;
   allowVideo: boolean;
+  /** Prefetch + decode before this card becomes spotlight. */
+  warmVideo?: boolean;
   reducedMotion: boolean;
   left: number;
   top: number;
@@ -290,14 +300,27 @@ function StageCard({
   aspect: number;
   depth: { opacity: number; scale: number; blur: number };
   activeScale?: number;
-  onAspect?: (slug: string, ratio: number) => void;
 }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
-  const mountVideo = allowVideo && active && Boolean(item.video);
+  const wantsVideo = Boolean(item.video) && (allowVideo || warmVideo);
+  const [holdVideo, setHoldVideo] = React.useState(false);
+  const mountVideo = wantsVideo && (active || holdVideo || warmVideo);
+  const showVideo = allowVideo && (active || holdVideo);
   const [videoReady, setVideoReady] = React.useState(false);
 
   React.useEffect(() => {
-    setVideoReady(false);
+    if (active && allowVideo) {
+      setHoldVideo(true);
+      return;
+    }
+    if (!active && holdVideo) {
+      const id = window.setTimeout(() => setHoldVideo(false), 900);
+      return () => window.clearTimeout(id);
+    }
+  }, [active, allowVideo, holdVideo]);
+
+  React.useEffect(() => {
+    if (!mountVideo) setVideoReady(false);
   }, [item.video, mountVideo]);
 
   React.useEffect(() => {
@@ -312,15 +335,25 @@ function StageCard({
     node.addEventListener("loadeddata", markReady);
     node.addEventListener("canplay", markReady);
     node.addEventListener("playing", markReady);
-    void node.play().catch(() => {});
+
+    if (showVideo) {
+      void node.play().catch(() => {});
+    } else {
+      node.pause();
+      try {
+        node.currentTime = 0;
+      } catch {
+        /* ignore seek before load */
+      }
+    }
 
     return () => {
       node.removeEventListener("loadeddata", markReady);
       node.removeEventListener("canplay", markReady);
       node.removeEventListener("playing", markReady);
-      node.pause();
+      if (!showVideo) node.pause();
     };
-  }, [mountVideo, item.video]);
+  }, [mountVideo, item.video, showVideo]);
 
   return (
     <motion.figure
@@ -359,9 +392,9 @@ function StageCard({
           ? { duration: 0 }
           : {
               type: "spring",
-              stiffness: active ? 380 : 260,
-              damping: active ? 26 : 32,
-              mass: 0.9,
+              stiffness: active ? 180 : 140,
+              damping: active ? 28 : 30,
+              mass: 1.15,
             }
       }
     >
@@ -407,15 +440,10 @@ function StageCard({
             playsInline
             preload="auto"
             className={cn(
-              "absolute inset-0 size-full rounded-[11px] object-cover transition-opacity duration-300 ease-out",
-              videoReady ? "opacity-100" : "opacity-0",
+              "absolute inset-0 size-full rounded-[11px] object-cover transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+              showVideo && videoReady ? "opacity-100" : "opacity-0",
             )}
             draggable={false}
-            onLoadedMetadata={() => {
-              const node = videoRef.current;
-              if (!node || node.videoWidth < 1 || node.videoHeight < 1) return;
-              onAspect?.(item.slug, node.videoWidth / node.videoHeight);
-            }}
           />
         ) : null}
       </div>
@@ -429,21 +457,20 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
     [items],
   );
   const cards = React.useMemo(() => buildDeck(deckItems), [deckItems]);
-  const { aspects, setAspect } = usePosterAspects(deckItems);
   const reducedMotion = useReducedMotion() ?? false;
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const [spotlight, setSpotlight] = React.useState(START_INDEX);
+  /** Next card index while the camera is gliding — used to prefetch its video. */
+  const [upcoming, setUpcoming] = React.useState<number | null>(null);
   const [videosReady, setVideosReady] = React.useState(false);
   const [ready, setReady] = React.useState(false);
   const [holding, setHolding] = React.useState(true);
   const [view, setView] = React.useState({ w: 800, h: 900 });
+  // Fixed cell aspect — per-poster ratios reflow the masonry and snap the camera
+  // on the first→second handoff. Cover-crop inside the frame instead.
   const layout = React.useMemo(
-    () =>
-      layoutDeck(
-        cards.length,
-        (i) => aspects[cards[i]?.slug ?? ""] ?? DEFAULT_ASPECT,
-      ),
-    [cards, aspects],
+    () => layoutDeck(cards.length, () => DEFAULT_ASPECT),
+    [cards.length],
   );
   const layoutRef = React.useRef(layout);
   const [camera, setCamera] = React.useState<Camera>(() =>
@@ -456,7 +483,7 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
   );
   const [transition, setTransition] = React.useState({
     duration: 0,
-    ease: easeOutExpo,
+    ease: easeOutSoft,
   });
   const spotlightRef = React.useRef(START_INDEX);
   const viewRef = React.useRef(view);
@@ -481,12 +508,14 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
     scaleRef.current = camera.scale;
   }, [camera.scale]);
 
-  React.useEffect(() => deferUntilIdle(() => setVideosReady(true)), []);
+  React.useEffect(() => deferVideoStart(() => setVideosReady(true)), []);
 
+  // Prefetch first hero clips early so the opening animation isn't late.
   React.useEffect(() => {
     if (!videosReady) return;
     const warmers: HTMLVideoElement[] = [];
-    for (const item of deckItems) {
+    const priority = deckItems.slice(0, 4);
+    for (const item of priority) {
       if (!item.video) continue;
       const node = document.createElement("video");
       node.muted = true;
@@ -505,12 +534,22 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
 
   React.useEffect(() => {
     if (!ready) return;
+    // Soft settle only — never hard-snap when layout identity refreshes.
     const { w, h } = viewRef.current;
-    setTransition({ duration: 0, ease: [0, 0, 1, 1] });
+    setTransition({ duration: 0.55, ease: easeOutSoft });
     setCamera(
       cameraFor(rectAt(layout.rects, spotlightRef.current), w, h, scaleRef.current),
     );
   }, [layout, ready]);
+
+  // Warm the second spotlight clip during the opening hold (first→second was jumpy).
+  React.useEffect(() => {
+    if (!ready || !videosReady) return;
+    const second = PRIORITY_PATH[1];
+    if (typeof second === "number" && second !== START_INDEX) {
+      setUpcoming(second);
+    }
+  }, [ready, videosReady]);
 
   React.useEffect(() => {
     const el = viewportRef.current;
@@ -584,22 +623,30 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
       const next = nextSpotlightIndex(current, cards, recentSlugs, priorityStep);
       if (priorityStep < PRIORITY_PATH.length) priorityStep += 1;
       remember(next);
+      setUpcoming(next);
       const out = outRef.current;
       const hold = holdRef.current;
 
+      // Leave current clip playing, pull back, glide to the next poster…
       setHolding(false);
-      setTransition({ duration: OUT_MS / 1000, ease: easeInCubic });
+      setTransition({ duration: OUT_MS / 1000, ease: easeInSoft });
       setCamera(cameraFor(rectAt(layoutRef.current.rects, current), w, h, out));
       await wait(OUT_MS);
       if (cancelled) return;
 
-      setTransition({ duration: MOVE_MS / 1000, ease: easeInOut });
-      setSpotlight(next);
+      setTransition({ duration: MOVE_MS / 1000, ease: easeInOutSoft });
       setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, out));
-      await wait(MOVE_MS);
+      // Arrive on the poster first; promote + start video near the end of the glide.
+      const promoteIn = Math.round(MOVE_MS * 0.72);
+      await wait(promoteIn);
       if (cancelled) return;
 
-      setTransition({ duration: IN_MS / 1000, ease: easeOutExpo });
+      setSpotlight(next);
+      setUpcoming(null);
+      await wait(MOVE_MS - promoteIn);
+      if (cancelled) return;
+
+      setTransition({ duration: IN_MS / 1000, ease: easeOutSoft });
       setCamera(cameraFor(rectAt(layoutRef.current.rects, next), w, h, hold));
       await wait(IN_MS);
       if (cancelled) return;
@@ -693,13 +740,13 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
         className="absolute inset-0"
         animate={
           breath
-            ? { x: [0, 6, -4, 0], y: [0, -5, 3, 0] }
+            ? { x: [0, 3, -2, 0], y: [0, -2.5, 1.5, 0] }
             : { x: 0, y: 0 }
         }
         transition={
           breath
-            ? { duration: 5.2, ease: "easeInOut", repeat: Infinity }
-            : { duration: 0.45, ease: easeOutExpo }
+            ? { duration: 7.5, ease: "easeInOut", repeat: Infinity }
+            : { duration: 0.7, ease: easeOutSoft }
         }
       >
         <div
@@ -731,13 +778,13 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
                   item={item}
                   active={false}
                   allowVideo={false}
+                  warmVideo={videosReady && upcoming === index}
                   reducedMotion={reducedMotion}
                   left={rect.left}
                   top={rect.top}
                   height={rect.height}
-                  aspect={aspects[item.slug] ?? DEFAULT_ASPECT}
+                  aspect={DEFAULT_ASPECT}
                   depth={fieldDepth(index, spotlight)}
-                  onAspect={setAspect}
                 />
               );
             })}
@@ -753,7 +800,7 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
           >
             {active ? (
               <StageCard
-                key={`spotlight-${active.key}`}
+                key={active.key}
                 item={active}
                 active
                 allowVideo={videosReady}
@@ -761,9 +808,8 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
                 left={activeRect.left}
                 top={activeRect.top}
                 height={activeRect.height}
-                aspect={aspects[active.slug] ?? DEFAULT_ASPECT}
+                aspect={DEFAULT_ASPECT}
                 depth={{ opacity: 1, scale: 1, blur: 0 }}
-                onAspect={setAspect}
                 activeScale={activeCardScale(isMobile)}
               />
             ) : null}

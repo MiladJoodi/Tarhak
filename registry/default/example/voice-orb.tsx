@@ -121,7 +121,7 @@ export function VoiceOrb({
   useEffect(() => {
     const element = canvas.current;
     if (!element) return;
-    let sample: Uint8Array | null = null;
+    let sample: Uint8Array<ArrayBuffer> | null = null;
     let audioSource: AnalyserNode | null = null;
     const failed = (failure: Error) => {
       setError(failure);
@@ -138,7 +138,7 @@ export function VoiceOrb({
               sample?.length !== current.analyser.fftSize
             ) {
               audioSource = current.analyser;
-              sample = new Uint8Array(current.analyser.fftSize);
+              sample = new Uint8Array(new ArrayBuffer(current.analyser.fftSize));
             }
             if (sample) {
               current.analyser.getByteTimeDomainData(sample);
