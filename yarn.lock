@@ -550,7 +550,7 @@
     unist-util-visit "^5.0.0"
     vfile "^6.0.0"
 
-"@modelcontextprotocol/sdk@^1.26.0":
+"@modelcontextprotocol/sdk@^1.26.0", "@modelcontextprotocol/sdk@^1.32.1":
   version "1.32.1"
   resolved "https://registry.npmjs.org/@modelcontextprotocol/sdk/-/sdk-1.32.1.tgz"
   integrity sha512-2DdE+SJDtzLEEWzY1ZjY7Q+VcPhcV1KisD3zI4u0XZyktsjHum1mwbMI+JaulUBi2OZk+KJAi2uPXzxichPkdw==

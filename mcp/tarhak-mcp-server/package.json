@@ -1,0 +1,32 @@
+{
+  "name": "tarhak-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remote-first MCP server for Tarhak UI — catalogs https://tarhak.ir/r for any Cursor project.",
+  "type": "module",
+  "bin": {
+    "tarhak-mcp-server": "./dist/index.js"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./http": "./dist/http.js"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.8.0"
+  }
+}

@@ -26,6 +26,9 @@
     "lint": "eslint",
     "build:docs": "fumadocs-mdx",
     "build:registry": "tsx scripts/build-registry.mts",
+    "mcp:install": "npm install --prefix mcp/tarhak-mcp-server",
+    "mcp": "npm run start --prefix mcp/tarhak-mcp-server",
+    "mcp:dev": "npm run dev --prefix mcp/tarhak-mcp-server",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
@@ -36,6 +39,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@hugeicons/core-free-icons": "^2.0.0",
     "@hugeicons/react": "^1.1.1",
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "@ncdai/react-wheel-picker": "^1.2.3",
     "@number-flow/react": "^0.5.10",
     "@radix-ui/react-collapsible": "^1.1.12",

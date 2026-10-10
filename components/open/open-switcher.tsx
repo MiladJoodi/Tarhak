@@ -289,7 +289,7 @@ export function OpenSwitcher({
             exit={{ opacity: 0, transform: "translateX(-50%) scale(0.96)" }}
             transition={instant ? { duration: 0 } : { duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
           >
-            <div className="hidden border-b border-white/6 p-2.5 md:block" dir="rtl" lang="fa">
+            <div className="border-b border-white/6 p-2.5" dir="rtl" lang="fa">
               <div className="relative flex items-center gap-2 overflow-hidden rounded-xl bg-black/45 px-3 py-2 ring-1 ring-white/6">
                 <Search className="size-3.5 shrink-0 text-white/40" aria-hidden strokeWidth={1.75} />
                 <input
