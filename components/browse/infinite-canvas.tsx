@@ -47,9 +47,11 @@ type TileSpec = {
  */
 /** Mouse can start a pan earlier; touch needs slack for finger jitter. */
 const DRAG_THRESHOLD_MOUSE = 6;
-const DRAG_THRESHOLD_TOUCH = 24;
+const DRAG_THRESHOLD_TOUCH = 16;
 const MIN_VELOCITY = 0.35;
-const COAST_MULTIPLIER = 18;
+const COAST_MULTIPLIER = 12;
+/** Cap fling so a fast swipe doesn't throw the canvas across the field. */
+const MAX_COAST_SPEED = 48;
 const SETTLE_MS = 160;
 /** Drop a stale suppress flag if the browser never synthesizes a click. */
 const SUPPRESS_CLICK_MS = 480;
@@ -118,6 +120,8 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   const size = React.useRef({ w: 0, h: 0 });
   const frame = React.useRef(0);
   const coast = React.useRef<{ stop: () => void }[]>([]);
+  /** Bumped on stop so in-flight coast onComplete cannot settle mid-drag. */
+  const coastGen = React.useRef(0);
   const settleTimer = React.useRef(0);
   const mediaFrozen = React.useRef(false);
   const didCenter = React.useRef(false);
@@ -324,6 +328,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   }, []);
 
   const stopCoast = React.useCallback(() => {
+    coastGen.current += 1;
     coast.current.forEach((control) => control.stop());
     coast.current = [];
   }, []);
@@ -332,11 +337,13 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
     (toX: number, toY: number, { duration = 0.7, bounce = 0.16, velocityX = 0, velocityY = 0 } = {}) => {
       stopCoast();
       markDragging();
+      const gen = coastGen.current;
       const fromX = camera.current.x;
       const fromY = camera.current.y;
       const spring = { type: "spring" as const, duration, bounce };
       let pending = 2;
       const onDone = () => {
+        if (gen !== coastGen.current) return;
         pending -= 1;
         if (pending === 0) scheduleSettle();
       };
@@ -345,6 +352,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
         ...spring,
         velocity: velocityX,
         onUpdate: (value) => {
+          if (gen !== coastGen.current) return;
           camera.current.x = value;
           applyCamera();
           syncVisibleThrottled();
@@ -355,6 +363,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
         ...spring,
         velocity: velocityY,
         onUpdate: (value) => {
+          if (gen !== coastGen.current) return;
           camera.current.y = value;
           applyCamera();
           syncVisibleThrottled();
@@ -367,7 +376,9 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   );
 
   const springCoast = React.useCallback(() => {
-    const speed = Math.hypot(velocity.current.x, velocity.current.y);
+    let vx = velocity.current.x;
+    let vy = velocity.current.y;
+    const speed = Math.hypot(vx, vy);
     if (speed < MIN_VELOCITY) {
       velocity.current.x = 0;
       velocity.current.y = 0;
@@ -376,13 +387,16 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       return;
     }
 
-    const vx = velocity.current.x;
-    const vy = velocity.current.y;
+    if (speed > MAX_COAST_SPEED) {
+      const scale = MAX_COAST_SPEED / speed;
+      vx *= scale;
+      vy *= scale;
+    }
     velocity.current.x = 0;
     velocity.current.y = 0;
     springTo(camera.current.x + vx * COAST_MULTIPLIER, camera.current.y + vy * COAST_MULTIPLIER, {
-      duration: 0.7,
-      bounce: 0.16,
+      duration: 0.65,
+      bounce: 0.1,
       velocityX: vx,
       velocityY: vy,
     });
@@ -478,6 +492,31 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
     return () => node.removeEventListener("wheel", onWheel);
   }, [stopCoast, markDragging, applyCamera, syncVisibleThrottled, scheduleSettle]);
 
+  const finishPointer = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>, opts?: { fromLostCapture?: boolean }) => {
+      if (!pointerDown.current || event.pointerId !== activePointerId.current) return;
+      pointerDown.current = false;
+      activePointerId.current = null;
+      const didPan = panning.current;
+      panning.current = false;
+
+      if (
+        !opts?.fromLostCapture &&
+        event.currentTarget.hasPointerCapture?.(event.pointerId)
+      ) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+
+      if (didPan) {
+        armSuppressClick();
+        springCoast();
+      } else if (mediaFrozen.current) {
+        scheduleSettle();
+      }
+    },
+    [armSuppressClick, springCoast, scheduleSettle],
+  );
+
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
     // One active finger/mouse; ignore extra touches mid-gesture.
@@ -497,24 +536,38 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
 
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!pointerDown.current || event.pointerId !== activePointerId.current) return;
-    const dx = event.clientX - lastPointer.current.x;
-    const dy = event.clientY - lastPointer.current.y;
-    lastPointer.current = { x: event.clientX, y: event.clientY };
 
     if (!panning.current) {
-      // Net displacement from down — path-length jitter used to fake "pans".
+      // Net displacement from down — don't advance lastPointer until pan starts,
+      // or the pre-threshold travel is lost and the canvas desyncs from the finger.
       const net = Math.hypot(
         event.clientX - originPointer.current.x,
         event.clientY - originPointer.current.y,
       );
       if (net < dragThreshold.current) return;
+
       panning.current = true;
       lastPanSync.current = 0;
       markDragging();
-      event.currentTarget.setPointerCapture(event.pointerId);
+      // Catch up 1:1 so crossing the threshold doesn't feel like a jump.
+      camera.current.x += event.clientX - originPointer.current.x;
+      camera.current.y += event.clientY - originPointer.current.y;
+      lastPointer.current = { x: event.clientX, y: event.clientY };
+      velocity.current.x = 0;
+      velocity.current.y = 0;
+      try {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      } catch {
+        /* capture can fail on some hosts; pan still works */
+      }
       ensureLoop();
+      applyCamera();
+      return;
     }
 
+    const dx = event.clientX - lastPointer.current.x;
+    const dy = event.clientY - lastPointer.current.y;
+    lastPointer.current = { x: event.clientX, y: event.clientY };
     camera.current.x += dx;
     camera.current.y += dy;
     velocity.current.x = velocity.current.x * 0.55 + dx * 0.45;
@@ -523,21 +576,13 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   };
 
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!pointerDown.current || event.pointerId !== activePointerId.current) return;
-    pointerDown.current = false;
-    activePointerId.current = null;
-    const didPan = panning.current;
-    panning.current = false;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-    if (didPan) {
-      // Only swallow the synthetic click from this pan gesture.
-      armSuppressClick();
-      springCoast();
-    } else if (mediaFrozen.current) {
-      scheduleSettle();
-    }
+    finishPointer(event);
+  };
+
+  const onLostPointerCapture = (event: React.PointerEvent<HTMLDivElement>) => {
+    // pointerup already released capture — ignore the echo.
+    if (!pointerDown.current) return;
+    finishPointer(event, { fromLostCapture: true });
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -568,7 +613,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
-      onLostPointerCapture={endDrag}
+      onLostPointerCapture={onLostPointerCapture}
       onKeyDown={onKeyDown}
       onClickCapture={(event) => {
         if (!suppressClick.current) return;
