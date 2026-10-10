@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { HeroStageCanvas } from "@/components/landing/hero-stage-canvas";
@@ -12,70 +12,6 @@ import { BRAND_NAME_FA } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-const CLI = "npx farsiui@latest add @tarhak/animated-tabs";
-
-function CopyChip({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      type="button"
-      dir="ltr"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          setCopied(true);
-          window.setTimeout(() => setCopied(false), 1600);
-        } catch {
-          /* ignore */
-        }
-      }}
-      className="group relative flex w-full max-w-full items-center gap-2 overflow-hidden rounded-2xl bg-black/45 px-3.5 py-3 text-start ring-1 ring-white/12 backdrop-blur-md transition-[background-color,box-shadow] duration-200 hover:bg-black/55 hover:ring-white/18 active:scale-[0.99] sm:px-4"
-      aria-label="کپی دستور نصب"
-    >
-      <span
-        aria-hidden
-        className="size-2 shrink-0 rounded-full bg-white/35"
-      />
-      <code className="min-w-0 flex-1 truncate font-[family-name:var(--font-geist-mono),ui-monospace,monospace] text-[12px] leading-none text-white/75 sm:text-[13px]">
-        {text}
-      </code>
-      <span
-        aria-hidden
-        className="inline-flex size-4 shrink-0 text-white/55 transition-colors group-hover:text-white/80"
-      >
-        {copied ? (
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M3.5 8.5 6.5 11.5 12.5 4.5"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        ) : (
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect
-              x="5.5"
-              y="5.5"
-              width="7"
-              height="7"
-              rx="1.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
-            />
-            <path
-              d="M10.5 5.5V4A1.5 1.5 0 0 0 9 2.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-          </svg>
-        )}
-      </span>
-    </button>
-  );
-}
 
 function HeroCopy({ reduce }: { reduce: boolean }) {
   return (
@@ -95,11 +31,9 @@ function HeroCopy({ reduce }: { reduce: boolean }) {
         transition={
           reduce ? { duration: 0 } : { duration: 0.65, ease, delay: 0.16 }
         }
-        className="mt-4 max-w-[20rem] text-center text-[14px] leading-7 text-white/55 sm:max-w-[24rem] sm:text-[15px] sm:leading-8 md:text-start"
+        className="mt-4 max-w-[22rem] text-center text-[14px] leading-7 text-white/55 sm:max-w-[28rem] sm:text-[15px] sm:leading-8 md:text-start"
       >
-        کامپوننت‌هایی که قبل از کپی، حس محصول را نشان می‌دهند
-        <br />
-        نه اسکرین‌شات تخت
+        کامپوننت‌های متحرک React برای پروژه‌های واقعی
       </motion.p>
 
       <motion.div
@@ -141,7 +75,6 @@ function HeroCopy({ reduce }: { reduce: boolean }) {
             </svg>
           </span>
         </Link>
-        <CopyChip text={CLI} />
       </motion.div>
     </div>
   );

@@ -1,16 +1,16 @@
 {
   "slugs": [
     "prize-coins",
-    "luck-wheel",
-    "stamp-approve",
-    "photo-albums",
-    "analog-stick",
-    "otp-cascade",
-    "upload-dropzone",
     "filter-interaction",
-    "expandable-gallery",
+    "otp-cascade",
+    "sortable-list",
+    "luck-wheel",
+    "upload-dropzone",
+    "stamp-approve",
+    "analog-stick",
     "horizontal-menu",
     "card-folder",
-    "dial-volume"
+    "dial-volume",
+    "toast-stack"
   ]
 }

@@ -9,8 +9,13 @@ export { LANDING_HERO_LIMIT };
 const ROOT = process.cwd();
 const LANDING_HERO_PATH = path.join(ROOT, "registry/default/landing-hero.json");
 
-/** Skip in the hero spotlight — awkward framing or too chrome-heavy. */
-const HERO_EXCLUDE = new Set(["gooey-navbar"]);
+/** Skip in the hero spotlight — awkward framing, chrome-heavy, or English-only media. */
+const HERO_EXCLUDE = new Set([
+  "gooey-navbar",
+  "photo-albums",
+  "expandable-gallery",
+  "dynamic-grid-gallery",
+]);
 
 export type LandingHeroConfig = { slugs: string[] };
 

@@ -130,6 +130,32 @@ function fieldDepth(index: number, spotlight: number) {
   return { opacity: 0.4, scale: 0.97, blur: 0.5 };
 }
 
+function firstInteriorIndex() {
+  for (let i = 0; i < TOTAL; i++) if (isInterior(i)) return i;
+  return 0;
+}
+
+const START_INDEX = firstInteriorIndex();
+
+/** Interior cells, START_INDEX first, then nearest — matches early camera tour. */
+function priorityInteriorPath(): number[] {
+  const interiors: number[] = [];
+  for (let i = 0; i < TOTAL; i++) if (isInterior(i)) interiors.push(i);
+  const startCol = START_INDEX % COLS;
+  const startRow = Math.floor(START_INDEX / COLS);
+  return interiors.sort((a, b) => {
+    if (a === START_INDEX) return -1;
+    if (b === START_INDEX) return 1;
+    const da =
+      Math.abs((a % COLS) - startCol) + Math.abs(Math.floor(a / COLS) - startRow);
+    const db =
+      Math.abs((b % COLS) - startCol) + Math.abs(Math.floor(b / COLS) - startRow);
+    return da - db || a - b;
+  });
+}
+
+const PRIORITY_PATH = priorityInteriorPath();
+
 function buildDeck(items: BrowseItem[]): DeckCard[] {
   if (items.length === 0) return [];
   const pool = [...items];
@@ -157,6 +183,14 @@ function buildDeck(items: BrowseItem[]): DeckCard[] {
     deck.push({ ...pick, key: `${pick.slug}-${i}` });
   }
 
+  // Pin config order onto the first spotlight cells so /v1 opens on slug[0], then [1]…
+  const path = PRIORITY_PATH;
+  for (let p = 0; p < Math.min(items.length, path.length); p++) {
+    const idx = path[p]!;
+    const item = items[p]!;
+    deck[idx] = { ...item, key: `${item.slug}-${idx}` };
+  }
+
   return deck;
 }
 
@@ -164,7 +198,18 @@ function nextSpotlightIndex(
   current: number,
   cards: DeckCard[],
   recentSlugs: readonly string[],
+  priorityStep?: number,
 ) {
+  // First tour: walk priority path in landing-hero.json order.
+  if (
+    typeof priorityStep === "number" &&
+    priorityStep >= 0 &&
+    priorityStep < PRIORITY_PATH.length
+  ) {
+    const target = PRIORITY_PATH[priorityStep]!;
+    if (target !== current && isInterior(target)) return target;
+  }
+
   const count = cards.length;
   if (count <= 1) return 0;
   const currentSlug = cards[current]?.slug;
@@ -192,13 +237,6 @@ function nextSpotlightIndex(
   const top = pick.slice(0, Math.min(5, pick.length));
   return top[Math.floor(Math.random() * top.length)]!.i;
 }
-
-function firstInteriorIndex() {
-  for (let i = 0; i < TOTAL; i++) if (isInterior(i)) return i;
-  return 0;
-}
-
-const START_INDEX = firstInteriorIndex();
 
 function deferUntilIdle(cb: () => void) {
   if (typeof window === "undefined") return () => {};
@@ -523,6 +561,7 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
 
     let cancelled = false;
     let timer = 0;
+    let priorityStep = 1; // START_INDEX already shows items[0]
     const recentSlugs: string[] = [];
 
     const wait = (ms: number) =>
@@ -542,7 +581,8 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
     const cycle = async () => {
       const { w, h } = viewRef.current;
       const current = spotlightRef.current;
-      const next = nextSpotlightIndex(current, cards, recentSlugs);
+      const next = nextSpotlightIndex(current, cards, recentSlugs, priorityStep);
+      if (priorityStep < PRIORITY_PATH.length) priorityStep += 1;
       remember(next);
       const out = outRef.current;
       const hold = holdRef.current;
@@ -582,9 +622,16 @@ export function HeroStageCanvas({ items }: { items: BrowseItem[] }) {
 
   React.useEffect(() => {
     if (!ready || !reducedMotion || cards.length <= 1) return;
+    let priorityStep = 1;
     const recentSlugs: string[] = [];
     const id = window.setInterval(() => {
-      const next = nextSpotlightIndex(spotlightRef.current, cards, recentSlugs);
+      const next = nextSpotlightIndex(
+        spotlightRef.current,
+        cards,
+        recentSlugs,
+        priorityStep,
+      );
+      if (priorityStep < PRIORITY_PATH.length) priorityStep += 1;
       const slug = cards[next]?.slug;
       if (slug) {
         recentSlugs.push(slug);

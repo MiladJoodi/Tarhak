@@ -8,7 +8,7 @@ import { getLandingHeroItems } from "@/lib/landing/hero-components";
 export const metadata: Metadata = {
   title: BRAND_NAME_FA,
   description:
-    "کامپوننت‌هایی که قبل از کپی، حس محصول را نشان می‌دهند — نه اسکرین‌شات تخت.",
+    "کامپوننت‌های متحرک React برای پروژه‌های واقعی",
   robots: { index: false, follow: false },
 };
 
