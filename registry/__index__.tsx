@@ -204,6 +204,40 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animate-tabs": {
+    name: "animate-tabs",
+    description: "تب‌های لایه‌ای با هایلایت فنری و پنل‌های ارتفاع‌متغیر — از Animate UI.",
+    type: "registry:component",
+    registryDependencies: ["button","card","input","label"],
+    files: [{
+      path: "registry/default/example/animate-tabs.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/animate-tabs-core.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/animate-tabs-highlight.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/animate-tabs-slot.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/animate-tabs-context.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/example/animate-tabs.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animate-tabs"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "animated-tabs": {
     name: "animated-tabs",
     description: "تب متحرک با زبان بصری فیلتر — Estedad، bg-card، border-border و نشانگر accent.",
@@ -499,6 +533,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/pulse-heart-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "pulse-heart"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "number-ticker": {
+    name: "number-ticker",
+    description: "شمارنده عددی با اسپرینگ نرم تا مقدار هدف؛ ارقام فارسی.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/number-ticker.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/number-ticker-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "number-ticker"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,

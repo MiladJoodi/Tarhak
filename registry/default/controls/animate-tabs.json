@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "تب را عوض کن",
+  "hintDescription": "بین حساب و رمز جابه‌جا شوید؛ هایلایت و ارتفاع پنل نرم حرکت می‌کنند.",
+  "hintTop": 64,
+  "tags": [
+    "tabs",
+    "animate",
+    "motion",
+    "highlight",
+    "form",
+    "navigation",
+    "panel"
+  ]
+}

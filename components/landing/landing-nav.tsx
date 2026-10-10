@@ -6,6 +6,7 @@ import {
   GridViewIcon,
   Mail01Icon,
   Menu01Icon,
+  SourceCodeIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -59,6 +60,12 @@ export const landingNavLinks: {
     href: "/docs",
     icon: BookOpen01Icon,
     description: "راهنمای نصب و استفاده",
+  },
+  {
+    label: "MCP",
+    href: "/docs/mcp",
+    icon: SourceCodeIcon,
+    description: "اتصال ایجنت Cursor، Claude Code، Codex و OpenCode",
   },
   {
     label: "تماس",

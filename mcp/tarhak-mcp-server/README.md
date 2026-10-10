@@ -2,21 +2,24 @@
 
 Remote-first MCP server for [Tarhak](https://tarhak.ir). Catalog is fetched from `https://tarhak.ir/r` — no local clone required for consumers.
 
-## For Cursor users (recommended)
+**Endpoint:** `https://tarhak.ir/api/mcp`
 
-In any project’s `.cursor/mcp.json`:
+Docs (Cursor / Claude Code / Codex / OpenCode): https://tarhak.ir/docs/mcp
 
-```json
-{
-  "mcpServers": {
-    "tarhak": {
-      "url": "https://tarhak.ir/api/mcp"
-    }
-  }
-}
+## Quick add
+
+```bash
+# Cursor — Settings → MCP → URL, or .cursor/mcp.json with { "url": "..." }
+
+# Claude Code
+claude mcp add --transport http tarhak https://tarhak.ir/api/mcp
+
+# Codex
+codex mcp add tarhak --url https://tarhak.ir/api/mcp
+
+# OpenCode
+opencode mcp add tarhak --url https://tarhak.ir/api/mcp
 ```
-
-Docs: https://tarhak.ir/docs/mcp
 
 ## Local stdio (contributors)
 

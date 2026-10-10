@@ -190,6 +190,45 @@
       ]
     },
     {
+      "name": "animate-tabs",
+      "type": "registry:component",
+      "title": "Animate Tabs",
+      "description": "تب‌های لایه‌ای با هایلایت فنری و پنل‌های ارتفاع‌متغیر — از Animate UI.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animate-tabs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/animate-tabs-core.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/animate-tabs-highlight.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/animate-tabs-slot.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/animate-tabs-context.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "animated-tabs",
       "type": "registry:component",
       "title": "Animated Tabs",
@@ -479,6 +518,21 @@
       "files": [
         {
           "path": "registry/default/example/pulse-heart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-ticker",
+      "type": "registry:component",
+      "title": "Number Ticker",
+      "description": "شمارنده عددی با اسپرینگ نرم تا مقدار هدف؛ ارقام فارسی.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/number-ticker.tsx",
           "type": "registry:component"
         }
       ]

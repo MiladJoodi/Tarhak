@@ -62,6 +62,7 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "jalali-wheel-picker",
   "peek-rating",
   "pulse-heart",
+  "number-ticker",
   "voice-orb",
   "team-carousel",
   "approval-card",
@@ -84,6 +85,7 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "swipeable-list",
   "bloom-menu",
   "loading-states",
+  "animate-tabs",
 ]);
 
 export function isNewComponent(slug: string) {

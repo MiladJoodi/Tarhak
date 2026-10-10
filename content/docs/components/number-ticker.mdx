@@ -1,0 +1,22 @@
+---
+title: Number Ticker
+description: عدد را با اسپرینگ نرم تا مقدار هدف می‌شمارد؛ ارقام فارسی و احترام به کاهش حرکت.
+---
+
+## نحوه استفاده
+
+```tsx
+import { NumberTicker } from "@/components/number-ticker";
+
+export default function Example() {
+  return <NumberTicker value={1280} />;
+}
+```
+
+## قابلیت‌ها
+
+- با ورود به ویوپورت، از `startValue` تا `value` می‌شمارد (`direction`: `up` یا `down`).
+- ارقام پیش‌فرض با `fa-IR` (فارسی)؛ با `locale` قابل تغییر.
+- `decimalPlaces` برای اعشار، `delay` برای تأخیر شروع (ثانیه).
+- تم‌آگاه (`text-foreground`) و احترام به `prefers-reduced-motion`.
+- از [Magic UI Number Ticker](https://magicui.design/docs/components/number-ticker) گرفته شده؛ به `motion` نیاز دارد.

@@ -45,10 +45,20 @@ type TileSpec = {
  * four-sided predict ring, so a clip is already running when it comes on
  * screen. Farther overscan is poster-only; beyond that, unmounted.
  */
-const DRAG_THRESHOLD = 8;
+/** Mouse can start a pan earlier; touch needs slack for finger jitter. */
+const DRAG_THRESHOLD_MOUSE = 6;
+const DRAG_THRESHOLD_TOUCH = 24;
 const MIN_VELOCITY = 0.35;
 const COAST_MULTIPLIER = 18;
 const SETTLE_MS = 160;
+/** Drop a stale suppress flag if the browser never synthesizes a click. */
+const SUPPRESS_CLICK_MS = 480;
+
+function dragThresholdFor(pointerType: string) {
+  return pointerType === "touch" || pointerType === "pen"
+    ? DRAG_THRESHOLD_TOUCH
+    : DRAG_THRESHOLD_MOUSE;
+}
 const PAN_SYNC_MS = 80;
 const PAN_SYNC_MS_LOW = 200;
 /** Four-sided predict ring: start video before the tile hits the viewport. */
@@ -97,10 +107,14 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   const camera = React.useRef({ x: 0, y: 0 });
   const velocity = React.useRef({ x: 0, y: 0 });
   const lastPointer = React.useRef({ x: 0, y: 0 });
-  const travelled = React.useRef(0);
+  /** Down position — pan starts from net displacement, not path jitter. */
+  const originPointer = React.useRef({ x: 0, y: 0 });
+  const activePointerId = React.useRef<number | null>(null);
+  const dragThreshold = React.useRef(DRAG_THRESHOLD_MOUSE);
   const pointerDown = React.useRef(false);
   const panning = React.useRef(false);
   const suppressClick = React.useRef(false);
+  const suppressClickTimer = React.useRef(0);
   const size = React.useRef({ w: 0, h: 0 });
   const frame = React.useRef(0);
   const coast = React.useRef<{ stop: () => void }[]>([]);
@@ -109,6 +123,21 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   const didCenter = React.useRef(false);
   const lastPanSync = React.useRef(0);
   const wheelSyncRaf = React.useRef(0);
+
+  const clearSuppressClick = React.useCallback(() => {
+    suppressClick.current = false;
+    window.clearTimeout(suppressClickTimer.current);
+    suppressClickTimer.current = 0;
+  }, []);
+
+  const armSuppressClick = React.useCallback(() => {
+    suppressClick.current = true;
+    window.clearTimeout(suppressClickTimer.current);
+    suppressClickTimer.current = window.setTimeout(() => {
+      suppressClick.current = false;
+      suppressClickTimer.current = 0;
+    }, SUPPRESS_CLICK_MS);
+  }, []);
 
   const [metrics, setMetrics] = React.useState({ cardW: 340, gap: 54 });
   const [tiles, setTiles] = React.useState<TileSpec[]>([]);
@@ -364,6 +393,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       cancelAnimationFrame(frame.current);
       cancelAnimationFrame(wheelSyncRaf.current);
       window.clearTimeout(settleTimer.current);
+      window.clearTimeout(suppressClickTimer.current);
       stopCoast();
     },
     [stopCoast],
@@ -450,24 +480,34 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
+    // One active finger/mouse; ignore extra touches mid-gesture.
+    if (activePointerId.current !== null) return;
+    // Never let a previous pan's suppress flag steal this tap.
+    clearSuppressClick();
     stopCoast();
     window.clearTimeout(settleTimer.current);
+    activePointerId.current = event.pointerId;
+    dragThreshold.current = dragThresholdFor(event.pointerType);
     pointerDown.current = true;
     panning.current = false;
-    travelled.current = 0;
+    originPointer.current = { x: event.clientX, y: event.clientY };
     lastPointer.current = { x: event.clientX, y: event.clientY };
     velocity.current = { x: 0, y: 0 };
   };
 
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!pointerDown.current) return;
+    if (!pointerDown.current || event.pointerId !== activePointerId.current) return;
     const dx = event.clientX - lastPointer.current.x;
     const dy = event.clientY - lastPointer.current.y;
     lastPointer.current = { x: event.clientX, y: event.clientY };
-    travelled.current += Math.hypot(dx, dy);
 
     if (!panning.current) {
-      if (travelled.current < DRAG_THRESHOLD) return;
+      // Net displacement from down — path-length jitter used to fake "pans".
+      const net = Math.hypot(
+        event.clientX - originPointer.current.x,
+        event.clientY - originPointer.current.y,
+      );
+      if (net < dragThreshold.current) return;
       panning.current = true;
       lastPanSync.current = 0;
       markDragging();
@@ -483,15 +523,17 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   };
 
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!pointerDown.current) return;
+    if (!pointerDown.current || event.pointerId !== activePointerId.current) return;
     pointerDown.current = false;
+    activePointerId.current = null;
     const didPan = panning.current;
     panning.current = false;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     if (didPan) {
-      suppressClick.current = true;
+      // Only swallow the synthetic click from this pan gesture.
+      armSuppressClick();
       springCoast();
     } else if (mediaFrozen.current) {
       scheduleSettle();
@@ -526,10 +568,11 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
+      onLostPointerCapture={endDrag}
       onKeyDown={onKeyDown}
       onClickCapture={(event) => {
         if (!suppressClick.current) return;
-        suppressClick.current = false;
+        clearSuppressClick();
         event.preventDefault();
         event.stopPropagation();
       }}

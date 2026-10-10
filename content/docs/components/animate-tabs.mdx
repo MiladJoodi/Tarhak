@@ -1,0 +1,86 @@
+---
+title: Animate Tabs
+description: تب‌های لایه‌ای با هایلایت فنری و پنل‌های ارتفاع‌متغیر — از Animate UI.
+---
+
+## نحوه استفاده
+
+```tsx
+import {
+  Tabs,
+  TabsContent,
+  TabsContents,
+  TabsList,
+  TabsTrigger,
+} from "@/components/animate-tabs";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export default function Example() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account">حساب</TabsTrigger>
+        <TabsTrigger value="password">رمز عبور</TabsTrigger>
+      </TabsList>
+      <Card className="py-0 shadow-none">
+        <TabsContents className="py-6">
+          <TabsContent value="account" className="flex flex-col gap-6">
+            <CardHeader>
+              <CardTitle>حساب</CardTitle>
+              <CardDescription>
+                تغییرات حساب را اینجا اعمال کنید.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor="name">نام</Label>
+                <Input id="name" defaultValue="میلاد جودی" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button>ذخیره تغییرات</Button>
+            </CardFooter>
+          </TabsContent>
+          <TabsContent value="password" className="flex flex-col gap-6">
+            <CardHeader>
+              <CardTitle>رمز عبور</CardTitle>
+              <CardDescription>رمز را اینجا عوض کنید.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor="current">رمز فعلی</Label>
+                <Input id="current" type="password" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button>ذخیره رمز</Button>
+            </CardFooter>
+          </TabsContent>
+        </TabsContents>
+      </Card>
+    </Tabs>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- هایلایت مشترک فنری روی تب فعال
+- پنل محتوا با ارتفاع متحرک و اسلاید افقی
+- بلور نرم روی پنل غیرفعال
+- پشتیبانی RTL برای جهت اسلاید
+- استایل demo Animate UI با Estedad
+
+## منبع
+
+از [Animate UI Tabs](https://animate-ui.com/docs/components/animate/tabs) گرفته شده.
