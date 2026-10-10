@@ -1,0 +1,39 @@
+---
+title: Team Carousel
+description: کاروسل سه‌بعدی اعضای تیم با ناوبری لمسی، کیبورد و نقطه‌های نشانگر.
+---
+
+## نحوه استفاده
+
+```tsx
+import { TeamCarousel } from "@/components/team-carousel";
+
+const members = [
+  {
+    id: "1",
+    name: "سارا نوری",
+    role: "بنیان‌گذار",
+    image: "/path/to/photo.jpg",
+    bio: "توضیح کوتاه.",
+  },
+];
+
+export default function Example() {
+  return (
+    <TeamCarousel
+      members={members}
+      title="تیم ما"
+      autoPlay={4000}
+      showArrows
+      showDots
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- کارت مرکزی بزرگ‌تر؛ کارت‌های کناری کوچک‌تر و اختیاری خاکستری.
+- فلش، نقطه‌ها، سوایپ و کلیدهای چپ/راست (در RTL معکوس).
+- `autoPlay` و توقف روی هاور؛ `infoPosition`: `bottom` | `overlay` | `none`.
+- از [Lightswind Team Carousel](https://lightswind.com/components/team-carousel) گرفته شده؛ به `motion` و `lucide-react` نیاز دارد.

@@ -1,0 +1,39 @@
+---
+title: Voice Orb
+description: کرهٔ مایع تنفس‌کننده برای تجسم صدا؛ با سطح روان، هایلایت و واکنش به سطح فعالیت.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useAnimationFrame, useMotionValue, useReducedMotion } from "motion/react";
+import { VoiceOrb } from "@/components/voice-orb";
+
+export default function Example() {
+  const activity = useMotionValue(0);
+  const reducedMotion = useReducedMotion();
+
+  useAnimationFrame((time) => {
+    if (reducedMotion) {
+      activity.set(0);
+      return;
+    }
+    const t = time / 1000;
+    const phrase = Math.max(0, Math.sin(t * 0.85));
+    const syllable = Math.max(0, Math.sin(t * 9.3 + Math.sin(t * 2.1)));
+    activity.set(phrase * (0.12 + syllable ** 2 * 0.72));
+  });
+
+  return <VoiceOrb activity={activity} aria-label="تجسم صدا" />;
+}
+```
+
+## قابلیت‌ها
+
+- سطح `activity` از ۰ تا ۱ (عدد یا `MotionValue`) سطح موج را کنترل می‌کند.
+- اختیاری: `analyser` صدا — خود کامپوننت میکروفون را باز نمی‌کند.
+- `colors` سه رنگ hex: پایه، هایلایت، سایه.
+- خارج از ویوپورت متوقف می‌شود؛ `prefers-reduced-motion` را رعایت می‌کند.
+- از [beUI Voice Orb](https://beui.dev/components/agents/voice-orb) گرفته شده؛ به `motion` و WebGL نیاز دارد.

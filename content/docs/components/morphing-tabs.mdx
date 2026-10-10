@@ -1,0 +1,47 @@
+---
+title: Morphing Tabs
+description: تب‌های قابل‌جابه‌جایی که تب فعال به سطح محتوا تبدیل می‌شود و شکل مشترک بین اتاق‌ها مورف می‌کند.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { MorphingTabs, type MorphingTabsItem } from "@/components/morphing-tabs";
+
+const items: MorphingTabsItem[] = [
+  {
+    id: "general",
+    label: "عمومی",
+    content: <div className="p-8">محتوای اتاق عمومی</div>,
+  },
+  {
+    id: "archive",
+    label: "آرشیو",
+    content: <div className="p-8">محتوای آرشیو</div>,
+  },
+];
+
+export default function Example() {
+  const [value, setValue] = useState<string | null>("general");
+
+  return (
+    <MorphingTabs
+      items={items}
+      value={value}
+      onValueChange={setValue}
+      ariaLabel="اتاق‌ها"
+      className="w-full max-w-5xl"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- تب فعال به سطح سفید محتوا وصل می‌شود؛ شکل مایع با جابه‌جایی تب‌ها حرکت می‌کند.
+- کشیدن برای تغییر ترتیب؛ `Alt` + فلش‌ها برای جابه‌جایی با کیبورد.
+- اختیاری: `onClose` برای بستن تب؛ `rtl` برای چینش از راست (پیش‌فرض روشن).
+- از [beUI Morphing Tabs](https://beui.dev/components/blocks/morphing-tabs) گرفته شده؛ به `motion` و `lucide-react` نیاز دارد.

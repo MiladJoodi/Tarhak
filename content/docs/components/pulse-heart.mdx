@@ -1,0 +1,35 @@
+---
+title: Pulse Heart
+description: دکمه پسند که به نقطه جمع می‌شود، رنگ عوض می‌کند و با پالس برمی‌گردد؛ شمارنده هم می‌غلتد.
+---
+
+## نحوه استفاده
+
+```tsx
+import { useState } from "react";
+import { PulseHeart } from "@/components/pulse-heart";
+
+export default function Example() {
+  const [liked, setLiked] = useState(false);
+  const [count, setCount] = useState(128);
+
+  return (
+    <PulseHeart
+      liked={liked}
+      count={count}
+      onChange={(nextLiked, nextCount) => {
+        setLiked(nextLiked);
+        setCount(nextCount);
+      }}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- با کلیک، آیکون به نقطه جمع می‌شود، رنگ عوض می‌کند و با پالس برمی‌گردد.
+- شمارنده با غلتک تک‌رقم عوض می‌شود (`showCount`).
+- شکل‌های آماده: `heart`، `star`، `thumb`؛ یا `icon` سفارشی.
+- کنترل‌شده / غیرکنترل‌شده، `disabled`، و احترام به `prefers-reduced-motion`.
+- از [React Bits Pulse Heart](https://reactbits.dev/micro/pulse-heart) گرفته شده؛ به `@hugeicons/core-free-icons` نیاز دارد.

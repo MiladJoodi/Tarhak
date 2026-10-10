@@ -1,0 +1,47 @@
+---
+title: Image Generation
+description: سطح پایدار تصویر تولیدشده — از صف تا جزئیات‌پردازی و نتیجه، بدون پرش چیدمان.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  ImageGeneration,
+  type ImageGenerationStatus,
+} from "@/components/image-generation";
+
+export default function Example() {
+  const [status, setStatus] = useState<ImageGenerationStatus>("queued");
+
+  useEffect(() => {
+    const timers = [
+      window.setTimeout(() => setStatus("generating"), 500),
+      window.setTimeout(() => setStatus("refining"), 3000),
+      window.setTimeout(() => setStatus("complete"), 5200),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <ImageGeneration
+      status={status}
+      prompt="منظره‌ای آرام از کوهستان در غروب"
+      aspectRatio="4 / 3"
+      size="fluid"
+    >
+      <img src="/path/to/result.jpg" alt="" />
+    </ImageGeneration>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- وضعیت‌ها: `queued` → `generating` → `refining` → `complete` (یا `error`).
+- فیلد نقطه‌ای (dither) در حین تولید؛ با اشاره‌گر ریز دنبال می‌شود.
+- نسبت تصویر و رزولوشن از قبل رزرو می‌شود تا چیدمان نپرد.
+- از [beUI Image Generation](https://beui.dev/components/agents/image-generation) گرفته شده؛ به `motion` و `lucide-react` نیاز دارد.

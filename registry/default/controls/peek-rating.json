@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "hover",
+  "hintHeading": "پیش‌نمایش",
+  "hintDescription": "نشانگر را روی ستاره‌ها بکش؛ با کلیک امتیاز ثبت می‌شود.",
+  "hintTop": 120,
+  "posterUrl": "/api/browse-media/components/peek-rating/poster.avif",
+  "videoUrl": "/api/browse-media/components/peek-rating/video.mp4",
+  "tags": [
+    "rating",
+    "stars",
+    "micro",
+    "input",
+    "peek",
+    "feedback"
+  ]
+}

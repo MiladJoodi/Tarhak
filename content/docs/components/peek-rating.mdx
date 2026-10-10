@@ -1,0 +1,31 @@
+---
+title: Peek Rating
+description: امتیاز ستاره‌ای با پیش‌نمایش موج‌دار قبل از ثبت؛ نکتهٔ شناور و پاپ هنگام انتخاب.
+---
+
+## نحوه استفاده
+
+```tsx
+import { useState } from "react";
+import { PeekRating } from "@/components/peek-rating";
+
+export default function Example() {
+  const [value, setValue] = useState(3);
+
+  return (
+    <PeekRating
+      value={value}
+      onChange={setValue}
+      labels={["ضعیف", "متوسط", "خوب", "عالی", "فوق‌العاده"]}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- با حرکت نشانگر، ستاره‌ها تا موقعیت اشاره‌گر بالا می‌آیند (موج پیش‌نمایش).
+- نکتهٔ شناور با برچسب یا عدد؛ کلیک ثبت می‌کند و با پاپ کوتاه تأیید می‌شود.
+- شکل‌های آماده: `star`، `heart`، `bolt`؛ یا `icon` سفارشی.
+- پشتیبانی از RTL، کیبورد، پاک‌کردن با کلیک مجدد / Backspace، و `readOnly`.
+- از [React Bits Peek Rating](https://reactbits.dev/micro/peek-rating) گرفته شده؛ به Hugeicons نیاز دارد.

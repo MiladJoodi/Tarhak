@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 98%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "بکش به چپ یا راست",
+  "hintDescription": "ردیف را افقی بکش تا اکشن‌ها دیده شوند. حذف ردیف را برمی‌دارد؛ بازنشانی صف را برمی‌گرداند.",
+  "hintTop": 72,
+  "tags": [
+    "swipe",
+    "list",
+    "mobile",
+    "actions",
+    "gesture",
+    "inbox",
+    "motion",
+    "row"
+  ]
+}

@@ -1,0 +1,54 @@
+---
+title: Expandable Action Bar
+description: اکشن‌های آیکونی فشرده که با هاور یا فوکوس به کنترل‌های برچسب‌دار باز می‌شوند.
+---
+
+## نحوه استفاده
+
+```tsx
+import {
+  ExpandableActionBar,
+  type ExpandableActionBarItem,
+} from "@/components/expandable-action-bar";
+import { Send, Copy } from "lucide-react";
+
+const items: ExpandableActionBarItem[] = [
+  { id: "send", label: "ارسال", icon: <Send className="h-4 w-4" />, shortcut: "S" },
+  { id: "copy", label: "کپی", icon: <Copy className="h-4 w-4" />, shortcut: "C" },
+];
+
+export default function Example() {
+  return (
+    <ExpandableActionBar
+      items={items}
+      onAction={(item) => console.log(item.id)}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- باز شدن لیبل‌ها با هاور، فوکوس، یا دکمهٔ کنترل
+- روی لمس: اولین تپ باز می‌کند، دومین تپ اکشن را اجرا می‌کند
+- هایلایت مشترک با `layoutId` بین آیتم‌ها
+- نشان (`badge`) و میانبر (`shortcut`) اختیاری
+- RTL با `margin-inline-start` و موقعیت منطقی نشان
+
+## Props اصلی
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `items` | — | آرایهٔ `ExpandableActionBarItem` |
+| `expanded` | — | کنترل‌شده |
+| `defaultExpanded` | `false` | حالت اولیه |
+| `expandOnHover` | `true` | باز شدن با هاور / تپ اول |
+| `expandOnFocus` | `true` | باز شدن با فوکوس صفحهٔکلید |
+| `size` | `md` | `sm` یا `md` |
+| `onAction` | — | کلیک روی آیتم |
+
+## کجا استفاده شود
+
+- نوار ابزار ویرایشگر و چت
+- اکشن‌های فشرده در هدر کارت
+- نوار شناور موبایل با اکشن‌های ثانویه

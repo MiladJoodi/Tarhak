@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "watch",
+  "hintHeading": "ببین",
+  "hintDescription": "از صف تا جزئیات‌پردازی و تصویر آماده؛ بدون پرش چیدمان.",
+  "hintTop": 100,
+  "posterUrl": "/api/browse-media/components/image-generation/poster.avif",
+  "videoUrl": "/api/browse-media/components/image-generation/video.mp4",
+  "tags": [
+    "agent",
+    "image",
+    "generation",
+    "ai",
+    "motion"
+  ]
+}

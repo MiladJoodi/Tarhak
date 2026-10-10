@@ -1,0 +1,81 @@
+---
+title: Swipeable List
+description: ردیف‌های سبک موبایل که با سوایپ چپ یا راست اکشن‌های زمینه‌ای را نشان می‌دهند.
+---
+
+## نحوه استفاده
+
+```tsx
+import {
+  SwipeableList,
+  type SwipeAction,
+  type SwipeableListItem,
+} from "@/components/swipeable-list";
+import { Delete02Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+
+const leftActions: SwipeAction[] = [
+  {
+    id: "done",
+    label: "انجام",
+    icon: <HugeiconsIcon icon={Tick02Icon} size={20} />,
+    tone: "success",
+  },
+];
+
+const rightActions: SwipeAction[] = [
+  {
+    id: "trash",
+    label: "حذف",
+    icon: <HugeiconsIcon icon={Delete02Icon} size={20} />,
+    tone: "danger",
+  },
+];
+
+const items: SwipeableListItem[] = [
+  {
+    id: "1",
+    title: "خلاصهٔ انتشار",
+    description: "متن اعلامیه را نهایی کن",
+    leftActions,
+    rightActions,
+  },
+];
+
+export default function Example() {
+  return (
+    <SwipeableList
+      items={items}
+      onAction={({ item, action }) => {
+        if (action.id === "trash") console.log("حذف", item.id);
+      }}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- سوایپ افقی با فنر native-like
+- اکشن‌های چپ و راست با رنگ‌های `tone`
+- فقط یک ردیف همزمان باز می‌ماند
+- بستن خودکار بعد از اکشن (`closeOnAction`)
+- اسکرول عمودی صفحه حفظ می‌شود (`touch-pan-y`)
+- متن RTL؛ جهت سوایپ فیزیکی صفحه (لبهٔ چپ/راست)
+
+## Props اصلی
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `items` | — | آرایهٔ `SwipeableListItem` |
+| `actionWidth` | `56` | عرض هر دکمهٔ اکشن |
+| `revealThreshold` | `34` | حداقل فاصله برای باز شدن |
+| `closeOnAction` | `true` | بستن بعد از اکشن |
+| `onAction` | — | کلیک روی اکشن |
+| `value` / `onValueChange` | — | کنترل باز بودن ردیف |
+
+## کجا استفاده شود
+
+- صندوق ورودی و صف کار
+- لیست اعلان‌ها
+- مدیریت وظایف موبایل

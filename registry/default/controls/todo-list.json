@@ -1,0 +1,25 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "پخش خودکار",
+  "hintDescription": "وضعیت کارها جلو می‌رود. برای تکرار، «پخش دوباره» را بزن. هدر را بزن تا جمع شود.",
+  "hintTop": 88,
+  "tags": [
+    "agent",
+    "todo",
+    "checklist",
+    "task",
+    "ai",
+    "progress",
+    "motion",
+    "list",
+    "filter"
+  ]
+}

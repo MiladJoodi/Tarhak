@@ -1,0 +1,44 @@
+---
+title: Todo List
+description: برنامهٔ وظایف ایجنت با علامت‌های وضعیت متحرک، شمارندهٔ پیشرفت و به‌روزرسانی نرم فهرست.
+---
+
+## نحوه استفاده
+
+```tsx
+import { TodoList, type TodoItem } from "@/components/todo-list";
+
+const items: TodoItem[] = [
+  { id: "1", title: "بررسی جریان داده", status: "completed" },
+  { id: "2", title: "به‌روزرسانی اسکیما", status: "in-progress", progress: 50, detail: "۵۰٪" },
+  { id: "3", title: "نوشتن تست", status: "pending" },
+];
+
+export default function Example() {
+  return <TodoList items={items} title="نقشهٔ پیاده‌سازی" />;
+}
+```
+
+## قابلیت‌ها
+
+- وضعیت‌ها: `pending`، `in-progress`، `completed`، `cancelled`.
+- حلقهٔ پیشرفت و تیک کشیده‌شده برای کار فعال / تمام‌شده.
+- شمارندهٔ تکمیل با عدد غلتان.
+- جمع‌شدن خودکار وقتی همه کارها تمام شوند (`collapseOnComplete`).
+- RTL، Estedad و ارقام فارسی در پیش‌نمایش.
+
+## Props اصلی
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `items` | — | آرایهٔ `TodoItem` |
+| `title` | `کارها` | عنوان هدر |
+| `defaultOpen` | `true` | باز بودن اولیه |
+| `collapseOnComplete` | `true` | بستن بعد از اتمام همه |
+| `maxHeight` | `248` | سقف ارتفاع لیست (px) |
+
+## کجا استفاده شود
+
+- پنل ایجنت و چت AI
+- نمایش برنامهٔ اجرای چندمرحله‌ای
+- وضعیت کارهای پس‌زمینه در داشبورد

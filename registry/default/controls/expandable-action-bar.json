@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "هاور یا باز کردن",
+  "hintDescription": "روی نوار بروید تا لیبل‌ها باز شوند، یا دکمهٔ «باز کردن» را بزنید. یک اکشن را انتخاب کنید.",
+  "hintTop": 72,
+  "tags": [
+    "action",
+    "toolbar",
+    "expand",
+    "hover",
+    "motion",
+    "navigation",
+    "bar",
+    "icons"
+  ]
+}

@@ -46,6 +46,7 @@
     "@shikijs/transformers": "^4.4.3",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.116.0",
+    "@tanstack/react-virtual": "^3.14.14",
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^2.0.1",
     "canvas-confetti": "^1.9.4",

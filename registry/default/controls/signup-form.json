@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "click",
+  "hintHeading": "پر کن",
+  "hintDescription": "فیلدها را پر کن؛ با taken@example.com حالت خطا را ببین.",
+  "hintTop": 100,
+  "posterUrl": "/api/browse-media/components/signup-form/poster.avif",
+  "videoUrl": "/api/browse-media/components/signup-form/video.mp4",
+  "tags": [
+    "form",
+    "auth",
+    "signup",
+    "password",
+    "motion"
+  ]
+}

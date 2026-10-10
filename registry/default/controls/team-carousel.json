@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "swipe",
+  "hintHeading": "بکش",
+  "hintDescription": "کارت‌ها را بکش یا با فلش عوض کن؛ عضو وسط فعال است.",
+  "hintTop": 80,
+  "posterUrl": "/api/browse-media/components/team-carousel/poster.avif",
+  "videoUrl": "/api/browse-media/components/team-carousel/video.mp4",
+  "tags": [
+    "team",
+    "carousel",
+    "3d",
+    "display",
+    "motion"
+  ]
+}

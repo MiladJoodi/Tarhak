@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "drag",
+  "hintHeading": "بکش",
+  "hintDescription": "تب‌ها را بکش تا جابه‌جا شوند؛ تب فعال به سطح محتوا وصل است.",
+  "hintTop": 80,
+  "posterUrl": "/api/browse-media/components/morphing-tabs/poster.avif",
+  "videoUrl": "/api/browse-media/components/morphing-tabs/video.mp4",
+  "tags": [
+    "tabs",
+    "morph",
+    "drag",
+    "reorder",
+    "motion"
+  ]
+}

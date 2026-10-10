@@ -1,0 +1,56 @@
+---
+title: Infinite Masonry
+description: میسونری مجازی واکنش‌گرا با کارت‌های ارتفاع‌متغیر و بارگذاری بیشتر هنگام نزدیک‌شدن به انتها.
+---
+
+## نحوه استفاده
+
+```tsx
+import { InfiniteMasonry } from "@/components/infinite-masonry";
+
+export default function Example() {
+  return (
+    <InfiniteMasonry
+      items={items}
+      getItemKey={(item) => item.id}
+      renderItem={(item) => <Card item={item} />}
+      onLoadMore={loadMore}
+      hasMore={hasMore}
+      loading={loading}
+      estimateSize={(item) => item.imageHeight + 66}
+      className="h-[34rem]"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- چیدمان میسونری چندستونه با اندازه‌گیری ارتفاع واقعی هر کارت
+- مجازی‌سازی با `@tanstack/react-virtual` برای فهرست‌های بلند
+- بارگذاری خودکار وقتی نزدیک انتهای اسکرول می‌شوید
+- اسکلتون بارگذاری، حالت خالی، خطا و پایان
+- انیمیشن ورود نرم برای موارد جدید (با احترام به `prefers-reduced-motion`)
+- RTL با `inset-inline-start` برای ستون‌ها
+
+## Props اصلی
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `items` | — | آرایهٔ داده‌ها |
+| `getItemKey` | — | کلید پایدار هر مورد |
+| `renderItem` | — | رندر کارت |
+| `onLoadMore` | — | فراخوانی نزدیک انتها |
+| `hasMore` | — | آیا صفحهٔ بعد هست |
+| `loading` | `false` | نمایش اسکلتون دم فهرست |
+| `estimateSize` | `() => 240` | تخمین ارتفاع قبل از اندازه‌گیری |
+| `minColumnWidth` | `208` | حداقل عرض ستون |
+| `maxColumns` | `4` | سقف تعداد ستون |
+| `gap` | `12` | فاصله بین کارت‌ها |
+| `prefetch` | `3` | چند مورد مانده تا `onLoadMore` |
+
+## کجا استفاده شود
+
+- گالری تصویر و الهام بصری
+- فید محصول با کارت‌های ارتفاع‌متغیر
+- آرشیو محتوا در داشبورد

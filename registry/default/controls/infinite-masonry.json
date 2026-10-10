@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "اسکرول برای بارگذاری",
+  "hintDescription": "به پایین بروید تا صفحهٔ بعد با اسکلتون ظاهر شود. ستون‌ها با عرض واکنش‌گرا تنظیم می‌شوند.",
+  "hintTop": 72,
+  "tags": [
+    "masonry",
+    "infinite",
+    "virtual",
+    "scroll",
+    "gallery",
+    "layout",
+    "feed",
+    "grid"
+  ]
+}

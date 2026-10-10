@@ -1,0 +1,48 @@
+---
+title: Bloom Menu
+description: دکمه‌ای که به منو تبدیل می‌شود و از مرکز مثل عنبیه، با آیتم‌های پله‌ای شعاعی باز می‌شود.
+---
+
+## نحوه استفاده
+
+```tsx
+import { BloomMenu, type BloomMenuItem } from "@/components/bloom-menu";
+import { File01Icon, Folder01Icon } from "@hugeicons/core-free-icons";
+
+const items: BloomMenuItem[] = [
+  { id: "doc", label: "سند", icon: File01Icon },
+  { id: "folder", label: "پوشه", icon: Folder01Icon },
+];
+
+export default function Example() {
+  return (
+    <BloomMenu
+      items={items}
+      onSelect={(item) => console.log(item.id)}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- مورف دکمه → پنل با `layoutId` مشترک از مرکز
+- باز شدن عنبیه‌ای شبکه با `clip-path`
+- تأخیر شعاعی آیتم‌ها از مرکز به گوشه‌ها
+- بستن با Escape، کلیک بیرون، یا دکمه بستن
+- RTL، Estedad و Hugeicons در زبان بصری filter-interaction
+
+## Props اصلی
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `items` | ۶ مورد پیش‌فرض | آرایهٔ `BloomMenuItem` |
+| `onSelect` | — | انتخاب یک مورد |
+| `triggerLabel` | `ایجاد` | متن دکمه |
+| `panelTitle` | `ایجاد` | عنوان هدر پنل |
+
+## کجا استفاده شود
+
+- دکمهٔ «ایجاد» در هدر داشبورد
+- انتخاب نوع سند / پروژهٔ جدید
+- منوی اکشن فشرده روی دسکتاپ

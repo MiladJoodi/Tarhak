@@ -1,0 +1,39 @@
+---
+title: Sign Up Form
+description: فرم ثبت‌نام با خطای پس از ترک فیلد، متر قدرت رمز، نمایش رمز و چرخهٔ متحرک ارسال.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { SignUpForm } from "@/components/signup-form";
+
+export default function Example() {
+  const [error, setError] = useState<string>();
+
+  return (
+    <SignUpForm
+      description="با taken@example.com ثبت‌نام کنید تا حالت خطا را ببینید."
+      errorMessage={error}
+      onSubmit={async (values) => {
+        setError(undefined);
+        await new Promise((r) => setTimeout(r, 1200));
+        if (values.email.toLowerCase().startsWith("taken@")) {
+          setError("این ایمیل قبلاً ثبت شده است.");
+          throw new Error("taken");
+        }
+      }}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- خطا فقط بعد از blur (یا ارسال) دیده می‌شود و با اصلاح فوری پاک می‌شود.
+- متر قدرت رمز وزن‌دهی‌شده با طول؛ دکمهٔ نمایش/پنهان رمز.
+- وضعیت ارسال: `idle` | `loading` | `success` | `error`.
+- از [beUI Sign Up Form](https://beui.dev/components/blocks/signup-form) گرفته شده؛ به `motion` و `lucide-react` نیاز دارد.

@@ -1,0 +1,55 @@
+---
+title: Approval Card
+description: کارت تصمیم انسان‌درحلقه برای تأیید، پرسش‌های چندمرحله‌ای و ثبت نتیجه.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import {
+  ApprovalCard,
+  type ApprovalCardAnswers,
+  type ApprovalCardQuestion,
+  type ApprovalCardStatus,
+} from "@/components/approval-card";
+
+const questions: ApprovalCardQuestion[] = [
+  {
+    id: "scope",
+    title: "تمرکز اولین انتشار چقدر باشد؟",
+    options: [
+      { value: "focused", label: "یک مجموعهٔ شروع متمرکز" },
+      { value: "broad", label: "یک مجموعهٔ گسترده‌تر" },
+    ],
+    allowCustom: true,
+  },
+];
+
+export default function Example() {
+  const [status, setStatus] = useState<ApprovalCardStatus>("pending");
+
+  const onSubmit = (_answers: ApprovalCardAnswers) => {
+    setStatus("submitting");
+    setTimeout(() => setStatus("answered"), 750);
+  };
+
+  return (
+    <ApprovalCard
+      questions={questions}
+      status={status}
+      onSubmit={onSubmit}
+      result="پاسخ برای ایجنت ارسال شد."
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- حالت پرسش: تک‌انتخابی، چندانتخابی، پاسخ آزاد، و چند مرحله با نقطه‌های پیشرفت.
+- حالت بررسی: تأیید، درخواست اصلاح، یا رد — سپس جمع‌شدن به نتیجهٔ ثبت‌شده.
+- `status` کنترل‌شده: `pending` | `submitting` | `approved` | `rejected` | `changes-requested` | `answered`.
+- از [beUI Approval Card](https://beui.dev/components/agents/approval-card) گرفته شده؛ به `motion` و `lucide-react` نیاز دارد.

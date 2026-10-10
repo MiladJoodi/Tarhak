@@ -1,0 +1,25 @@
+---
+title: Jalali Wheel Picker
+description: چرخان انتخاب تاریخ و ساعت شمسی به سبک آیفون.
+---
+
+## نحوه استفاده
+
+```tsx
+import { useState } from "react";
+import { JalaliWheelPicker } from "@/components/jalali-wheel-picker";
+
+export default function Example() {
+  const [value, setValue] = useState(new Date());
+
+  return <JalaliWheelPicker value={value} onChange={setValue} />;
+}
+```
+
+## قابلیت‌ها
+
+- دو ستون چرخان: روز شمسی (با ماه و سال) و ساعت — با نوار انتخاب وسط.
+- برچسب روز فارسی (`شنبه ۱۹ آذر ۱۴۰۴`) و ارقام فارسی.
+- اسکرول اسنپ، کلیک، و کلیدهای بالا/پایین.
+- `value` / `onChange`.
+- به `date-fns-jalali` نیاز دارد.

@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#eceff2",
+    "dark": "#0a0a0b"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "نشانگر را حرکت بده",
+  "hintDescription": "نور کارت را دنبال می‌کند. نزدیک کارت‌های دیگر هم روشن می‌شود. فشار بده تا flare بزند.",
+  "hintTop": 88,
+  "tags": [
+    "card",
+    "spotlight",
+    "hover",
+    "glow",
+    "pointer",
+    "profile",
+    "display"
+  ]
+}

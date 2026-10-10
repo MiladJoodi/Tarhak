@@ -1,0 +1,68 @@
+---
+title: Agent Loading States
+description: سه حالت بارگذاری برای رابط ایجنت — متن درخشان، پیشرفت زنده، و عبارات استدلال چرخشی.
+---
+
+## نحوه استفاده
+
+```tsx
+import {
+  AgentProgress,
+  ReasoningText,
+  ThinkingShimmer,
+} from "@/components/loading-states";
+
+export default function Example() {
+  return (
+    <div className="grid gap-6">
+      <ThinkingShimmer>در حال فکر…</ThinkingShimmer>
+      <AgentProgress label="در حال پردازش" initialSeconds={12} />
+      <ReasoningText
+        variant="cascade"
+        phrases={["در حال فکر", "خواندن درخواست", "آماده‌سازی پاسخ"]}
+      />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- `ThinkingShimmer` — متن با شیمر نرم
+- `AgentProgress` — شبکه ۹تایی + برچسب + زمان سپری‌شده
+- `ReasoningText` — سه واریانت: `cascade`، `swap`، `scramble`
+- لودر ASCII خطی کنار عبارات استدلال
+- احترام به `prefers-reduced-motion`
+- RTL، Estedad و ارقام فارسی
+
+## Props اصلی
+
+### ThinkingShimmer
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `children` | `در حال فکر…` | متن |
+| `duration` | `1.8` | مدت یک پاس شیمر (ثانیه) |
+
+### AgentProgress
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `label` | `در حال پردازش` | فعل وضعیت |
+| `initialSeconds` | `0` | شروع تایمر داخلی |
+| `elapsedSeconds` | — | زمان کنترل‌شده |
+| `running` | `true` | پیشرفت تایمر |
+
+### ReasoningText
+
+| Prop | پیش‌فرض | توضیح |
+|------|---------|--------|
+| `phrases` | عبارات پیش‌فرض | چرخهٔ متن |
+| `variant` | `cascade` | `cascade` / `swap` / `scramble` |
+| `interval` | `1800` | میلی‌ثانیه بین عبارات |
+
+## کجا استفاده شود
+
+- چت و پنل ایجنت AI
+- وضعیت اجرای ابزار و استدلال
+- اسکلتون متنی قبل از پاسخ استریم

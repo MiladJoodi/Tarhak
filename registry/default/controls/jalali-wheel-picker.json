@@ -1,0 +1,25 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "scroll",
+  "hintHeading": "بچرخان",
+  "hintDescription": "روز یا ساعت را اسکرول کن؛ مقدار وسط انتخاب می‌شود.",
+  "hintTop": 140,
+  "posterUrl": "/api/browse-media/components/jalali-wheel-picker/poster.avif",
+  "videoUrl": "/api/browse-media/components/jalali-wheel-picker/video.mp4",
+  "tags": [
+    "date",
+    "time",
+    "jalali",
+    "picker",
+    "wheel",
+    "ios",
+    "input"
+  ]
+}

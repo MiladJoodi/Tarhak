@@ -1,0 +1,24 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-10T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "حالت‌های بارگذاری",
+  "hintDescription": "شیمر، پیشرفت شبکه، و سه واریانت متن استدلال را ببینید. عبارات به‌صورت خودکار عوض می‌شوند.",
+  "hintTop": 64,
+  "tags": [
+    "agent",
+    "loading",
+    "shimmer",
+    "reasoning",
+    "progress",
+    "ai",
+    "status",
+    "motion"
+  ]
+}

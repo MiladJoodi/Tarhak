@@ -225,6 +225,25 @@
       ]
     },
     {
+      "name": "bloom-menu",
+      "type": "registry:component",
+      "title": "Bloom Menu",
+      "description": "دکمه‌ای که به منو تبدیل می‌شود و از مرکز مثل عنبیه، با آیتم‌های پله‌ای شعاعی باز می‌شود.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/bloom-menu.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "bottom-menu",
       "type": "registry:component",
       "title": "Bottom Menu",
@@ -412,6 +431,165 @@
       "files": [
         {
           "path": "registry/default/example/date-field.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "jalali-wheel-picker",
+      "type": "registry:component",
+      "title": "Jalali Wheel Picker",
+      "description": "چرخان انتخاب تاریخ و ساعت شمسی به سبک آیفون.",
+      "dependencies": [
+        "motion",
+        "date-fns-jalali",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/jalali-wheel-picker.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "peek-rating",
+      "type": "registry:component",
+      "title": "Peek Rating",
+      "description": "امتیاز ستاره‌ای با پیش‌نمایش موج‌دار قبل از ثبت.",
+      "dependencies": [
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/peek-rating.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pulse-heart",
+      "type": "registry:component",
+      "title": "Pulse Heart",
+      "description": "دکمه پسند با جمع‌شدن به نقطه، تعویض رنگ و پالس برگشت.",
+      "dependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/pulse-heart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "voice-orb",
+      "type": "registry:component",
+      "title": "Voice Orb",
+      "description": "کرهٔ مایع تنفس‌کننده برای تجسم صدا با WebGL.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/voice-orb.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/voice-orb-renderer.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "team-carousel",
+      "type": "registry:component",
+      "title": "Team Carousel",
+      "description": "کاروسل سه‌بعدی اعضای تیم با ناوبری لمسی و کیبورد.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/team-carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "approval-card",
+      "type": "registry:component",
+      "title": "Approval Card",
+      "description": "کارت تصمیم انسان‌درحلقه برای تأیید، پرسش چندمرحله‌ای و ثبت نتیجه.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/approval-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-generation",
+      "type": "registry:component",
+      "title": "Image Generation",
+      "description": "سطح پایدار تصویر تولیدشده از صف تا نتیجه، بدون پرش چیدمان.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/image-generation.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "morphing-tabs",
+      "type": "registry:component",
+      "title": "Morphing Tabs",
+      "description": "تب‌های قابل‌جابه‌جایی با سطح مایع که به محتوای فعال وصل می‌شود.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/morphing-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "signup-form",
+      "type": "registry:component",
+      "title": "Sign Up Form",
+      "description": "فرم ثبت‌نام با خطای پس از ترک فیلد، متر قدرت رمز و چرخهٔ ارسال.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/signup-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -627,6 +805,24 @@
       ]
     },
     {
+      "name": "expandable-action-bar",
+      "type": "registry:component",
+      "title": "Expandable Action Bar",
+      "description": "اکشن‌های آیکونی فشرده که با هاور یا فوکوس به کنترل‌های برچسب‌دار باز می‌شوند.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/expandable-action-bar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "expandable-gallery",
       "type": "registry:component",
       "title": "Expandable Gallery",
@@ -826,6 +1022,25 @@
       ]
     },
     {
+      "name": "infinite-masonry",
+      "type": "registry:component",
+      "title": "Infinite Masonry",
+      "description": "میسونری مجازی واکنش‌گرا با ارتفاع متغیر کارت‌ها و بارگذاری بیشتر هنگام نزدیک‌شدن به انتها.",
+      "dependencies": [
+        "@tanstack/react-virtual",
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/infinite-masonry.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "inline-edit",
       "type": "registry:component",
       "title": "Inline Edit",
@@ -862,6 +1077,23 @@
         },
         {
           "path": "registry/default/example/liquid-index-canvas.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "loading-states",
+      "type": "registry:component",
+      "title": "Agent Loading States",
+      "description": "سه حالت بارگذاری برای رابط ایجنت: متن درخشان، پیشرفت زنده، و عبارات استدلال چرخشی.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/loading-states.tsx",
           "type": "registry:component"
         }
       ]
@@ -953,6 +1185,25 @@
       "files": [
         {
           "path": "registry/default/example/toast-stack.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "todo-list",
+      "type": "registry:component",
+      "title": "Todo List",
+      "description": "برنامهٔ وظایف ایجنت با وضعیت‌های متحرک، شمارندهٔ پیشرفت و جمع‌شدن نرم.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/todo-list.tsx",
           "type": "registry:component"
         }
       ]
@@ -1568,6 +1819,22 @@
       ]
     },
     {
+      "name": "spotlight-card",
+      "type": "registry:component",
+      "title": "Spotlight Card",
+      "description": "کارت با نورافکن نرم که اشاره‌گر را دنبال می‌کند، لبه را روشن می‌کند و به کارت‌های نزدیک می‌رسد.",
+      "dependencies": [
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/spotlight-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "stack-scroll-reveal",
       "type": "registry:component",
       "title": "Stack Scroll Reveal",
@@ -1637,6 +1904,25 @@
       "files": [
         {
           "path": "registry/default/example/stamp-approve.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "swipeable-list",
+      "type": "registry:component",
+      "title": "Swipeable List",
+      "description": "ردیف‌های سبک موبایل که با سوایپ چپ یا راست اکشن‌های زمینه‌ای را نشان می‌دهند.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/swipeable-list.tsx",
           "type": "registry:component"
         }
       ]
