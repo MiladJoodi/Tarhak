@@ -249,10 +249,11 @@ export default function ShakeTestimonial() {
                         «
                       </span>
                       <span
+                        dir="ltr"
                         className="text-[11px] font-medium tracking-wide"
                         style={{ color: card.mute }}
                       >
-                        {toFa(card.id)} / {toFa(testimonials.length)}
+                        {toFa(card.id)}/{toFa(testimonials.length)}
                       </span>
                     </div>
 
