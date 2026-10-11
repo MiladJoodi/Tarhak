@@ -117,6 +117,8 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
   const panning = React.useRef(false);
   const suppressClick = React.useRef(false);
   const suppressClickTimer = React.useRef(0);
+  /** Card hit link under pointerdown — activated on tap when we never panned. */
+  const pendingHit = React.useRef<HTMLAnchorElement | null>(null);
   const size = React.useRef({ w: 0, h: 0 });
   const frame = React.useRef(0);
   const coast = React.useRef<{ stop: () => void }[]>([]);
@@ -499,6 +501,8 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       activePointerId.current = null;
       const didPan = panning.current;
       panning.current = false;
+      const hit = pendingHit.current;
+      pendingHit.current = null;
 
       if (
         !opts?.fromLostCapture &&
@@ -510,8 +514,14 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       if (didPan) {
         armSuppressClick();
         springCoast();
-      } else if (mediaFrozen.current) {
-        scheduleSettle();
+      } else {
+        // Capture steals the native click target; re-fire the card link on a clean tap.
+        if (hit) {
+          queueMicrotask(() => {
+            hit.click();
+          });
+        }
+        if (mediaFrozen.current) scheduleSettle();
       }
     },
     [armSuppressClick, springCoast, scheduleSettle],
@@ -532,6 +542,16 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
     originPointer.current = { x: event.clientX, y: event.clientY };
     lastPointer.current = { x: event.clientX, y: event.clientY };
     velocity.current = { x: 0, y: 0 };
+    pendingHit.current =
+      event.target instanceof Element
+        ? event.target.closest<HTMLAnchorElement>("a.browse-card-hit")
+        : null;
+    // Capture immediately so mobile can't hijack horizontal moves on card links.
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      /* capture can fail on some hosts; pan still works */
+    }
   };
 
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -547,6 +567,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       if (net < dragThreshold.current) return;
 
       panning.current = true;
+      pendingHit.current = null;
       lastPanSync.current = 0;
       markDragging();
       // Catch up 1:1 so crossing the threshold doesn't feel like a jump.
@@ -555,11 +576,6 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       lastPointer.current = { x: event.clientX, y: event.clientY };
       velocity.current.x = 0;
       velocity.current.y = 0;
-      try {
-        event.currentTarget.setPointerCapture(event.pointerId);
-      } catch {
-        /* capture can fail on some hosts; pan still works */
-      }
       ensureLoop();
       applyCamera();
       return;

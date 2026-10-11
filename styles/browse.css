@@ -100,6 +100,11 @@
   cursor: pointer;
 }
 
+.canvas-viewport .browse-card-hit {
+  touch-action: none;
+  -webkit-user-drag: none;
+}
+
 .browse-pin {
   position: relative;
   display: block;
