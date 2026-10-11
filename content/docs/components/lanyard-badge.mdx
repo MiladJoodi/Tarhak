@@ -1,0 +1,34 @@
+---
+title: Lanyard Badge
+description: بج سه‌بعدی با فیزیک بند Verlet؛ بکشید تا تاب بخورد، پرتاب کنید یا پشت کارت را ببینید.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { LanyardBadge } from "@/components/lanyard-badge";
+
+export default function Example() {
+  return (
+    <div className="h-[640px] w-full">
+      <LanyardBadge
+        title="طرحَک"
+        subtitle="کامپوننت‌های متحرک ری‌اکت"
+        name="طرحَک"
+        role="ری‌اکت · موشن · تیلویند"
+        height="100%"
+      />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- بند با فیزیک Verlet روی canvas؛ کارت CSS سه‌بعدی با محتوای دلخواه جلو/عقب.
+- کشیدن، پرتاب، کلیک یا دکمه برای برگرداندن.
+- `front` / `back` برای محتوای سفارشی؛ یا متن پیش‌فرض کارت.
+- بدون وابستگی npm؛ `prefers-reduced-motion` را رعایت می‌کند.
+- از [Lanyard Badge در 21st.dev](https://21st.dev/@kedhareswer/components/lanyard-badge) گرفته شده (MIT).

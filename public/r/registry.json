@@ -283,6 +283,22 @@
       ]
     },
     {
+      "name": "bounce-cards",
+      "type": "registry:component",
+      "title": "Bounce Cards",
+      "description": "بادبزن کارت‌های عکسی که با بانس وارد می‌شوند؛ با هاور از هم باز می‌شوند و کارت فعال صاف می‌ایستد.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/bounce-cards.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "bottom-menu",
       "type": "registry:component",
       "title": "Bottom Menu",
@@ -356,6 +372,23 @@
       "files": [
         {
           "path": "registry/default/example/client-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "comet-dial",
+      "type": "registry:component",
+      "title": "Comet Dial",
+      "description": "صفحهٔ حلقه‌ای که با زاویه می‌کشی؛ دنبالهٔ دنباله‌دار پشت سرِ نوک روشن می‌آید.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/comet-dial.tsx",
           "type": "registry:component"
         }
       ]
@@ -1029,6 +1062,22 @@
       ]
     },
     {
+      "name": "glide-select",
+      "type": "registry:component",
+      "title": "Glide Select",
+      "description": "چیپ انتخاب که منویش از گوشه باز می‌شود و هایلایت بین ردیف‌ها می‌لغزد.",
+      "dependencies": [
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/glide-select.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "holographic-referral-card",
       "type": "registry:component",
       "title": "Holographic Referral Card",
@@ -1112,6 +1161,33 @@
       "files": [
         {
           "path": "registry/default/example/inline-edit.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "lanyard",
+      "type": "registry:component",
+      "title": "Lanyard",
+      "description": "بج سه‌بعدی آویزان روی بند کشسان؛ قابل کشیدن، پرتاب و برگرداندن با کلیک.",
+      "dependencies": [
+        "three"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/lanyard.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "lanyard-badge",
+      "type": "registry:component",
+      "title": "Lanyard Badge",
+      "description": "بج سه‌بعدی با فیزیک بند Verlet؛ بکشید، بچرخانید یا پشت کارت را ببینید. بدون وابستگی.",
+      "files": [
+        {
+          "path": "registry/default/example/lanyard-badge.tsx",
           "type": "registry:component"
         }
       ]
@@ -1685,6 +1761,22 @@
       ]
     },
     {
+      "name": "profile-card",
+      "type": "registry:component",
+      "title": "Profile Card",
+      "description": "کارت پروفایل قاب‌دار که با نشانگر کج می‌شود و فویل هولوگرافیک از الگوی کاشی می‌درخشد.",
+      "dependencies": [
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/profile-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "prompt-box",
       "type": "registry:component",
       "title": "Prompt Box",
@@ -1821,6 +1913,18 @@
       "files": [
         {
           "path": "registry/default/example/shake-testimonial-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "slosh-gauge",
+      "type": "registry:component",
+      "title": "Slosh Gauge",
+      "description": "گیج مخزن که مایع مقدار را تعقیب می‌کند، هنگام حرکت کج می‌شود و موقع پر شدن می‌پاشد.",
+      "files": [
+        {
+          "path": "registry/default/example/slosh-gauge.tsx",
           "type": "registry:component"
         }
       ]
@@ -1963,6 +2067,40 @@
       ]
     },
     {
+      "name": "status-mark",
+      "type": "registry:component",
+      "title": "Status Mark",
+      "description": "نشان وضعیت وظیفهٔ ایجنت — از حلقهٔ بیکار به کمان پیشرفت، بعد تیک یا ضربدر.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/status-mark.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "swipe-row",
+      "type": "registry:component",
+      "title": "Swipe Row",
+      "description": "ردیف فهرست که با سوایپ اکشن‌ها را نشان می‌دهد و با سوایپ کامل حذف می‌شود.",
+      "dependencies": [
+        "motion",
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/swipe-row.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "swipeable-list",
       "type": "registry:component",
       "title": "Swipeable List",
@@ -2039,6 +2177,21 @@
       "files": [
         {
           "path": "registry/default/example/vertical-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "wake-slider",
+      "type": "registry:component",
+      "title": "Wake Slider",
+      "description": "اسلایدر بدون دسته از میله‌های باریک که سرعت کشیدن موجی پشت مقدار بلند می‌کند.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/wake-slider.tsx",
           "type": "registry:component"
         }
       ]

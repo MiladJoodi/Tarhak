@@ -1,0 +1,35 @@
+---
+title: Slosh Gauge
+description: گیج مخزن که مایع مقدار را تعقیب می‌کند، هنگام حرکت کج می‌شود و موقع پر شدن می‌پاشد.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { SloshGauge } from "@/components/slosh-gauge";
+
+export default function Example() {
+  const [value, setValue] = useState(58);
+
+  return (
+    <SloshGauge
+      value={value}
+      onChange={setValue}
+      interactive
+      showValue
+      unit="%"
+      ariaLabel="سطح مخزن"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- مایع با ویسکوزیته مقدار را تعقیب می‌کند؛ هنگام حرکت کج می‌شود و با `splash` می‌پاشد.
+- `interactive` برای کشیدن عمودی و کلیدهای جهت‌دار؛ `showValue` برای نمایش عدد روی گیج.
+- رنگ مایع و شیشه، ابعاد، شعاع گوشه و تعداد تیک‌ها قابل تنظیم است.
+- از [React Bits Slosh Gauge](https://reactbits.dev/micro/slosh-gauge) گرفته شده؛ بدون وابستگی npm.

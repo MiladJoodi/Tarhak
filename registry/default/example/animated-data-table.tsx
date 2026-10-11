@@ -558,7 +558,7 @@ export default function AnimatedDataTable() {
       dir="rtl"
       lang="fa"
       aria-label="جدول داده انیمیشنی"
-      className="relative flex w-full max-w-[760px] flex-col gap-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="relative mx-auto flex w-full max-w-[760px] flex-col gap-4 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
     >
       <MotionConfig transition={listSpring}>
         <div

@@ -1,0 +1,36 @@
+---
+title: Wake Slider
+description: اسلایدر بدون دسته از میله‌های باریک که سرعت کشیدن موجی پشت مقدار بلند می‌کند.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { WakeSlider } from "@/components/wake-slider";
+
+export default function Example() {
+  const [value, setValue] = useState(42);
+
+  return (
+    <WakeSlider
+      value={value}
+      onChange={setValue}
+      showValue
+      ariaLabel="شدت"
+      fillColor="#e8dfcc"
+      trackColor="#3f3d4a"
+      crestColor="#fff6e8"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- میله‌های نازک؛ پر شدن تا مقدار فعلی، بدون دستهٔ جدا.
+- سرعت کشیدن موج (wake) پشت نقطهٔ فعال را بلند می‌کند؛ `reach`، `skew`، `glide` و `smoothing` قابل تنظیم‌اند.
+- مقدار از چپ به راست زیاد می‌شود؛ اعداد با `formatValue` (پیش‌فرض فارسی).
+- از [React Bits Wake Slider](https://reactbits.dev/micro/wake-slider) گرفته شده؛ به `motion` نیاز دارد.

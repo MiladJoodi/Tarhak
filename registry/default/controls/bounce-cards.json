@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-11T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f6fa",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "hover",
+  "hintHeading": "روی کارت برو",
+  "hintDescription": "کارت‌ها با بانس می‌آیند؛ هاور بادبزن را باز می‌کند.",
+  "hintTop": 72,
+  "tags": [
+    "cards",
+    "bounce",
+    "hover",
+    "fan",
+    "photo",
+    "gallery",
+    "spring"
+  ]
+}

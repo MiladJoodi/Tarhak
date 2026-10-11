@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-11T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f0f0f3",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "swipe",
+  "hintHeading": "بکش",
+  "hintDescription": "ردیف را به چپ بکشید؛ کامل بکشید تا حذف شود.",
+  "hintTop": 100,
+  "tags": [
+    "swipe",
+    "row",
+    "list",
+    "delete",
+    "actions",
+    "mobile"
+  ]
+}

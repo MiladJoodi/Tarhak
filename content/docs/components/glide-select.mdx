@@ -1,0 +1,39 @@
+---
+title: Glide Select
+description: چیپ انتخاب که منویش از گوشه باز می‌شود و هایلایت بین ردیف‌ها می‌لغزد.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { GlideSelect } from "@/components/glide-select";
+
+export default function Example() {
+  const [value, setValue] = useState("weekly");
+
+  return (
+    <GlideSelect
+      options={[
+        { value: "daily", label: "روزانه", tag: "روز" },
+        { value: "weekly", label: "هفتگی", tag: "هفته" },
+        { value: "monthly", label: "ماهانه", tag: "ماه" },
+      ]}
+      value={value}
+      onChange={setValue}
+      placeholder="انتخاب…"
+      ariaLabel="بازه زمانی"
+      align="right"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- منو از گوشهٔ چیپ باز می‌شود؛ هایلایت بین ردیف‌ها با `glideDuration` می‌لغزد.
+- پشتیبانی از تگ کنار لیبل، کیبورد، typeahead و `rememberPosition`.
+- رنگ‌های `surfaceColor`، `highlightColor`، `textColor` و `accentColor` قابل تنظیم‌اند.
+- از [React Bits Glide Select](https://reactbits.dev/micro/glide-select) گرفته شده؛ به `@hugeicons/react` نیاز دارد.

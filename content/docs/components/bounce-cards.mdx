@@ -1,0 +1,50 @@
+---
+title: Bounce Cards
+description: بادبزن کارت‌های عکسی که با بانس وارد می‌شوند؛ با هاور از هم باز می‌شوند و کارت فعال صاف می‌ایستد.
+---
+
+## نحوه استفاده
+
+```tsx
+import { BounceCards } from "@/components/bounce-cards";
+
+export default function Example() {
+  return (
+    <BounceCards
+      images={[
+        { src: "/photo-1.webp", alt: "یک" },
+        { src: "/photo-2.webp", alt: "دو" },
+        { src: "/photo-3.webp", alt: "سه" },
+      ]}
+      enableHover
+      containerWidth={520}
+      containerHeight={380}
+      cardSize={180}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- ورود بانسی با تأخیر و فاصلهٔ زمانی بین کارت‌ها
+- هاور: کارت فعال صاف و کمی بزرگ‌تر؛ همسایه‌ها کنار می‌روند
+- فیزیک فنری بدون GSAP
+- احترام به `prefers-reduced-motion`
+- قابل کلیک با `onCardClick` و فوکوس صفحه‌کلید
+- قاب سفید پولاروید‌مانند و شعاع قابل تنظیم
+
+## Props اصلی
+
+| Prop | توضیح |
+| --- | --- |
+| `images` | آرایهٔ آدرس یا `{ src, alt }` |
+| `enableHover` | باز شدن بادبزن با هاور |
+| `spread` / `rotation` / `arc` | فاصله، چرخش و قوس چینش |
+| `bounciness` | نرمی بانس ورود |
+| `pushDistance` / `hoverScale` | فاصلهٔ هل دادن و مقیاس هاور |
+| `transformStyles` | تبدیل دستی هر کارت (`rotate` / `translate`) |
+
+## منبع
+
+از [React Bits — Bounce Cards](https://reactbits.dev/components/bounce-cards) گرفته شده.

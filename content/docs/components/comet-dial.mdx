@@ -1,0 +1,49 @@
+---
+title: Comet Dial
+description: صفحهٔ حلقه‌ای که با زاویه می‌کشی؛ دنبالهٔ دنباله‌دار پشت سرِ نوک روشن می‌آید.
+---
+
+## نحوه استفاده
+
+```tsx
+import { CometDial } from "@/components/comet-dial";
+import { useState } from "react";
+
+export default function Example() {
+  const [level, setLevel] = useState(62);
+
+  return (
+    <CometDial
+      value={level}
+      onChange={setLevel}
+      label="سطح"
+      unit="٪"
+      size={260}
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- کشیدن و پرتاب با مومنتوم فنری
+- دنبالهٔ دنباله‌دار که با سرعت ظاهر می‌شود
+- ضربهٔ نرم روی انتهای بازه
+- کنترل با کیبورد (پیکان، Page، Home/End)
+- ارقام فارسی و واحد ٪
+- احترام به `prefers-reduced-motion`
+
+## Props اصلی
+
+| Prop | توضیح |
+| --- | --- |
+| `value` / `defaultValue` | مقدار کنترل‌شده یا اولیه |
+| `min` / `max` / `step` | بازه و گام |
+| `unit` / `label` | واحد و برچسب دسترس‌پذیری |
+| `sweep` / `thickness` | زاویهٔ قوس و ضخامت حلقه |
+| `cometReach` / `cometWidth` | طول و پهنای دنباله |
+| `momentum` / `tapBounce` / `flickBounce` | فیزیک پرتاب |
+
+## منبع
+
+از [React Bits — Comet Dial](https://reactbits.dev/micro/comet-dial) گرفته شده.

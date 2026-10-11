@@ -1,0 +1,34 @@
+---
+title: Swipe Row
+description: ردیف فهرست که با سوایپ اکشن‌ها را نشان می‌دهد و با سوایپ کامل حذف می‌شود.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { SwipeRow } from "@/components/swipe-row";
+
+export default function Example() {
+  return (
+    <SwipeRow
+      label="پیام"
+      actions={[
+        { id: "archive", label: "بایگانی" },
+        { id: "delete", label: "حذف" },
+      ]}
+      onCommit={(action) => console.log(action.id)}
+    >
+      <span>پیام از سارا</span>
+    </SwipeRow>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- سوایپ برای آشکار کردن اکشن‌ها؛ سوایپ کامل (`fullSwipe`) برای commit اکشن اصلی.
+- چند اکشن با رنگ/آیکن سفارشی؛ فنر و مقاومت کشسان قابل تنظیم.
+- کیبورد: جهت‌ها برای باز/بسته، Delete برای commit.
+- از [React Bits Swipe Row](https://reactbits.dev/micro/swipe-row) گرفته شده؛ به `motion` و `@hugeicons/react` نیاز دارد.

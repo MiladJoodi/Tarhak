@@ -64,6 +64,13 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "pulse-heart",
   "number-ticker",
   "voice-orb",
+  "lanyard",
+  "lanyard-badge",
+  "profile-card",
+  "slosh-gauge",
+  "glide-select",
+  "swipe-row",
+  "wake-slider",
   "team-carousel",
   "approval-card",
   "image-generation",
@@ -86,6 +93,9 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "bloom-menu",
   "loading-states",
   "animate-tabs",
+  "bounce-cards",
+  "status-mark",
+  "comet-dial",
 ]);
 
 export function isNewComponent(slug: string) {

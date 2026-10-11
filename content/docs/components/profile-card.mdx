@@ -1,0 +1,34 @@
+---
+title: Profile Card
+description: کارت پروفایل قاب‌دار که با نشانگر کج می‌شود و فویل هولوگرافیک از الگوی کاشی می‌درخشد.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { ProfileCard } from "@/components/profile-card";
+
+export default function Example() {
+  return (
+    <ProfileCard
+      name="طرحَک"
+      title="کامپوننت‌های متحرک ری‌اکت"
+      handle="tarhak"
+      status="آنلاین"
+      contactText="تماس"
+      avatarUrl="/path/to/portrait.webp"
+      iconUrl="/path/to/pattern.png"
+      theme="dark"
+    />
+  );
+}
+```
+
+## قابلیت‌ها
+
+- شیب سه‌بعدی به‌سمت نشانگر؛ درخشش glare و فویل هولوگرافیک پشت الگوی کاشی.
+- `avatarUrl`، `iconUrl` (ماسک هولو)، `miniAvatarUrl`، نام، نقش، هندل و وضعیت.
+- تم `dark` | `light`؛ کنترل‌های `holo`، `glare`، `tiltStrength`، `parallax`.
+- از [React Bits Profile Card](https://reactbits.dev/components/profile-card) گرفته شده؛ به `@hugeicons/react` نیاز دارد.

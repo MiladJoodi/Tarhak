@@ -12,14 +12,14 @@ export function BrandLogo({
   className?: string;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
+    <span className={cn("brand-logo inline-flex items-center gap-2", className)}>
       {/* oxlint-disable-next-line next/no-img-element */}
       <img
         src="/tarhak/favicon.png"
         alt=""
         width={30}
         height={30}
-        className="size-[30px] shrink-0 rounded-[6px]"
+        className="brand-logo-mark size-[30px] shrink-0 origin-center rounded-[6px]"
         aria-hidden
       />
       {wordmark ? (

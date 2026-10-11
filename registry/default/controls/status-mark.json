@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-11T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "وضعیت را ببین",
+  "hintDescription": "حلقه بیکار می‌چرخد، پیشرفت پر می‌شود، بعد تیک یا ضربدر.",
+  "hintTop": 64,
+  "tags": [
+    "status",
+    "agent",
+    "progress",
+    "check",
+    "loader",
+    "micro",
+    "motion"
+  ]
+}

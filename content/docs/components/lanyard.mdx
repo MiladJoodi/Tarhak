@@ -1,0 +1,34 @@
+---
+title: Lanyard
+description: بج سه‌بعدی آویزان روی بند کشسان؛ می‌توانید بکشید، پرتاب کنید یا با کلیک برگردانید.
+---
+
+## نحوه استفاده
+
+```tsx
+"use client";
+
+import { Lanyard } from "@/components/lanyard";
+
+export default function Example() {
+  return (
+    <div className="h-[520px] w-full">
+      <Lanyard
+        frontImage="/path/to/front.jpg"
+        backImage="/path/to/back.jpg"
+        finish="glossy"
+        metal="silver"
+        interactive
+      />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- فیزیک بند و بج: کشیدن، پرتاب، و برگرداندن با کلیک.
+- تصویر جلو/عقب، رنگ کارت و بند، پایان سطح (`glossy` | `matte` | `holographic` | `metallic`).
+- فلز گیره: `graphite` | `silver` | `gold`.
+- پارامترهای `gravity`، `damping`، `elasticity` و `breeze` برای حس حرکت.
+- از [React Bits Lanyard](https://reactbits.dev/components/lanyard) گرفته شده؛ به `three` نیاز دارد.

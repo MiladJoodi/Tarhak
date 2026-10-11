@@ -40,7 +40,8 @@ export function OpenPreview({
     name === "date-field" ||
     name === "filter-interaction" ||
     name === "nested-dropdown" ||
-    name === "command-palette";
+    name === "command-palette" ||
+    name === "glide-select";
 
   const inner = Component ? (
     fillBleed ? (

@@ -20,6 +20,7 @@ import {
   type PreviewHintKind,
 } from "@/lib/open/preview-hint-config";
 import { normalizeTags } from "@/lib/component-tags";
+import { localVideoUrl } from "@/lib/browse/media-url";
 
 const execAsync = promisify(exec);
 
@@ -256,6 +257,10 @@ async function renameComponentSlug(from: string, to: string) {
     path.join(ROOT, "browse-media/videos", `${from}.mp4`),
     path.join(ROOT, "browse-media/videos", `${to}.mp4`),
   );
+  await safeRename(
+    path.join(ROOT, "browse-media/videos", `${from}.webm`),
+    path.join(ROOT, "browse-media/videos", `${to}.webm`),
+  );
 
   const registry = await readRegistry();
   registry.items = registry.items.filter((item) => item.name !== from);
@@ -334,7 +339,7 @@ export async function upsertComponent(input: UpsertComponentInput) {
     updatedAt: new Date().toISOString(),
     previewBackground: background,
     posterUrl: `/api/browse-media/components/${name}/poster.avif`,
-    videoUrl: `/api/browse-media/components/${name}/video.mp4`,
+    videoUrl: localVideoUrl(name),
     ...(hintTop !== undefined ? { hintTop } : {}),
     ...(hasHintInput
       ? serializePreviewHint({
@@ -399,7 +404,7 @@ export async function upsertComponent(input: UpsertComponentInput) {
       description: item.description,
       dependencies: item.dependencies,
       poster_url: `/api/browse-media/components/${name}/poster.avif`,
-      video_url: `/api/browse-media/components/${name}/video.mp4`,
+      video_url: localVideoUrl(name),
     });
   } catch {
     // FS remains source of truth.
@@ -459,7 +464,7 @@ export async function updateControls(
     updatedAt: new Date().toISOString(),
     previewBackground: existing.controls?.previewBackground,
     posterUrl: `/api/browse-media/components/${name}/poster.avif`,
-    videoUrl: `/api/browse-media/components/${name}/video.mp4`,
+    videoUrl: localVideoUrl(name),
   });
   return { name, disabled };
 }

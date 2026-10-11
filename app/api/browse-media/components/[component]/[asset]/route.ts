@@ -15,18 +15,71 @@ type Params = { params: Promise<{ component: string; asset: string }> };
 function isKnownComponentAsset(component: string, asset: string) {
   return (
     /^[a-z0-9-]+$/.test(component) &&
-    /^(poster|video)(-[a-f0-9]{10})?\.(avif|mp4)$/.test(asset)
+    (/^poster(-[a-f0-9]{10})?\.avif$/.test(asset) ||
+      /^video(-[a-f0-9]{10})?(\.(mp4|webm))?$/.test(asset))
   );
 }
 
-function resolveLocalPath(component: string, asset: string): string | null {
+function resolveLocalPath(
+  component: string,
+  asset: string,
+): { filePath: string; contentType: string; filename: string } | null {
   if (asset.startsWith("poster") && asset.endsWith(".avif")) {
-    return path.join(MEDIA_ROOT, "posters", `${component}.avif`);
+    return {
+      filePath: path.join(MEDIA_ROOT, "posters", `${component}.avif`),
+      contentType: "image/avif",
+      filename: `${component}.avif`,
+    };
   }
-  if (asset.startsWith("video") && asset.endsWith(".mp4")) {
-    return path.join(MEDIA_ROOT, "videos", `${component}.mp4`);
+
+  if (!asset.startsWith("video")) return null;
+
+  const webmPath = path.join(MEDIA_ROOT, "videos", `${component}.webm`);
+  const mp4Path = path.join(MEDIA_ROOT, "videos", `${component}.mp4`);
+
+  if (asset.endsWith(".webm")) {
+    return {
+      filePath: webmPath,
+      contentType: "video/webm",
+      filename: `${component}.webm`,
+    };
   }
-  return null;
+  if (asset.endsWith(".mp4")) {
+    // Prefer the requested mp4; fall back to webm so old clients keep working.
+    if (existsSync(mp4Path)) {
+      return {
+        filePath: mp4Path,
+        contentType: "video/mp4",
+        filename: `${component}.mp4`,
+      };
+    }
+    if (existsSync(webmPath)) {
+      return {
+        filePath: webmPath,
+        contentType: "video/webm",
+        filename: `${component}.webm`,
+      };
+    }
+    return {
+      filePath: mp4Path,
+      contentType: "video/mp4",
+      filename: `${component}.mp4`,
+    };
+  }
+
+  // Extension-less `video` — prefer webm, then mp4.
+  if (existsSync(webmPath)) {
+    return {
+      filePath: webmPath,
+      contentType: "video/webm",
+      filename: `${component}.webm`,
+    };
+  }
+  return {
+    filePath: mp4Path,
+    contentType: "video/mp4",
+    filename: `${component}.mp4`,
+  };
 }
 
 /**
@@ -38,16 +91,17 @@ export async function GET(request: Request, { params }: Params) {
     return NextResponse.json({ error: "Media not found" }, { status: 404 });
   }
 
-  const filePath = resolveLocalPath(component, asset);
-  if (!filePath || !existsSync(filePath)) {
+  const resolved = resolveLocalPath(component, asset);
+  if (!resolved || !existsSync(resolved.filePath)) {
     return NextResponse.json({ error: "Media not found" }, { status: 404 });
   }
 
+  const { filePath, contentType, filename } = resolved;
   const stat = statSync(filePath);
-  const contentType = asset.endsWith(".avif") ? "image/avif" : "video/mp4";
+  const isVideo = contentType.startsWith("video/");
   const range = request.headers.get("range");
 
-  if (range && asset.endsWith(".mp4")) {
+  if (range && isVideo) {
     const match = /^bytes=(\d*)-(\d*)$/.exec(range);
     if (match) {
       const start = match[1] ? Number(match[1]) : 0;
@@ -68,8 +122,7 @@ export async function GET(request: Request, { params }: Params) {
             "Content-Range": `bytes ${start}-${end}/${stat.size}`,
             "Accept-Ranges": "bytes",
             "Cache-Control": ONE_YEAR,
-            // Inline so download managers / browsers don't treat preview media as a file download.
-            "Content-Disposition": `inline; filename="${asset}"`,
+            "Content-Disposition": `inline; filename="${filename}"`,
             "X-Content-Type-Options": "nosniff",
           },
         });
@@ -85,7 +138,7 @@ export async function GET(request: Request, { params }: Params) {
       "Content-Length": String(stat.size),
       "Accept-Ranges": "bytes",
       "Cache-Control": ONE_YEAR,
-      "Content-Disposition": `inline; filename="${asset}"`,
+      "Content-Disposition": `inline; filename="${filename}"`,
       "X-Content-Type-Options": "nosniff",
     },
   });

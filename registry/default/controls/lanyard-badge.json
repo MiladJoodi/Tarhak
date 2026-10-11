@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-11T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(225 7% 11%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "drag",
+  "hintHeading": "بکش",
+  "hintDescription": "بج را بکشید تا بند کشیده شود؛ کلیک کنید تا پشت کارت دیده شود.",
+  "hintTop": 100,
+  "tags": [
+    "lanyard",
+    "badge",
+    "3d",
+    "physics",
+    "verlet",
+    "drag",
+    "card"
+  ]
+}

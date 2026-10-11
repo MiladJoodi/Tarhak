@@ -292,6 +292,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "bounce-cards": {
+    name: "bounce-cards",
+    description: "بادبزن کارت‌های عکسی که با بانس وارد می‌شوند؛ با هاور از هم باز می‌شوند و کارت فعال صاف می‌ایستد.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/bounce-cards.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/bounce-cards-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "bounce-cards"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "bottom-menu": {
     name: "bottom-menu",
     description: "داک فشرده‌ای که به جستجو، یادداشت، اعلان، پروفایل و تم باز می‌شود.",
@@ -363,6 +381,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/client-card-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "client-card"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "comet-dial": {
+    name: "comet-dial",
+    description: "صفحهٔ حلقه‌ای که با زاویه می‌کشی؛ دنبالهٔ دنباله‌دار پشت سرِ نوک روشن می‌آید.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/comet-dial.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/comet-dial-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "comet-dial"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
@@ -1044,6 +1080,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "glide-select": {
+    name: "glide-select",
+    description: "چیپ انتخاب که منویش از گوشه باز می‌شود و هایلایت بین ردیف‌ها می‌لغزد.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/glide-select.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/glide-select-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "glide-select"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "holographic-referral-card": {
     name: "holographic-referral-card",
     description: "کارت دعوت تیره که با اشاره‌گر سه‌بعدی کج می‌شود؛ درخشش هولوگرافیک دنبال می‌کند.",
@@ -1129,6 +1183,42 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/example/inline-edit.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "inline-edit"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "lanyard": {
+    name: "lanyard",
+    description: "بج سه‌بعدی آویزان روی بند کشسان؛ قابل کشیدن، پرتاب و برگرداندن با کلیک.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/lanyard.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/lanyard-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "lanyard"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "lanyard-badge": {
+    name: "lanyard-badge",
+    description: "بج سه‌بعدی با فیزیک بند Verlet؛ بکشید، بچرخانید یا پشت کارت را ببینید. بدون وابستگی.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/lanyard-badge.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/lanyard-badge-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "lanyard-badge"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,
@@ -1696,6 +1786,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "profile-card": {
+    name: "profile-card",
+    description: "کارت پروفایل قاب‌دار که با نشانگر کج می‌شود و فویل هولوگرافیک از الگوی کاشی می‌درخشد.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/profile-card.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/profile-card-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "profile-card"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "prompt-box": {
     name: "prompt-box",
     description: "کامپوزر چت جمع‌شده که به textarea با منوی مدل، کنترل ارسال و پیش‌نمایش هاور مدل انتخاب‌شده باز می‌شود.",
@@ -1844,6 +1952,24 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "slosh-gauge": {
+    name: "slosh-gauge",
+    description: "گیج مخزن که مایع مقدار را تعقیب می‌کند، هنگام حرکت کج می‌شود و موقع پر شدن می‌پاشد.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/slosh-gauge.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/slosh-gauge-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "slosh-gauge"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "slide-subscribe": {
     name: "slide-subscribe",
     description: "دورهٔ صورتحساب را انتخاب کنید، بعد برای شروع آزمایش بکشید.",
@@ -1978,6 +2104,42 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "status-mark": {
+    name: "status-mark",
+    description: "نشان وضعیت وظیفهٔ ایجنت — از حلقهٔ بیکار به کمان پیشرفت، بعد تیک یا ضربدر.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/status-mark.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/status-mark-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "status-mark"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "swipe-row": {
+    name: "swipe-row",
+    description: "ردیف فهرست که با سوایپ اکشن‌ها را نشان می‌دهد و با سوایپ کامل حذف می‌شود.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/swipe-row.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/swipe-row-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "swipe-row"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "swipeable-list": {
     name: "swipeable-list",
     description: "ردیف‌های سبک موبایل که با سوایپ چپ یا راست اکشن‌های زمینه‌ای را نشان می‌دهند.",
@@ -2063,6 +2225,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/vertical-tabs-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "vertical-tabs"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "wake-slider": {
+    name: "wake-slider",
+    description: "اسلایدر بدون دسته از میله‌های باریک که سرعت کشیدن موجی پشت مقدار بلند می‌کند.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/wake-slider.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/wake-slider-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "wake-slider"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,

@@ -1,0 +1,46 @@
+---
+title: Status Mark
+description: نشان وضعیت وظیفهٔ ایجنت — از حلقهٔ بیکار به کمان پیشرفت، بعد تیک یا ضربدر.
+---
+
+## نحوه استفاده
+
+```tsx
+import { StatusMark } from "@/components/status-mark";
+
+export default function Example() {
+  return (
+    <div className="flex flex-col gap-3">
+      <StatusMark status="pending" label="در انتظار" />
+      <StatusMark status="running" progress={0.4} label="در حال اجرا" />
+      <StatusMark status="done" label="انجام شد" />
+      <StatusMark status="failed" label="ناموفق" />
+    </div>
+  );
+}
+```
+
+## قابلیت‌ها
+
+- حالت‌ها: `pending`، `running`، `done`، `failed`، `cancelled`
+- پیشرفت قطعی با `progress` (۰ تا ۱) یا چرخش نامعین
+- مورف نرم حلقهٔ خط‌چین به کمان پیوسته
+- تیک سبز و ضربدر قرمز با رسم مسیر
+- خط‌خوردگی برچسب بعد از `done` (قابل خاموش کردن با `strike={false}`)
+- احترام به `prefers-reduced-motion`
+- برچسب و متن دسترس‌پذیری فارسی
+
+## Props اصلی
+
+| Prop | توضیح |
+| --- | --- |
+| `status` | وضعیت فعلی |
+| `progress` | پیشرفت ۰–۱ هنگام `running` |
+| `label` | متن کنار نشان |
+| `size` / `strokeWidth` / `fontSize` | اندازه |
+| `doneColor` / `errorColor` | رنگ تیک و خطا |
+| `spinDuration` / `arcLength` | سرعت چرخش و طول کمان نامعین |
+
+## منبع
+
+از [React Bits — Status Mark](https://reactbits.dev/micro/status-mark) گرفته شده.
