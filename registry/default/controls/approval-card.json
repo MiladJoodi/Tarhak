@@ -10,7 +10,7 @@
   "hintKind": "click",
   "hintHeading": "انتخاب کن",
   "hintDescription": "به سوال‌ها پاسخ بده یا انتشار را تأیید / اصلاح / رد کن.",
-  "hintTop": 100,
+  "hintTop": 72,
   "posterUrl": "/api/browse-media/components/approval-card/poster.avif",
   "videoUrl": "/api/browse-media/components/approval-card/video.mp4",
   "tags": [

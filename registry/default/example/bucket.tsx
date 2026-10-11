@@ -91,8 +91,7 @@ const Bucket = () => {
           >
             <path
               d="M535.59 78.7427L487.973 42.8776L558.738 13.9516C562.902 12.2494 564.984 11.3984 567.143 11.5597C569.301 11.7211 571.233 12.8723 575.098 15.1747L590.22 24.1832C603.923 32.347 610.775 36.4289 610.372 42.0779C609.97 47.7269 602.609 50.7964 587.887 56.9354L535.59 78.7427Z"
-              fill="white"
-              fillOpacity="0.42"
+              className="fill-white/45 dark:fill-white/10"
               shapeRendering="crispEdges"
             />
           </g>
@@ -117,8 +116,7 @@ const Bucket = () => {
           >
             <path
               d="M123.116 79.1145L171.548 42.8776L97.2715 12.5164C94.8305 11.5186 93.61 11.0197 92.3446 11.1143C91.0793 11.2089 89.9465 11.8837 87.681 13.2334L56.155 32.0149C48.1832 36.7641 44.1973 39.1386 44.4205 42.4378C44.6438 45.737 48.9132 47.553 57.4522 51.1849L123.116 79.1145Z"
-              fill="white"
-              fillOpacity="0.42"
+              className="fill-white/45 dark:fill-white/10"
               shapeRendering="crispEdges"
             />
           </g>
@@ -169,8 +167,7 @@ const Bucket = () => {
           >
             <path
               d="M171.548 78.9088V42.8774L123.116 79.1144L171.548 78.9088Z"
-              fill="white"
-              fillOpacity="0.32"
+              className="fill-white/35 dark:fill-white/8"
               shapeRendering="crispEdges"
             />
           </g>
@@ -181,8 +178,7 @@ const Bucket = () => {
           >
             <path
               d="M487.973 78.9088V42.8774L536.404 79.1144L487.973 78.9088Z"
-              fill="white"
-              fillOpacity="0.32"
+              className="fill-white/35 dark:fill-white/8"
               shapeRendering="crispEdges"
             />
           </g>
@@ -830,8 +826,13 @@ const Bucket = () => {
               y2="79.1144"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stopColor="white" stopOpacity="0.4" />
-              <stop offset="1" stopColor="white" stopOpacity="0.2" />
+              <stop
+                className="[stop-color:#ffffff] [stop-opacity:0.45] dark:[stop-color:#d4d4d8] dark:[stop-opacity:0.18]"
+              />
+              <stop
+                offset="1"
+                className="[stop-color:#ffffff] [stop-opacity:0.22] dark:[stop-color:#a1a1aa] dark:[stop-opacity:0.08]"
+              />
             </linearGradient>
           </defs>
         </svg>
@@ -870,16 +871,16 @@ const Bucket = () => {
                       duration: 0.5,
                       ease: [0.455, 0.03, 0.515, 0.955],
                     }}
-                    className="absolute z-10 flex w-[240px] origin-bottom pointer-events-auto items-center gap-2 rounded-full border border-black/8 bg-white p-2 shadow-sm"
+                    className="pointer-events-auto absolute z-10 flex w-[240px] origin-bottom items-center gap-2 rounded-full border border-black/8 bg-white p-2 shadow-sm dark:border-white/12 dark:bg-[hsl(225_10%_16%)] dark:shadow-[0_10px_28px_-12px_rgba(0,0,0,0.55)]"
                   >
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-neutral-900/6 text-neutral-600">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-neutral-900/6 text-neutral-600 dark:bg-white/10 dark:text-neutral-200">
                       <HugeiconsIcon icon={chip.icon} className="size-5" />
                     </div>
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-sm font-medium leading-none text-neutral-900">
+                      <span className="text-sm font-medium leading-none text-neutral-900 dark:text-neutral-50">
                         {chip.title}
                       </span>
-                      <span className="text-xs text-neutral-500">
+                      <span className="text-xs text-neutral-500 dark:text-neutral-400">
                         {chip.description}
                       </span>
                     </div>
@@ -905,7 +906,7 @@ const Bucket = () => {
           <g filter="url(#filter0_i_51_65)">
             <path
               d="M512.766 79.1595L147.766 79.1624C136.453 79.1625 130.796 79.1626 127.281 82.6773C123.766 86.192 123.766 91.8488 123.766 103.162V327.159C123.766 338.473 123.766 344.13 127.281 347.645C130.796 351.159 136.453 351.159 147.766 351.159H512.766C524.08 351.159 529.737 351.159 533.252 347.645C536.766 344.13 536.766 338.473 536.766 327.159V103.159C536.766 91.8457 536.766 86.1888 533.252 82.6741C529.737 79.1594 524.08 79.1594 512.766 79.1595Z"
-              className="fill-white"
+              className="fill-white/92 dark:fill-[hsl(225_10%_16%)]"
             />
           </g>
 
@@ -913,12 +914,10 @@ const Bucket = () => {
           <g clipPath="url(#center_box_clip)">
             <foreignObject x="0" y="0" width="655" height="352">
               <div
+                className="h-full w-full bg-white/[0.02] dark:bg-white/[0.04]"
                 style={{
                   backdropFilter: "blur(60.03px)",
                   WebkitBackdropFilter: "blur(60.03px)",
-                  height: "100%",
-                  width: "100%",
-                  background: "rgba(255, 255, 255, 0.01)",
                   clipPath:
                     "path('M74.6011 164.033L123.116 79.1138L535.59 78.7419L581.532 164.469C588.006 176.55 591.243 182.59 588.568 187.06C585.892 191.529 579.039 191.529 565.333 191.529H90.5591C76.4759 191.529 69.4343 191.529 66.7781 186.953C64.1219 182.376 67.615 176.262 74.6011 164.033Z')",
                 }}
@@ -933,8 +932,7 @@ const Bucket = () => {
           >
             <path
               d="M74.6011 164.033L123.116 79.1138L535.59 78.7419L581.532 164.469C588.006 176.55 591.243 182.59 588.568 187.06C585.892 191.529 579.039 191.529 565.333 191.529H90.5591C76.4759 191.529 69.4343 191.529 66.7781 186.953C64.1219 182.376 67.615 176.262 74.6011 164.033Z"
-              fill="white"
-              fillOpacity="0.42"
+              className="fill-white/45 dark:fill-white/10"
               shapeRendering="crispEdges"
             />
           </g>

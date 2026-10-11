@@ -4,7 +4,9 @@
   "title": "Liquid Index",
   "description": "فهرست قابلیتی که نشان هاور آن گرادیان مایع WebGL است و ردیف را دنبال می‌کند.",
   "dependencies": [
-    "motion"
+    "motion",
+    "clsx",
+    "tailwind-merge"
   ],
   "files": [
     {

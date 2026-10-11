@@ -880,7 +880,7 @@ export const Index: Record<string, any> = {
   },
   "empty-testimonial": {
     name: "empty-testimonial",
-    description: "حالت خالی «دیوار محبت» — روی پوشه بزنید؛ سه برگه با فنر بیرون می‌آیند تا اولین نقل‌قول را اضافه کنید.",
+    description: "حالت خالی «دیوار محبت» — روی پوشه بزنید؛ سه برگهٔ یادداشت با فنر بیرون می‌آیند.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -1936,7 +1936,7 @@ export const Index: Record<string, any> = {
   },
   "shake-testimonial-card": {
     name: "shake-testimonial-card",
-    description: "کارت‌های نظر که می‌لرزند و بعد به پشت پشته پرتاب می‌شوند — پخش خودکار یا کلیک.",
+    description: "پشتهٔ کارت نظر با لرزش کوتاه و پرتاب به عقب — پخش خودکار یا کلیک.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{

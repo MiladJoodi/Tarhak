@@ -3,8 +3,34 @@
 import { Undo03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useDialKit } from "dialkit";
-import { motion, AnimatePresence } from "motion/react";
-import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+
+const SOFT_LIGHT = "#FFEDF1";
+const SOFT_DARK = "#3a1822";
+
+function useClosestDark() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isDark, setIsDark] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const sync = () => setIsDark(Boolean(el.closest(".dark")));
+    sync();
+
+    const obs = new MutationObserver(sync);
+    let node: HTMLElement | null = el;
+    while (node) {
+      obs.observe(node, { attributes: true, attributeFilter: ["class"] });
+      node = node.parentElement;
+    }
+    return () => obs.disconnect();
+  }, []);
+
+  return [ref, isDark] as const;
+}
 
 const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
 
@@ -22,7 +48,7 @@ export const dialConfig = {
   cancelText: "لغو حذف",
   countdown: [10, 3, 20, 1],
   deleteColor: "#FE322A",
-  softColor: "#FFEDF1",
+  softColor: SOFT_LIGHT,
   layout: {
     type: "easing",
     duration: 0.4,
@@ -47,6 +73,8 @@ type DeleteParams = {
 
 const DeleteButton = () => {
   const params = useDialKit("Delete Button", dialConfig as never) as DeleteParams;
+  const [rootRef, isDark] = useClosestDark();
+  const softColor = isDark ? SOFT_DARK : params.softColor || SOFT_LIGHT;
   const [isDeleting, setIsDeleting] = useState(false);
   const [count, setCount] = useState(params.countdown);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -71,6 +99,7 @@ const DeleteButton = () => {
 
   return (
     <div
+      ref={rootRef}
       dir="rtl"
       lang="fa"
       className="flex items-center justify-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
@@ -84,7 +113,7 @@ const DeleteButton = () => {
             whileTap={{ scale: 0.95 }}
             style={{ pointerEvents: isAnimating ? "none" : "auto" }}
             initial={{
-              backgroundColor: params.softColor,
+              backgroundColor: softColor,
               filter: "blur(1px)",
               opacity: 1,
             }}
@@ -94,11 +123,11 @@ const DeleteButton = () => {
               opacity: 1,
             }}
             exit={{
-              backgroundColor: params.softColor,
+              backgroundColor: softColor,
               filter: "blur(1px)",
               opacity: 0,
             }}
-            className="flex items-center justify-center overflow-hidden rounded-full px-5 py-3 text-white"
+            className="flex items-center justify-center overflow-hidden rounded-full px-5 py-3 text-white shadow-[0_10px_24px_-12px_rgba(254,50,42,0.55)]"
             transition={{
               layout: { duration: params.layout.duration, ease: [...params.layout.ease] },
               backgroundColor: { duration: 0.4, ease: "easeInOut" },
@@ -145,7 +174,7 @@ const DeleteButton = () => {
               opacity: 0,
             }}
             animate={{
-              backgroundColor: params.softColor,
+              backgroundColor: softColor,
               filter: "blur(0px)",
               opacity: 1,
             }}
@@ -154,7 +183,7 @@ const DeleteButton = () => {
               filter: "blur(1px)",
               opacity: 0,
             }}
-            className="flex items-center gap-2 overflow-hidden rounded-full px-3 py-3"
+            className="flex items-center gap-2 overflow-hidden rounded-full px-3 py-3 ring-1 ring-black/5 dark:ring-white/10"
             transition={{
               layout: { duration: params.layout.duration, ease: [...params.layout.ease] },
               backgroundColor: { duration: 0.4, ease: "easeInOut" },

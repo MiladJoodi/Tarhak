@@ -861,11 +861,9 @@
       "name": "empty-testimonial",
       "type": "registry:component",
       "title": "Empty Testimonial",
-      "description": "حالت خالی «دیوار محبت» — روی پوشه بزنید؛ سه برگه با فنر بیرون می‌آیند تا اولین نقل‌قول را اضافه کنید.",
+      "description": "حالت خالی «دیوار محبت» — روی پوشه بزنید؛ سه برگهٔ یادداشت با فنر بیرون می‌آیند.",
       "dependencies": [
         "motion",
-        "@hugeicons/core-free-icons",
-        "@hugeicons/react",
         "clsx",
         "tailwind-merge"
       ],
@@ -1198,7 +1196,9 @@
       "title": "Liquid Index",
       "description": "فهرست قابلیتی که نشان هاور آن گرادیان مایع WebGL است و ردیف را دنبال می‌کند.",
       "dependencies": [
-        "motion"
+        "motion",
+        "clsx",
+        "tailwind-merge"
       ],
       "files": [
         {
@@ -1902,11 +1902,9 @@
       "name": "shake-testimonial-card",
       "type": "registry:component",
       "title": "Shake Testimonial Card",
-      "description": "کارت‌های نظر که می‌لرزند و بعد به پشت پشته پرتاب می‌شوند — پخش خودکار یا کلیک.",
+      "description": "پشتهٔ کارت نظر با لرزش کوتاه و پرتاب به عقب — پخش خودکار یا کلیک.",
       "dependencies": [
         "motion",
-        "@hugeicons/core-free-icons",
-        "@hugeicons/react",
         "clsx",
         "tailwind-merge"
       ],

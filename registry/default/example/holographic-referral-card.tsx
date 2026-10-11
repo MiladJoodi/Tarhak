@@ -75,7 +75,7 @@ const CometLogo = () => (
   </svg>
 );
 
-const PassNumber = () => (
+const CardNumber = () => (
   <span className="text-base leading-none text-white/50 tabular-nums" dir="ltr">
     01
   </span>
@@ -113,12 +113,12 @@ const renderLogo = (logo: CardLogo, className: string, fallbackAlt: string) => {
 export function HolographicReferralCard({
   image = INVITE_BACKGROUND_URL,
   imageAlt = "پس‌زمینه کارت دعوت",
-  title = "پاس دعوت",
+  title = "کارت دعوت",
   description = "ورود یک‌نفره",
   logo = <CometLogo />,
   logoAlt = "لوگوی برند",
-  secondLogo = <PassNumber />,
-  secondLogoAlt = "شماره پاس",
+  secondLogo = <CardNumber />,
+  secondLogoAlt = "شماره کارت",
   secondLogoHref,
   secondLogoAriaLabel,
   ariaLabel = "کارت دعوت هولوگرافیک",
@@ -143,16 +143,16 @@ export function HolographicReferralCard({
     secondLogoAlt
   );
 
-  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType === "touch") {
-      return;
-    }
-
+  const applyPointer = (
+    event: PointerEvent<HTMLElement>,
+    { lift }: { lift: boolean },
+  ) => {
     const bounds = event.currentTarget.getBoundingClientRect();
-    const pointerX = event.clientX - bounds.left;
-    const pointerY = event.clientY - bounds.top;
-    const xProgress = pointerX / bounds.width;
-    const yProgress = pointerY / bounds.height;
+    const xProgress = (event.clientX - bounds.left) / bounds.width;
+    const yProgress = (event.clientY - bounds.top) / bounds.height;
+    const isTouch = event.pointerType === "touch";
+    const tilt = isTouch ? 14 : 20;
+    const depth = isTouch ? 12 : 20;
 
     glowX.set(xProgress * 100);
     glowY.set(yProgress * 100);
@@ -162,25 +162,14 @@ export function HolographicReferralCard({
       return;
     }
 
-    rotateX.set((yProgress - 0.5) * 20);
-    rotateY.set((xProgress - 0.5) * -20);
-    translateZ.set(20);
+    rotateX.set((yProgress - 0.5) * tilt);
+    rotateY.set((xProgress - 0.5) * -tilt);
+    if (lift) {
+      translateZ.set(depth);
+    }
   };
 
-  const handlePointerEnter = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType === "touch") {
-      return;
-    }
-
-    glowOpacity.set(1);
-    if (shouldReduceMotion) {
-      return;
-    }
-
-    translateZ.set(20);
-  };
-
-  const handlePointerLeave = () => {
+  const resetPointer = () => {
     glowOpacity.set(0);
     rotateX.set(0);
     rotateY.set(0);
@@ -189,12 +178,44 @@ export function HolographicReferralCard({
     glowY.set(50);
   };
 
+  const handlePointerDown = (event: PointerEvent<HTMLElement>) => {
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    applyPointer(event, { lift: true });
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    // Mouse: track while hovering. Touch: only while pressed/captured.
+    if (
+      event.pointerType === "touch" &&
+      !event.currentTarget.hasPointerCapture(event.pointerId)
+    ) {
+      return;
+    }
+    applyPointer(event, { lift: true });
+  };
+
+  const handlePointerEnter = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    applyPointer(event, { lift: true });
+  };
+
+  const handlePointerUp = (event: PointerEvent<HTMLElement>) => {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    if (event.pointerType === "touch") {
+      resetPointer();
+    }
+  };
+
   const handleFocus = () => {
     glowOpacity.set(0.8);
   };
 
   const handleBlur = () => {
-    handlePointerLeave();
+    resetPointer();
   };
 
   return (
@@ -209,15 +230,18 @@ export function HolographicReferralCard({
       <motion.article
         aria-label={ariaLabel}
         className={cn(
-          "relative flex w-full flex-col rounded-2xl bg-[#1f2121] p-2 text-start will-change-transform saturate-0 outline-none md:p-4",
+          "relative flex w-full touch-none flex-col rounded-2xl bg-[#1f2121] p-2 text-start will-change-transform saturate-0 outline-none md:p-4",
           "shadow-[0_520px_146px_rgba(0,0,0,0.01),0_333px_133px_rgba(0,0,0,0.04),0_83px_83px_rgba(0,0,0,0.26),0_21px_46px_rgba(0,0,0,0.29)]",
           "focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1f2121]"
         )}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        onPointerCancel={handlePointerUp}
+        onPointerDown={handlePointerDown}
         onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
+        onPointerLeave={resetPointer}
         onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
         style={{ transform: shouldReduceMotion ? "none" : cardTransform }}
         tabIndex={0}
       >

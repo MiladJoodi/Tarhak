@@ -40,10 +40,10 @@ export function SaveButton() {
       <Button
         onClick={handleClick}
         className={cn(
-          "relative rounded-full h-12 px-8 text-base font-medium transition-all duration-300 min-w-[140px] disabled:opacity-100",
+          "relative h-12 min-w-[140px] rounded-full px-8 text-base font-medium transition-all duration-300 disabled:opacity-100",
           status === "idle"
             ? "transition-colors"
-            : "bg-muted text-muted-foreground hover:bg-muted cursor-not-allowed border-muted shadow-sm"
+            : "cursor-not-allowed border-border bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary dark:border-white/10 dark:bg-[hsl(225_8%_18%)] dark:text-neutral-200 dark:hover:bg-[hsl(225_8%_20%)]"
         )}
         variant={"default"}
         disabled={status !== "idle"}
@@ -80,10 +80,10 @@ export function SaveButton() {
               exit={{ opacity: 0, scale: 0, x: -8, filter: "blur(4px)" }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "flex items-center justify-center size-6 rounded-full  ring-3 overflow-visible",
+                "flex size-6 items-center justify-center overflow-visible rounded-full ring-3",
                 status === "success"
-                  ? "bg-primary text-primary-foreground  ring-muted"
-                  : "bg-muted text-muted-foreground ring-muted "
+                  ? "bg-primary text-primary-foreground ring-background"
+                  : "bg-secondary text-secondary-foreground ring-background dark:bg-zinc-700 dark:text-zinc-100"
               )}
             >
               <AnimatePresence mode="popLayout">
@@ -141,6 +141,14 @@ export function SaveButton() {
           )}
         </AnimatePresence>
       </div>
+    </div>
+  );
+}
+
+export default function SaveButtonDemo() {
+  return (
+    <div className="flex h-full w-full items-center justify-center p-10">
+      <SaveButton />
     </div>
   );
 }

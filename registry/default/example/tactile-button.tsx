@@ -97,7 +97,7 @@ export const TactileButton = React.forwardRef<
         <motion.div
           aria-hidden="true"
           className={cn(
-            "absolute bg-[#cbcbcb]/90 backdrop-blur-md pointer-events-none transition-shadow",
+            "pointer-events-none absolute bg-[#cbcbcb]/90 backdrop-blur-md transition-shadow dark:bg-zinc-800/95",
             sizeConfig.base
           )}
           initial={false}
@@ -128,9 +128,10 @@ export const TactileButton = React.forwardRef<
           onHoverEnd={() => setIsHovered(false)}
           onClick={onClick}
           className={cn(
-            "relative z-10 flex items-center justify-center outline-none cursor-pointer overflow-hidden",
-            "bg-gradient-to-b from-white/95 via-white/85 to-white/90 backdrop-blur-xl border border-white/60",
-            "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+            "relative z-10 flex cursor-pointer items-center justify-center overflow-hidden outline-none",
+            "border border-white/60 bg-gradient-to-b from-white/95 via-white/85 to-white/90 backdrop-blur-xl",
+            "dark:border-white/12 dark:from-zinc-600/95 dark:via-zinc-700/90 dark:to-zinc-800/95",
+            "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-900",
             fullWidth ? "w-full" : "w-auto",
             sizeConfig.box
           )}
@@ -152,13 +153,13 @@ export const TactileButton = React.forwardRef<
           {/* Glass Specular Reflection Sheen */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-[45%] rounded-t-[14px] bg-gradient-to-b from-white/70 via-white/20 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[45%] rounded-t-[14px] bg-gradient-to-b from-white/70 via-white/20 to-transparent dark:from-white/20 dark:via-white/5"
           />
 
           {/* Button Text — first in DOM so it sits on the RTL start (right) */}
           <span
             className={cn(
-              "relative z-10 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-medium tracking-normal text-[#292929] whitespace-nowrap",
+              "relative z-10 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] font-medium tracking-normal whitespace-nowrap text-[#292929] dark:text-zinc-50",
               sizeConfig.text
             )}
           >

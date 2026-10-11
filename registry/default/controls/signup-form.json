@@ -10,7 +10,7 @@
   "hintKind": "click",
   "hintHeading": "پر کن",
   "hintDescription": "فیلدها را پر کن؛ با taken@example.com حالت خطا را ببین.",
-  "hintTop": 100,
+  "hintTop": 72,
   "posterUrl": "/api/browse-media/components/signup-form/poster.avif",
   "videoUrl": "/api/browse-media/components/signup-form/video.mp4",
   "tags": [

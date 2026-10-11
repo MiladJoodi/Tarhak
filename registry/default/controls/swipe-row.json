@@ -8,8 +8,8 @@
   },
   "showHint": true,
   "hintKind": "swipe",
-  "hintHeading": "بکش",
-  "hintDescription": "ردیف را به چپ بکشید؛ کامل بکشید تا حذف شود.",
+  "hintHeading": "آیتم را به سمت چپ بکشید",
+  "hintDescription": "کامل بکشید تا حذف شود.",
   "hintTop": 100,
   "tags": [
     "swipe",

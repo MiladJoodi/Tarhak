@@ -1,7 +1,11 @@
 {
   "dialConfig": {},
   "disabled": [],
-  "updatedAt": "2026-09-19T19:42:55.197Z",
+  "updatedAt": "2026-10-11T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f7f3ec",
+    "dark": "hsl(225 7% 11%)"
+  },
   "posterUrl": "/api/browse-media/components/empty-testimonial/poster.avif",
   "videoUrl": "/api/browse-media/components/empty-testimonial/video.mp4",
   "tags": [

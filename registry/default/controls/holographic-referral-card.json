@@ -11,11 +11,11 @@
     "scale": 70,
     "items": []
   },
-  "showHint": false,
+  "showHint": true,
   "hintKind": "custom",
-  "hintHeading": "نشانگر را حرکت بده",
-  "hintDescription": "کارت به سمت نشانگر کج می‌شود. درخشش هولوگرافیک دنبال می‌کند. لمس ثابت می‌ماند. Tab برای درخشش آرام.",
-  "hintTop": 80,
+  "hintHeading": "بکش یا حرکت بده",
+  "hintDescription": "با موس یا انگشت روی کارت بکش؛ کج می‌شود و درخشش هولوگرافیک دنبال می‌کند.",
+  "hintTop": 72,
   "hintHideOnScroll": false,
   "tags": [
     "card",

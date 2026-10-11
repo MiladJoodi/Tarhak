@@ -11,22 +11,24 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
+import { cn } from "@/lib/utils";
+
 const TABS = [
   {
     id: "popular",
     label: "محبوب",
     icon: Fire02Icon,
-    color: "text-red-500",
-    fill: "fill-red-500",
-    bg: "bg-red-50",
+    color: "text-red-500 dark:text-red-400",
+    fill: "fill-red-500 dark:fill-red-400",
+    bg: "bg-red-50 dark:bg-red-500/15",
   },
   {
     id: "favorites",
     label: "علاقه‌مندی‌ها",
     icon: FavouriteIcon,
-    color: "text-gray-900",
-    fill: "fill-gray-900",
-    bg: "bg-gray-100",
+    color: "text-neutral-900 dark:text-neutral-50",
+    fill: "fill-neutral-900 dark:fill-neutral-50",
+    bg: "bg-neutral-100 dark:bg-white/12",
   },
 ] as const;
 
@@ -36,6 +38,14 @@ const spring = {
   stiffness: 260,
   mass: 1,
 };
+
+const pillShell = cn(
+  "rounded-full",
+  "bg-white dark:bg-[hsl(225_8%_16%)]",
+  "shadow-[0_10px_28px_-12px_rgba(0,0,0,0.22)]",
+  "dark:shadow-[0_12px_32px_-14px_rgba(0,0,0,0.55)]",
+  "ring-1 ring-black/5 dark:ring-white/10",
+);
 
 export default function DiscoverButton() {
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]["id"]>(
@@ -64,12 +74,15 @@ export default function DiscoverButton() {
           onClick={() => {
             if (!isSearchExpanded) setIsSearchExpanded(true);
           }}
-          className="relative flex h-14 shrink-0 cursor-pointer items-center overflow-hidden rounded-full bg-white px-4 shadow-lg sm:h-[60px] sm:px-[1.125rem]"
+          className={cn(
+            "relative flex h-14 shrink-0 cursor-pointer items-center overflow-hidden px-4 sm:h-[60px] sm:px-[1.125rem]",
+            pillShell,
+          )}
           style={{ minWidth: 56, maxWidth: "100%" }}
         >
           <HugeiconsIcon
             icon={Search01Icon}
-            className="size-5 shrink-0 text-gray-800 sm:size-6"
+            className="size-5 shrink-0 text-neutral-800 dark:text-neutral-100 sm:size-6"
           />
 
           <motion.div
@@ -88,7 +101,12 @@ export default function DiscoverButton() {
                 placeholder="جستجو"
                 aria-label="جستجو"
                 autoFocus
-                className="w-full min-w-0 border-0 bg-transparent text-base outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                className={cn(
+                  "w-full min-w-0 border-0 bg-transparent text-base outline-none",
+                  "text-neutral-900 placeholder:text-neutral-400",
+                  "dark:text-neutral-50 dark:placeholder:text-neutral-500",
+                  "focus-visible:ring-0 focus-visible:ring-offset-0",
+                )}
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => {
                   if (e.key === "Escape") setIsSearchExpanded(false);
@@ -105,7 +123,10 @@ export default function DiscoverButton() {
             width: isSearchExpanded ? 56 : "auto",
             minWidth: isSearchExpanded ? 56 : undefined,
           }}
-          className="relative flex h-14 shrink-0 items-center overflow-hidden rounded-full bg-white shadow-lg sm:h-[60px]"
+          className={cn(
+            "relative flex h-14 shrink-0 items-center overflow-hidden sm:h-[60px]",
+            pillShell,
+          )}
         >
           <motion.div
             initial={false}
@@ -122,22 +143,26 @@ export default function DiscoverButton() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex h-11 items-center gap-1.5 rounded-full px-3 transition-colors sm:h-12 sm:gap-2 sm:px-5 ${
-                  activeTab === tab.id ? tab.color : "text-gray-700"
-                }`}
+                className={cn(
+                  "relative flex h-11 items-center gap-1.5 rounded-full px-3 transition-colors sm:h-12 sm:gap-2 sm:px-5",
+                  activeTab === tab.id
+                    ? tab.color
+                    : "text-neutral-600 dark:text-neutral-300",
+                )}
               >
                 {activeTab === tab.id ? (
                   <motion.span
                     layoutId="discover-bubble"
-                    className={`absolute inset-0 z-0 ${tab.bg} rounded-full`}
+                    className={cn("absolute inset-0 z-0 rounded-full", tab.bg)}
                     transition={{ type: "spring", bounce: 0.19, duration: 0.4 }}
                   />
                 ) : null}
                 <HugeiconsIcon
                   icon={tab.icon}
-                  className={`relative z-10 size-4 sm:size-5 ${
-                    activeTab === tab.id ? tab.fill : ""
-                  }`}
+                  className={cn(
+                    "relative z-10 size-4 sm:size-5",
+                    activeTab === tab.id ? tab.fill : "",
+                  )}
                 />
                 <span className="relative z-10 text-sm font-semibold whitespace-nowrap sm:text-base">
                   {tab.label}
@@ -164,7 +189,7 @@ export default function DiscoverButton() {
             >
               <HugeiconsIcon
                 icon={MultiplicationSignIcon}
-                className="size-5 text-gray-800 sm:size-6"
+                className="size-5 text-neutral-800 dark:text-neutral-100 sm:size-6"
               />
             </button>
           </motion.div>

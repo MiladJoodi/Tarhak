@@ -32,7 +32,11 @@
     }
   },
   "disabled": [],
-  "updatedAt": "2026-09-16T16:15:47.288Z",
+  "updatedAt": "2026-10-11T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f4f4f5",
+    "dark": "hsl(225 7% 11%)"
+  },
   "posterUrl": "/api/browse-media/components/delete-button/poster.avif",
   "videoUrl": "/api/browse-media/components/delete-button/video.mp4",
   "tags": [

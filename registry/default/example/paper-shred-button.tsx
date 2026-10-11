@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 export type ShredState = "idle" | "preview" | "shredding" | "shredded";
 
 const IDLE_SHADOW = "0px 0px 0px rgba(3,7,18,0)";
-const PREVIEW_SHADOW = "0px 8px 18px rgba(153,27,27,.18)";
+const PREVIEW_SHADOW = "0px 8px 18px rgba(153,27,27,.22)";
 const QUICK_TRANSITION = { duration: 0.01 } as const;
 const SHRED_COMPLETE_DELAY = 1500;
 const REDUCED_MOTION_SHRED_COMPLETE_DELAY = 120;
@@ -17,21 +17,27 @@ const RESET_DELAY_MS = 2500;
 const buttonClassName = cn(
   "absolute top-[176px] left-1/2 z-20 inline-flex h-14 origin-bottom cursor-pointer items-center justify-center gap-3 select-none",
   "rounded-xl border-x-2 border-t-2 border-b-4 border-red-800 bg-red-500 px-8 py-3 whitespace-nowrap",
-  "text-lg font-medium text-white ring-offset-background transition-colors hover:bg-red-600",
+  "text-lg font-medium text-white transition-colors hover:bg-red-600",
+  "dark:border-red-950 dark:bg-red-600 dark:hover:bg-red-500",
+  "ring-offset-background dark:ring-offset-[hsl(225_7%_11%)]",
   "active:border-b-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-100",
-  "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 focus-visible:ring-offset-2"
 );
 
-const iconClassName = "size-5 fill-white/80 stroke-transparent";
+const iconClassName = "size-5 fill-white/85 stroke-transparent";
 
 const documentClassName = cn(
   "pointer-events-none absolute top-[18px] left-1/2 z-10 h-40 w-[120px] opacity-0",
-  "border border-black/10 bg-white [filter:drop-shadow(0_0_5px_rgba(0,0,0,0.06))]"
+  "border border-black/10 bg-[#f7f4ee]",
+  "dark:border-white/15 dark:bg-[#ebe6dc]",
+  "[filter:drop-shadow(0_4px_12px_rgba(0,0,0,0.12))] dark:[filter:drop-shadow(0_8px_18px_rgba(0,0,0,0.45))]"
 );
 
 const shreddedSvgClassName = cn(
   "pointer-events-none absolute top-[218px] left-1/2 z-10 h-[150px] w-[120px] opacity-0",
-  "fill-none stroke-white [filter:drop-shadow(0_0_5px_rgba(0,0,0,0.06))]"
+  "fill-none stroke-[#e8e2d6]",
+  "dark:stroke-[#d9d2c4]",
+  "[filter:drop-shadow(0_2px_6px_rgba(0,0,0,0.12))] dark:[filter:drop-shadow(0_4px_10px_rgba(0,0,0,0.4))]"
 );
 
 const shredPaths = [
