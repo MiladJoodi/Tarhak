@@ -42,7 +42,7 @@ const POSTERS = [
 type Seed = { slug: string; title: string; description: string; category: string };
 
 const SEEDS: Seed[] = [
-  { slug: "3d-book", title: "3D Book", description: "Page flips with real depth.", category: "Display" },
+  { slug: "3d-book", title: "3D Book", description: "Springy RTL page fan with cloth cover.", category: "Display" },
   { slug: "animated-bar-chart", title: "Animated Bar Chart", description: "Bars that rise with a soft spring.", category: "Display" },
   { slug: "animated-donut-chart", title: "Animated Donut Chart", description: "Share slices that draw in one by one.", category: "Display" },
   { slug: "animated-line-chart", title: "Animated Line Chart", description: "A soft line with hover guide and detail card.", category: "Display" },
@@ -153,7 +153,7 @@ const SEEDS: Seed[] = [
   { slug: "stamp-approve", title: "Stamp Approve", description: "A desk stamp that presses an approve seal onto paper.", category: "Button" },
   { slug: "status-mark", title: "Status Mark", description: "Idle ring morphs to a progress arc, then a check or cross.", category: "Display" },
   { slug: "comet-dial", title: "Comet Dial", description: "Flick a tick-ring dial; a comet streaks behind the lit head.", category: "Input" },
-  { slug: "ticket-tear", title: "Ticket Tear", description: "A ticket that tears at the perforation when you drag.", category: "Button" },
+  { slug: "ticket-tear", title: "Ticket Tear", description: "Live perforation, tension, and a falling stub.", category: "Button" },
   { slug: "dial-volume", title: "Dial Volume", description: "A metal knob with a square LED ring for volume.", category: "Button" },
   { slug: "otp-cascade", title: "OTP Cascade", description: "Six OTP cells with soft green/red verify feedback.", category: "Input" },
   { slug: "event-countdown", title: "Event Countdown", description: "Shows how much time is left until an event.", category: "Display" },

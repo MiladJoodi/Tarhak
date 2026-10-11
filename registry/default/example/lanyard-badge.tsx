@@ -444,11 +444,14 @@ export function LanyardBadge({
       const narrow = viewW < 480;
       const spread = Math.min(viewW * (narrow ? 0.2 : 0.16), width * (narrow ? 0.62 : 0.55));
       const top = -strapW * 2;
+      // Keep the badge off the floor in short preview frames (docs / open).
+      const stackH = loopH + ringR * 2 + clipH + cardH;
+      const floorPad = Math.max(narrow ? 64 : 96, Math.round(viewH * (narrow ? 0.12 : 0.14)));
       const hangY = Math.max(
-        viewH * (narrow ? 0.1 : 0.14),
+        viewH * (narrow ? 0.06 : 0.08),
         Math.min(
-          viewH * (narrow ? 0.36 : 0.42),
-          viewH - (loopH + ringR * 2 + clipH + cardH) - (narrow ? 12 : 28),
+          viewH * (narrow ? 0.28 : 0.32),
+          viewH - stackH - floorPad,
         ),
       );
 

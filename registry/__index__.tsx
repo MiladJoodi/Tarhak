@@ -8,7 +8,7 @@ import * as React from "react"
 export const Index: Record<string, any> = {
   "3d-book": {
     name: "3d-book",
-    description: "یک کتاب سه‌بعدی تعاملی با انیمیشن ورق‌زدن صفحات.",
+    description: "دفترچهٔ سه‌بعدی با فنر نرم، بادبزن صفحات و ورق‌زدن راست‌به‌چپ.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -352,7 +352,7 @@ export const Index: Record<string, any> = {
   },
   "card-folder": {
     name: "card-folder",
-    description: "کارت پوشه‌ای متحرک با تصویر پس‌زمینه، شیء شناور، افکت هاور و رنگ و متن قابل تنظیم.",
+    description: "پوشهٔ بایگانی متحرک — عکس از پشت کاغذ دیده می‌شود، زبانه پایین می‌رود و شیء شناور بالا می‌آید.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
@@ -2178,7 +2178,7 @@ export const Index: Record<string, any> = {
   },
   "ticket-tear": {
     name: "ticket-tear",
-    description: "نیمهٔ پایین بلیط را از پرفراژ به پایین بکش؛ جدا می‌شود و می‌افتد. با دکمه هم می‌توانی جدا کنی.",
+    description: "بلیط کنسرت با پرفراژ زنده — نیمه را بکش تا پاره شود، بیفتد و دوباره سر جایش برگردد.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{

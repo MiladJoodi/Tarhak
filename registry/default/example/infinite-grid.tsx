@@ -98,7 +98,7 @@ export const LiquidGlassCard = forwardRef<HTMLDivElement, LiquidGlassCardProps>(
         ) : (
           <>
             <div
-              className="relative flex w-full aspect-square items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/6"
+              className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/6 dark:bg-white/5 dark:ring-white/8"
               style={{ aspectRatio }}
             >
               {item.imageUrl && (
@@ -119,14 +119,14 @@ export const LiquidGlassCard = forwardRef<HTMLDivElement, LiquidGlassCardProps>(
 
             <div className="pointer-events-none flex w-full flex-col items-stretch pb-3 text-start">
               <p
-                className="w-full truncate text-[13px] font-medium leading-[1.2em] tracking-normal text-neutral-950"
+                className="w-full truncate text-[13px] font-medium leading-[1.2em] tracking-normal text-neutral-950 dark:text-neutral-50"
                 title={item.title}
               >
                 {item.title}
               </p>
               {item.subtitle ? (
                 <p
-                  className="mt-0.5 w-full truncate text-[12px] font-normal leading-[1.2em] tracking-normal text-neutral-400"
+                  className="mt-0.5 w-full truncate text-[12px] font-normal leading-[1.2em] tracking-normal text-neutral-400 dark:text-neutral-400"
                   title={item.subtitle}
                 >
                   {item.subtitle}
@@ -374,20 +374,19 @@ export const LiquidGlassInfiniteGrid = forwardRef<HTMLDivElement, LiquidGlassInf
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
-          className="relative h-full w-full cursor-grab overflow-hidden select-none bg-white active:cursor-grabbing dark:bg-[hsl(225_7%_11%)]"
+          className="relative h-full w-full cursor-grab overflow-hidden bg-white select-none active:cursor-grabbing dark:bg-[hsl(225_7%_11%)]"
           style={{
             touchAction: 'none',
             userSelect: 'none',
             WebkitUserSelect: 'none',
-            backgroundColor: '#ffffff',
           }}
           {...props}
         >
           {enableLiquidBlobs && (
-            <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
-              <div className="absolute top-1/4 start-1/5 h-[45vw] w-[45vw] animate-fluid-1 rounded-full bg-slate-100 blur-[90px]" />
-              <div className="absolute top-2/3 end-1/4 h-[50vw] w-[50vw] animate-fluid-2 rounded-full bg-zinc-100 blur-[100px]" />
-              <div className="absolute -top-1/4 end-1/3 h-[40vw] w-[40vw] animate-fluid-3 rounded-full bg-slate-50 blur-[85px]" />
+            <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40 dark:opacity-30">
+              <div className="absolute top-1/4 start-1/5 h-[45vw] w-[45vw] animate-fluid-1 rounded-full bg-slate-100 blur-[90px] dark:bg-white/10" />
+              <div className="absolute top-2/3 end-1/4 h-[50vw] w-[50vw] animate-fluid-2 rounded-full bg-zinc-100 blur-[100px] dark:bg-white/[0.07]" />
+              <div className="absolute -top-1/4 end-1/3 h-[40vw] w-[40vw] animate-fluid-3 rounded-full bg-slate-50 blur-[85px] dark:bg-white/5" />
             </div>
           )}
 

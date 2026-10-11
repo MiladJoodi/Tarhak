@@ -7,7 +7,7 @@
       "name": "3d-book",
       "type": "registry:component",
       "title": "3D Book",
-      "description": "یک کتاب سه‌بعدی تعاملی با انیمیشن ورق‌زدن صفحات.",
+      "description": "دفترچهٔ سه‌بعدی با فنر نرم، بادبزن صفحات و ورق‌زدن راست‌به‌چپ.",
       "dependencies": [
         "motion",
         "clsx",
@@ -345,7 +345,7 @@
       "name": "card-folder",
       "type": "registry:component",
       "title": "Card Folder",
-      "description": "کارت پوشه‌ای متحرک با تصویر پس‌زمینه، شیء شناور، افکت هاور و رنگ و متن قابل تنظیم.",
+      "description": "پوشهٔ بایگانی متحرک — عکس از پشت کاغذ دیده می‌شود، زبانه پایین می‌رود و شیء شناور بالا می‌آید.",
       "dependencies": [
         "motion",
         "clsx",
@@ -2136,7 +2136,7 @@
       "name": "ticket-tear",
       "type": "registry:component",
       "title": "Ticket Tear",
-      "description": "نیمهٔ پایین بلیط را از پرفراژ به پایین بکش؛ جدا می‌شود و می‌افتد. با دکمه هم می‌توانی جدا کنی.",
+      "description": "بلیط کنسرت با پرفراژ زنده — نیمه را بکش تا پاره شود، بیفتد و دوباره سر جایش برگردد.",
       "dependencies": [
         "motion"
       ],

@@ -7,8 +7,9 @@ export function middleware(_request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Skip static assets. Auth session refresh was removed with login.
+     * Skip static assets and SEO files — middleware on sitemap/robots
+     * can make Google Search Console report "Couldn't fetch".
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|mp4)$).*)",
+    "/((?!_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap\\.xml|sitemap/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|mp4)$).*)",
   ],
 };

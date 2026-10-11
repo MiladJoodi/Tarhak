@@ -59,7 +59,7 @@ function HeroCopy({ reduce }: { reduce: boolean }) {
             aria-hidden
             className="landing-cta-sheen pointer-events-none absolute inset-0"
           />
-          <span className="relative">ورود به مخزن</span>
+          <span className="relative">مشاهده کامپوننت‌ها</span>
           <span
             aria-hidden
             className="relative inline-flex size-4 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-x-1"

@@ -1486,8 +1486,8 @@ export default function LanyardDemo() {
   return (
     <div className="relative h-full min-h-[min(640px,80dvh)] w-full">
       <Lanyard
-        frontImage="/unsplash/1494790108377-be9c29b29330.webp"
-        backImage="/unsplash/1506794778202-cad84cf45f1d.webp"
+        frontImage="/unsplash/miladtower.avif"
+        backImage="/unsplash/miladtower2.avif"
         cardColor="#f8fafc"
         strapColor="#0f172a"
         finish="glossy"
