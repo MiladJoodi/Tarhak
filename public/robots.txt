@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /preview
+Disallow: /api
+Disallow: /v1
+
+Sitemap: https://tarhak.ir/sitemap.xml

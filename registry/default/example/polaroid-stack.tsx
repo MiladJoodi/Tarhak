@@ -20,43 +20,43 @@ const cardClassName = cn(
 
 const fanCards: FanCard[] = [
   {
-    src: "https://images.pexels.com/photos/5995712/pexels-photo-5995712.jpeg",
+    src: "/unsplash/1534528741775-53994a69daeb.webp",
     alt: "کارت پرترهٔ کلوزآپ",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(54deg)_translate(0px,-8px)]",
   },
   {
-    src: "https://images.pexels.com/photos/19259515/pexels-photo-19259515.jpeg",
+    src: "/unsplash/1494790108377-be9c29b29330.webp",
     alt: "کارت پرترهٔ ادیتوریال",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(36deg)_translate(0px,-8px)]",
   },
   {
-    src: "https://images.pexels.com/photos/8765790/pexels-photo-8765790.jpeg",
+    src: "/unsplash/1438761681033-6461ffad8d80.webp",
     alt: "کارت پرترهٔ لایف‌استایل",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(18deg)_translate(0px,-8px)]",
   },
   {
-    src: "https://images.pexels.com/photos/16611954/pexels-photo-16611954.jpeg",
+    src: "/unsplash/1517841905240-472988babdf9.webp",
     alt: "کارت پرترهٔ وسط",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(0deg)_translate(0px,-8px)]",
   },
   {
-    src: "https://images.pexels.com/photos/2354863/pexels-photo-2354863.jpeg",
+    src: "/unsplash/1507003211169-0a1dd7228f2d.webp",
     alt: "کارت پرترهٔ فضای باز",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(-18deg)_translate(0px,-8px)]",
   },
   {
-    src: "https://images.pexels.com/photos/28367850/pexels-photo-28367850.jpeg",
+    src: "/unsplash/1500648767791-00dcc994a43e.webp",
     alt: "کارت پرترهٔ مد",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(-36deg)_translate(0px,-8px)]",
   },
   {
-    src: "https://images.pexels.com/photos/15295562/pexels-photo-15295562.jpeg",
+    src: "/unsplash/1472099645785-5658abf4ff4e.webp",
     alt: "کارت پرترهٔ استودیو",
     hoverClassName:
       "[@media(hover:hover)_and_(pointer:fine)]:group-has-[:hover]:[transform:rotate(-54deg)_translate(0px,-8px)]",

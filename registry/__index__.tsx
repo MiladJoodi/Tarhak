@@ -862,7 +862,7 @@ export const Index: Record<string, any> = {
   },
   "editorial-deck": {
     name: "editorial-deck",
-    description: "دستهٔ داستان تحریریه‌ای روی هم. کارت جلو را بکشید؛ با فنر به ته دسته برمی‌گردد.",
+    description: "دستهٔ داستان تحریریه‌ای با جلد مجله‌ای؛ بکشید تا ورق بخورد — هماهنگ با لایت و دارک.",
     type: "registry:component",
     registryDependencies: undefined,
     files: [{
