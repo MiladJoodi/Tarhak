@@ -74,7 +74,6 @@ async function main() {
   push("/", "daily", "1.0");
   push("/browse", "daily", "0.9");
   push("/sponsor", "monthly", "0.6");
-  push("/contact", "monthly", "0.5");
 
   const files = await walkMdx(DOCS_DIR);
   for (const file of files.sort()) {

@@ -1,6 +1,6 @@
 {
   "name": "@tarhak/cli",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Add Tarhak animated React components to a FarsiUI project. Configures the registry and installs in one command.",
   "type": "module",
   "bin": {
@@ -35,7 +35,7 @@
     "url": "git+https://github.com/MiladJoodi/Tarhak.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://tarhak.ir/docs",
+  "homepage": "https://tarhak.ir",
   "bugs": {
     "url": "https://github.com/MiladJoodi/Tarhak/issues"
   },

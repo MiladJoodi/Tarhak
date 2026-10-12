@@ -13,13 +13,15 @@ export function runFarsiuiAdd(registryItems, passthrough = []) {
   }
 
   const args = ["--yes", FARSIUI_PACKAGE, "add", ...registryItems, ...passthrough];
-  const command = process.platform === "win32" ? "npx.cmd" : "npx";
 
   return new Promise((resolve) => {
-    const child = spawn(command, args, {
+    // Avoid `shell: true` + args (Node DEP0190). On Windows, `npx.cmd` still
+    // runs correctly via spawn without a shell when PATH is set.
+    const child = spawn("npx", args, {
       stdio: "inherit",
-      shell: process.platform === "win32",
+      shell: false,
       env: process.env,
+      windowsHide: true,
     });
     child.on("error", (error) => {
       console.error(error.message);

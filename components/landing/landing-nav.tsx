@@ -4,7 +4,6 @@ import {
   BookOpen01Icon,
   Cancel01Icon,
   GridViewIcon,
-  Mail01Icon,
   Menu01Icon,
   SourceCodeIcon,
 } from "@hugeicons/core-free-icons";
@@ -67,12 +66,6 @@ export const landingNavLinks: {
     icon: SourceCodeIcon,
     description: "اتصال ایجنت Cursor، Claude Code، Codex و OpenCode",
   },
-  {
-    label: "تماس",
-    href: "/contact",
-    icon: Mail01Icon,
-    description: "پیام و همکاری",
-  },
 ];
 
 function GithubMarkLink({
@@ -118,7 +111,7 @@ export function LandingNav({
   logoOnly = false,
 }: {
   githubStars?: number | null;
-  /** Landing hero uses a dark bar; docs/contact stay light. */
+  /** Landing hero uses a dark bar; docs stay light. */
   tone?: "light" | "dark";
   /** Sit on top of a full-bleed stage with no separate header fill. */
   overlay?: boolean;

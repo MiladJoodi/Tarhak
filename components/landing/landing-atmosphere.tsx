@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { LandingNav } from "@/components/landing/landing-nav";
 
-/** Shared dark hero atmosphere used by contact, docs, and similar surfaces. */
+/** Shared dark hero atmosphere used by docs and similar surfaces. */
 export function LandingAtmosphere({
   children,
   githubStars,

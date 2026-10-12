@@ -39,6 +39,12 @@ npx @tarhak/cli@latest add discrete-tabs delete-button focus-testimonials
 
 No manual registry setup — the CLI configures `@tarhak` and installs the component.
 
+Connect Cursor to the Tarhak MCP:
+
+```bash
+npx @tarhak/cli@latest mcp
+```
+
 Browse everything at [tarhak.ir](https://tarhak.ir) and [tarhak.ir/docs](https://tarhak.ir/docs).
 
 ## Repository structure

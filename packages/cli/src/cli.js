@@ -2,10 +2,12 @@ import path from "node:path";
 
 import {
   CLI_PACKAGE,
+  MCP_URL,
   REGISTRY_NAMESPACE,
   REGISTRY_URL,
   SITE_URL,
 } from "./constants.js";
+import { ensureMcp } from "./ensure-mcp.js";
 import { ensureRegistry } from "./ensure-registry.js";
 import { runFarsiuiAdd } from "./run-farsiui.js";
 import { toRegistryItem, toSlug } from "./slugs.js";
@@ -13,24 +15,27 @@ import { toRegistryItem, toSlug } from "./slugs.js";
 const NPX = `npx ${CLI_PACKAGE}@latest`;
 
 const HELP = `
-طرحَک CLI — نصب کامپوننت‌های انیمیشنی React
+Tarhak CLI — add animated React components
 
 Usage:
   ${NPX} add <slug> [slug...]
   ${NPX} init
+  ${NPX} mcp
   ${NPX} --help
 
 Examples:
   ${NPX} add animated-data-table
   ${NPX} add discrete-tabs delete-button
   ${NPX} init
+  ${NPX} mcp
 
 What it does:
-  1. Ensures components.json has:
-       "${REGISTRY_NAMESPACE}": "${REGISTRY_URL}"
-  2. Runs: npx farsiui@latest add ${REGISTRY_NAMESPACE}/<slug>
+  add  Ensures the @tarhak registry, then runs farsiui add
+  init Only ensures the @tarhak registry in components.json
+  mcp  Writes .cursor/mcp.json → ${MCP_URL}
 
 Docs: ${SITE_URL}/docs
+MCP:  ${SITE_URL}/docs/mcp
 `.trim();
 
 function printHelp() {
@@ -65,11 +70,26 @@ export async function run(argv) {
     const { file, changed } = ensureRegistry();
     const rel = path.relative(process.cwd(), file) || "components.json";
     if (changed) {
-      console.log(`✓ رجیستری ${REGISTRY_NAMESPACE} به ${rel} اضافه شد.`);
+      console.log(`✓ Added ${REGISTRY_NAMESPACE} registry to ${rel}`);
     } else {
-      console.log(`✓ رجیستری ${REGISTRY_NAMESPACE} از قبل در ${rel} بود.`);
+      console.log(`✓ ${REGISTRY_NAMESPACE} registry already in ${rel}`);
     }
     console.log(`  ${REGISTRY_NAMESPACE} → ${REGISTRY_URL}`);
+    return;
+  }
+
+  if (command === "mcp") {
+    const { file, changed, created } = ensureMcp();
+    const rel = path.relative(process.cwd(), file) || ".cursor/mcp.json";
+    if (created) {
+      console.log(`✓ Created ${rel}`);
+    } else if (changed) {
+      console.log(`✓ Updated ${rel} with Tarhak MCP`);
+    } else {
+      console.log(`✓ Tarhak MCP already in ${rel}`);
+    }
+    console.log(`  tarhak → ${MCP_URL}`);
+    console.log(`  Enable it in Cursor: Settings → MCP → turn on "tarhak"`);
     return;
   }
 
@@ -88,7 +108,7 @@ export async function run(argv) {
 
     if (slugs.length === 0) {
       console.error(
-        `حداقل یک slug بدهید، مثلاً:\n  ${NPX} add animated-data-table`,
+        `Provide at least one slug, e.g.\n  ${NPX} add animated-data-table`,
       );
       process.exitCode = 1;
       return;
@@ -97,17 +117,17 @@ export async function run(argv) {
     const { file, changed } = ensureRegistry();
     const rel = path.relative(process.cwd(), file) || "components.json";
     if (changed) {
-      console.log(`✓ رجیستری ${REGISTRY_NAMESPACE} به ${rel} اضافه شد.`);
+      console.log(`✓ Added ${REGISTRY_NAMESPACE} registry to ${rel}`);
     }
 
     const items = slugs.map((slug) => toRegistryItem(slug));
-    console.log(`→ نصب: ${items.join(", ")}`);
+    console.log(`→ Installing ${items.join(", ")}`);
     const code = await runFarsiuiAdd(items, passthrough);
     process.exitCode = code;
     return;
   }
 
-  console.error(`دستور ناشناخته: ${command}\n`);
+  console.error(`Unknown command: ${command}\n`);
   printHelp();
   process.exitCode = 1;
 }

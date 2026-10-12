@@ -37,6 +37,7 @@ You do **not** need `farsiui` as a project dependency — the CLI runs it via `n
 ```bash
 npx @tarhak/cli@latest add <slug> [slug...]
 npx @tarhak/cli@latest init
+npx @tarhak/cli@latest mcp
 npx @tarhak/cli@latest --help
 npx @tarhak/cli@latest --version
 ```
@@ -45,6 +46,15 @@ npx @tarhak/cli@latest --version
 | --- | --- |
 | `add` | Install one or more Tarhak components |
 | `init` | Only ensure the Tarhak registry is configured |
+| `mcp` | Write `.cursor/mcp.json` for the Tarhak remote MCP |
+
+### Connect Cursor MCP
+
+```bash
+npx @tarhak/cli@latest mcp
+```
+
+Creates or updates `.cursor/mcp.json` with `https://tarhak.ir/api/mcp`. Then enable **tarhak** under Settings → MCP.
 
 ## Browse
 

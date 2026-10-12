@@ -24,10 +24,10 @@ export function ensureRegistry(cwd = process.cwd()) {
   if (!file) {
     throw new Error(
       [
-        "components.json پیدا نشد.",
-        "اول پروژه را با FarsiUI آماده کنید، مثلاً:",
+        "components.json not found.",
+        "Initialize FarsiUI first, e.g.:",
         "  npx farsiui@latest init",
-        `بعد دوباره: npx ${CLI_PACKAGE}@latest add <slug>`,
+        `Then retry: npx ${CLI_PACKAGE}@latest add <slug>`,
       ].join("\n"),
     );
   }
@@ -38,11 +38,11 @@ export function ensureRegistry(cwd = process.cwd()) {
     const raw = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "");
     json = JSON.parse(raw);
   } catch {
-    throw new Error(`نتوانستم components.json را بخوانم: ${file}`);
+    throw new Error(`Could not read components.json: ${file}`);
   }
 
   if (!json || typeof json !== "object" || Array.isArray(json)) {
-    throw new Error(`فرمت components.json نامعتبر است: ${file}`);
+    throw new Error(`Invalid components.json: ${file}`);
   }
 
   const registries =
