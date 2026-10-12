@@ -1077,7 +1077,7 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/default/example/focus-testimonials.tsx")
+      const mod = await import("@/registry/default/demo/focus-testimonials-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "focus-testimonials"
       return { default: mod.default || mod[exportName] }
     }),

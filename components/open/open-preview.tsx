@@ -43,7 +43,8 @@ export function OpenPreview({
     name === "command-palette" ||
     name === "glide-select" ||
     name === "create-menu" ||
-    name === "smooth-dropdown";
+    name === "smooth-dropdown" ||
+    name === "focus-testimonials";
 
   const inner = Component ? (
     fillBleed || nestedPageScroll ? (
