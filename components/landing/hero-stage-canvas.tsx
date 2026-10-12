@@ -181,7 +181,7 @@ function buildDeck(items: BrowseItem[]): DeckCard[] {
     deck.push({ ...pick, key: `${pick.slug}-${i}` });
   }
 
-  // Pin config order onto the first spotlight cells so /v1 opens on slug[0], then [1]…
+  // Pin config order onto the first spotlight cells so the hero opens on slug[0], then [1]…
   const path = PRIORITY_PATH;
   for (let p = 0; p < Math.min(items.length, path.length); p++) {
     const idx = path[p]!;

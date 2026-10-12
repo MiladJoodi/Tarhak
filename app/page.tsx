@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 
-import ComingSoon from "@/components/landing/coming-soon";
+import LandingPage from "@/components/landing/landing-page";
 import { BRAND_NAME_FA } from "@/lib/brand";
+import { getGithubStarCount } from "@/lib/github";
+import { getLandingHeroItems } from "@/lib/landing/hero-components";
 
 export const metadata: Metadata = {
-  title: `${BRAND_NAME_FA} — به‌زودی`,
-  description: `${BRAND_NAME_FA} به‌زودی معرفی می‌شود.`,
+  title: BRAND_NAME_FA,
+  description: "کامپوننت‌های انیمیشنی React برای پروژه‌های واقعی",
 };
 
-export default function Page() {
-  return <ComingSoon />;
+export default async function Page() {
+  const [heroItems, githubStars] = await Promise.all([
+    getLandingHeroItems(),
+    getGithubStarCount(),
+  ]);
+
+  return <LandingPage heroItems={heroItems} githubStars={githubStars} />;
 }
