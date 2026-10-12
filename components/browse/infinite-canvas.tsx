@@ -18,7 +18,12 @@ import {
 import { posterMediaHeight, tileHeight, tileHeightFor } from "@/lib/browse/media";
 import { usePosterAspects } from "@/lib/browse/use-poster-aspects";
 import { useRenderQuality } from "@/lib/browse/use-render-quality";
-import { maxMountedVideos, priorityFromCenter } from "@/lib/browse/video-pool";
+import {
+  freezePlayback,
+  maxMountedVideos,
+  priorityFromCenter,
+  unfreezePlayback,
+} from "@/lib/browse/video-pool";
 import { BrowseCard } from "./glass-card";
 
 type InfiniteCanvasProps = {
@@ -52,7 +57,8 @@ const MIN_VELOCITY = 0.35;
 const COAST_MULTIPLIER = 12;
 /** Cap fling so a fast swipe doesn't throw the canvas across the field. */
 const MAX_COAST_SPEED = 48;
-const SETTLE_MS = 160;
+/** Let coast finish before waking video decoders. */
+const SETTLE_MS = 220;
 /** Drop a stale suppress flag if the browser never synthesizes a click. */
 const SUPPRESS_CLICK_MS = 480;
 
@@ -61,8 +67,9 @@ function dragThresholdFor(pointerType: string) {
     ? DRAG_THRESHOLD_TOUCH
     : DRAG_THRESHOLD_MOUSE;
 }
-const PAN_SYNC_MS = 80;
-const PAN_SYNC_MS_LOW = 200;
+/** Remount throttle during coast/wheel only — finger pan skips remounts. */
+const PAN_SYNC_MS = 120;
+const PAN_SYNC_MS_LOW = 260;
 /** Four-sided predict ring: start video before the tile hits the viewport. */
 const VIDEO_PREDICT = 520;
 const VIDEO_PREDICT_LOW = 96;
@@ -99,7 +106,10 @@ function sameTiles(a: TileSpec[], b: TileSpec[]) {
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 
-export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
+export function InfiniteCanvas({
+  items,
+  paused = false,
+}: InfiniteCanvasProps) {
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const stageRef = React.useRef<HTMLDivElement>(null);
   const tilesRef = React.useRef<TileSpec[]>([]);
@@ -234,8 +244,9 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
           if (!want) continue;
 
           const prev = previous?.get(`${col}:${row}`);
+          // Never start new decoders mid-gesture (all devices).
           const media = frozen
-            ? canvasMediaWhilePanning(want, prev?.media, quality === "low")
+            ? canvasMediaWhilePanning(want, prev?.media, true)
             : want;
 
           const rawPriority =
@@ -296,6 +307,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
 
   const markDragging = React.useCallback(() => {
     mediaFrozen.current = true;
+    freezePlayback();
     const node = viewportRef.current;
     if (node) node.dataset.dragging = "true";
     setIsDragging(true);
@@ -309,17 +321,17 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       if (node) node.dataset.dragging = "false";
       setIsDragging(false);
       syncVisible();
+      unfreezePlayback();
     }, SETTLE_MS);
   }, [syncVisible]);
 
   const tickRef = React.useRef<() => void>(() => {});
 
-  // Pan loop: transform every frame; remount posters on a throttle so the field stays filled.
+  // Finger pan: compositor transform only. Remounts wait for coast/settle.
   const tick = React.useCallback(() => {
     applyCamera();
-    syncVisibleThrottled();
     frame.current = panning.current ? requestAnimationFrame(() => tickRef.current()) : 0;
-  }, [applyCamera, syncVisibleThrottled]);
+  }, [applyCamera]);
 
   React.useEffect(() => {
     tickRef.current = tick;
@@ -411,6 +423,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
       window.clearTimeout(settleTimer.current);
       window.clearTimeout(suppressClickTimer.current);
       stopCoast();
+      unfreezePlayback();
     },
     [stopCoast],
   );
@@ -667,7 +680,7 @@ export function InfiniteCanvas({ items, paused = false }: InfiniteCanvasProps) {
                   tile.index,
                 )}
                 className="size-full"
-                paused={paused}
+                paused={paused || isDragging}
               />
             </div>
           );

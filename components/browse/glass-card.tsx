@@ -62,10 +62,9 @@ export function BrowseCard({
     >
       <div className="browse-chrome">
         <div className="browse-chrome-title" dir="rtl" lang="fa">
-          <h3 className="inline-flex min-w-0 items-center gap-1.5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-base font-normal leading-none tracking-normal text-white">
-            {/* RTL: first child sits on the right — dot before the title */}
-            {item.isNew ? <NewDot /> : null}
-            <span className="truncate">{displayTitle}</span>
+          <h3 className="inline-flex min-w-0 max-w-full items-center gap-1.5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] text-[15px] font-normal leading-snug tracking-normal text-white">
+            {item.isNew ? <NewDot className="shrink-0" /> : null}
+            <span className="min-w-0 truncate">{displayTitle}</span>
           </h3>
         </div>
         <div className="browse-chrome-media">

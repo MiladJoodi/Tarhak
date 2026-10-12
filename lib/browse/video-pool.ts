@@ -17,6 +17,8 @@ type NavHint = {
 const candidates = new Map<HTMLVideoElement, number>();
 let frame = 0;
 let watching = false;
+/** Canvas pan/coast — pause decoders without unregistering so resume is cheap. */
+let frozen = false;
 
 export function isConstrainedDevice(
   nav?: NavHint | null,
@@ -84,6 +86,12 @@ function ensureWatch() {
 function reconcile() {
   frame = 0;
   if (typeof document !== "undefined" && document.hidden) return;
+  if (frozen) {
+    for (const [video] of candidates) {
+      if (!video.paused) video.pause();
+    }
+    return;
+  }
   const limit = maxConcurrent();
   const ranked = [...candidates.entries()].sort((a, b) => b[1] - a[1]);
 
@@ -96,6 +104,21 @@ function reconcile() {
   });
 }
 
+/** Pause every registered preview immediately (drag/coast). */
+export function freezePlayback() {
+  frozen = true;
+  for (const [video] of candidates) {
+    if (!video.paused) video.pause();
+  }
+}
+
+/** Resume pool ranking after the camera settles. */
+export function unfreezePlayback() {
+  if (!frozen) return;
+  frozen = false;
+  schedule();
+}
+
 function schedule() {
   if (frame) return;
   frame = requestAnimationFrame(reconcile);
@@ -104,8 +127,12 @@ function schedule() {
 export function requestPlayback(video: HTMLVideoElement, priority: number) {
   ensureWatch();
   const prev = candidates.get(video);
-  if (prev === priority && !video.paused) return;
+  if (prev === priority && (!video.paused || frozen)) return;
   candidates.set(video, priority);
+  if (frozen) {
+    if (!video.paused) video.pause();
+    return;
+  }
   schedule();
 }
 

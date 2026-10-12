@@ -10,10 +10,47 @@
 .browse-chrome-title {
   display: flex;
   align-items: center;
-  padding: 10px;
+  min-height: 2.5rem;
+  padding: 8px 12px;
   background: hsl(240 5% 21%);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  /* Estedad glyphs clip with leading-none + overflow hidden on chrome. */
+  overflow: visible;
+}
+
+.browse-focus-nav {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 45%);
+  color: rgb(255 255 255 / 88%);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 15%);
+  backdrop-filter: blur(8px);
+  transition: background-color 150ms ease;
+}
+
+.browse-focus-nav:hover {
+  background: rgb(0 0 0 / 60%);
+  color: white;
+}
+
+@media (min-width: 640px) {
+  .browse-focus-nav {
+    display: inline-flex;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+.browse-focus-stage {
+  background: hsl(240 5% 12%);
+}
+
+.browse-experience[data-focused="true"] .browse-dock {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .browse-chrome-media {
@@ -207,10 +244,13 @@
   inset: 0;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .canvas-viewport[data-dragging="true"] .canvas-stage {
-    will-change: transform;
-  }
+.canvas-viewport[data-dragging="true"] .canvas-stage {
+  will-change: transform;
+}
+
+/* Hide video paint while panning — posters stay; decoders are paused in JS. */
+.canvas-viewport[data-dragging="true"] .browse-preview video {
+  visibility: hidden;
 }
 
 .canvas-tile {

@@ -10,7 +10,7 @@
   "hintKind": "hover",
   "hintHeading": "روی آیتم بایست",
   "hintDescription": "هایلایت نرم بین آیتم‌ها حرکت می‌کند؛ با تریگر، سایدبار جمع می‌شود.",
-  "hintTop": 72,
+  "hintTop": 56,
   "tags": [
     "sidebar",
     "navigation",

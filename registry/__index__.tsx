@@ -242,7 +242,7 @@ export const Index: Record<string, any> = {
     name: "animate-sidebar",
     description: "سایدبار ترکیبی شادسی‌ان با هایلایت متحرک هاور — راست‌چین فارسی، از Animate UI.",
     type: "registry:component",
-    registryDependencies: ["button","input","separator","skeleton","sheet","tooltip"],
+    registryDependencies: ["button","input","separator","skeleton","sheet","tooltip","dropdown-menu"],
     files: [{
       path: "registry/default/example/animate-sidebar.tsx",
       type: "registry:component",

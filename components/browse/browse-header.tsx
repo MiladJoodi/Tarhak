@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 
+import { BrowseFilterMenu } from "./browse-filter-menu";
 import { SearchIcon } from "./icons";
 import {
   Tooltip,
@@ -31,6 +32,11 @@ export function BrowseHeader({
   stars,
   resultCount,
   totalCount,
+  filtersActive = false,
+  category,
+  onCategoryChange,
+  collection,
+  onCollectionChange,
 }: {
   query: string;
   onQueryChange: (value: string) => void;
@@ -38,6 +44,12 @@ export function BrowseHeader({
   /** Filtered hit count while searching — shown next to the field. */
   resultCount?: number;
   totalCount?: number;
+  /** When category/collection/search narrows the list. */
+  filtersActive?: boolean;
+  category: string;
+  onCategoryChange: (value: string) => void;
+  collection: string;
+  onCollectionChange: (value: string) => void;
 }) {
   const starCount = typeof stars === "number" ? formatStarCount(stars) : null;
   const rootRef = React.useRef<HTMLDivElement>(null);
@@ -47,7 +59,9 @@ export function BrowseHeader({
   const showHint = !focused && !hasQuery;
   const showPopular = focused && !hasQuery;
   const showCount =
-    hasQuery && typeof resultCount === "number" && typeof totalCount === "number";
+    filtersActive &&
+    typeof resultCount === "number" &&
+    typeof totalCount === "number";
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -86,7 +100,13 @@ export function BrowseHeader({
         <BrandLogo invert className="hidden sm:inline-flex" />
       </Link>
 
-      <div className="flex min-w-0 flex-1 justify-center">
+      <div className="flex min-w-0 flex-1 items-center justify-center gap-2">
+        <BrowseFilterMenu
+          category={category}
+          onCategoryChange={onCategoryChange}
+          collection={collection}
+          onCollectionChange={onCollectionChange}
+        />
         <div
           ref={rootRef}
           className="relative w-full max-w-[min(100%,28rem)]"

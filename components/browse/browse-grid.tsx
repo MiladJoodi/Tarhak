@@ -14,7 +14,13 @@ const PIN_MEDIA_X = 8;
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 
-export function BrowseGrid({ items, paused = false }: { items: BrowseItem[]; paused?: boolean }) {
+export function BrowseGrid({
+  items,
+  paused = false,
+}: {
+  items: BrowseItem[];
+  paused?: boolean;
+}) {
   const [visibleCount, setVisibleCount] = React.useState(() => Math.min(BATCH, items.length));
   const [width, setWidth] = React.useState(0);
   const masonryRef = React.useRef<HTMLDivElement>(null);
@@ -112,8 +118,8 @@ export function BrowseGrid({ items, paused = false }: { items: BrowseItem[]; pau
       ) : null}
 
       {items.length === 0 ? (
-        <p className="py-24 text-center text-sm text-muted-foreground">
-          Nothing matches that search yet.
+        <p className="py-24 text-center text-sm text-muted-foreground font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]">
+          چیزی پیدا نشد.
         </p>
       ) : null}
     </div>

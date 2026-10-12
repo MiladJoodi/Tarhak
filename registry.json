@@ -247,7 +247,8 @@
         "separator",
         "skeleton",
         "sheet",
-        "tooltip"
+        "tooltip",
+        "dropdown-menu"
       ],
       "files": [
         {
