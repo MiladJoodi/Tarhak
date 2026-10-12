@@ -1,7 +1,7 @@
 /** Persian labels for browse/docs nav — primary over English titles. */
 export const COMPONENT_TITLES_FA: Record<string, string> = {
   "3d-book": "کتاب سه‌بعدی",
-  "accessible-action": "دکمه دسترس‌پذیر",
+  "accessible-action": "پشتهٔ کارت",
   accordionos: "آکاردئون",
   "analog-stick": "جوی‌استیک",
   "animated-bar-chart": "نمودار میله‌ای",

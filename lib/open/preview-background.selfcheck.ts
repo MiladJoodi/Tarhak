@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 
 import {
-  DEFAULT_PREVIEW_BACKGROUNDS,
   NONE_PREVIEW_BACKGROUND,
   parsePreviewBackgrounds,
   resolvePreviewBackground,
@@ -16,10 +15,7 @@ assert.equal(
   resolvePreviewBackground({ light: NONE_PREVIEW_BACKGROUND }, "light"),
   undefined,
 );
-assert.equal(
-  resolvePreviewBackground({}, "dark"),
-  DEFAULT_PREVIEW_BACKGROUNDS.dark,
-);
+assert.equal(resolvePreviewBackground({}, "dark"), undefined);
 assert.equal(resolvePreviewBackground({ dark: "#09090b" }, "dark"), "#09090b");
 
 assert.deepEqual(

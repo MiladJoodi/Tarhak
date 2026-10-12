@@ -13,11 +13,17 @@
     }
   },
   "disabled": [],
-  "updatedAt": "2026-10-08T16:00:50.462Z",
+  "updatedAt": "2026-10-12T00:00:00.000Z",
   "previewBackground": {
-    "light": "#F4F6F8",
+    "light": "#EEF1F4",
     "dark": "hsl(225 7% 11%)"
   },
+  "hintTop": 72,
+  "showHint": true,
+  "hintKind": "custom",
+  "hintHeading": "اسکرول کن",
+  "hintDescription": "کارت بعدی از پایین می‌آید و قبلی در پشته می‌نشیند.",
+  "hintHideOnScroll": true,
   "tags": [
     "cards",
     "stack",

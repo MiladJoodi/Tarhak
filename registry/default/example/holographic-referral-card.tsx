@@ -10,8 +10,8 @@ import {
 } from "motion/react";
 import type { PointerEvent, ReactNode } from "react";
 
-const INVITE_BACKGROUND_URL =
-  "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg";
+/** Local asset — avoid remote Pexels (often blocked / broken on mobile networks). */
+const INVITE_BACKGROUND_URL = "/holographic/invite-bg.jpg";
 
 export type CardLogo =
   | ReactNode

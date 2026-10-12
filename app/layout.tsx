@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
-import NextTopLoader from "nextjs-toploader";
+import { AppTopLoader } from "@/components/app-top-loader";
 import {
   AUTHOR_NAME,
   BRAND_NAME,
@@ -106,14 +106,7 @@ export default function RootLayout({
         {/* theme.enabled: false drops next-themes entirely — it is what wrote
             `html.light` from localStorage/system, and it also registered a
             bare `d` keydown listener on window that toggled the theme. */}
-        <NextTopLoader
-          color="#ffffff"
-          height={2}
-          showSpinner={false}
-          crawl
-          speed={200}
-          zIndex={9999}
-        />
+        <AppTopLoader />
         <RootProvider search={{ enabled: false }} theme={{ enabled: false }}>
           {children}
         </RootProvider>

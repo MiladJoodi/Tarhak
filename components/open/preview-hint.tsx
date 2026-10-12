@@ -198,10 +198,6 @@ export function PreviewHint({
   const [sticky, setSticky] = useState(false);
 
   useLayoutEffect(() => {
-    if (!hideOnScroll) {
-      setSticky(false);
-      return;
-    }
     setSticky(!wrapRef.current?.querySelector("iframe"));
   }, [hideOnScroll, children]);
 

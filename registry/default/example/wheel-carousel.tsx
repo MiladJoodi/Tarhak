@@ -704,7 +704,7 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
                     scrollToIndex(index);
                     if (onItemClick) onItemClick(item, index);
                   }}
-                  className="absolute top-1/2 -translate-y-1/2 cursor-pointer select-none whitespace-nowrap will-change-transform"
+                  className="absolute top-1/2 -translate-y-1/2 cursor-pointer select-none whitespace-nowrap will-change-transform antialiased [font-smooth:always] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale]"
                   style={{
                     right: `${apexInset}%`,
                     left: 'auto',
@@ -727,35 +727,89 @@ export const WheelCarousel = forwardRef<WheelCarouselRef, WheelCarouselProps>(
 
 WheelCarousel.displayName = 'WheelCarousel';
 
+/** Follows OpenPreview `.dark` / `.light` so labels never stay black on dark canvas. */
+function useOpenPreviewTheme() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+
+    const read = () => {
+      const themed = el.closest('.dark, .light');
+      if (themed?.classList.contains('light')) {
+        setTheme('light');
+        return;
+      }
+      if (themed?.classList.contains('dark')) {
+        setTheme('dark');
+        return;
+      }
+      setTheme(
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      );
+    };
+
+    read();
+    const host = el.closest('.component-showcase') ?? document.documentElement;
+    const obs = new MutationObserver(read);
+    obs.observe(host, { attributes: true, attributeFilter: ['class'] });
+    return () => obs.disconnect();
+  }, []);
+
+  return { theme, rootRef } as const;
+}
+
+const WHEEL_THEME = {
+  light: {
+    bg: '#fff6ec',
+    text: 'rgba(180, 90, 20, 0.45)',
+    sel: '#b4541e',
+    marker: '#b4541e',
+    glowA: 'rgba(232, 121, 46, 0.18)',
+    glowB: 'rgba(180, 84, 30, 0.14)',
+  },
+  dark: {
+    bg: 'hsl(225 7% 11%)',
+    // Near-white cream — LCD antialiasing on dark canvases eats mid tones.
+    text: '#f3e6d6',
+    sel: '#ffffff',
+    marker: '#ffffff',
+    glowA: 'rgba(248, 231, 212, 0.08)',
+    glowB: 'rgba(180, 140, 90, 0.1)',
+  },
+} as const;
+
 export const WheelCarouselDemo: React.FC = () => {
+  const { theme, rootRef } = useOpenPreviewTheme();
+  const colors = WHEEL_THEME[theme];
+
   return (
     <div
+      ref={rootRef}
       dir="rtl"
       lang="fa"
       className={cn(
-        "relative flex h-full w-full flex-col items-center justify-center overflow-hidden",
-        "bg-[#fff6ec] font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
-        "[--wheel-bg:#fff6ec] [--wheel-text:rgba(180,90,20,0.45)] [--wheel-sel:#b4541e] [--wheel-marker:#b4541e]",
-        "dark:bg-[hsl(225_7%_11%)] dark:[--wheel-bg:hsl(225_7%_11%)]",
-        "dark:[--wheel-text:rgba(245,220,190,0.42)] dark:[--wheel-sel:#f3d2ae] dark:[--wheel-marker:#f3d2ae]",
+        'relative flex h-full w-full flex-col items-center justify-center overflow-hidden',
+        'font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal',
       )}
+      style={{ background: colors.bg }}
     >
       <div
         className="pointer-events-none absolute top-[12%] left-[10%] h-[450px] w-[450px] animate-pulse rounded-full opacity-60 blur-[70px] dark:opacity-40"
         style={{
-          background:
-            'radial-gradient(circle, rgba(232, 121, 46, 0.18) 0%, transparent 70%)',
+          background: `radial-gradient(circle, ${colors.glowA} 0%, transparent 70%)`,
         }}
       />
       <div
         className="pointer-events-none absolute right-[15%] bottom-[10%] h-[500px] w-[500px] rounded-full opacity-60 blur-[80px] dark:opacity-35"
         style={{
-          background:
-            'radial-gradient(circle, rgba(180, 84, 30, 0.14) 0%, transparent 70%)',
+          background: `radial-gradient(circle, ${colors.glowB} 0%, transparent 70%)`,
         }}
       />
 
-      <div className="z-10 flex h-full min-h-0 w-full flex-1 items-center justify-center px-6 pb-8">
+      <div className="z-10 flex h-full min-h-0 w-full flex-1 items-center justify-center px-6 pb-8 pt-20 sm:pt-24">
         <WheelCarousel
           items={defaultCarouselItems}
           mode="custom"
@@ -779,10 +833,10 @@ export const WheelCarouselDemo: React.FC = () => {
           momentum={true}
           edgeFade={true}
           edgeFadeSize={30}
-          background="var(--wheel-bg)"
-          textColor="var(--wheel-text)"
-          selectedColor="var(--wheel-sel)"
-          markerColor="var(--wheel-marker)"
+          background={colors.bg}
+          textColor={colors.text}
+          selectedColor={colors.sel}
+          markerColor={colors.marker}
           style={{ width: '100%', height: '100%', maxWidth: '920px' }}
         />
       </div>

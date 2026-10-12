@@ -188,7 +188,7 @@ export function OpenSwitcher({
       className={cn(
         "relative flex min-w-0 justify-center",
         bar && "w-full",
-        open && "z-[999999999]",
+        open && "z-[120]",
       )}
     >
       <button
@@ -282,7 +282,7 @@ export function OpenSwitcher({
           <motion.div
             role="listbox"
             className={cn(
-              "absolute top-[calc(100%+10px)] left-1/2 z-[999999999] flex w-[min(300px,82vw)] origin-top flex-col overflow-hidden rounded-2xl border-0 bg-[hsl(240_6%_12%)] text-popover-foreground",
+              "absolute top-[calc(100%+10px)] left-1/2 z-[120] flex w-[min(300px,82vw)] origin-top flex-col overflow-hidden rounded-2xl border-0 bg-[hsl(240_6%_12%)] text-popover-foreground",
               DROPDOWN_SHADOW,
             )}
             initial={instant ? false : { opacity: 0, transform: "translateX(-50%) scale(0.96)" }}

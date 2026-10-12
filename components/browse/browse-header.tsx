@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 
-import { BrowseFilterMenu } from "./browse-filter-menu";
 import { SearchIcon } from "./icons";
 import {
   Tooltip,
@@ -17,15 +16,6 @@ import { BrandStar } from "@/components/brand-star";
 import { BRAND_NAME_FA } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
-/** High-traffic picks shown when the field is focused and empty. */
-const POPULAR_SEARCHES = [
-  { label: "تب‌های متحرک", query: "تب‌های متحرک" },
-  { label: "منوی کشویی تو‌در‌تو", query: "منوی کشویی" },
-  { label: "سوئیچ‌های انیمیشنی", query: "سوئیچ" },
-  { label: "دراپ‌زون آپلود", query: "آپلود" },
-  { label: "لیست مرتب‌سازی", query: "مرتب‌سازی" },
-] as const;
-
 export function BrowseHeader({
   query,
   onQueryChange,
@@ -33,10 +23,6 @@ export function BrowseHeader({
   resultCount,
   totalCount,
   filtersActive = false,
-  category,
-  onCategoryChange,
-  collection,
-  onCollectionChange,
 }: {
   query: string;
   onQueryChange: (value: string) => void;
@@ -44,20 +30,14 @@ export function BrowseHeader({
   /** Filtered hit count while searching — shown next to the field. */
   resultCount?: number;
   totalCount?: number;
-  /** When category/collection/search narrows the list. */
+  /** When search narrows the list. */
   filtersActive?: boolean;
-  category: string;
-  onCategoryChange: (value: string) => void;
-  collection: string;
-  onCollectionChange: (value: string) => void;
 }) {
   const starCount = typeof stars === "number" ? formatStarCount(stars) : null;
-  const rootRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [focused, setFocused] = React.useState(false);
   const hasQuery = query.trim().length > 0;
   const showHint = !focused && !hasQuery;
-  const showPopular = focused && !hasQuery;
   const showCount =
     filtersActive &&
     typeof resultCount === "number" &&
@@ -76,44 +56,30 @@ export function BrowseHeader({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  React.useEffect(() => {
-    if (!showPopular) return;
-    const onPointer = (event: MouseEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setFocused(false);
-    };
-    window.addEventListener("mousedown", onPointer);
-    return () => window.removeEventListener("mousedown", onPointer);
-  }, [showPopular]);
-
   return (
     <header
       dir="rtl"
       lang="fa"
-      className="flex w-full shrink-0 items-center gap-2.5 px-3 py-2.5 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal sm:gap-3 sm:px-[30px]"
+      className={cn(
+        "flex w-full shrink-0 items-center gap-2 px-3 py-2.5",
+        "font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
+        "sm:gap-3 sm:px-[30px]",
+      )}
     >
       <Link
         href="/"
         aria-label={`صفحهٔ اصلی ${BRAND_NAME_FA}`}
-        className="flex shrink-0 items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+        className="inline-flex h-10 shrink-0 items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
       >
         <BrandLogo invert wordmark={false} className="sm:hidden" />
         <BrandLogo invert className="hidden sm:inline-flex" />
       </Link>
 
-      <div className="flex min-w-0 flex-1 items-center justify-center gap-2">
-        <BrowseFilterMenu
-          category={category}
-          onCategoryChange={onCategoryChange}
-          collection={collection}
-          onCollectionChange={onCollectionChange}
-        />
-        <div
-          ref={rootRef}
-          className="relative w-full max-w-[min(100%,28rem)]"
-        >
+      <div className="flex min-w-0 flex-1 items-center sm:justify-center">
+        <div className="relative w-full min-w-0 sm:max-w-[min(100%,28rem)]">
           <label
             className={cn(
-              "group relative z-20 flex h-10 w-full items-center gap-2 rounded-full px-3.5",
+              "group relative flex h-10 w-full items-center gap-2 rounded-full px-3 sm:px-3.5",
               "bg-white/[0.07] ring-1 ring-white/14",
               "transition-[background-color,box-shadow,ring-color] duration-150",
               "hover:bg-white/10 hover:ring-white/22",
@@ -132,6 +98,7 @@ export function BrowseHeader({
               value={query}
               onChange={(event) => onQueryChange(event.target.value)}
               onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
               onKeyDown={(event) => {
                 if (event.key === "Escape") {
                   if (hasQuery) onQueryChange("");
@@ -144,8 +111,6 @@ export function BrowseHeader({
               type="search"
               placeholder="جستجوی کامپوننت‌ها…"
               aria-label="جستجوی کامپوننت‌ها"
-              aria-expanded={showPopular}
-              aria-controls="browse-search-suggestions"
               dir="rtl"
               className={cn(
                 "min-w-0 flex-1 bg-transparent text-[14px] leading-none outline-none",
@@ -184,44 +149,6 @@ export function BrowseHeader({
               </kbd>
             ) : null}
           </label>
-
-          {showPopular ? (
-            <div
-              id="browse-search-suggestions"
-              role="listbox"
-              aria-label="جستجوهای پرتکرار"
-              className={cn(
-                "absolute inset-x-0 top-[calc(100%+8px)] z-30 overflow-hidden rounded-2xl",
-                "border border-white/10 bg-[#141418]/95 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.65)] backdrop-blur-md",
-              )}
-            >
-              <p className="px-3.5 pt-3 pb-1.5 text-[11px] font-medium text-white/40">
-                پرتکرار
-              </p>
-              <ul className="flex flex-col gap-0.5 p-1.5 pt-0">
-                {POPULAR_SEARCHES.map((item) => (
-                  <li key={item.query} role="option">
-                    <button
-                      type="button"
-                      onMouseDown={(event) => event.preventDefault()}
-                      onClick={() => {
-                        onQueryChange(item.query);
-                        inputRef.current?.focus();
-                      }}
-                      className={cn(
-                        "flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-start",
-                        "text-[13px] text-white/80 transition-colors",
-                        "hover:bg-white/8 hover:text-white active:bg-white/6",
-                      )}
-                    >
-                      <SearchIcon className="size-3.5 shrink-0 text-white/35" />
-                      <span className="min-w-0 truncate">{item.label}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </div>
       </div>
 
@@ -237,15 +164,15 @@ export function BrowseHeader({
                   ? `Tarhak در گیت‌هاب، ${starCount} ستاره`
                   : "Tarhak در گیت‌هاب"
               }
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/12 bg-white/5 px-2.5 py-1.5 text-white transition-[background-color,border-color] duration-150 hover:border-white/20 hover:bg-white/10 sm:px-3"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full border border-white/12 bg-white/5 text-white transition-[background-color,border-color] duration-150 hover:border-white/20 hover:bg-white/10 sm:w-auto sm:px-3"
             />
           }
         >
-          <BrandStar className="text-[#C9A227]" />
+          <BrandStar className="size-[18px] text-[#C9A227]" />
           {starCount ? (
             <span
               dir="ltr"
-              className="text-[13px] leading-none font-medium tabular-nums"
+              className="hidden text-[13px] leading-none font-medium tabular-nums sm:inline"
             >
               {starCount}
             </span>

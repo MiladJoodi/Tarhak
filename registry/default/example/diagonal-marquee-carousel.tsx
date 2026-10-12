@@ -72,7 +72,7 @@ function Card({
   return (
     <div
       className={cn(
-        "relative h-[160px] w-[230px] shrink-0 overflow-hidden rounded-xl shadow-2xl sm:h-[200px] sm:w-[280px] md:h-[240px] md:w-[340px]",
+        "relative h-[176px] w-[250px] shrink-0 overflow-hidden rounded-xl shadow-2xl sm:h-[200px] sm:w-[280px] md:h-[240px] md:w-[340px]",
         className,
       )}
     >

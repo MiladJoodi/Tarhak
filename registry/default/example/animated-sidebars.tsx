@@ -25,6 +25,7 @@ import {
   UserIcon,
 } from "@hugeicons/core-free-icons";
 import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 const spring = {
   type: "spring" as const,
@@ -124,7 +125,7 @@ export function SoftSidebarRail({
         initial={false}
         animate={{ width: expanded ? 380 : 76 }}
         transition={reduce ? { duration: 0.15 } : widthTween}
-        className={clsx(
+        className={cn(
           "relative flex h-[min(90dvh,880px)] shrink-0 flex-col overflow-hidden border border-border bg-card fill-muted-foreground/70",
           "font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
           className,
@@ -387,7 +388,11 @@ export function SoftSidebarRail({
 const SHELL =
   "fill-muted-foreground/70 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal";
 
-export default function AnimatedSidebars() {
+export default function AnimatedSidebars({
+  className,
+}: {
+  className?: string;
+}) {
   return (
     <section
       dir="rtl"
@@ -398,7 +403,7 @@ export default function AnimatedSidebars() {
         SHELL,
       )}
     >
-      <SoftSidebarRail />
+      <SoftSidebarRail className={className} />
     </section>
   );
 }

@@ -41,10 +41,14 @@ export function OpenPreview({
     name === "filter-interaction" ||
     name === "nested-dropdown" ||
     name === "command-palette" ||
-    name === "glide-select";
+    name === "glide-select" ||
+    name === "create-menu" ||
+    name === "smooth-dropdown";
 
   const inner = Component ? (
-    fillBleed ? (
+    fillBleed || nestedPageScroll ? (
+      // Pin nested scrollports to the preview box. `h-full` alone lets a
+      // 5×110vh track inflate the scroller so sticky/useScroll dump every card.
       <div className="relative h-full min-h-0 w-full">
         <Component size="lg" className="absolute inset-0 size-full" />
       </div>
@@ -57,7 +61,6 @@ export function OpenPreview({
           // min-h-0: let h-full demos with overflow-auto become the scrollport
           // instead of inflating <main> and clipping under the overlay header.
           fill && "h-full min-h-0",
-          nestedPageScroll && "min-h-0",
           allowOverflow && "overflow-visible",
         )}
       >

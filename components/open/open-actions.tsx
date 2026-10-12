@@ -3,11 +3,15 @@
 import Link from "next/link";
 import { Code2, Moon, Pencil, Sun } from "lucide-react";
 
-import { useOpenPanel, type PreviewTheme } from "@/components/open/open-panel-context";
+import {
+  useOpenPanel,
+  type OpenPanel,
+  type PreviewTheme,
+} from "@/components/open/open-panel-context";
 import { openPressMotion } from "@/components/open/ui";
 import { cn } from "@/lib/utils";
 
-export type OpenPanel = "code" | null;
+export type { OpenPanel };
 
 const toolBtn = cn(
   "relative inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-[10px] border-0",

@@ -10,7 +10,7 @@
   "hintKind": "hover",
   "hintHeading": "روی ردیف بایست",
   "hintDescription": "مارکی مورب می‌چرخد؛ هاور همان ردیف را نگه می‌دارد.",
-  "hintTop": 72,
+  "hintTop": 80,
   "tags": [
     "carousel",
     "marquee",

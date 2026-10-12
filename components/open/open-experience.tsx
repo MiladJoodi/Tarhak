@@ -79,7 +79,7 @@ function PinnedSidebarHeader({ onClose }: { onClose: () => void }) {
       lang="fa"
       dir="rtl"
       className={cn(
-        "flex w-full shrink-0 items-center justify-between gap-3 overflow-hidden rounded-b-[16px] bg-[hsl(240_5%_4%)] px-3.5 py-[15px]",
+        "flex w-full shrink-0 items-center justify-between gap-3 overflow-hidden rounded-b-[16px] bg-sidebar px-3.5 py-[15px]",
         "shadow-[0_1px_0_0_hsla(0,0%,100%,0.02),0_6px_16px_-14px_hsla(0,0%,0%,0.06),0_4px_8px_-12px_hsla(0,0%,0%,0.08),0_2px_6px_-10px_hsla(0,0%,0%,0.1)]",
       )}
     >
@@ -377,7 +377,8 @@ function OpenExperienceShell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { panel, setPanel, stage, setStage } = useOpenPanel();
+  const { panel, setPanel, stage, setStage, previewTheme } = useOpenPanel();
+  const themeClass = previewTheme === "dark" ? "dark" : "light";
   const isMobile = useIsMobile();
   const [pinned, setPinned] = React.useState(true);
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -485,8 +486,13 @@ function OpenExperienceShell({
   const showToggle = !stage && !showDesktopPinned;
 
   return (
-    <div className="dark flex h-dvh overflow-hidden bg-[hsl(240_6%_7%)] text-foreground">
-      <div className="relative flex min-w-0 flex-1 flex-col overflow-hidden bg-[hsl(225_7%_11%)]">
+    <div
+      className={cn(
+        themeClass,
+        "flex h-dvh overflow-hidden bg-background text-foreground",
+      )}
+    >
+      <div className="relative flex min-w-0 flex-1 flex-col overflow-hidden bg-muted">
         {/* Desktop: floating sidebar peek control (mobile uses hamburger in the strip). */}
         {showToggle ? (
           <div
@@ -575,9 +581,8 @@ function OpenExperienceShell({
               lang="fa"
               className={cn(
                 "pointer-events-none absolute inset-x-0 top-0 z-[100] flex h-14 items-center gap-1 px-2 *:pointer-events-auto md:hidden",
-                "border-b border-white/8 bg-[hsla(240,8%,7%,0.72)]",
+                "border-b border-white/8 bg-[hsl(240_8%_7%)]",
                 "shadow-[inset_0_-1px_0_0_hsla(0,0%,100%,0.04)]",
-                "backdrop-blur-xl backdrop-saturate-150",
               )}
             >
               <button
@@ -645,7 +650,10 @@ function OpenExperienceShell({
         <SheetContent
           side="right"
           showCloseButton={false}
-          className="dark flex h-full max-w-[min(262px,85vw)] flex-col gap-0 border-l-0 bg-[hsl(240_6%_7%)] p-0 text-foreground sm:max-w-[262px]"
+          className={cn(
+            themeClass,
+            "flex h-full max-w-[min(262px,85vw)] flex-col gap-0 border-l-0 bg-background p-0 text-foreground sm:max-w-[262px]",
+          )}
           style={{ width: `min(${SIDEBAR_WIDTH}px, 85vw)` }}
         >
           <PinnedSidebarHeader onClose={() => setMobileOpen(false)} />
@@ -657,7 +665,10 @@ function OpenExperienceShell({
         {showDesktopPinned ? (
           <motion.aside
             key="pinned-sidebar"
-            className="sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-[hsl(240_6%_7%)] text-foreground"
+            className={cn(
+              themeClass,
+              "sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-background text-foreground",
+            )}
             data-sidebar="pinned"
             initial={pinnedSidebarMotion.initial}
             animate={pinnedSidebarMotion.animate}

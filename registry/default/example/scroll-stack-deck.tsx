@@ -4,12 +4,13 @@ import { useEffect, useRef, type RefObject } from "react";
 import {
   motion,
   useScroll,
-  useSpring,
   useTransform,
   type MotionValue,
 } from "motion/react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+
+import { cn } from "@/lib/utils";
 
 export interface ProjectItem {
   id: string | number;
@@ -29,9 +30,8 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     title: "لوم: فضای کاری آرام برای تیم‌های متمرکز",
     description:
       "مجموعهٔ همکاری بدون شلوغی، با چیدمان آرام، سطوح نرم و فضای خالی هدفمند تا تیم بدون نویز بصری فکر کند.",
-    image:
-      "/unsplash/1497366216548-37526070297c.webp",
-    color: "#C9DFF5",
+    image: "/unsplash/1497366216548-37526070297c.webp",
+    color: "#B9D6F2",
   },
   {
     id: 2,
@@ -39,9 +39,8 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     title: "مریدین: نگاشت سیستم برند که مقیاس می‌گیرد",
     description:
       "کتابخانهٔ زندهٔ توکن و کیت کامپوننت که محصول، مارکتینگ و داکس را روی یک زبان بصری نگه می‌دارد.",
-    image:
-      "/unsplash/1526170375885-4d8ecf77b99f.webp",
-    color: "#C8EBD8",
+    image: "/unsplash/1526170375885-4d8ecf77b99f.webp",
+    color: "#B4E2C9",
   },
   {
     id: 3,
@@ -49,9 +48,8 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     title: "دریفت: روایت سرمقاله‌ای برای لیبل‌های مدرن",
     description:
       "تجربهٔ مجلهٔ اسکرولی برای هنرمندان مستقل. مصاحبهٔ بلند، تایپوگرافی نرم و عکسی مثل گوش‌دادن نیمه‌شب.",
-    image:
-      "/unsplash/1511379938547-c1f69419868d.webp",
-    color: "#F2D4E4",
+    image: "/unsplash/1511379938547-c1f69419868d.webp",
+    color: "#E9C5D7",
   },
   {
     id: 4,
@@ -59,9 +57,8 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     title: "هاربر: رزروی که حس مهمان‌نوازی دارد",
     description:
       "جریان رزرو بازطراحی‌شده حول نشانه‌های اعتماد، رنگ نرم و سلسله‌مراتب روشن تا مهمان قبل از رسیدن احساس خوشامد کند.",
-    image:
-      "/unsplash/1531123897727-8f129e1688ce.webp",
-    color: "#F7E0C8",
+    image: "/unsplash/1531123897727-8f129e1688ce.webp",
+    color: "#EDD2B3",
   },
   {
     id: 5,
@@ -69,9 +66,8 @@ export const DEFAULT_PROJECTS: ProjectItem[] = [
     title: "نورث‌لاین: آنالیتیکس بدون غرق‌شدن",
     description:
       "داشبورد متریک با نمودارهای روایی و تأکید ملایم؛ اپراتور بدون ویجت‌زدگی می‌بیند چه چیزی مهم است.",
-    image:
-      "/unsplash/1531746020798-e6953c6e8e04.webp",
-    color: "#DDD4F2",
+    image: "/unsplash/1531746020798-e6953c6e8e04.webp",
+    color: "#D2C6EC",
   },
 ];
 
@@ -86,6 +82,7 @@ function buildCardKeyframes(index: number, totalCards: number) {
   const steps: number[] = [];
   const yValues: number[] = [];
   const scaleValues: number[] = [];
+  const opacityValues: number[] = [];
   const numTransitions = Math.max(totalCards - 1, 1);
 
   for (let step = 0; step <= numTransitions; step++) {
@@ -93,15 +90,19 @@ function buildCardKeyframes(index: number, totalCards: number) {
     steps.push(progress);
 
     if (step < index) {
-      yValues.push(900);
+      // Park below the stage — keep travel short so a progress blip can't whip cards.
+      yValues.push(640);
       scaleValues.push(1);
+      opacityValues.push(1);
     } else if (step === index) {
       yValues.push(0);
       scaleValues.push(1);
+      opacityValues.push(1);
     } else {
       const stackDepth = step - index;
-      yValues.push(-stackDepth * 48);
-      scaleValues.push(1 - stackDepth * 0.038);
+      yValues.push(-stackDepth * 42);
+      scaleValues.push(1 - stackDepth * 0.042);
+      opacityValues.push(Math.max(0.55, 1 - stackDepth * 0.12));
     }
   }
 
@@ -110,6 +111,7 @@ function buildCardKeyframes(index: number, totalCards: number) {
       steps,
       y: yValues,
       scale: scaleValues,
+      opacity: opacityValues,
     };
   }
 
@@ -118,24 +120,28 @@ function buildCardKeyframes(index: number, totalCards: number) {
   const fullSteps: number[] = [];
   const fullY: number[] = [];
   const fullScale: number[] = [];
+  const fullOpacity: number[] = [];
 
   for (let i = 0; i < steps.length; i++) {
-    if (steps[i] < entryStart) {
-      fullSteps.push(steps[i]);
-      fullY.push(900);
+    if (steps[i]! < entryStart) {
+      fullSteps.push(steps[i]!);
+      fullY.push(640);
       fullScale.push(1);
+      fullOpacity.push(1);
     }
   }
 
   fullSteps.push(entryStart);
-  fullY.push(900);
+  fullY.push(640);
   fullScale.push(1);
+  fullOpacity.push(1);
 
   for (let i = 0; i < steps.length; i++) {
-    if (steps[i] >= entryEnd) {
-      fullSteps.push(steps[i]);
-      fullY.push(yValues[i]);
-      fullScale.push(scaleValues[i]);
+    if (steps[i]! >= entryEnd) {
+      fullSteps.push(steps[i]!);
+      fullY.push(yValues[i]!);
+      fullScale.push(scaleValues[i]!);
+      fullOpacity.push(opacityValues[i]!);
     }
   }
 
@@ -143,6 +149,7 @@ function buildCardKeyframes(index: number, totalCards: number) {
     steps: fullSteps,
     y: fullY,
     scale: fullScale,
+    opacity: fullOpacity,
   };
 }
 
@@ -155,15 +162,21 @@ function AnimatedCard({
   const keyframes = buildCardKeyframes(index, totalCards);
   const y = useTransform(smoothProgress, keyframes.steps, keyframes.y);
   const scale = useTransform(smoothProgress, keyframes.steps, keyframes.scale);
+  const opacity = useTransform(
+    smoothProgress,
+    keyframes.steps,
+    keyframes.opacity,
+  );
 
   return (
     <motion.div
       style={{
         y,
         scale,
+        opacity,
         zIndex: 700 + index * 10,
         transformOrigin: "center top",
-        willChange: "transform",
+        willChange: "transform, opacity",
         backfaceVisibility: "hidden",
         transformStyle: "preserve-3d",
       }}
@@ -173,39 +186,60 @@ function AnimatedCard({
         href={project.link ?? "#"}
         target={project.link ? "_blank" : undefined}
         rel={project.link ? "noopener noreferrer" : undefined}
-        className="group block cursor-pointer text-inherit no-underline outline-none"
+        className="group block cursor-pointer text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/30 focus-visible:ring-offset-2"
         aria-label={`باز کردن ${project.title}`}
       >
-        <article className="relative box-border w-full pt-12 sm:pt-14">
+        <article className="relative box-border w-full pt-11 sm:pt-12">
+          {/* Folder tab */}
           <div
             style={{ backgroundColor: project.color }}
-            className="absolute start-0 top-0 flex h-12 w-44 items-center rounded-t-2xl px-4 text-base font-semibold text-black shadow-[inset_0_-1px_0_rgba(0,0,0,0.04)] sm:h-14 sm:w-60 sm:px-6"
+            className="absolute start-0 top-0 flex h-11 w-[10.5rem] items-center gap-2 rounded-t-[1.15rem] px-3.5 text-[0.92rem] font-semibold tracking-normal text-neutral-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-1px_0_rgba(0,0,0,0.06)] sm:h-12 sm:w-56 sm:px-5 sm:text-base"
           >
+            <span
+              className="size-1.5 shrink-0 rounded-full bg-neutral-950/25"
+              aria-hidden
+            />
             <span className="truncate">{project.tabTitle}</span>
           </div>
 
           <div
             style={{ backgroundColor: project.color }}
-            className="relative grid min-h-[28rem] grid-cols-1 items-center gap-6 overflow-hidden rounded-b-2xl rounded-se-2xl p-6 shadow-[0_4px_8px_-4px_rgba(0,0,0,0.12),inset_0_-2px_4px_-2px_rgba(0,0,0,0.25)] sm:p-8 md:min-h-[33rem] md:grid-cols-[minmax(0,1.12fr)_minmax(16rem,0.88fr)] md:gap-14 md:p-8"
+            className={cn(
+              "relative grid min-h-[24rem] grid-cols-1 items-center gap-5 overflow-hidden",
+              "rounded-b-[1.35rem] rounded-se-[1.35rem] p-5 sm:min-h-[27rem] sm:gap-6 sm:p-7",
+              "md:min-h-[31rem] md:grid-cols-[minmax(0,1.08fr)_minmax(15rem,0.92fr)] md:gap-12 md:p-8",
+              "ring-1 ring-black/6",
+              "shadow-[0_1px_0_rgba(255,255,255,0.55)_inset,0_18px_40px_-22px_rgba(0,0,0,0.35),0_8px_18px_-12px_rgba(0,0,0,0.22)]",
+            )}
           >
-            <div className="z-10 flex flex-col items-start gap-3.5 text-start">
-              <h3 className="m-0 text-2xl font-medium leading-tight text-black sm:text-3xl">
+            {/* Soft top sheen */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-white/35 to-transparent"
+              aria-hidden
+            />
+
+            <div className="relative z-10 flex flex-col items-start gap-3 text-start sm:gap-3.5">
+              <h3 className="m-0 text-[1.35rem] font-semibold leading-[1.2] tracking-normal text-neutral-950 text-balance sm:text-[1.75rem] md:text-[1.95rem]">
                 {project.title}
               </h3>
 
-              <p className="m-0 text-base font-normal leading-snug text-black/60 sm:text-lg">
+              <p className="m-0 max-w-[36rem] text-[0.95rem] font-normal leading-relaxed text-neutral-950/62 text-pretty sm:text-[1.05rem]">
                 {project.description}
               </p>
             </div>
 
-            <div className="relative h-60 w-full overflow-hidden rounded-xl bg-white/25 sm:h-72 md:h-96 lg:h-[25rem]">
+            <div className="relative isolate h-52 w-full overflow-hidden rounded-[1.05rem] bg-white/30 ring-1 ring-black/8 sm:h-64 md:h-[22rem] lg:h-[24rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.image}
                 alt={project.title}
                 decoding="async"
                 loading={index === 0 ? "eager" : "lazy"}
-                className="block h-full w-full rounded-xl object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
+                className="block h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.04]"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-white/10"
+                aria-hidden
               />
             </div>
           </div>
@@ -238,6 +272,7 @@ export function ScrollStackDeck({
   container,
 }: ScrollStackDeckProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const nested = Boolean(container);
   const showIntro = Boolean(title || subtitle || scrollIndicatorText);
 
   useEffect(() => {
@@ -266,25 +301,33 @@ export function ScrollStackDeck({
     };
   }, [enableLenis, container]);
 
+  // No useSpring — springing scroll progress makes the whole deck whip on mount
+  // when the nested scroller/ref finishes measuring.
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
     ...(container ? { container } : {}),
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 24,
-    mass: 0.15,
-    restDelta: 0.0001,
-  });
-
   return (
     <div
       dir="rtl"
       lang="fa"
-      className={`min-h-screen w-full bg-[#F4F6F8] font-sans text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white dark:bg-[hsl(225_7%_11%)] dark:text-neutral-100 dark:selection:bg-white dark:selection:text-neutral-900 ${className}`}
+      className={cn(
+        "w-full bg-[#EEF1F4] antialiased",
+        nested ? "min-h-0" : "min-h-screen",
+        "font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal",
+        "text-neutral-900 selection:bg-neutral-900 selection:text-white",
+        "dark:bg-[hsl(225_7%_11%)] dark:text-neutral-100 dark:selection:bg-white dark:selection:text-neutral-900",
+        className,
+      )}
     >
+      {/* Lead-in clears open chrome; keep modest so progress starts near 0. */}
+      <div
+        className={nested ? "h-28 max-md:h-24" : showIntro ? "hidden" : "h-[28vh]"}
+        aria-hidden
+      />
+
       {showIntro ? (
         <section className="flex w-full flex-col items-center justify-center px-4 py-16 text-center">
           <div className="flex max-w-3xl flex-col items-center gap-5">
@@ -308,7 +351,7 @@ export function ScrollStackDeck({
                   duration: 1.8,
                   ease: "easeInOut",
                 }}
-                className="h-6 w-6 text-black"
+                className="h-6 w-6 text-neutral-900"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -329,15 +372,21 @@ export function ScrollStackDeck({
         className="relative w-full"
         style={{ height: `${projects.length * 110}vh` }}
       >
-        <div className="pointer-events-none sticky top-0 grid h-screen min-h-screen w-full place-items-center px-4">
-          <div className="pointer-events-auto relative h-[37rem] min-h-[37rem] w-[min(calc(100%-2rem),62.5rem)] overflow-visible">
+        <div
+          className={cn(
+            "pointer-events-none sticky top-0 flex h-dvh min-h-dvh w-full items-center justify-center px-3 sm:px-5",
+            // Nested docs: bias slightly down so the deck clears header + hint.
+            nested && "pt-24 pb-28 max-md:pt-20 max-md:pb-24",
+          )}
+        >
+          <div className="pointer-events-auto relative h-[min(27rem,46dvh)] w-[min(calc(100%-0.25rem),62.5rem)] overflow-visible sm:h-[min(31rem,52dvh)] md:h-[33rem]">
             {projects.map((project, index) => (
               <AnimatedCard
                 key={project.id}
                 project={project}
                 index={index}
                 totalCards={projects.length}
-                smoothProgress={smoothProgress}
+                smoothProgress={scrollYProgress}
               />
             ))}
           </div>

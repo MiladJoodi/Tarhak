@@ -2051,7 +2051,7 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/default/example/smooth-dropdown.tsx")
+      const mod = await import("@/registry/default/demo/smooth-dropdown-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "smooth-dropdown"
       return { default: mod.default || mod[exportName] }
     }),
@@ -2303,7 +2303,7 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/default/example/wheel-carousel.tsx")
+      const mod = await import("@/registry/default/demo/wheel-carousel-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "wheel-carousel"
       return { default: mod.default || mod[exportName] }
     }),

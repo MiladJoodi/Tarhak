@@ -52,7 +52,7 @@ export function resolvePreviewBackground(
   const value = backgrounds?.[theme]?.trim();
   if (isPreviewBackgroundNone(value)) return undefined;
   if (value) return value;
-  return DEFAULT_PREVIEW_BACKGROUNDS[theme];
+  return undefined;
 }
 
 export function serializePreviewBackgrounds(input: {

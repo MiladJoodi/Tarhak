@@ -34,6 +34,13 @@ export default function Page() {
 | --- | --- |
 | `className` | کلاس ظرف ریشه |
 | `position` | `absolute` (داخل قاب) یا `fixed` (صفحهٔ کامل) |
+| `disableMobile` | سایدبار را داخل قاب نگه می‌دارد (بدون Sheet). پیش‌فرض: `true` وقتی `position="absolute"` |
+
+برای اپ تمام‌صفحه با Sheet موبایل واقعی:
+
+```tsx
+<AnimateSidebar position="fixed" disableMobile={false} />
+```
 
 ## کجا استفاده شود
 

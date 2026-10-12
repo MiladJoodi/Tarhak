@@ -81,6 +81,8 @@ type SidebarContextProps = {
   openMobile: boolean;
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
+  /** Nested demo frames: keep the rail visible (no Sheet / no md: hide). */
+  disableMobile: boolean;
   toggleSidebar: () => void;
 };
 
@@ -91,12 +93,18 @@ type SidebarProviderProps = React.ComponentProps<'div'> & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /**
+   * Skip Sheet + viewport breakpoints. Use inside docs/browse demo frames
+   * so the sidebar stays visible on phone widths.
+   */
+  disableMobile?: boolean;
 };
 
 function SidebarProvider({
   defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
+  disableMobile = false,
   className,
   style,
   children,
@@ -104,7 +112,8 @@ function SidebarProvider({
   lang = "fa",
   ...props
 }: SidebarProviderProps) {
-  const isMobile = useIsMobile() === true;
+  const measuredMobile = useIsMobile() === true;
+  const isMobile = !disableMobile && measuredMobile;
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.
@@ -157,11 +166,21 @@ function SidebarProvider({
       open,
       setOpen,
       isMobile,
+      disableMobile,
       openMobile,
       setOpenMobile,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar],
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      disableMobile,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+    ],
   );
 
   return (
@@ -214,7 +233,8 @@ function Sidebar({
   transition = { type: "spring", stiffness: 350, damping: 35 },
   ...props
 }: SidebarProps) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, disableMobile, state, openMobile, setOpenMobile } =
+    useSidebar();
 
   if (collapsible === 'none') {
     return (
@@ -277,7 +297,10 @@ function Sidebar({
 
   return (
     <div
-      className="group peer text-sidebar-foreground hidden md:block"
+      className={cn(
+        "group peer text-sidebar-foreground",
+        disableMobile ? "block" : "hidden md:block",
+      )}
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
@@ -299,7 +322,8 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "inset-y-0 z-10 hidden w-(--sidebar-width) transition-[left,right,width] duration-400 ease-[cubic-bezier(0.75,0,0.25,1)] md:flex",
+          "inset-y-0 z-10 w-(--sidebar-width) transition-[left,right,width] duration-400 ease-[cubic-bezier(0.75,0,0.25,1)]",
+          disableMobile ? "flex" : "hidden md:flex",
           position === "absolute" ? "absolute h-full" : "fixed h-svh",
           side === "left"
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
@@ -926,14 +950,21 @@ export type AnimateSidebarProps = {
   className?: string;
   /** Absolute rail for nested frames; fixed for full-page apps. */
   position?: "fixed" | "absolute";
+  /**
+   * Keep the rail in-frame on narrow viewports (no Sheet).
+   * Defaults to true when `position="absolute"` (docs/browse demos).
+   */
+  disableMobile?: boolean;
 };
 
 /** Persian RTL sidebar shell with hover highlight and soft submenu spring. */
 export default function AnimateSidebar({
   className,
   position = "absolute",
+  disableMobile = position === "absolute",
 }: AnimateSidebarProps) {
-  const isMobile = useIsMobile() === true;
+  const measuredMobile = useIsMobile() === true;
+  const isMobile = !disableMobile && measuredMobile;
   const [activeTeam, setActiveTeam] = React.useState(DEMO_DATA.teams[0]!);
   const [openNav, setOpenNav] = React.useState<string | null>(
     DEMO_DATA.navMain.find((item) => item.isActive)?.title ?? null,
@@ -944,11 +975,16 @@ export default function AnimateSidebar({
       dir="rtl"
       lang="fa"
       className={cn(
-        "relative isolate h-full min-h-[420px] w-full overflow-hidden bg-background",
+        "relative isolate h-full min-h-0 w-full overflow-hidden bg-background",
+        // Full-page shells still need a readable minimum when height is auto.
+        position === "fixed" && "min-h-[420px]",
         className,
       )}
     >
-      <SidebarProvider className="h-full min-h-0">
+      <SidebarProvider
+        className="h-full min-h-0"
+        disableMobile={disableMobile}
+      >
         <Sidebar collapsible="icon" position={position} side="right">
           <SidebarHeader>
             <SidebarMenu>

@@ -63,8 +63,9 @@ const THEMES: Record<"dark" | "light", Palette> = {
     shadow:
       "0 1px 2px rgba(24, 24, 27, 0.04), 0 18px 40px -20px rgba(24, 24, 27, 0.16)",
     light: "#18181b",
-    fill: 0.28,
-    edge: 0.7,
+    // Higher than dark so the wash stays visible on white surfaces.
+    fill: 0.62,
+    edge: 0.85,
   },
 };
 
@@ -153,6 +154,10 @@ export function SpotlightCard({
 
     const reduce =
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    // Touch / stylus tablets: no persistent hover — keep a soft ambient glow
+    // so the light doesn't flash on press and vanish on release.
+    const hoverNoneMq = window.matchMedia?.("(hover: none)");
+    let hoverNone = hoverNoneMq?.matches ?? false;
     const state = {
       x: 0,
       y: 0,
@@ -168,6 +173,8 @@ export function SpotlightCard({
     let raf = 0;
     let last = 0;
     let alive = true;
+
+    const ambientOn = (s: Settings) => s.ambient || hoverNone;
 
     const gradient = (
       s: Settings,
@@ -245,7 +252,7 @@ export function SpotlightCard({
         if (gap === 0) target = 1;
         else if (s.proximity > 0) target = Math.max(0, 1 - gap / s.proximity) ** 2;
       }
-      if (target < 0.6 && s.ambient && state.visible) {
+      if (target < 0.6 && ambientOn(s) && state.visible) {
         if (!reduce) state.time += dt;
         const drift = 0.6 - target;
         tx +=
@@ -256,7 +263,7 @@ export function SpotlightCard({
           (drift / 0.6);
         target = 0.6;
       }
-      if (state.presence < 0.02 && target > 0 && !s.ambient) {
+      if (state.presence < 0.02 && target > 0 && !ambientOn(s)) {
         state.x = tx;
         state.y = ty;
       }
@@ -280,7 +287,7 @@ export function SpotlightCard({
         Math.abs(tx - state.x) > 0.1 || Math.abs(ty - state.y) > 0.1;
       const settled =
         !moving && state.presence === target && state.flare === press;
-      if (!settled || (s.ambient && state.visible && !reduce)) {
+      if (!settled || (ambientOn(s) && state.visible && !reduce)) {
         raf = requestAnimationFrame(tick);
       }
     };
@@ -305,7 +312,12 @@ export function SpotlightCard({
       }
     };
     const onOut = (event: PointerEvent) => {
+      // Only treat leaving the document/window as "pointer gone".
+      // Bubbling pointerout between children used to kill the light mid-hover.
       if (event.relatedTarget) return;
+      if (event.target !== document.documentElement && event.target !== document.body) {
+        return;
+      }
       pointer.active = false;
       wake();
     };
@@ -317,9 +329,14 @@ export function SpotlightCard({
       wake();
     };
     const onUp = (event: PointerEvent) => {
+      // Touch/pen: drop active tracking; ambient (or hover:none) keeps soft glow.
       if (event.pointerType !== "mouse") pointer.active = false;
       if (!state.pressed && event.pointerType === "mouse") return;
       state.pressed = false;
+      wake();
+    };
+    const onHoverNoneChange = () => {
+      hoverNone = hoverNoneMq?.matches ?? false;
       wake();
     };
     const onFocusIn = (event: FocusEvent) => {
@@ -354,6 +371,15 @@ export function SpotlightCard({
     root.addEventListener("pointerdown", onDown);
     root.addEventListener("focusin", onFocusIn);
     root.addEventListener("focusout", onFocusOut);
+    hoverNoneMq?.addEventListener?.("change", onHoverNoneChange);
+    // Seed ambient glow near center so mobile doesn't start blank.
+    if (ambientOn(settingsRef.current)) {
+      const rect = root.getBoundingClientRect();
+      state.x = rect.width * 0.5;
+      state.y = rect.height * 0.42;
+      state.presence = 0.6;
+      paint(settingsRef.current);
+    }
     wake();
 
     return () => {
@@ -368,6 +394,7 @@ export function SpotlightCard({
       root.removeEventListener("pointerdown", onDown);
       root.removeEventListener("focusin", onFocusIn);
       root.removeEventListener("focusout", onFocusOut);
+      hoverNoneMq?.removeEventListener?.("change", onHoverNoneChange);
       wakeRef.current = null;
     };
   }, []);
@@ -618,12 +645,14 @@ export default function SpotlightCardExample() {
       ref={rootRef}
       dir="rtl"
       lang="fa"
-      className="flex h-full min-h-[28rem] w-full items-center justify-center bg-transparent px-4 py-10 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal"
+      className="flex w-full items-center justify-center bg-transparent px-3 pb-28 pt-24 font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif] tracking-normal sm:px-10 sm:pb-12 sm:pt-28"
     >
       <SpotlightCard
         dir="rtl"
         lang="fa"
         theme={theme}
+        ambient
+        intensity={0.22}
         className="w-full max-w-[330px] text-right"
         style={{ padding: 24, borderRadius: 28, direction: "rtl", textAlign: "right" }}
       >

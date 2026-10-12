@@ -10,27 +10,27 @@
       "type": "spring",
       "visualDuration": 0.35,
       "bounce": 0.2
-    },
-    "imageUrl": "/unsplash/1490750967868-88aa4486c946.webp",
-    "imageUrl2": "/unsplash/1492691527719-9d1e07e534b4.webp",
-    "imageUrl3": "/unsplash/1486406146926-c627a92ad1ab.webp",
-    "imageUrl4": "/unsplash/1534528741775-53994a69daeb.webp"
+    }
   },
   "disabled": [],
-  "updatedAt": "2026-10-08T16:00:50.461Z",
+  "updatedAt": "2026-10-12T00:00:00.000Z",
   "previewBackground": {
-    "light": "#f5f6f8",
+    "light": "#EEF1F4",
     "dark": "hsl(225 7% 11%)"
   },
+  "hintTop": 88,
   "showHint": true,
-  "hintKind": "hover",
-  "hintHeading": "",
-  "hintDescription": "",
+  "hintKind": "custom",
+  "hintHeading": "روی کارت بایست",
+  "hintDescription": "کارت بالا می‌آید و بقیه کج می‌شوند.",
   "hintHideOnScroll": false,
   "posterUrl": "/api/browse-media/components/pop-tilt-cards/poster.avif",
   "videoUrl": "/api/browse-media/components/pop-tilt-cards/video.mp4",
   "tags": [
     "cards",
-    "tilt"
+    "tilt",
+    "hover",
+    "deck",
+    "motion"
   ]
 }

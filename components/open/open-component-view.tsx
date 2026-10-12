@@ -32,7 +32,11 @@ export function OpenComponentView({
     [data.previewBackground],
   );
   const previewBackground = resolvePreviewBackground(backgrounds, previewTheme);
-  const hintTone = hintToneForBackground(previewBackground);
+  const hintTone = previewBackground
+    ? hintToneForBackground(previewBackground)
+    : previewTheme === "light"
+      ? "light"
+      : "dark";
   const codeOpen = panel === "code";
   const { highlight, loading: highlightLoading } = useOpenHighlight(
     data.slug,
@@ -44,6 +48,8 @@ export function OpenComponentView({
       <main
         className={cn(
           "grid h-full min-h-0 w-full min-w-0 flex-1 overflow-auto",
+          previewTheme === "dark" ? "dark" : "light",
+          !previewBackground && "bg-background",
           scrollbarMinimal,
         )}
         style={

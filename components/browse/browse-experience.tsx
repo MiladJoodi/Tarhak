@@ -3,7 +3,6 @@
 import * as React from "react";
 
 import type { BrowseItem } from "@/lib/browse/items";
-import { browseCollectionById } from "@/lib/browse/collections";
 import { useBrowseUrlState } from "@/lib/browse/use-browse-url-state";
 import { rankSearchItems } from "@/lib/component-tags";
 import { useRenderQuality } from "@/lib/browse/use-render-quality";
@@ -12,6 +11,7 @@ import { BrowseGrid } from "./browse-grid";
 import { BrowseHeader } from "./browse-header";
 import { BrowseToolbar } from "./browse-toolbar";
 import { InfiniteCanvas } from "./infinite-canvas";
+import { usePreviewTheme } from "@/hooks/use-preview-theme";
 import { cn } from "@/lib/utils";
 
 function BrowseExperienceInner({
@@ -23,51 +23,38 @@ function BrowseExperienceInner({
 }) {
   const {
     query,
-    category,
     view: viewMode,
-    collection,
     focus,
     setQuery,
-    setCategory,
     setView,
-    setCollection,
     setFocus,
     clearFilters,
   } = useBrowseUrlState();
   const [paused, setPaused] = React.useState(false);
   const quality = useRenderQuality();
+  const [previewTheme] = usePreviewTheme();
 
   const filtered = React.useMemo(() => {
-    let pool = items;
-
-    const col = collection ? browseCollectionById(collection) : null;
-    if (col) {
-      const allowed = new Set(col.slugs);
-      pool = pool.filter((item) => allowed.has(item.slug));
-    }
-
-    if (category) {
-      pool = pool.filter((item) => item.category === category);
-    }
-
-    return rankSearchItems(pool, query, (item) => ({
+    return rankSearchItems(items, query, (item) => ({
       name: `${item.titleFa ?? ""} ${item.title} ${item.slug}`,
       tags: item.tags,
       extra: `${item.description} ${item.category}`,
     }));
-  }, [items, query, category, collection]);
+  }, [items, query]);
 
   const isEmpty = filtered.length === 0;
   const isCanvas = viewMode === "canvas";
   const hasQuery = query.trim().length > 0;
-  const hasFilters = hasQuery || Boolean(category) || Boolean(collection);
   const focused = Boolean(focus);
 
   return (
     <div
       data-quality={quality}
       data-focused={focused ? "true" : "false"}
-      className="browse-experience dark flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-sans text-foreground"
+      className={cn(
+        "browse-experience flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-sans text-foreground",
+        previewTheme === "dark" ? "dark" : "light",
+      )}
       dir="rtl"
       lang="fa"
     >
@@ -77,11 +64,7 @@ function BrowseExperienceInner({
         stars={stars}
         resultCount={filtered.length}
         totalCount={items.length}
-        filtersActive={hasFilters}
-        category={category}
-        onCategoryChange={setCategory}
-        collection={collection}
-        onCollectionChange={setCollection}
+        filtersActive={hasQuery}
       />
 
       <div className="flex min-h-0 flex-1 overflow-hidden px-3 pt-0.5 pb-2.5">
@@ -93,19 +76,17 @@ function BrowseExperienceInner({
               isCanvas ? "overflow-hidden" : "overflow-auto",
             )}
           >
-            {isEmpty && hasFilters ? (
+            {isEmpty && hasQuery ? (
               <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 px-8 text-center font-[family-name:var(--font-estedad),Tahoma,Arial,sans-serif]">
-                <p className="text-[15px] text-white/55">
-                  {hasQuery
-                    ? `چیزی برای «${query.trim()}» پیدا نشد.`
-                    : "در این فیلتر کامپوننتی نیست."}
+                <p className="text-[15px] text-muted-foreground">
+                  {`چیزی برای «${query.trim()}» پیدا نشد.`}
                 </p>
                 <button
                   type="button"
                   onClick={clearFilters}
                   className="rounded-full bg-white/10 px-4 py-2 text-[13px] font-medium text-white/85 transition-colors hover:bg-white/15"
                 >
-                  پاک کردن فیلترها
+                  پاک کردن جستجو
                 </button>
               </div>
             ) : isEmpty ? (
