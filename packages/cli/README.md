@@ -1,10 +1,26 @@
 # @tarhak/cli
 
-CLI for [Tarhak](https://tarhak.ir) — add animated React components without editing `components.json` by hand.
+[Website](https://tarhak.ir) · [Docs](https://tarhak.ir/docs) · [Components](https://tarhak.ir/browse)
 
-## Install a component
+**Add Tarhak animated components to a FarsiUI project.**
+
+Tarhak is a motion-first registry of React micro-interactions — menus, cards, carousels, and more — built with Motion and Tailwind CSS for Persian RTL products.
+
+This CLI installs them into your project. You get the source, you own it, and you can customize anything. The Tarhak registry is configured automatically; you don’t edit `components.json` by hand.
+
+### Built for
+
+- Motion and micro-interactions
+- Persian RTL interfaces
+- FarsiUI / shadcn-style registries
+- One-command installs
+
+Works on top of [FarsiUI](https://FarsiUI.ir). Initialize FarsiUI first, then add Tarhak components.
+
+## Quick start
 
 ```bash
+npx farsiui@latest init
 npx @tarhak/cli@latest add animated-data-table
 ```
 
@@ -14,28 +30,28 @@ Several at once:
 npx @tarhak/cli@latest add discrete-tabs delete-button
 ```
 
-## What it does
+You do **not** need `farsiui` as a project dependency — the CLI runs it via `npx` when needed.
 
-1. Ensures your project `components.json` has:
-
-```json
-{
-  "registries": {
-    "@tarhak": "https://tarhak.ir/r/{name}.json"
-  }
-}
-```
-
-2. Runs `npx farsiui@latest add @tarhak/<slug>` for you.
-
-You still need a FarsiUI-ready project (`components.json` from `npx farsiui@latest init`). You do **not** need `farsiui` as a project dependency.
-
-## Init only
+## Commands
 
 ```bash
+npx @tarhak/cli@latest add <slug> [slug...]
 npx @tarhak/cli@latest init
+npx @tarhak/cli@latest --help
+npx @tarhak/cli@latest --version
 ```
 
-## Docs
+| Command | Description |
+| --- | --- |
+| `add` | Install one or more Tarhak components |
+| `init` | Only ensure the Tarhak registry is configured |
 
-https://tarhak.ir/docs
+## Browse
+
+- Website: [tarhak.ir](https://tarhak.ir)
+- Docs: [tarhak.ir/docs](https://tarhak.ir/docs)
+- Components: [tarhak.ir/browse](https://tarhak.ir/browse)
+
+## License
+
+MIT · [Milad Joodi](https://github.com/MiladJoodi)

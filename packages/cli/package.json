@@ -1,7 +1,7 @@
 {
   "name": "@tarhak/cli",
-  "version": "0.1.0",
-  "description": "CLI for Tarhak — add animated React components. Auto-configures the @tarhak registry, then runs farsiui.",
+  "version": "0.1.1",
+  "description": "Add Tarhak animated React components to a FarsiUI project. Configures the registry and installs in one command.",
   "type": "module",
   "bin": {
     "tarhak": "./bin/tarhak.js"
