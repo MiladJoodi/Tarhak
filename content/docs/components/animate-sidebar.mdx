@@ -1,0 +1,73 @@
+---
+title: Animate Sidebar
+description: سایدبار ترکیبی شادسی‌ان با هایلایت متحرک هاور — راست‌چین فارسی، از Animate UI.
+---
+
+## قابلیت‌ها
+
+- **هایلایت هاور**: با حرکت روی آیتم‌ها، پس‌زمینهٔ نرم بین سلول‌ها جابه‌جا می‌شود.
+- **جمع‌شدن به آیکون**: حالت `collapsible="icon"` با تولتیپ روی آیتم‌ها.
+- **موبایل**: روی صفحهٔ باریک به‌صورت شیت از سمت راست باز می‌شود.
+- **راست‌چین**: پیش‌فرض `side="right"` با فاصله‌گذاری منطقی برای فارسی.
+
+الهام از [Animate UI Sidebar](https://animate-ui.com/docs/components/radix/sidebar) (بر پایهٔ shadcn/ui).
+
+## نحوه استفاده
+
+```tsx
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/animate-sidebar";
+
+export default function Page() {
+  return (
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarHeader />
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>پلتفرم</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="میزکار">میزکار</SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarRail />
+      </Sidebar>
+      <SidebarInset>
+        <header className="flex h-12 items-center gap-2 px-4">
+          <SidebarTrigger />
+        </header>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+```
+
+## Props اصلی
+
+| Prop | توضیح |
+| --- | --- |
+| `side` | سمت سایدبار (`right` پیش‌فرض برای RTL) |
+| `collapsible` | `offcanvas`، `icon` یا `none` |
+| `animateOnHover` | روشن/خاموش کردن هایلایت متحرک |
+| `transition` | تنظیم فنر Motion برای هایلایت |
+
+## کجا استفاده شود
+
+- داشبورد و پنل مدیریت
+- اپ‌های چندبخشی با ناوبری درختی
+- محصولات SaaS با سوئیچ تیم/فضای کار

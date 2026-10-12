@@ -1,0 +1,23 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-12T00:00:00.000Z",
+  "previewBackground": {
+    "light": "hsl(0 0% 100%)",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "hover",
+  "hintHeading": "روی آیتم بایست",
+  "hintDescription": "هایلایت نرم بین آیتم‌ها حرکت می‌کند؛ با تریگر، سایدبار جمع می‌شود.",
+  "hintTop": 72,
+  "tags": [
+    "sidebar",
+    "navigation",
+    "dashboard",
+    "animate",
+    "rtl",
+    "highlight",
+    "layout"
+  ]
+}

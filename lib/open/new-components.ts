@@ -96,6 +96,8 @@ export const NEW_COMPONENT_SLUGS = new Set([
   "bounce-cards",
   "status-mark",
   "comet-dial",
+  "diagonal-marquee-carousel",
+  "animate-sidebar",
 ]);
 
 export function isNewComponent(slug: string) {

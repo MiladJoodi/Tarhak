@@ -238,6 +238,32 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "animate-sidebar": {
+    name: "animate-sidebar",
+    description: "سایدبار ترکیبی شادسی‌ان با هایلایت متحرک هاور — راست‌چین فارسی، از Animate UI.",
+    type: "registry:component",
+    registryDependencies: ["button","input","separator","skeleton","sheet","tooltip"],
+    files: [{
+      path: "registry/default/example/animate-sidebar.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/animate-sidebar-highlight.tsx",
+      type: "registry:component",
+      target: ""
+    },{
+      path: "registry/default/example/animate-sidebar-context.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/animate-sidebar-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "animate-sidebar"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "animated-tabs": {
     name: "animated-tabs",
     description: "تب متحرک با زبان بصری فیلتر — Estedad، bg-card، border-border و نشانگر accent.",
@@ -753,6 +779,24 @@ export const Index: Record<string, any> = {
     component: React.lazy(async () => {
       const mod = await import("@/registry/default/demo/dial-volume-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "dial-volume"
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "diagonal-marquee-carousel": {
+    name: "diagonal-marquee-carousel",
+    description: "مارکی مورب بی‌نهایت با چند ردیف، سرعت‌های متفاوت و جهت‌های متناوب — مناسب هیرو و گالری.",
+    type: "registry:component",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/default/example/diagonal-marquee-carousel.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/default/demo/diagonal-marquee-carousel-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || "diagonal-marquee-carousel"
       return { default: mod.default || mod[exportName] }
     }),
     categories: undefined,

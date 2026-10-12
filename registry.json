@@ -229,6 +229,42 @@
       ]
     },
     {
+      "name": "animate-sidebar",
+      "type": "registry:component",
+      "title": "Animate Sidebar",
+      "description": "سایدبار ترکیبی شادسی‌ان با هایلایت متحرک هاور — راست‌چین فارسی، از Animate UI.",
+      "dependencies": [
+        "motion",
+        "class-variance-authority",
+        "lucide-react",
+        "radix-ui",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "separator",
+        "skeleton",
+        "sheet",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/animate-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/animate-sidebar-highlight.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/example/animate-sidebar-context.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "animated-tabs",
       "type": "registry:component",
       "title": "Animated Tabs",
@@ -731,6 +767,23 @@
       "files": [
         {
           "path": "registry/default/example/dial-volume.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "diagonal-marquee-carousel",
+      "type": "registry:component",
+      "title": "Diagonal Marquee Carousel",
+      "description": "مارکی مورب بی‌نهایت با چند ردیف، سرعت‌های متفاوت و جهت‌های متناوب — مناسب هیرو و گالری.",
+      "dependencies": [
+        "motion",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/example/diagonal-marquee-carousel.tsx",
           "type": "registry:component"
         }
       ]

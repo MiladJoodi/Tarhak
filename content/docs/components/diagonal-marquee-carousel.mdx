@@ -1,0 +1,46 @@
+---
+title: Diagonal Marquee Carousel
+description: مارکی مورب بی‌نهایت با چند ردیف، سرعت‌های متفاوت و جهت‌های متناوب — مناسب هیرو و گالری.
+---
+
+## قابلیت‌ها
+
+- **مورب و پر**: کل پشته با زاویه کج می‌شود و قاب را پر می‌کند.
+- **سه ردیف پیوسته**: سه لاین بدون قطع شدن حلقه، با سرعت‌های متفاوت.
+- **جهت متناوب**: ردیف‌های زوج برعکس حرکت می‌کنند.
+- **مکث روی هاور**: با بردن نشانگر روی ردیف، انیمیشن همان ردیف می‌ایستد.
+- **حرکت کم**: با `prefers-reduced-motion` حرکت قطع می‌شود.
+
+الهام از [Great UI Diagonal Marquee Carousel](https://21st.dev/@saurabh-2607/components/great-ui-diagonal-marquee-carousel) (MIT).
+
+## نحوه استفاده
+
+آرایهٔ `cards` را با `url` و `title` پر کنید. داخل یک قاب با `overflow-hidden` بگذارید تا مارکی از کادر بیرون نزند.
+
+```tsx
+import DiagonalMarqueeCarousel from "@/components/diagonal-marquee-carousel";
+
+export default function Page() {
+  return (
+    <div className="relative mx-auto aspect-[16/11] w-full max-w-3xl overflow-hidden rounded-[28px] border">
+      <DiagonalMarqueeCarousel className="absolute inset-0 size-full" />
+    </div>
+  );
+}
+```
+
+## Props اصلی
+
+| Prop | توضیح |
+| --- | --- |
+| `cards` | لیست `{ id, url, title }` |
+| `angle` | زاویهٔ مورب به درجه (پیش‌فرض `-18`) |
+| `duration` | مدت حلقهٔ پایه به ثانیه (پیش‌فرض `90`) |
+| `alternateDirections` | جهت متناوب ردیف‌ها |
+
+## کجا استفاده شود
+
+- هیرو لندینگ یا پرتفolio
+- گالری برند یا لوک‌بوک
+- پس‌زمینهٔ بخش «کارهای ما»
+- صفحات لانچ محصول تصویری

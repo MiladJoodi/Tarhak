@@ -1,0 +1,22 @@
+{
+  "dialConfig": {},
+  "disabled": [],
+  "updatedAt": "2026-10-12T00:00:00.000Z",
+  "previewBackground": {
+    "light": "#f7f7f5",
+    "dark": "hsl(225 7% 11%)"
+  },
+  "showHint": true,
+  "hintKind": "hover",
+  "hintHeading": "روی ردیف بایست",
+  "hintDescription": "مارکی مورب می‌چرخد؛ هاور همان ردیف را نگه می‌دارد.",
+  "hintTop": 72,
+  "tags": [
+    "carousel",
+    "marquee",
+    "gallery",
+    "hero",
+    "diagonal",
+    "photo"
+  ]
+}
