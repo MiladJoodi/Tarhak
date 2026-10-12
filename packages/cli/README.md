@@ -46,15 +46,24 @@ npx @tarhak/cli@latest --version
 | --- | --- |
 | `add` | Install one or more Tarhak components |
 | `init` | Only ensure the Tarhak registry is configured |
-| `mcp` | Write `.cursor/mcp.json` for the Tarhak remote MCP |
+| `mcp` | Auto-detect agent clients and write their MCP configs |
 
-### Connect Cursor MCP
+### Connect MCP (Cursor / Claude / Codex / OpenCode)
 
 ```bash
 npx @tarhak/cli@latest mcp
 ```
 
-Creates or updates `.cursor/mcp.json` with `https://tarhak.ir/api/mcp`. Then enable **tarhak** under Settings → MCP.
+Detects which clients you use and writes the matching project config:
+
+| Client | File |
+| --- | --- |
+| Cursor | `.cursor/mcp.json` |
+| Claude Code | `.mcp.json` |
+| Codex | `.codex/config.toml` |
+| OpenCode | `opencode.json` |
+
+If nothing is detected, Cursor + Claude + Codex configs are created. For Cursor, enable **tarhak** under Settings → MCP afterwards.
 
 ## Browse
 

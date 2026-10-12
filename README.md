@@ -39,7 +39,7 @@ npx @tarhak/cli@latest add discrete-tabs delete-button focus-testimonials
 
 No manual registry setup — the CLI configures `@tarhak` and installs the component.
 
-Connect Cursor to the Tarhak MCP:
+Connect agent MCP (auto-detects Cursor / Claude / Codex / OpenCode):
 
 ```bash
 npx @tarhak/cli@latest mcp

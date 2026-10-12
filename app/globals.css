@@ -550,12 +550,12 @@ html.dark .open-shiki-light .shiki span {
   color: var(--shiki-light) !important;
 }
 
-/* Inline code in docs prose — fixed light chips even when html is .dark (system theme). */
+/* Inline code in docs prose — subtle chip that follows theme (no fixed cream/white). */
 #nd-docs-layout .prose
   :where(code):not(:where(pre *, [class~='not-prose'], [class~='not-prose'] *)) {
-  background-color: #f0efeb;
-  border-color: #e2e2e2;
-  color: #071a31;
+  background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
+  border-color: color-mix(in oklab, var(--foreground) 12%, transparent);
+  color: var(--foreground);
 }
 
 .dark .shiki,

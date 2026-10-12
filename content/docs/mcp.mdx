@@ -9,22 +9,7 @@ description: راه‌اندازی MCP طرحک در Cursor، Claude Code، Code
 https://tarhak.ir/api/mcp
 ```
 
-## Cursor
-
-### از تنظیمات IDE (پیشنهادی)
-
-همان مسیری که برای روشن کردن بقیهٔ MCPها استفاده می‌کنید:
-
-1. **Settings** → `Ctrl + ,` / `Cmd + ,`
-2. بخش **MCP** (یا **Tools & MCP** / **Customize → MCP**)
-3. **Add new MCP server** با نوع **Remote / URL**
-4. آدرس بالا را بگذارید؛ نام مثلاً `tarhak`
-5. سوئیچ را **روشن** کنید تا **Connected** شود  
-   اگر وصل نشد: Reload روی همان ردیف، یا ری‌استارت Cursor
-
-بعد در چت **Agent** بپرسید مثلاً: «کامپوننت آپلود فایل طرحک را پیدا کن و دستور نصبش را بده.»
-
-### با CLI (سریع)
+## نصب با CLI
 
 در ریشهٔ پروژه:
 
@@ -32,11 +17,28 @@ https://tarhak.ir/api/mcp
 npx @tarhak/cli@latest mcp
 ```
 
-فایل `.cursor/mcp.json` ساخته یا به‌روز می‌شود. بعد در **Settings → MCP** سوئیچ **tarhak** را روشن کنید.
+CLI تشخیص می‌دهد Cursor، Claude Code، Codex یا OpenCode هستید و کانفیگ همان کلاینت را می‌نویسد (پوشهٔ لازم را هم می‌سازد). اگر چیزی مشخص نباشد، Cursor + Claude + Codex را آماده می‌کند.
+
+برای Cursor بعد از آن Settings → MCP و سوئیچ tarhak را روشن کنید.
+
+## نصب دستی
+
+اگر ترجیح می‌دهید خودتان کانفیگ کنید، بخش کلاینت را باز کنید:
+
+<DocsCollapse title="Cursor">
+
+### از تنظیمات IDE
+
+1. Settings → MCP (یا Tools & MCP)
+2. Add new MCP server با نوع Remote / URL
+3. آدرس بالا را بگذارید؛ نام مثلاً tarhak
+4. سوئیچ را روشن کنید تا Connected شود
+
+اگر وصل نشد: Reload روی همان ردیف، یا Cursor را ری‌استارت کنید.
 
 ### با فایل
 
-**پروژه** — `.cursor/mcp.json`:
+پروژه — `.cursor/mcp.json`:
 
 ```json
 {
@@ -48,24 +50,23 @@ npx @tarhak/cli@latest mcp
 }
 ```
 
-**سراسری** — `%USERPROFILE%\.cursor\mcp.json` (ویندوز) یا `~/.cursor/mcp.json`  
-بعد به Settings → MCP برگردید و سوئیچ را روشن کنید.
+برای همهٔ پروژه‌ها همان محتوا را در mcp.json داخل پوشهٔ .cursor کاربر بگذارید (ویندوز: کنار پروفایل کاربر؛ مک/لینوکس: خانهٔ کاربر). بعد Settings → MCP و سوئیچ tarhak.
 
-## Claude Code
+</DocsCollapse>
 
-در ترمینال (خارج از سشن چت):
+<DocsCollapse title="Claude Code">
 
 ```bash
 claude mcp add --transport http tarhak https://tarhak.ir/api/mcp
 ```
 
-برای همهٔ پروژه‌ها:
+سراسری:
 
 ```bash
 claude mcp add --transport http --scope user tarhak https://tarhak.ir/api/mcp
 ```
 
-یا در `.mcp.json` ریشهٔ پروژه — برای Claude Code حتماً `type` بگذارید:
+یا در `.mcp.json` ریشهٔ پروژه (حتماً type را بگذارید):
 
 ```json
 {
@@ -78,36 +79,34 @@ claude mcp add --transport http --scope user tarhak https://tarhak.ir/api/mcp
 }
 ```
 
-وضعیت: `claude mcp list` یا داخل سشن `/mcp`.
+وضعیت: claude mcp list یا داخل سشن /mcp.
 
-## Codex (OpenAI)
+</DocsCollapse>
 
-با CLI:
+<DocsCollapse title="Codex (OpenAI)">
 
 ```bash
 codex mcp add tarhak --url https://tarhak.ir/api/mcp
 ```
 
-یا در `~/.codex/config.toml` (یا `.codex/config.toml` پروژهٔ trusted):
+یا در config.toml:
 
 ```toml
 [mcp_servers.tarhak]
 url = "https://tarhak.ir/api/mcp"
 ```
 
-وضعیت: `codex mcp list`.
+وضعیت: codex mcp list.
 
-## OpenCode
+</DocsCollapse>
 
-با CLI:
+<DocsCollapse title="OpenCode">
 
 ```bash
 opencode mcp add tarhak --url https://tarhak.ir/api/mcp
 ```
 
-سراسری: فلگ `--global` را هم بگذارید.
-
-یا در `opencode.json`:
+سراسری: فلگ --global را هم بگذارید. یا در opencode.json:
 
 ```json
 {
@@ -122,36 +121,36 @@ opencode mcp add tarhak --url https://tarhak.ir/api/mcp
 }
 ```
 
-وضعیت: `opencode mcp list`.
+وضعیت: opencode mcp list.
+
+</DocsCollapse>
 
 ## ابزارها
 
 | ابزار | کار |
 |--------|-----|
-| `tarhak_list_components` | لیست کامپوننت‌ها |
-| `tarhak_search_components` | جست‌وجو |
-| `tarhak_get_component` | جزئیات و وابستگی‌ها |
-| `tarhak_install_command` | دستور نصب CLI |
+| tarhak_list_components | لیست کامپوننت‌ها |
+| tarhak_search_components | جست‌وجو |
+| tarhak_get_component | جزئیات و وابستگی‌ها |
+| tarhak_install_command | دستور نصب CLI |
 
 ## نصب کامپوننت
 
-MCP فقط دستور را پیشنهاد می‌دهد؛ در ترمینال پروژهٔ خودتان اجرا کنید:
+MCP فقط دستور را پیشنهاد می‌دهد؛ در ترمینال پروژه اجرا کنید:
 
 ```bash
 npx @tarhak/cli@latest add <slug>
 ```
 
-CLI طرحَک خودش `@tarhak` را در `components.json` می‌نویسد و بعد نصب را انجام می‌دهد.
-
 ## لوکال (اختیاری)
 
-اگر سایت طرحَک را با `next dev` بالا آورده‌اید، به‌جای URL بالا بگذارید:
+اگر next dev را بالا آورده‌اید:
 
 ```text
 http://localhost:3000/api/mcp
 ```
 
-Stdio از کلون ریپو (بیشتر برای Cursor / کلاینت‌های command-based):
+Stdio از کلون ریپو:
 
 ```bash
 npm run mcp:install
@@ -175,7 +174,7 @@ npm run mcp:install
 
 | مشکل | کار |
 |------|-----|
-| Connected / فعال نیست | URL را دقیق کپی کنید؛ سرور را Reload یا کلاینت را ری‌استارت کنید |
-| Claude Code سرور را رد می‌کند | در JSON حتماً `"type": "http"` باشد |
-| ابزار صدا زده نمی‌شود | حالت Agent را چک کنید؛ یک‌بار لیست MCP را رفرش کنید |
-| کامپوننت پیدا نمی‌شود | `tarhak_search_components`؛ فقط آیتم‌های منتشرشده در `/r` |
+| Connected نیست | URL را دقیق کپی کنید؛ Reload یا ری‌استارت کلاینت |
+| Claude Code رد می‌کند | در JSON حتماً type برابر http باشد |
+| ابزار صدا زده نمی‌شود | حالت Agent؛ یک‌بار لیست MCP را رفرش کنید |
+| کامپوننت پیدا نمی‌شود | فقط آیتم‌های منتشرشده در /r |

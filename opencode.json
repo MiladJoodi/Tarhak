@@ -1,0 +1,10 @@
+{
+  "mcp": {
+    "tarhak": {
+      "type": "remote",
+      "url": "https://tarhak.ir/api/mcp",
+      "enabled": true
+    }
+  },
+  "$schema": "https://opencode.ai/config.json"
+}

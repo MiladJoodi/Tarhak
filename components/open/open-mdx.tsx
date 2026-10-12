@@ -26,22 +26,39 @@ function Heading({
 }
 
 /** Fenced MDX → same Shiki surface as the main panel (no Copy Code). */
+function looksLikeShell(code: string) {
+  return /^(npx|npm|pnpm|yarn|bunx?|claude|codex|opencode|curl|wget)\b/m.test(
+    code.trim(),
+  );
+}
+
 export async function OpenMdxPre({
   children,
   title,
+  className,
   "data-language": dataLanguage,
+  language,
   variant = "dark",
 }: ComponentPropsWithoutRef<"pre"> & {
   title?: string;
   "data-language"?: string;
+  language?: string;
   /** Docs pages use light surfaces; open drawer/panels use dark (default). */
   variant?: "dark" | "light";
 }) {
   const code = extractMdxPreText(children).replace(/\n$/, "");
-  const lang =
+  const fromClass = /(?:^|\s)language-([\w-]+)/.exec(className ?? "")?.[1];
+  const declared =
     (typeof dataLanguage === "string" && dataLanguage) ||
+    (typeof language === "string" && language) ||
+    fromClass ||
     extractMdxPreLang(children) ||
-    "tsx";
+    "";
+  // Fenced ```bash often loses its lang through the MDX pre remap; without
+  // this, shell lines highlight as TSX and `@scope` paints as a white decorator.
+  const lang =
+    declared ||
+    (looksLikeShell(code) ? "bash" : /^https?:\/\//.test(code.trim()) ? "text" : "tsx");
   const html = await highlightCode(code, lang, { showLineNumbers: false });
 
   return (
@@ -109,7 +126,7 @@ export function getOpenMdxComponents(components?: MDXComponents): MDXComponents 
       <code
         dir="ltr"
         className={cn(
-          "rounded-md bg-muted px-1.5 py-[0.12em] font-mono text-[0.9em] text-foreground",
+          "rounded-md bg-foreground/10 px-1.5 py-[0.12em] font-mono text-[0.9em] text-foreground",
           className,
         )}
         {...props}

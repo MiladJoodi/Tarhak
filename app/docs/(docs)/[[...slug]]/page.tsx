@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import Footer from "@/components/mdx/footer";
 import { DocsPageShell } from "@/components/docs-page-shell";
+import { DocsCollapse } from "@/components/docs/docs-collapse";
 import { OpenMdxPre } from "@/components/open/open-mdx";
 
 export default async function Page(props: {
@@ -31,6 +32,7 @@ export default async function Page(props: {
         <MDX
           components={{
             ...defaultMdxComponents,
+            DocsCollapse,
             pre: (props) => <OpenMdxPre {...props} variant="dark" />,
           }}
         />

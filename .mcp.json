@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tarhak": {
+      "type": "http",
+      "url": "https://tarhak.ir/api/mcp"
+    }
+  }
+}

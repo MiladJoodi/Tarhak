@@ -32,7 +32,7 @@ Examples:
 What it does:
   add  Ensures the @tarhak registry, then runs farsiui add
   init Only ensures the @tarhak registry in components.json
-  mcp  Writes .cursor/mcp.json → ${MCP_URL}
+  mcp  Detects Cursor / Claude / Codex / OpenCode and writes MCP config
 
 Docs: ${SITE_URL}/docs
 MCP:  ${SITE_URL}/docs/mcp
@@ -79,17 +79,22 @@ export async function run(argv) {
   }
 
   if (command === "mcp") {
-    const { file, changed, created } = ensureMcp();
-    const rel = path.relative(process.cwd(), file) || ".cursor/mcp.json";
-    if (created) {
-      console.log(`✓ Created ${rel}`);
-    } else if (changed) {
-      console.log(`✓ Updated ${rel} with Tarhak MCP`);
-    } else {
-      console.log(`✓ Tarhak MCP already in ${rel}`);
+    const { results, clients } = ensureMcp();
+    console.log(`→ Detected: ${clients.join(", ")}`);
+    for (const result of results) {
+      const rel = path.relative(process.cwd(), result.file) || result.file;
+      if (result.created) {
+        console.log(`✓ [${result.client}] Created ${rel}`);
+      } else if (result.changed) {
+        console.log(`✓ [${result.client}] Updated ${rel}`);
+      } else {
+        console.log(`✓ [${result.client}] Already configured → ${rel}`);
+      }
     }
     console.log(`  tarhak → ${MCP_URL}`);
-    console.log(`  Enable it in Cursor: Settings → MCP → turn on "tarhak"`);
+    if (clients.includes("cursor")) {
+      console.log(`  Cursor: Settings → MCP → enable "tarhak"`);
+    }
     return;
   }
 

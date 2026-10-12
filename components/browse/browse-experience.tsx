@@ -11,7 +11,6 @@ import { BrowseGrid } from "./browse-grid";
 import { BrowseHeader } from "./browse-header";
 import { BrowseToolbar } from "./browse-toolbar";
 import { InfiniteCanvas } from "./infinite-canvas";
-import { usePreviewTheme } from "@/hooks/use-preview-theme";
 import { cn } from "@/lib/utils";
 
 function BrowseExperienceInner({
@@ -32,7 +31,6 @@ function BrowseExperienceInner({
   } = useBrowseUrlState();
   const [paused, setPaused] = React.useState(false);
   const quality = useRenderQuality();
-  const [previewTheme] = usePreviewTheme();
 
   const filtered = React.useMemo(() => {
     return rankSearchItems(items, query, (item) => ({
@@ -51,10 +49,7 @@ function BrowseExperienceInner({
     <div
       data-quality={quality}
       data-focused={focused ? "true" : "false"}
-      className={cn(
-        "browse-experience flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-sans text-foreground",
-        previewTheme === "dark" ? "dark" : "light",
-      )}
+      className="browse-experience dark flex h-dvh cursor-auto flex-col overflow-hidden bg-background font-sans text-foreground"
       dir="rtl"
       lang="fa"
     >
