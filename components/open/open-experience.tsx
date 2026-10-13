@@ -36,28 +36,7 @@ import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/brand-logo";
 
 const SIDEBAR_WIDTH = 262;
-const PINNED_KEY = "tarhak:open-sidebar-pinned";
 const SCROLL_EDGE_EPS = 1;
-
-function readPinned() {
-  // Desktop default: open. Only stay closed if the user explicitly unpinned.
-  if (typeof window === "undefined") return true;
-  try {
-    const stored = window.sessionStorage.getItem(PINNED_KEY);
-    if (stored === null) return true;
-    return stored === "1";
-  } catch {
-    return true;
-  }
-}
-
-function writePinned(value: boolean) {
-  try {
-    window.sessionStorage.setItem(PINNED_KEY, value ? "1" : "0");
-  } catch {
-    // ignore
-  }
-}
 
 /** Figma 102:6 — same glyph for default + hover; never swap on peek. */
 function SidebarToggleIcon() {
@@ -421,10 +400,6 @@ function OpenExperienceShell({
       href: pathname,
     };
 
-  React.useLayoutEffect(() => {
-    setPinned(readPinned());
-  }, []);
-
   React.useEffect(() => {
     setDocumentTitle(current.title);
   }, [current.title]);
@@ -454,7 +429,6 @@ function OpenExperienceShell({
 
   function updatePinned(value: boolean) {
     setPinned(value);
-    writePinned(value);
   }
 
   const sidebarMotion = reduce
