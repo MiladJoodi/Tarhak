@@ -481,9 +481,10 @@ function OpenExperienceShell({
         exit: { width: 0, opacity: 0.6 },
       };
 
-  // `isMobile === false` (not !isMobile): unknown viewport must not paint desktop chrome.
-  const showDesktopPinned = pinned && isMobile === false && !stage;
-  const showToggle = !stage && !showDesktopPinned;
+  // Pinned sidebar is CSS-gated (`md:flex`) so desktop gets it on first paint —
+  // do not wait for `useIsMobile()` or the dock stays closed until measure.
+  const showDesktopPinned = pinned && !stage;
+  const showToggle = !stage && !pinned;
 
   return (
     <div
@@ -667,7 +668,7 @@ function OpenExperienceShell({
             key="pinned-sidebar"
             className={cn(
               themeClass,
-              "sticky top-0 bottom-0 z-24 flex h-dvh shrink-0 flex-col items-center overflow-hidden bg-background text-foreground",
+              "sticky top-0 bottom-0 z-24 hidden h-dvh shrink-0 flex-col items-center overflow-hidden bg-background text-foreground md:flex",
             )}
             data-sidebar="pinned"
             initial={pinnedSidebarMotion.initial}
